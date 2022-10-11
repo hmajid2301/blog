@@ -1,0 +1,30 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+
+import ShareButton from './ShareButton';
+
+<Meta title="Molecules | ShareButton" component={ShareButton} />
+
+# ShareButton
+
+<Preview>
+  <Story
+    name="Basic"
+    args={{
+      link: '/blog/my-first-post',
+    }}
+  >
+    {(args) => <ShareButton {...args} />}
+  </Story>
+</Preview>
+
+<Props story="Basic" />
+
+## Link
+
+You can adjust the link to share by passing `link` prop.
+
+<Preview>
+  <Story name="Link">
+    <ShareButton link="/blog/my-second-post" />
+  </Story>
+</Preview>

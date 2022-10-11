@@ -1,50 +1,101 @@
 image: node:12.13.0
 
+variables:
+  CYPRESS_CACHE_FOLDER: '$CI_PROJECT_DIR/cache/Cypress'
+
+# cache:
+#   key: ${CI_PIPELINE_ID}
+#   paths:
+#     # - cache/Cypress
+#     - node_modules
+
 stages:
+  - check
   - test
-  - post-publish
+  - e2e
+  - build
+  - deploy
 
 before_script:
-  - yarn
+  - yarn install
 
 lint:
-  stage: test
+  stage: check
   except:
     - master
     - tags
   script:
-    - yarn lint
+    - yarn run lint
 
-lint:code-formatter:
-  stage: test
+format:
+  stage: check
   except:
     - master
     - tags
   script:
-    - yarn code-formatter-check
+    - yarn run format:check
 
-lint:types:
-  stage: test
+types:check:
+  stage: check
   except:
     - master
     - tags
   script:
-    - yarn types-check
+    - yarn run types:check
 
-pages:
+tests:unit:
+  stage: check
+  except:
+    - master
+    - tags
+  script:
+    - yarn run test:unit --silent
+
+# These Cypress tests are too flaky at the moment, and provide much value so will comment out for now
+
+# tests:smoke:
+#   stage: test
+#   image: cypress/browsers:node12.14.1-chrome83-ff77
+#   only:
+#     - master
+#   script:
+#     - yarn test:e2e:smoke:ci
+
+# tests:e2e:
+#   image: cypress/browsers:node12.14.1-chrome83-ff77
+#   stage: e2e
+#   only:
+#     - master
+#   script:
+#     - yarn test:e2e:ci
+
+# tests:visual:
+#   stage: e2e
+#   image: buildkite/puppeteer
+#   only:
+#     - master
+#   script:
+#     - apt-get update && apt-get install git -y
+#     - USE_PERCY=true yarn build
+
+build:site:
+  stage: build
+  image: buildkite/puppeteer
   only:
-    - /^release/.*$/
+    - master
   script:
-    - yarn run export
+    - apt-get update && apt-get install git -y
+    - yarn run build
   artifacts:
     paths:
-      - public/
+      - public
 
-post-publish:audit-report:
-  stage: post-publish
-  image: cypress/browsers:node10.16.0-chrome77
+deploy:site:
+  stage: deploy
   only:
-    - /^release/.*$/
+    - master
   script:
-    - yarn run build
-    - yarn lhci autorun --upload.target=temporary-public-storage --collect.settings.chromeFlags="--no-sandbox" || echo "LHCI failed!"
+    - yarn add netlify-cli@2.71.0
+    - yarn deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_PERSONAL_TOKEN --message "$CI_COMMIT_TITLE"
+  dependencies:
+    - build:site

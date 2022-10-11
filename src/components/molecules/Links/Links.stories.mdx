@@ -1,0 +1,47 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+import {
+  AiFillGithub as Github,
+  AiFillGitlab as Gitlab,
+  AiFillMediumCircle as Medium,
+} from 'react-icons/ai';
+import { FaDev as Dev } from 'react-icons/fa';
+
+import Links from './Links';
+
+<Meta title="Molecules | Links" component={Links} />
+
+# Links
+
+<Preview>
+  <Story
+    name="Basic"
+    args={{
+      links: [
+        { name: '🏠️ Home', link: '/' },
+        { name: '✍️ Blog', link: '/blog/' },
+        { name: '🧮️ Stats', link: '/stats/' },
+        { name: '📋 Uses', link: '/uses/' },
+      ],
+    }}
+  >
+    {(args) => <Links {...args} />}
+  </Story>
+</Preview>
+
+<Props story="Basic" />
+
+## Links
+
+You can change the links shown by passing the `link` prop.
+
+<Preview>
+  <Story name="Links">
+    <Links
+      links={[
+        { name: '🏠️ Home', link: '/' },
+        { name: '✍️ Blog', link: '/blog/' },
+        { name: '📋 Uses', link: '/uses/' },
+      ]}
+    />
+  </Story>
+</Preview>

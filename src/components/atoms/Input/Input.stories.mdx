@@ -1,0 +1,47 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+
+import Input from './Input';
+
+<Meta title="Atoms | Input" component={Input} />
+
+# Input
+
+<Preview>
+  <Story
+    name="Basic"
+    args={{
+      label: 'Search',
+      placeholder: 'Search',
+    }}
+  >
+    {(args) => <Input {...args} />}
+  </Story>
+</Preview>
+
+<Props story="Basic" />
+
+## OnChange
+
+You can call a function everytime the input is changed by passing the `onChange` function.
+
+<Preview>
+  <Story name="OnChange">
+    <Input
+      onChange={(e) => console.log(e.target.value)}
+      placeholder="Search Bar"
+    />
+  </Story>
+</Preview>
+
+## Placeholder
+
+You can adjust the placeholder text if you pass the `placeholder` prop.
+
+<Preview>
+  <Story name="Placeholder">
+    <div>
+      <Input placeholder="Text" />
+      <Input placeholder="example text" />
+    </div>
+  </Story>
+</Preview>

@@ -1,0 +1,33 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+
+import NavLink from './NavLink';
+
+<Meta title="Atoms | NavLink" component={NavLink} />
+
+# NavLink
+
+<Preview>
+  <Story
+    name="Basic"
+    args={{
+      link: {
+        name: 'Home',
+        link: '/',
+      },
+    }}
+  >
+    {(args) => <NavLink {...args} />}
+  </Story>
+</Preview>
+
+<Props story="Basic" />
+
+## Link
+
+You can change the link text shown by passing the `link` prop.
+
+<Preview>
+  <Story name="Links">
+    <NavLink link={{ name: 'Stats', link: '/stats/' }} />
+  </Story>
+</Preview>
