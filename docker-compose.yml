@@ -1,11 +1,10 @@
-version: '3'
-
 services:
-  client:
+  app:
     build:
       context: .
       dockerfile: Dockerfile
-    volumes:
-      - ./src:/app/src
+      target: development
     ports:
-      - '3000:8000'
+      - 127.0.0.1:1313:1313
+    volumes:
+      - ./:/site

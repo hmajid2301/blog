@@ -1,0 +1,138 @@
+baseURL: "https://profound-custard-a5fa77.netlify.app/"
+title: Haseeb Majid
+paginate: 25
+theme: PaperModX
+
+enableRobotsTXT: true
+buildDrafts: false
+buildFuture: false
+buildExpired: false
+enableEmoji: True
+
+googleAnalytics: UA-123-45
+
+minify:
+  disableXML: true
+  minifyOutput: true
+
+params:
+  env: production # to enable google analytics, opengraph, twitter-cards and schema.
+  title: Haseeb Majid
+  description: "Haseeb Majid's blog"
+  keywords: [Blog, Portfolio, PaperMod]
+  author: Me
+  images: ["<link or path of image for opengraph, twitter-cards>"]
+  DateFormat: "January 2, 2006"
+  defaultTheme: auto
+
+  ShowReadingTime: true
+  ShowShareButtons: true
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  ShowWordCount: true
+  ShowRssButtonInSectionTermList: true
+  UseHugoToc: true
+  disableSpecial1stPost: false
+  disableScrollToTop: false
+  comments: false
+  hidemeta: false
+  hideSummary: false
+  showtoc: true
+  tocopen: false
+
+  assets:
+    favicon: "/favicon.ico"
+    favicon16x16: "/favicon-16x16.png"
+    favicon32x32: "/favicon-32x32.png"
+    apple_touch_icon: "/apple-touch-icon.png"
+    safari_pinned_tab: "/safari-pinned-tab.svg"
+    disableHLJS: true
+
+  label:
+    text: "Haseeb Majid"
+    icon: /apple-touch-icon.png
+    iconHeight: 35
+
+  profileMode:
+    enabled: true
+    title: Haseeb Majid
+    subtitle: "Backend software engineer 💻 and village cricketer 🏏"
+    imageUrl: "https://www.gravatar.com/avatar/7ddefc94d562a0b5896ef7f1b7c69e0e?s=250"
+    imageWidth: 250
+    imageHeight: 250
+    imageTitle: A photo of Haseeb Majid
+    buttons:
+      - name: Posts
+        url: posts
+      - name: Archive
+        url: archive
+
+  # home-info mode
+  homeInfoParams:
+    Title: "Hi there \U0001F44B"
+    Content: Welcome to my blog
+
+  socialIcons:
+    - name: gitlab
+      url: "https://gitlab.com/hmajid2301"
+    - name: github
+      url: "https://github.com/hmajid2301"
+    - name: linkedin
+      url: "https://www.linkedin.com/in/haseeb-majid-ba0a5194/"
+
+  analytics:
+    google:
+      SiteVerificationTag: "XYZabc"
+    bing:
+      SiteVerificationTag: "XYZabc"
+    yandex:
+      SiteVerificationTag: "XYZabc"
+
+  cover:
+    hidden: true
+    hiddenInList: true
+    hiddenInSingle: true
+
+  editPost:
+    URL: "https://gitlab.com/hmajid2301/blog/-/blob/main/content/"
+    Text: "Suggest Changes"
+    appendFilePath: true
+
+  # for search
+  # https://fusejs.io/api/options.html
+  fuseOpts:
+    isCaseSensitive: false
+    shouldSort: true
+    location: 0
+    distance: 1000
+    threshold: 0.4
+    minMatchCharLength: 0
+    keys: ["title", "permalink", "summary", "content"]
+menu:
+  main:
+    - identifier: posts
+      name: Posts
+      url: /posts/
+      weight: 10
+    - identifier: talks
+      name: Talks
+      url: /talks/
+      weight: 20
+    - identifier: search
+      name: Search
+      url: /search/
+      weight: 20
+    - identifier: tags
+      name: Tags
+      url: /tags/
+      weight: 30
+    - identifier: uses
+      name: Uses
+      url: /uses/
+      weight: 40
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON # is necessary

@@ -1,0 +1,10 @@
+version: "3"
+
+tasks:
+  start:
+    cmds:
+      - docker compose up --build
+
+  start_server:
+    cmds:
+      - hugo server -D
