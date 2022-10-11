@@ -1,0 +1,46 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks';
+
+import Logo from './Logo';
+
+<Meta title="Atoms | Logo" component={Logo} />
+
+# Logo
+
+<Preview>
+  <Story name="Basic" args={{ text: 'Haseeb' }}>
+    {(args) => <Logo {...args} />}
+  </Story>
+</Preview>
+
+<Props story="Basic" />
+
+## Text
+
+You can also adjust the text of the logo by passing the `Text` prop.
+
+<Preview>
+  <Story name="Text">
+    <div>
+      <Logo text="John Smith" />
+      <Logo text="Haseeb Majid" />
+    </div>
+  </Story>
+</Preview>
+
+## Size
+
+You can also adjust the size of the logo by passing the `size` prop.
+
+<Preview>
+  <Story name="Text Size">
+    <div>
+      <Logo size="xs" text="Haseeb" />
+      <Logo size="sm" text="Haseeb" />
+      <Logo size="lg" text="Haseeb" />
+      <Logo size="xl" text="Haseeb" />
+      <Logo size="2xl" text="Haseeb" />
+      <Logo size="3xl" text="Haseeb" />
+      <Logo size="4xl" text="Haseeb" />
+    </div>
+  </Story>
+</Preview>

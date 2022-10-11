@@ -1,148 +1,218 @@
+const {
+  rules: baseImportsRules,
+} = require('eslint-config-airbnb-base/rules/imports');
+
 module.exports = {
+  globals: {
+    // Gatsby Config
+    __PATH_PREFIX__: true,
+    cy: true,
+    Cypress: true,
+  },
   env: {
-    es6: true
+    // Allow `window` global
+    browser: true,
   },
-  extends: [
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:@typescript-eslint/recommended-requiring-type-checking",
-    "plugin:prettier/recommended",
-    "plugin:react/recommended",
-    "prettier"
-  ],
-  parser: "@typescript-eslint/parser",
-  parserOptions: {
-    project: "tsconfig.json",
-    sourceType: "module",
-    ecmaFeatures: {
-      jsx: true
-    }
-  },
-  plugins: ["@typescript-eslint", "prettier", "react", "react-hooks"],
-  rules: {
-    "@typescript-eslint/adjacent-overload-signatures": "error",
-    "@typescript-eslint/array-type": "error",
-    "@typescript-eslint/await-thenable": "error",
-    "@typescript-eslint/ban-types": "error",
-    "@typescript-eslint/class-name-casing": "error",
-    "@typescript-eslint/consistent-type-assertions": "error",
-    "@typescript-eslint/consistent-type-definitions": "error",
-    "@typescript-eslint/explicit-function-return-type": "off",
-    "@typescript-eslint/indent": "off",
-    "@typescript-eslint/interface-name-prefix": "error",
-    "@typescript-eslint/member-delimiter-style": [
-      "off",
-      {
-        multiline: {
-          delimiter: "none",
-          requireLast: true
-        },
-        singleline: {
-          delimiter: "semi",
-          requireLast: false
-        }
-      }
-    ],
-    "@typescript-eslint/ban-ts-ignore": "off",
-    "@typescript-eslint/member-ordering": "error",
-    "@typescript-eslint/no-empty-function": "error",
-    "@typescript-eslint/no-empty-interface": "error",
-    "@typescript-eslint/no-explicit-any": "off",
-    "@typescript-eslint/no-floating-promises": "off",
-    "@typescript-eslint/no-misused-new": "error",
-    "@typescript-eslint/no-namespace": "error",
-    "@typescript-eslint/no-parameter-properties": "off",
-    "@typescript-eslint/no-unnecessary-qualifier": "error",
-    "@typescript-eslint/no-unnecessary-type-assertion": "error",
-    "@typescript-eslint/no-use-before-define": "off",
-    "@typescript-eslint/no-var-requires": "error",
-    "@typescript-eslint/no-unused-vars": [
-      "error",
-      { varsIgnorePattern: "_", argsIgnorePattern: "_" }
-    ],
-    "@typescript-eslint/prefer-for-of": "error",
-    "@typescript-eslint/prefer-function-type": "error",
-    "@typescript-eslint/prefer-namespace-keyword": "error",
-    "@typescript-eslint/quotes": "off",
-    "@typescript-eslint/semi": ["off", null],
-    "@typescript-eslint/space-within-parens": ["off", "never"],
-    "@typescript-eslint/triple-slash-reference": "error",
-    "@typescript-eslint/type-annotation-spacing": "off",
-    "@typescript-eslint/unified-signatures": "error",
-    "arrow-body-style": "error",
-    "arrow-parens": ["off", "as-needed"],
-    camelcase: "off",
-    "@typescript-eslint/camelcase": ["error", { properties: "never" }],
-    "comma-dangle": "off",
-    complexity: "off",
-    "constructor-super": "error",
-    curly: ["error", "multi-line"],
-    "dot-notation": "error",
-    "eol-last": "off",
-    eqeqeq: ["error", "smart"],
-    "guard-for-in": "error",
-    "id-match": "error",
-    "linebreak-style": "off",
-    "max-classes-per-file": ["error", 1],
-    "max-len": "off",
-    "new-parens": "off",
-    "newline-per-chained-call": "off",
-    "no-bitwise": "error",
-    "no-caller": "error",
-    "no-cond-assign": "error",
-    "no-console": "error",
-    "no-constant-condition": "error",
-    "no-control-regex": "error",
-    "no-debugger": "error",
-    "no-duplicate-imports": "error",
-    "no-empty": "error",
-    "no-eval": "error",
-    "no-extra-semi": "off",
-    "no-fallthrough": "error",
-    "no-invalid-regexp": "error",
-    "no-invalid-this": "off",
-    "no-irregular-whitespace": "off",
-    "no-multiple-empty-lines": "off",
-    "no-new-wrappers": "error",
-    "no-redeclare": "error",
-    "no-regex-spaces": "error",
-    "no-return-await": "error",
-    "no-shadow": [
-      "error",
-      {
-        hoist: "all"
-      }
-    ],
-    "no-throw-literal": "error",
-    "no-trailing-spaces": "off",
-    "no-undef": "off",
-    "no-undef-init": "error",
-    "no-underscore-dangle": "error",
-    "no-unsafe-finally": "error",
-    "no-unused-expressions": [
-      "error",
-      {
-        allowTaggedTemplates: true,
-        allowShortCircuit: true
-      }
-    ],
-    "no-unused-labels": "error",
-    "no-var": "error",
-    "object-shorthand": "error",
-    "one-var": ["error", "never"],
-    "prefer-const": "error",
-    "quote-props": "off",
-    radix: "error",
-    "react/display-name": "off",
-    "react/prop-types": "off",
-    "space-before-function-paren": "off",
-    "spaced-comment": "error",
-    "use-isnan": "error",
-    "valid-typeof": "off"
-  },
+  // Global ESLint Settings
+  // =================================
   settings: {
-    react: {
-      version: "detect"
-    }
-  }
+    'import/resolver': {
+      node: {
+        paths: ['./', 'src'],
+        extensions: ['.js', '.jsx', '.ts', '.tsx', 'json'],
+      },
+      // Resolve Aliases
+      // =================================
+      alias: {
+        map: [['~', './src']],
+        extensions: ['.js', '.jsx', '.ts', '.tsx', 'json', '.d.ts'],
+      },
+    },
+  },
+
+  // ===========================================
+  // Set up ESLint for .js / .jsx files
+  // ===========================================
+  // .js / .jsx uses babel-eslint
+  parser: 'babel-eslint',
+
+  // Plugins
+  // =================================
+  plugins: ['no-only-tests'],
+
+  // Extend Other Configs
+  // =================================
+  extends: [
+    'eslint:recommended',
+    'airbnb',
+    // Disable rules that conflict with Prettier
+    // !!! Prettier must be last to override other configs
+    'prettier/react',
+    'plugin:prettier/recommended',
+  ],
+  rules: {
+    // This project uses TS. Disable prop-types check
+    'react/prop-types': 0,
+    // Allow snake_case due to inconsistent APIs
+    camelcase: 0,
+    // Prevents exclusion of tests from passing lint check
+    'no-only-tests/no-only-tests': 'error',
+    'import/order': [
+      'error',
+      {
+        alphabetize: {
+          order: 'asc',
+          caseInsensitive: true,
+        },
+        groups: ['builtin', 'external', ['parent', 'sibling', 'index']],
+        'newlines-between': 'always-and-inside-groups',
+      },
+    ],
+  },
+
+  // https://eslint.org/docs/user-guide/configuring#report-unused-eslint-disable-comments
+  reportUnusedDisableDirectives: true,
+
+  // =================================
+  // Overrides for Specific Files
+  // =================================
+  overrides: [
+    // =================================
+    // TypeScript Files
+    // =================================
+    {
+      files: ['**/*.{ts,tsx}'],
+      // allow ESLint to understand TypeScript syntax
+      // https://github.com/iamturns/eslint-config-airbnb-typescript/blob/master/lib/shared.js#L10
+      parserOptions: {
+        tsconfigRootDir: __dirname,
+        project: './tsconfig.json',
+      },
+      extends: [
+        // ESLint's inbuilt 'recommended' config
+        'eslint:recommended',
+        // Disables rules from the 'eslint:recommended' that are already covered by TypeScript's typechecker
+        'plugin:@typescript-eslint/eslint-recommended',
+        // Turns on rules from @typescript-eslint/eslint-plugin
+        'plugin:@typescript-eslint/recommended',
+        // Lint with Type Information
+        // https://github.com/typescript-eslint/typescript-eslint/blob/master/docs/getting-started/linting/TYPED_LINTING.md
+        'plugin:@typescript-eslint/recommended-requiring-type-checking',
+        'airbnb-typescript',
+        // Disable rules that conflict with Prettier
+        // !!! Prettier must be last to override other configs
+        'prettier/react',
+        'prettier/@typescript-eslint',
+        'plugin:prettier/recommended',
+        'plugin:tailwind/recommended',
+      ],
+      rules: {
+        '@typescript-eslint/ban-ts-ignore': 'off',
+        'no-use-before-define': 'off',
+        '@typescript-eslint/no-use-before-define': ['off'],
+        // This project uses TS. Disable prop-types check
+        'react/prop-types': 'off',
+        'react/require-default-props': 'off',
+        // Allow snake_case due to inconsistent APIs
+        '@typescript-eslint/camelcase': 0,
+        // Makes no sense to allow type inferrence for expression parameters, but require typing the response
+        '@typescript-eslint/explicit-function-return-type': 0,
+        // Reduce props spreading rule to a warning, not an error
+        'react/no-danger': 'off',
+        'react/jsx-props-no-spreading': 0,
+        'react/jsx-sort-props': 1,
+        'import/order': [
+          'error',
+          {
+            alphabetize: {
+              order: 'asc',
+              caseInsensitive: true,
+            },
+            groups: ['builtin', 'external', ['parent', 'sibling', 'index']],
+            'newlines-between': 'always-and-inside-groups',
+          },
+        ],
+        'no-restricted-imports': [
+          'warn',
+          {
+            paths: [
+              {
+                name: '@emotion/css',
+                message:
+                  'Import from "@emotion/core" instead. import { css } from "@emotion/core"',
+              },
+            ],
+          },
+        ],
+      },
+    },
+    // =================================
+    // index.ts Files (Re-exporting a directory's files)
+    // =================================
+    {
+      files: ['**/index.{js,ts,tsx}'],
+      rules: {
+        // Allow named exports in a directory's index files
+        'import/prefer-default-export': 0,
+      },
+    },
+    // =================================
+    // Gatsby Files
+    // =================================
+    {
+      files: ['**/**/gatsby-*.js'],
+      rules: {
+        'no-console': 0,
+        // Allow import devDependencies in Gatsby files.
+        'import/no-extraneous-dependencies': [
+          2,
+          {
+            devDependencies: true,
+            // Tells ESLint where the path to the folder containing package.json is for nested files like /plugin/**/gatsby-*.js
+            packageDir: './',
+          },
+        ],
+        'react/no-danger': 0,
+        'react/jsx-props-no-spreading': 0,
+        // Allow 'jsx' in .js files
+        'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
+        'import/prefer-default-export': 0,
+        // Append 'ts' and 'tsx' when importing files from a folder/index.ts
+        'import/extensions': [
+          baseImportsRules['import/extensions'][0],
+          baseImportsRules['import/extensions'][1],
+          {
+            ...baseImportsRules['import/extensions'][2],
+            ts: 'never',
+            tsx: 'never',
+          },
+        ],
+      },
+    },
+    // =================================
+    // Test Files
+    // =================================
+    {
+      files: ['**/test-utils/*.{js,ts,tsx}', '**/**/*.test.{js,ts,tsx}'],
+      // Allow `jest` global
+      extends: ['plugin:jest/recommended'],
+      rules: {
+        // Allow import devDependencies in tests
+        'import/no-extraneous-dependencies': 0,
+        'react/jsx-props-no-spreading': 0,
+        'jsx-a11y/alt-text': 0,
+        'import/order': [
+          'error',
+          {
+            alphabetize: {
+              order: 'asc',
+              caseInsensitive: true,
+            },
+            groups: ['builtin', 'external', ['parent', 'sibling', 'index']],
+            'newlines-between': 'always-and-inside-groups',
+          },
+        ],
+      },
+    },
+  ],
 };

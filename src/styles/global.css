@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+  --secondary: #a0aec0;
+  --accent: #a4aebc;
+}
+
+.theme-light {
+  --background: #fff;
+  --background-alt: #f7fafc;
+  --main: #0d0106;
+  --header: #2d3748;
+}
+
+.theme-dark {
+  --background: #0e141b;
+  --background-alt: #1b2128;
+  --main: #ffffff;
+  --header: #eaeaea;
+}
+
+.active::after {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
