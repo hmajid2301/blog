@@ -9,5 +9,7 @@ hideMeta: false
 
 [Slides](https://docker-as-a-dev-tool.haseebmajid.dev/)
 
+![Docker Talk](/images/docker_talk.jpg)
+
 Coming soon ...
 
