@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="stylesheets/prism.css"
+      rel="stylesheet"
+    />
+    <title>Example</title>
+  </head>
+
+  <body>
+    <pre
+      onPaste="setTimeout(function() {onPaste();}, 0)"
+      id="editable"
+      contenteditable
+    >
+          <code id="yaml" class="language-yaml"></code>
+        </pre>
+    <!-- <script src="javascript/prism.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.21.0/prism.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.21.0/components/prism-yaml.min.js"
+      integrity="sha512-W4sEi2+rNDpN545yJfRasMUfjSy9qdc2gQaTJnpGAFowiMP90oajSg6Xubi8SdOfsUwUaR296lQ1WOj8aU9J2A=="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      function onPaste() {
+        const editable = document.getElementById("editable");
+        const dockerCompose = editable.innerText;
+        editable.innerHTML = '<code id="yaml" class="language-yaml"></code>';
+        const yaml = document.getElementById("yaml");
+        console.log(dockerCompose, Prism.languages.yaml);
+        yaml.innerHTML = Prism.highlight(
+          dockerCompose,
+          Prism.languages.yml,
+          "yaml"
+        );
+      }
+    </script>
+  </body>
+</html>

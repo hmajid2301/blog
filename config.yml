@@ -136,3 +136,5 @@ outputs:
     - HTML
     - RSS
     - JSON # is necessary
+
+ignorefiles: ["source_code/.*"]
