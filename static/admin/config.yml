@@ -26,13 +26,17 @@
 #       - { label: "Body", name: "body", widget: "markdown", modes: ["raw"] }
 backend:
   name: git-gateway
-  branch: initial # Branch to update (optional; defaults to master)
+  branch: main
 media_folder: static/images
 public_folder: /images
 collections:
   - name: "blog"
     label: "Blog"
     folder: "content/posts"
+    # Support Hugo page bundles that puts index.md and images in folders named by slug
+    path: "{{slug}}/index"
+    media_folder: "images"
+    public_folder: "images"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     editor:

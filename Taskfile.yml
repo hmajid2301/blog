@@ -1,10 +1,22 @@
 version: "3"
 
 tasks:
-  start:
+  start_docker:
     cmds:
       - docker compose up --build
 
   start_server:
     cmds:
       - hugo server -D
+
+  new_post:
+    cmds:
+      - hugo new --kind post-bundle posts/{{now | date "1995-01-23"}}-{{.ARTICLE_NAME}}
+    env:
+      ARTICLE_NAME: foo
+
+  new_talk:
+    cmds:
+      - hugo new --kind talk-bundle talks/{{.TALK_NAME}}
+    env:
+      TALK_NAME: foo
