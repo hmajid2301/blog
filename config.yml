@@ -9,14 +9,12 @@ buildFuture: false
 buildExpired: false
 enableEmoji: True
 
-googleAnalytics: UA-123-45
-
 minify:
   disableXML: true
   minifyOutput: true
 
 params:
-  env: production # to enable google analytics, opengraph, twitter-cards and schema.
+  env: production
   title: Haseeb Majid
   description: "Haseeb Majid's blog"
   keywords: [Blog, Portfolio, PaperMod]
@@ -81,14 +79,6 @@ params:
     - name: linkedin
       url: "https://www.linkedin.com/in/haseeb-majid-ba0a5194/"
 
-  analytics:
-    google:
-      SiteVerificationTag: "XYZabc"
-    bing:
-      SiteVerificationTag: "XYZabc"
-    yandex:
-      SiteVerificationTag: "XYZabc"
-
   cover:
     hidden: true
     hiddenInList: true
@@ -109,6 +99,9 @@ params:
     threshold: 0.4
     minMatchCharLength: 0
     keys: ["title", "permalink", "summary", "content"]
+
+  goatcounter: "haseebmajid"
+
 menu:
   main:
     - identifier: posts

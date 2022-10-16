@@ -1,34 +1,9 @@
-# backend:
-#   name: git-gateway
-#   branch: initial
-# media_folder: static/images
-# public_folder: /images
-# collections:
-#   - name: "blog"
-#     label: "Blog"
-#     folder: "content/blog"
-#     create: true
-#     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
-#     editor:
-#       preview: true
-#     fields:
-#       - { label: "Title", name: "title", widget: "string" }
-#       - { label: "Publish Date", name: "date", widget: "date" }
-#       - { label: "Tags", name: "tags", widget: "list", allow_add: true }
-#       - {
-#           label: "Images",
-#           name: "thumbnail",
-#           widget: "image",
-#           choose_url: true,
-#           required: false,
-#           media_library: { config: { multiple: true } },
-#         }
-#       - { label: "Body", name: "body", widget: "markdown", modes: ["raw"] }
 backend:
   name: git-gateway
   branch: main
 media_folder: static/images
 public_folder: /images
+publish_mode: editorial_workflow
 collections:
   - name: "blog"
     label: "Blog"
