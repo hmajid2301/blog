@@ -8,10 +8,20 @@ buildDrafts: false
 buildFuture: false
 buildExpired: false
 enableEmoji: True
+ignorefiles: ["source_code/.*"]
 
 minify:
   disableXML: true
   minifyOutput: true
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+  highlight:
+    style: dracula
+    lineNos: false
+    noClasses: false
 
 params:
   env: production
@@ -65,6 +75,8 @@ params:
         url: posts
       - name: Archive
         url: archive
+      - name: Tags
+        url: tags
 
   # home-info mode
   homeInfoParams:
@@ -116,28 +128,19 @@ menu:
       name: Search
       url: /search/
       weight: 20
-    - identifier: tags
-      name: Tags
-      url: /tags/
-      weight: 30
     - identifier: uses
       name: Uses
       url: /uses/
       weight: 40
+    - identifier: stats
+      name: Stats
+      url: https://stats.haseebmajid.dev/
+      params:
+        external: true
+      weight: 50
 
 outputs:
   home:
     - HTML
     - RSS
     - JSON # is necessary
-
-markup:
-  goldmark:
-    renderer:
-      unsafe: true
-  highlight:
-    style: dracula
-    lineNos: false
-    noClasses: false
-
-ignorefiles: ["source_code/.*"]

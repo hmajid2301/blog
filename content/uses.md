@@ -1,6 +1,7 @@
 ---
 title: Uses
 summary: What I use!
+canonicalURL: https://haseebmajid.dev/uses/
 url: "/uses/"
 date: 2022-10-08
 ---
