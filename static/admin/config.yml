@@ -18,6 +18,12 @@ collections:
       preview: true
     fields:
       - { label: "Title", name: "title", widget: "string" }
+      - {
+          label: "Canonical URL",
+          name: "canonicalURL",
+          widget: "hidden",
+          default: "https://haseebmajid.dev/posts/{{slug}}",
+        }
       - { label: "Publish Date", name: "date", widget: "date" }
       - { label: "Tags", name: "tags", widget: "list", allow_add: true }
       - {
