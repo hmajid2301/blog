@@ -1,5 +1,6 @@
 ---
 title: Testing a socketio Web App written in Python
+canonicalURL: https://haseebmajid.dev/posts/2021-12-23-testing-a-socketio-web-app-written-in-python/
 date: 2021-12-23
 tags:
   - python

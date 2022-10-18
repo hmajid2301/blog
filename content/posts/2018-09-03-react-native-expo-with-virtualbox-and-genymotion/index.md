@@ -1,5 +1,6 @@
 ---
 title: React Native/Expo with VirtualBox and Genymotion
+canonicalURL: https://haseebmajid.dev/posts/2018-09-03-react-native-expo-with-virtualbox-and-genymotion/
 date: 2018-09-03
 tags:
   - react-native

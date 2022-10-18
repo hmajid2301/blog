@@ -1,5 +1,6 @@
 ---
 title: Testing a Gatsby application with Cypress on Gitlab CI"
+canonicalURL: https://haseebmajid.dev/posts/2021-03-22-testing-a-gatsby-application-with-cypress-on-gitlab-ci/
 date: 2021-03-22
 tags:
   - gatsby

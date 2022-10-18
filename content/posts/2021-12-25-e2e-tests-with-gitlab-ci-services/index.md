@@ -1,5 +1,6 @@
 ---
 title: E2E tests with Gitlab CI services
+canonicalURL: https://haseebmajid.dev/posts/2021-12-25-e2e-tests-with-gitlab-ci-services/
 date: 2021-12-25
 tags:
   - gitlab

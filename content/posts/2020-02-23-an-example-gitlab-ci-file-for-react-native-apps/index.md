@@ -1,5 +1,6 @@
 ---
 title: An Example Gitlab CI file for React Native Apps
+canonicalURL: https://haseebmajid.dev/posts/2020-02-23-an-example-gitlab-ci-file-for-react-native-apps/
 date: 2020-02-23
 tags:
   - react-native

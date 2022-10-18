@@ -1,5 +1,6 @@
 ---
 title: How to use Gitlab CI, Pytest and docker-compose together
+canonicalURL: https://haseebmajid.dev/posts/2020-06-22-how-to-use-gitlab-ci-pytest-and-docker-compose-together/
 date: 2020-06-22
 tags:
   - docker

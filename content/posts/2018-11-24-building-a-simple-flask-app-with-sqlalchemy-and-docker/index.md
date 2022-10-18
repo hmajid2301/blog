@@ -1,5 +1,6 @@
 ---
 title: Building A Simple Flask App with SQLalchemy and Docker
+canonicalURL: https://haseebmajid.dev/posts/2018-11-24-building-a-simple-flask-app-with-sqlalchemy-and-docker/
 date: 2018-11-24
 tags:
   - docker

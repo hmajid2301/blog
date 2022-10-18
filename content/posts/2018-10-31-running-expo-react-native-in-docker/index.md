@@ -1,5 +1,6 @@
 ---
 title: Running Expo/React Native in Docker
+canonicalURL: https://haseebmajid.dev/posts/2018-10-31-running-expo-react-native-in-docker/
 date: 2018-10-31
 tags:
   - react-native

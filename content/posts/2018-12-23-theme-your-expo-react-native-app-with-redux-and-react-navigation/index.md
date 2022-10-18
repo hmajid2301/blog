@@ -1,5 +1,6 @@
 ---
 title: Theme your Expo/React Native App with Redux and React Navigation
+canonicalURL: https://haseebmajid.dev/posts/2018-12-23-theme-your-expo-react-native-app-with-redux-and-react-navigation/
 date: 2018-12-23
 tags:
   - redux

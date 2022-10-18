@@ -1,5 +1,6 @@
 ---
 title: How to add your own type definitions to DefinitelyTyped
+canonicalURL: https://haseebmajid.dev/posts/2019-04-19-how-to-add-your-own-type-definitions-to-definitelytyped/
 date: 2019-04-19
 tags:
   - typescript

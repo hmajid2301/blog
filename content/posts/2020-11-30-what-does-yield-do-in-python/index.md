@@ -1,5 +1,6 @@
 ---
 title: What does yield do in Python
+canonicalURL: https://haseebmajid.dev/posts/2020-11-30-what-does-yield-do-in-python/
 date: 2020-11-30
 tags:
   - python

@@ -1,5 +1,6 @@
 ---
 title: Testing a Connexion/Flask Application with Pytest
+canonicalURL: https://haseebmajid.dev/posts/2020-06-09-testing-a-connexion-flask-application-with-pytest/
 date: 2020-06-09
 tags:
   - python

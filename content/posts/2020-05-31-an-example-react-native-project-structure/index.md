@@ -1,5 +1,6 @@
 ---
 title: An example React Native Project Structure
+canonicalURL: https://haseebmajid.dev/posts/2020-05-31-an-example-react-native-project-structure/
 date: 2020-05-31
 tags:
   - react-native

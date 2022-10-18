@@ -1,5 +1,6 @@
 ---
 title: How to source your Gatsby posts from another repo
+canonicalURL: https://haseebmajid.dev/posts/2020-09-18-how-to-source-your-gatsby-posts-from-another-repo/
 date: 2020-09-18
 tags:
   - gatsby

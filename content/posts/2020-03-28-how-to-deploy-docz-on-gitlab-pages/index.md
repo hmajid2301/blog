@@ -1,5 +1,6 @@
 ---
 title: How to Deploy Docz on Gitlab Pages
+canonicalURL: https://haseebmajid.dev/posts/2020-03-28-how-to-deploy-docz-on-gitlab-pages/
 date: 2020-03-28
 tags:
   - gitlab

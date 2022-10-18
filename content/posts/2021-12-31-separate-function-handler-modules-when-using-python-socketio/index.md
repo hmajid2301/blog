@@ -1,5 +1,6 @@
 ---
 title: Separate function handler modules when using Python Socketio
+canonicalURL: https://haseebmajid.dev/posts/2021-12-31-separate-function-handler-modules-when-using-python-socketio/
 tags:
   - python
   - socketsio

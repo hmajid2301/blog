@@ -1,5 +1,6 @@
 ---
 title: DrawerNavigator, TabNavigator and StackNavigator with React Navigation
+canonicalURL: https://haseebmajid.dev/posts/2019-03-04-drawernavigator-tabnavigator-and-stacknavigator-with-react-navigation/
 date: 2019-03-04
 tags:
   - react-native

@@ -1,5 +1,6 @@
 ---
 title: How to make PrismJS code blocks editable
+canonicalURL: https://haseebmajid.dev/posts/2020-05-10-how-to-make-prismjs-code-blocks-editable/
 date: 2020-05-10
 tags:
   - ajax

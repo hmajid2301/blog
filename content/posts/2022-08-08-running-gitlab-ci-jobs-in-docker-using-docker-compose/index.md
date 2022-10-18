@@ -1,5 +1,6 @@
 ---
 title: Running Gitlab CI jobs in Docker using docker-compose
+canonicalURL: https://haseebmajid.dev/posts/2022-08-08-running-gitlab-ci-jobs-in-docker-using-docker-compose/
 date: 2022-08-08
 tags:
   - docker

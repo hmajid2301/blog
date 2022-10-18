@@ -1,5 +1,6 @@
 ---
 title: Using Tox with a Makefile to Automate Python related tasks
+canonicalURL: https://haseebmajid.dev/posts/2020-01-13-using-tox-with-a-makefile-to-automate-python-related-tasks/
 date: 2020-01-13
 tags:
   - python

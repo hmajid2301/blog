@@ -124,10 +124,20 @@ menu:
       name: Uses
       url: /uses/
       weight: 40
+
 outputs:
   home:
     - HTML
     - RSS
     - JSON # is necessary
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+  highlight:
+    style: dracula
+    lineNos: false
+    noClasses: false
 
 ignorefiles: ["source_code/.*"]

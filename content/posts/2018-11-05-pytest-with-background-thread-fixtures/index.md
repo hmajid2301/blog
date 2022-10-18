@@ -1,5 +1,6 @@
 ---
 title: Pytest with Background Thread Fixtures
+canonicalURL: https://haseebmajid.dev/posts/2018-11-05-pytest-with-background-thread-fixtures/
 date: 2018-11-05
 tags:
   - python

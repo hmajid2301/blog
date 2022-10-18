@@ -1,5 +1,6 @@
 ---
 title: How SOCKS proxies work and using ProxyChains
+canonicalURL: https://haseebmajid.dev/posts/2020-10-10-how-socks-proxies-work-and-using-proxychains/
 date: 2020-10-10
 tags:
   - proxychains

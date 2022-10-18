@@ -1,5 +1,6 @@
 ---
 title: Using Gitlab CI to Publish an Android React Native App
+canonicalURL: https://haseebmajid.dev/posts/2019-09-23-using-gitlab-ci-to-publish-an-android-react-native-app/
 date: 2019-09-23
 tags:
   - react-native

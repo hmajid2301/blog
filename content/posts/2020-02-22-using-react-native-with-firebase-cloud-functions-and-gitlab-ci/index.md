@@ -1,5 +1,6 @@
 ---
 title: Using React Native with Firebase Cloud Functions and Gitlab CI
+canonicalURL: https://haseebmajid.dev/posts/2020-02-22-using-react-native-with-firebase-cloud-functions-and-gitlab-ci/
 date: 2020-02-22
 tags:
   - react-native

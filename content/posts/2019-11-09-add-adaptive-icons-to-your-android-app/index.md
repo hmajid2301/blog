@@ -1,5 +1,6 @@
 ---
 title: Add adaptive icons to your Android app
+canonicalURL: https://haseebmajid.dev/posts/2019-11-09-add-adaptive-icons-to-your-android-app/
 date: 2019-11-09
 tags:
   - react-native

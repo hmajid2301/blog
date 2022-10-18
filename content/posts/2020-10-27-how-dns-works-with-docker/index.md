@@ -1,5 +1,6 @@
 ---
 title: How DNS works with Docker
+canonicalURL: https://haseebmajid.dev/posts/2020-10-27-how-dns-works-with-docker/
 date: 2020-10-27
 tags:
   - docker

@@ -1,5 +1,6 @@
 ---
 title: Debugging A React Native WebView
+canonicalURL: https://haseebmajid.dev/posts/2018-10-27-debugging-a-react-native-webview/
 date: 2018-10-27
 tags:
   - react-native

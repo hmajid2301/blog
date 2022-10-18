@@ -1,5 +1,6 @@
 ---
 title: TailwindCSS with CSS variables
+canonicalURL: https://haseebmajid.dev/posts/2020-08-05-tailwindcss-with-css-variables/
 date: 2020-08-05
 tags:
   - tailwindcss

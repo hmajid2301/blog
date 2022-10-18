@@ -1,5 +1,6 @@
 ---
 title: How to add offline search to a Gatsby blog
+canonicalURL: https://haseebmajid.dev/posts/2020-08-20-how-to-add-offline-search-to-a-gatsby-blog/
 date: 2020-08-20
 tags:
   - gatsby

@@ -1,5 +1,6 @@
 ---
 title: Auto Toggle Dark Theme on your React Native App
+canonicalURL: https://haseebmajid.dev/posts/2020-01-25-auto-toggle-dark-theme-on-your-react-native-app/
 date: 2020-01-25
 tags:
   - react-native

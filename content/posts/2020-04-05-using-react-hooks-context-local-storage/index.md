@@ -1,5 +1,6 @@
 ---
 title: Using React Hooks, Context & Local Storage
+canonicalURL: https://haseebmajid.dev/posts/2020-04-05-using-react-hooks-context-local-storage/
 date: 2020-04-05
 tags:
   - react

@@ -1,5 +1,6 @@
 ---
 title: Auto Publish React Native App to Android Play Store using GitLab CI
+canonicalURL: https://haseebmajid.dev/posts/2019-10-09-auto-publish-react-native-app-to-android-play-store-using-gitlab-ci/
 date: 2019-10-09
 tags:
   - react-native

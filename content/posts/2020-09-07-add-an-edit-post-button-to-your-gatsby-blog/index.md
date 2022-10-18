@@ -1,5 +1,6 @@
 ---
 title: Add an 'edit post' button to your Gatsby blog
+canonicalURL: https://haseebmajid.dev/posts/2020-09-07-add-an-edit-post-button-to-your-gatsby-blog/
 date: 2020-09-07
 tags:
   - gatsby

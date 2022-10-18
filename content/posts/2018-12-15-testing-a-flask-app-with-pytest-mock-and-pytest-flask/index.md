@@ -1,5 +1,6 @@
 ---
 title: Testing a Flask App with pytest-mock and pytest-flask
+canonicalURL: https://haseebmajid.dev/posts/2018-12-15-testing-a-flask-app-with-pytest-mock-and-pytest-flask/
 date: 2018-12-15
 tags:
   - testing

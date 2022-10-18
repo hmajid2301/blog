@@ -1,5 +1,6 @@
 ---
 title: Debugging React Native apps in WebStorm and Visual Studio Code
+canonicalURL: https://haseebmajid.dev/posts/2018-09-07-debugging-react-native-apps-in-webstorm-and-visual-studio-code
 date: 2018-09-07
 tags:
   - react-native

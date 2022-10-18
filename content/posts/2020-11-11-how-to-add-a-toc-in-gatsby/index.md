@@ -1,5 +1,6 @@
 ---
 title: How to add a ToC in Gatsby
+canonicalURL: https://haseebmajid.dev/posts/2020-11-11-how-to-add-a-toc-in-gatsby/
 date: 2020-11-11
 tags:
   - gatsby

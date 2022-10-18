@@ -1,5 +1,6 @@
 ---
 title: Creating a Simple RESTful App using OpenAPI, Flask & Connexions
+canonicalURL: https://haseebmajid.dev/posts/2019-08-16-creating-a-simple-restful-app-using-openapi-flask-connexions/
 date: 2019-08-16
 tags:
   - flask

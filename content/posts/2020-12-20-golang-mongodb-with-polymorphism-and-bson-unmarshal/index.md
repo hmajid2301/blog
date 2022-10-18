@@ -1,5 +1,6 @@
 ---
 title: Golang & MongoDB with "Polymorphism" and BSON Unmarshal
+canonicalURL: https://haseebmajid.dev/posts/2020-12-20-golang-mongodb-with-polymorphism-and-bson-unmarshal/
 date: 2020-12-20
 tags:
   - golang

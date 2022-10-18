@@ -1,5 +1,6 @@
 ---
 title: How to use DinD with Gitlab CI
+canonicalURL: https://haseebmajid.dev/posts/2020-05-01-how-to-use-dind-with-gitlab-ci/
 date: 2020-05-01
 tags:
   - docker

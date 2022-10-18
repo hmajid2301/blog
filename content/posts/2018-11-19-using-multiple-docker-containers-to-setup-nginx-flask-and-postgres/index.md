@@ -1,5 +1,6 @@
 ---
 title: Using Multiple Docker Containers to Setup Nginx, Flask and Postgres
+canonicalURL: https://haseebmajid.dev/posts/2018-11-19-using-multiple-docker-containers-to-setup-nginx-flask-and-postgres/
 date: 2018-11-19
 tags:
   - docker

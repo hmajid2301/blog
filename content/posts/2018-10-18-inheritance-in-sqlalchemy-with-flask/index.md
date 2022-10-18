@@ -1,5 +1,6 @@
 ---
 title: Inheritance in SQLAlchemy (with Flask)
+canonicalURL: https://haseebmajid.dev/posts/2018-10-18-inheritance-in-sqlalchemy-with-flask/
 date: 2018-10-18
 tags:
   - python

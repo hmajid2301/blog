@@ -1,5 +1,6 @@
 ---
 title: Better Imports with Typescript Aliases, Babel and TSPath
+canonicalURL: https://haseebmajid.dev/posts/2019-12-01-better-imports-with-typescript-aliases-babel-and-tspath/
 date: 2019-12-0
 tags:
   - typescript

@@ -1,5 +1,6 @@
 ---
 title: How to use Storybooks, Gatsby, Babel, Tailwind, Typescript together
+canonicalURL: https://haseebmajid.dev/posts/2020-06-29-how-to-use-storybooks-gatsby-babel-tailwind-typescript-together/
 date: 2020-06-29
 tags:
   - gatsby

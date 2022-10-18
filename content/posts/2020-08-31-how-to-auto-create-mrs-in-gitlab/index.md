@@ -1,5 +1,6 @@
 ---
 title: How to auto create MRs in Gitlab
+canonicalURL: https://haseebmajid.dev/posts/2020-08-31-how-to-auto-create-mrs-in-gitlab/
 date: 2020-08-31
 tags:
   - gitlab
