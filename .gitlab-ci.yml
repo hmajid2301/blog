@@ -1,0 +1,16 @@
+image: docker:stable
+
+services:
+  - docker:dind
+
+stages:
+  - deploy
+
+deploy_site:
+  stage: deploy
+  before_script:
+    - apk add --update curl
+  script:
+    - curl -X POST -d '{}' $NETLIFY_BUILD_WEBHOOK
+  only:
+    - schedules
