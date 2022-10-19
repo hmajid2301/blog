@@ -2,6 +2,8 @@
 title: How to Manage Your Dotfiles With Dotbot
 canonicalURL: https://haseebmajid.dev/posts/2022-10-15-how-to-manage-your-dotfiles-with-dotbot/
 date: 2022-10-15
+series:
+  - Dotfiles management with Dotbot
 tags:
   - dotfiles
   - dotbot

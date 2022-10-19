@@ -2,6 +2,8 @@
 title: How to use Storybooks with MDX
 canonicalURL: https://haseebmajid.dev/posts/2020-07-20-how-to-use-storybooks-with-mdx/
 date: 2020-07-20
+series:
+  - StoryBooks with Gatsby
 tags:
   - gatsby
   - storybook

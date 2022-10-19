@@ -114,6 +114,11 @@ params:
 
   goatcounter: "haseebmajid"
 
+taxonomies:
+  category: categories
+  tag: tags
+  series: series
+
 menu:
   main:
     - identifier: posts
