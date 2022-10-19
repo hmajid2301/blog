@@ -12,6 +12,4 @@ hideMeta: false
 
 [Slides](https://docker-as-a-dev-tool.haseebmajid.dev/)
 
-
-Coming soon ...
-
+{{< youtube JSSG4FqKaGI >}}
