@@ -8,8 +8,10 @@ ShowWordCount: false
 hideMeta: false
 ---
 
-![Docker Talk](images/docker_talk.jpg)
+{{< youtube JSSG4FqKaGI >}}
 
 [Slides](https://docker-as-a-dev-tool.haseebmajid.dev/)
 
-{{< youtube JSSG4FqKaGI >}}
+## Photo from conference
+
+![Docker Talk](images/docker_talk.jpg)
