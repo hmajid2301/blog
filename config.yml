@@ -29,8 +29,8 @@ params:
   description: "Haseeb Majid's blog"
   keywords: [Blog, Portfolio, PaperMod]
   author: Me
-  images: ["<link or path of image for opengraph, twitter-cards>"]
-  DateFormat: "January 2, 2006"
+  images: ["cover.png"]
+  DateFormat: "2006-01-02"
   defaultTheme: auto
 
   ShowReadingTime: true
