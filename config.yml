@@ -129,10 +129,6 @@ menu:
       name: Talks
       url: /talks/
       weight: 20
-    - identifier: search
-      name: Search
-      url: /search/
-      weight: 20
     - identifier: uses
       name: Uses
       url: /uses/
