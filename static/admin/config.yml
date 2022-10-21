@@ -26,6 +26,7 @@ collections:
         }
       - { label: "Publish Date", name: "date", widget: "date" }
       - { label: "Tags", name: "tags", widget: "list", allow_add: true }
+      - { label: "Series", name: "series", widget: "list", allow_add: true }
       - {
           label: "Images",
           name: "thumbnail",
