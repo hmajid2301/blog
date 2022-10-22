@@ -1,6 +1,7 @@
 backend:
   name: git-gateway
   branch: main
+  use_large_media_transforms_in_media_library: false
 media_folder: static/images
 public_folder: /images
 publish_mode: editorial_workflow
