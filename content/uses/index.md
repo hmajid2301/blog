@@ -11,6 +11,8 @@ date: 2022-10-08
 The following is a list of the tools that I use on a daily basis. This page
 was inspired by [Wes Bros](https://wesbos.com/uses). See more pages like this [here](https://uses.tech)
 
+![Neofetch](images/neofetch.png)
+
 - My [dotfiles](https://gitlab.com/hmajid2301/dotfiles)
 
 ## 🐧 OS + Hardware

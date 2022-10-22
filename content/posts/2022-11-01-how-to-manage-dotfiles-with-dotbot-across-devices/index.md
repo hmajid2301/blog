@@ -10,10 +10,13 @@ tags:
   - git
 ---
 
-If you want to know more about Dotbot [click here](/posts/2022-10-15-how-to-manage-your-dotfiles-with-dotbot) and avoid the following:
+{{< admonition type="warning" title="Previous article" details="false" >}}
+This article assumes you are familiar with dotfiles and Dobot.
+If you want to know more about Dotbot [click here](/posts/2022-10-15-how-to-manage-your-dotfiles-with-dotbot)
+{{< admonition >}}
+
 
 ![Dotfiles backup meme](images/meme.png)
-
 If you are like me you have devices, such as personal desktop and a work laptop. These devices share some dotfiles but also have specific program and applications.
 
 For example:
