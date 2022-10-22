@@ -14,5 +14,5 @@ hideMeta: false
 
 ## Photo from conference
 
-![Docker Talk](images/docker_talk.jpg?nf_resize=fit&w=700&h=400)
+![Docker Talk](images/docker_talk.jpg)
  
