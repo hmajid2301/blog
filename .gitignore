@@ -60,3 +60,4 @@ hugo.linux
 
 # Local Netlify folder
 .netlify
+.env

@@ -10,6 +10,8 @@ deploy_site:
   stage: deploy
   before_script:
     - apk add --update curl
+  variables:
+    GIT_STRATEGY: none
   script:
     - curl -X POST -d '{}' $NETLIFY_BUILD_WEBHOOK
   only:

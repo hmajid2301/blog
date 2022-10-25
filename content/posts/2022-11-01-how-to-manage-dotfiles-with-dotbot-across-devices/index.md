@@ -13,7 +13,7 @@ tags:
 {{< admonition type="warning" title="Previous article" details="false" >}}
 This article assumes you are familiar with dotfiles and Dobot.
 If you want to know more about Dotbot [click here](/posts/2022-10-15-how-to-manage-your-dotfiles-with-dotbot)
-{{< admonition >}}
+{{< /admonition >}}
 
 
 ![Dotfiles backup meme](images/meme.png)
@@ -242,6 +242,10 @@ Finally we should have something like this:
 Then we can install the linux specific dotfiles by running `./install-profile linux`. Now of course this is a very simplified example.
 In reality you'd have lots of profiles and different configs in those profiles. But I wanted to show a simple example here, to
 make it easier to follow.
+
+Speaking of finishing 😭 .... 
+
+<div style='position:relative; padding-bottom:calc(146.67% + 44px)'><iframe src='https://gfycat.com/ifr/ContentScrawnyGrackle' frameborder='0' scrolling='no' width='100%' height='100%' style='position:absolute;top:0;left:0;' allowfullscreen></iframe></div>
 
 ## Appendix
 

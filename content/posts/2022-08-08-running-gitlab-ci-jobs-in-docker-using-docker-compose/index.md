@@ -8,7 +8,7 @@ tags:
   - gitlab
   - ci-cd
 ---
-Shameless plug: This is related to a EuroPython 2022 talk I am giving, [My Journey Using Docker as a Development Tool](https://gitlab.com/haseeb-slides/docker-as-a-dev-tool). 
+Shameless plug: This is related to a EuroPython 2022 talk I am giving, [My Journey Using Docker as a Development Tool](/talks/my-journey-using-docker-as-a-developer-tool). 
 
 For most of my common dev tasks, I've started to rely on `docker`/`docker compose` to run commands locally. I have also
 started using vscode's `.devcontainers`, to provide a consistent environment for all developers using a project.

@@ -1,0 +1,10 @@
+{
+  "devDependencies": {
+    "prettier": "^2.7.1",
+    "prettier-plugin-go-template": "^0.0.13"
+  },
+  "dependencies": {
+    "faunadb": "^4.7.1",
+    "save": "^2.9.0"
+  }
+}

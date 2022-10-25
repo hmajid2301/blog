@@ -10,7 +10,8 @@ hideMeta: false
 
 {{< youtube JSSG4FqKaGI >}}
 
-[Slides](https://docker-as-a-dev-tool.haseebmajid.dev/)
+- [Abstract](https://ep2022.europython.eu/session/my-journey-using-docker-as-a-development-tool)
+- [Slides](https://docker-as-a-dev-tool.haseebmajid.dev/)
 
 ## Photo from conference
 
