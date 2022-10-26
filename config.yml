@@ -48,7 +48,8 @@ params:
   hideSummary: false
   showtoc: true
   tocopen: false
-  enableLikes: true
+  SeriesOpen: false
+  showLikes: true
 
   assets:
     favicon: "/favicon.ico"
