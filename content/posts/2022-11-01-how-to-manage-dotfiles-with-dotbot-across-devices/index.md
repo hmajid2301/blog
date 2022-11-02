@@ -1,5 +1,5 @@
 ---
-title: How to manage dotfiles with Dotbot across devices
+title: How to Manage your Dotfiles with DotBot across Devices
 canonicalURL: https://haseebmajid.dev/posts/2022-10-21-how-to-manage-dotfiles-with-dotbot-across-devices/
 date: 2022-11-01
 series:
