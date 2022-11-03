@@ -14,7 +14,7 @@ collections:
     media_folder: "images"
     public_folder: "images"
     create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    slug: "{{fields.date}}-{{slug}}"
     editor:
       preview: true
     fields:
@@ -25,7 +25,12 @@ collections:
           widget: "hidden",
           default: "https://haseebmajid.dev/posts/{{slug}}",
         }
-      - { label: "Publish Date", name: "date", widget: "date" }
+      - {
+          label: "Publish Date",
+          name: "date",
+          widget: "date",
+          format: "YYYY-MM-DD",
+        }
       - { label: "Tags", name: "tags", widget: "list", allow_add: true }
       - { label: "Series", name: "series", widget: "list", allow_add: true }
       - {
