@@ -82,10 +82,12 @@ This is how we keep track of what version of the template this project is curren
 If you want more specifics about how copier does its update you can [read about it here](https://copier.readthedocs.io/en/stable/updating/#never-change-the-answers-file-manually).
 {{< /admonition >}}
 
-## Thanks
-
+## That's It!
 
 So that's it! We looked at how we can update our downstream projects when we use `copier` to template our repository.
+One other thing we could look at doing is trying to automate this further, perhaps by automatically creating PR/MRs, to all
+downstream projects when we update thte template. We would run `copier update` and create a new branch, that a human could then
+review. A bit like dependabot for dependencies in GitHub.
 
 ## Appendix
 
