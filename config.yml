@@ -49,7 +49,7 @@ params:
   showtoc: true
   tocopen: false
   SeriesOpen: false
-  showLikes: true
+  showLikes: false
 
   assets:
     favicon: "/favicon.ico"
