@@ -15,13 +15,8 @@ minify:
   minifyOutput: true
 
 markup:
-  goldmark:
-    renderer:
-      unsafe: true
   highlight:
     style: dracula
-    lineNos: false
-    noClasses: false
 
 params:
   env: production
