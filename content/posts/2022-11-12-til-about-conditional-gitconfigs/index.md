@@ -19,7 +19,6 @@ Where my config looks something like this:
 [user]
 	email = hello@haseebmajid.dev
 	name = Haseeb Majid
-	signingkey = A236785D59F190761E9CE8EC78283DB3D233E1F9
 # ...
 ```
 
@@ -34,7 +33,6 @@ read more about [them here](https://git-scm.com/docs/git-config#_conditional_inc
 [user]
 	email = hello@haseebmajid.dev
 	name = Haseeb Majid
-	signingkey = A236785D59F190761E9CE8EC78283DB3D233E1F9
 [includeIf "gitdir:/Users/"]
   path = .gitconfig.mac
 
