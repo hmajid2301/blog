@@ -10,7 +10,7 @@ series:
   - Templates with copier
 ---
 
-Hi :wave: everyone, in the blog post I'm going to over how we can use `Copier` to create templates for our repositories.
+Hi :wave: everyone, in this blog post I'm going to over how we can use `Copier` to create templates for our repositories.
 
 ## Why create a template repo ?
 
