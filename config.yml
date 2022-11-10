@@ -70,6 +70,8 @@ params:
     buttons:
       - name: Posts
         url: posts
+      - name: Series
+        url: series
       - name: Archive
         url: archive
       - name: Tags
@@ -87,6 +89,9 @@ params:
       url: "https://github.com/hmajid2301"
     - name: linkedin
       url: "https://www.linkedin.com/in/haseeb-majid-ba0a5194/"
+    - name: mastodon
+      rel: "me"
+      url: "https://hachyderm.io/@majiy00"
 
   cover:
     hidden: true
