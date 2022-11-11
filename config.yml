@@ -29,6 +29,8 @@ params:
   defaultTheme: auto
 
   ShowReadingTime: true
+  ShowPageViews: true
+  ShowLikes: false
   ShowShareButtons: false
   ShowPostNavLinks: true
   ShowBreadCrumbs: true
@@ -44,7 +46,6 @@ params:
   showtoc: true
   tocopen: false
   SeriesOpen: false
-  showLikes: false
 
   assets:
     favicon: "/favicon.ico"
