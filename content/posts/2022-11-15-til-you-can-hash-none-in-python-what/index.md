@@ -25,7 +25,7 @@ These objects include `strings`, `tuples`, `sets` but don't include `lists` as t
 hashable.
 
 {{< admonition type="tip" title="Lists as keys?" details="true" >}}
-Using a list as a key won't provide a consistent hash to therefore you wouldn't be able
+Using a list as a key won't provide a consistent hash therefore you wouldn't be able
 to find the value associated with that list. Again this is because lists are mutable
 so their hash would change.
 
@@ -46,14 +46,14 @@ In fact for this very reason you cannot even hash them using the builtin `hash` 
 
 ## Hash?
 
-If we do try to use the builtin `hash` function on `None` you will notice we do get a hash (int) as expected.
+If we do try to use the built-in `hash` function on `None` you will notice we do get a hash (int) as expected.
 
 ```python
 In [1]: hash(None)
 Out[1]: 8783956518372
 ```
 
-> So yeh you can use `None` as a key in a dictionary.
+> So yeah you can use `None` as a key in a dictionary.
 
 {{< admonition type="warning" title="JSON Caveat" details="true" >}}
 One thing to note is when transforming a dictionary into JSON. The `None` will become a string.
