@@ -33,6 +33,17 @@ collections:
         }
       - { label: "Tags", name: "tags", widget: "list", allow_add: true }
       - { label: "Series", name: "series", widget: "list", allow_add: true }
+      - label: "Cover"
+        name: "cover"
+        widget: "object"
+        collapsed: true
+        fields:
+          - {
+              label: "Image",
+              name: "image",
+              default: "images/cover.png",
+              widget: "string",
+            }
       - {
           label: "Images",
           name: "thumbnail",
