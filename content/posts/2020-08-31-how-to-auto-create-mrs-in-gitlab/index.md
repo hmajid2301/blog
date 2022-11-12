@@ -5,7 +5,8 @@ date: 2020-08-31
 tags:
   - gitlab
   - ci-cd
-thumbnail: images/ci-vars.gif
+cover:
+  image: images/cover.png
 ---
 
 In this article, we will go over how we can use the `gitlab-auto-mr` CLI script I wrote to help automate your Gitlab

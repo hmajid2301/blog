@@ -6,6 +6,8 @@ tags:
   - react-native
   - expo
   - debugging
+cover:
+  image: images/cover.png
 ---
 The _core_ logic of my React Native app involves using WebViews because I need to access the HTML5 canvas. Whilst
 developing this code there are bound to be errors and issues with the WebView code. Figuring out how to debug

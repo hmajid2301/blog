@@ -5,7 +5,8 @@ date: 2020-08-20
 tags:
   - gatsby
   - react
-thumbnail: images/main.gif
+cover:
+  image: images/cover.png
 ---
 
 ![Search Gif](images/main.gif)

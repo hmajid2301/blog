@@ -6,7 +6,8 @@ tags:
   - gatsby
   - react
   - typescript
-thumbnail: images/example_toc.png
+cover:
+  image: images/cover.png
 ---
 A lot of people, I included, are using Gatsby to build their own blogs. One of the things I wanted to add to my blog
 was a table of contents (ToC) 📝. A ToC will show you all the headings of an article and when you click on a heading it'll

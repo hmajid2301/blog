@@ -6,6 +6,8 @@ tags:
   - python
   - tox
   - makefile
+cover:
+  image: images/cover.png
 ---
 In this article, we will go over how we can use a makefile and tox to automate various Python related tools.
 This article assumes you are running bash (or equivalent).

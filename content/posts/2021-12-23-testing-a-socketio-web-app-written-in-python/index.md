@@ -9,6 +9,8 @@ tags:
   - pytest
   - socketsio
   - uvicorn
+cover:
+  image: images/cover.png
 ---
 In this article I will show you how you can test an async Socketio application in Python, where the ASGI server we are running is uvicorn.
 I will be referring to these tests as integration tests, though depending on who you ask they could be called E2E tests, system tests, slow test etc.

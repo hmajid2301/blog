@@ -8,6 +8,8 @@ tags:
   - gatsby
   - storybook
   - mdx
+cover:
+  image: images/cover.png
 ---
 This article (sort of) continues on from my previous article
 [How to use Storybooks, Gatsby, Babel, Tailwind, Typescript together](/posts/2020-06-29-how-to-use-storybooks-gatsby-babel-tailwind-typescript-together/).

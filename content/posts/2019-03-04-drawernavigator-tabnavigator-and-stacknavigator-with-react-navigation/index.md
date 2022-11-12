@@ -6,6 +6,8 @@ tags:
   - react-native
   - react-navigation
   - expo
+cover:
+  image: images/cover.png
 ---
 
 In this article, we will create a simple React Native (with [Expo](https://expo.io/)) application using React

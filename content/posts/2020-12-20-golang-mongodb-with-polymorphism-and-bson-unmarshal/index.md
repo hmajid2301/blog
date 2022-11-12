@@ -6,6 +6,8 @@ tags:
   - golang
   - mongodb
   - bson
+cover:
+  image: images/cover.png
 ---
 Recently I've been working on a new personal project called Banter Bus, a browser-based multiplayer game.
 I've been working on a REST API to add new questions to the game. The API is built in Golang and uses

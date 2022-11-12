@@ -10,7 +10,8 @@ tags:
   - vscode
 series:
   - Dotfiles management with Dotbot
-thumbnail: images/say-docker.jpeg
+cover:
+  image: images/cover.png
 ---
 
 {{< admonition type="warning" title="Devcontainers" details="false" >}}

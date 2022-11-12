@@ -6,7 +6,8 @@ tags:
   - gitlab
   - ci-cd
   - docz
-thumbnail: images/docs.png
+cover:
+  image: images/cover.png
 ---
 In this article I will show you how you can deploy a Docz website on Gitlab pages, using `.gitlab-ci.yml`.
 Most of this article should be applicable to Github pages as well.

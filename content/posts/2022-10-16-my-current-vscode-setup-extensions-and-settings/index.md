@@ -5,6 +5,8 @@ date: 2022-10-16
 tags:
   - vscode
   - setup
+cover:
+  image: images/cover.png
 ---
 
 Today I will go over my current VSCode setup covering both extensions and settings.

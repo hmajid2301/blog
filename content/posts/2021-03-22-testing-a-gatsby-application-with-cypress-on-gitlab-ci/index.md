@@ -8,6 +8,8 @@ tags:
   - react
   - gitlab
   - ci-cd
+cover:
+  image: images/cover.png
 ---
 
 In this blog post, we will go over how we can automatically test a Gatsby site end-to-end (e2e), using Cypress on Gitlab CI.

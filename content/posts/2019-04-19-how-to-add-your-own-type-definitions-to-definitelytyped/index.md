@@ -4,6 +4,8 @@ canonicalURL: https://haseebmajid.dev/posts/2019-04-19-how-to-add-your-own-type-
 date: 2019-04-19
 tags:
   - typescript
+cover:
+  image: images/cover.png
 ---
 Recently I started using TypeScript (TS) with React Native. Now I won't be going over the benefits of
 typescript in this article there are plenty for other articles that will explain the benefits (and drawbacks).

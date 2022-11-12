@@ -5,7 +5,8 @@ date: 2022-11-11
 tags: []
 series:
   - TIL
-thumbnail: images/til.jpg
+cover:
+  image: images/cover.png
 ---
 
 # What is a TIL post?
@@ -17,7 +18,7 @@ TIL - Stands for today I learnt. These posts will be shorts summaries of somethi
 The TIL posts have a low barrier to entry and are a lot easier to write. Therefore they should encourage me
 to post more often. In all my blog posts I try to post about things that I struggled to do. If I struggled
 to implement a feature or build something. It shows that there wasn't a tutorial or an easy example I could follow.
-So then I decide to write my own, to make it easier for others. It also has a nice side effect of helping me remember the topic
+So then I usually decide to write my own, to make it easier for others. It also has a nice side effect of helping me remember the topic
 better.
 
 Also, a TIL is a lot easier to write as they are a lot shorter. I cannot stress how important it is that they are shorter.

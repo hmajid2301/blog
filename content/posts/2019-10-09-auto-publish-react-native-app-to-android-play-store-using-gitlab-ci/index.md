@@ -7,7 +7,8 @@ tags:
   - ci-cd
   - gitlab
   - android
-thumbnail: images/json-key.png
+cover:
+  image: images/cover.png
 ---
 In this article, I will show you how can automate the publishing of your AAB/APK to the `Google Play Console`.
 We will be using the [Gradle Play Publisher](https://github.com/Triple-T/gradle-play-publisher) (GPP) plugin to do

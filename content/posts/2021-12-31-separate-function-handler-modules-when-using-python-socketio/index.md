@@ -8,6 +8,8 @@ tags:
   - fastapi
   - code-organisation
 date: 2021-12-31
+cover:
+  image: images/cover.png
 ---
 
 In this article I will show you how you can have separate modules for your Socketio event handlers.

@@ -7,6 +7,8 @@ tags:
   - socks
   - networking
   - proxy
+cover:
+  image: images/cover.png
 ---
 In this article, we will go over how you can use `proxychains` to proxy our traffic through a socks proxy.
 

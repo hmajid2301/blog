@@ -7,6 +7,8 @@ tags:
   - flask
   - testing
   - pytest
+cover:
+  image: images/cover.png
 ---
 In this article, I will show you how you can test a Python web service that was built using [Connexion](https://github.com/zalando/connexion/)
 (a wrapper library around Flask). We will go over how you can mock functions and how you can test

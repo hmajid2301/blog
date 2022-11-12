@@ -6,6 +6,8 @@ tags:
   - python
 series:
   - TIL
+cover:
+  image: images/cover.png
 ---
 
 **TIL you can hash `None` in Python**

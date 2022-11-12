@@ -7,6 +7,8 @@ tags:
   - docker-compose
   - python
   - sqlalchemy
+cover:
+  image: images/cover.png
 ---
 SQLAlchemy is an object-relational mapper (ORM), it allow us to interact with a database using Python functions and objects. For example, if we have a table called
 `Cats` we could retrieve every row with a command like `Cats.query.all()`. The main advantage of this is that it allows us to abstract away the SQL.

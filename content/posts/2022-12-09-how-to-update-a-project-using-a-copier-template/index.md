@@ -8,6 +8,8 @@ tags:
   - python
 series:
   - Templates with copier
+cover:
+  image: images/cover.png
 ---
 
 In this article, I will show you how you can update a project, that was created from a copier template.

@@ -6,6 +6,8 @@ tags:
   - react-native
   - ci-cd
   - gitlab
+cover:
+  image: images/cover.png
 ---
 A bit of backstory when I first started developing React Native apps, I found there weren't
 any good example of Gitlab CI files. So in this article, I will show you an example `.gitlab-ci.yml`

@@ -6,6 +6,8 @@ tags:
   - react
   - react-hooks
   - react-context
+cover:
+  image: images/cover.png
 ---
 In this article, I will show how you can use React Context with React Hooks to store global state across a React app,
 then store that state in local storage. This can be used for example to store light vs dark theme, then whenever the

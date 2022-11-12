@@ -7,6 +7,8 @@ tags:
   - debugging
   - vscode
   - webstorm
+cover:
+  image: images/cover.png
 ---
 Visual Studio Code and WebStorm are two popular editors for developing React Native/Expo apps. These editors have lots
 of useful features, such as syntax highlighting, git integration and auto completion. However working out to debug

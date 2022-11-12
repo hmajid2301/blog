@@ -6,6 +6,8 @@ tags:
   - python
   - sqlalchemy
   - database
+cover:
+  image: images/cover.png
 ---
 SQLAlchemy is an Object-relational mapping (ORM) made for the Python programming language. ORMs in theory allow
 programmers to abstract away SQL. In simple terms they allow us to interact with a database using purely Python

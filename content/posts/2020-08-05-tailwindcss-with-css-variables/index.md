@@ -5,6 +5,8 @@ date: 2020-08-05
 tags:
   - tailwindcss
   - css
+cover:
+  image: images/cover.png
 ---
 TailwindCSS allows us to use pre-defined classes instead of defining our CSS styles. In this article, we will go over
 how we can use Custom properties (sometimes referred to as CSS variables or cascading variables) with TailwindCSS.

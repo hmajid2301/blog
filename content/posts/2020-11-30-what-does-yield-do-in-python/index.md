@@ -7,6 +7,8 @@ tags:
   - generators
   - yield
   - pytest
+cover:
+  image: images/cover.png
 ---
 In this article, we will go over what the `yield` keyword is used for. We will also cover how you can use a `yield`
 with a pytest fixture to allow us to "teardown" tests, after all of our tests have run. A common job being removing

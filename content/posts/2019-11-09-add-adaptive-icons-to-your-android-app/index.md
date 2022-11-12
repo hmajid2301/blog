@@ -5,7 +5,8 @@ date: 2019-11-09
 tags:
   - react-native
   - android
-thumbnail: images/android-studio.gif
+cover:
+  image: images/cover.png
 ---
 In this article, we will go over how you can use add the new adaptive app icons to your Android app.
 In his article I will be using a React Native project, so the structure of your Android app may vary.

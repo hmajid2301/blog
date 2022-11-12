@@ -8,6 +8,8 @@ tags:
   - pytest
   - gitlab
   - ci-cd
+cover:
+  image: images/cover.png
 ---
 On a recent project, I was working on, I wanted to test my web service using docker-compose where I can run and kill
 Docker containers used by the application and see how my web application reacts to that. In this article, we will

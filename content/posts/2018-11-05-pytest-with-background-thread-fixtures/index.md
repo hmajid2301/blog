@@ -6,6 +6,8 @@ tags:
   - python
   - pytest
   - testing
+cover:
+  image: images/cover.png
 ---
 Recently I had to test some of my Python :snake: :snake: :snake: code which required an external dependency and communicating by using TCP sockets :electric_plug: . You can think of this dependency as essentially a database because it stored information. However, when testing my Python code, I couldn't rely on there always being a TCP server to send messages to.
 

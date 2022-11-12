@@ -1,0 +1,5 @@
+template: og/template.png
+tags:
+  start:
+    px: -1000
+    py: -1000

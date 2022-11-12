@@ -8,6 +8,8 @@ tags:
   - dot
   - dotfiles
   - git
+cover:
+  image: images/cover.png
 ---
 
 {{< admonition type="warning" title="Previous article" details="false" >}}

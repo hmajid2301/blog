@@ -5,6 +5,8 @@ date: 2020-05-31
 tags:
   - react-native
   - structure
+cover:
+  image: images/cover.png
 ---
 In this article, I will go over an example project structure you can use for your React Native projects.
 This of couse my opinion so feel free to tweak the structure to your needs/preferences.

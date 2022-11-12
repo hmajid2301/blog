@@ -8,7 +8,8 @@ tags:
   - firebase
   - gitlab
   - ci-cd
-thumbnail: images/firebase.gif
+cover:
+  image: images/cover.png
 ---
 In this article, we will talk about how you can use React Native with [Firebase Cloud Functions](https://firebase.google.com/docs/functions).
 We will also go over how we can automate the process of updating the cloud functions using [Gitlab CI](https://docs.gitlab.com/ee/ci/).

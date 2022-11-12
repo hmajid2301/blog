@@ -7,6 +7,8 @@ tags:
   - python
   - docker-compose
   - flask
+cover:
+  image: images/cover.png
 ---
 ## Terminology
 

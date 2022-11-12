@@ -11,6 +11,8 @@ tags:
   - storybook
   - babel
   - typescript
+cover:
+  image: images/cover.png
 ---
 Recently I started to re-design my website, I decided to use this as an opportunity to learn some new technologies
 such as Gatsby, Tailwind. I also decided to try using Storybook. For this said project I used MDX to create my

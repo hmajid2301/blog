@@ -5,6 +5,8 @@ date: 2019-12-01
 tags:
   - typescript
   - javascript
+cover:
+  image: images/cover.png
 ---
 In this article, I will explain how you can use typescript aliases with Babel or TSPath.
 If you have been using TypeScript/JavaScript (TS/JS) and have a nested folder structure,

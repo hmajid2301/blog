@@ -7,6 +7,8 @@ tags:
   - fizz
   - gin
   - openapi
+cover:
+  image: images/cover.png
 ---
 
 

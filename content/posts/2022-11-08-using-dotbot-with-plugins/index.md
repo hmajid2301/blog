@@ -8,6 +8,8 @@ tags:
   - git
 series:
   - Dotfiles management with Dotbot
+cover:
+  image: images/cover.png
 ---
 
 {{< admonition type="warning" title="Previous article" details="false" >}}

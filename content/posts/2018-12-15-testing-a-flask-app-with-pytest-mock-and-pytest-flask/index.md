@@ -7,6 +7,8 @@ tags:
   - python
   - pytest
   - flask
+cover:
+  image: images/cover.png
 ---
 Pytest is a popular Python library used for testing. It is my preferred testing library because it requires less boilerplate code than the alternatives such as (the builtin) unittest, the built in testing library.
 In this article, I will show you how you can use `pytest-flask` and `pytest-mock` to test your Flask app. These two

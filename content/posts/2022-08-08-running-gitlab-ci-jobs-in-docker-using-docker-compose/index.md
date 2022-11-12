@@ -7,6 +7,8 @@ tags:
   - docker-compose
   - gitlab
   - ci-cd
+cover:
+  image: images/cover.png
 ---
 Shameless plug: This is related to a EuroPython 2022 talk I am giving, [My Journey Using Docker as a Development Tool](/talks/my-journey-using-docker-as-a-developer-tool). 
 

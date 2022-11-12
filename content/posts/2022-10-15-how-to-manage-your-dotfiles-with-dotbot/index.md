@@ -8,6 +8,8 @@ tags:
   - dotfiles
   - dotbot
   - git
+cover:
+  image: images/cover.png
 ---
 
 If you're like me you find yourself moving between multiple systems. Whether that be between my personal

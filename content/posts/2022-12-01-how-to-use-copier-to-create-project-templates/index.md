@@ -8,6 +8,8 @@ tags:
   - templating
 series:
   - Templates with copier
+cover:
+  image: images/cover.png
 ---
 
 Hi :wave: everyone, in this blog post I'm going to over how we can use `Copier` to create templates for our repositories.
