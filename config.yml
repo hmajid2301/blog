@@ -16,9 +16,7 @@ minify:
 
 markup:
   highlight:
-    style: dracula
-    lineNos: false
-    noClasses: false
+    noclasses: false
 
 params:
   env: production

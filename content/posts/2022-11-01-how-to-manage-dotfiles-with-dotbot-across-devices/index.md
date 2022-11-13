@@ -36,7 +36,7 @@ We could have a `windows` profile or a `linux` profile. Then specify different t
 
 So imagine we have something like so:
 
-```
+```bash
 .
 |-- bashrc
 |-- dotbot
@@ -62,7 +62,7 @@ So for example I may create a file called `git.yaml` like so:
 
 Then we need to move this file to `meta/configs`; So now our project looks something like
 
-```
+```bash
 .
 ├── ....
 ├── bashrc
@@ -104,7 +104,7 @@ In this case it will copy over the gitconfig file in the project, to the host ma
 
 Now our setup looks something this:
 
-```
+```bash
 .
 ├── ....
 ├── bashrc
@@ -222,7 +222,7 @@ cd "${BASE_DIR}"
 
 Finally we should have something like this:
 
-```
+```bash
 .
 ├── ....
 ├── bashrc

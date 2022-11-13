@@ -37,7 +37,7 @@ You have a dotfiles repo which uses DotBot, has profiles and has plugins install
 
 Let's go to our dotfiles repo which we will assume looks like:
 
-```
+```bash
 ├── ....
 ├── bashrc
 ├── fish

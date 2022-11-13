@@ -31,7 +31,7 @@ We can automate some of this with Dotbot and its plugins.
 
 Lets pretend we have something setup like this. We are using Dotbot with profiles.
 
-```
+```bash
 .
 ├── ....
 ├── bashrc
@@ -126,7 +126,7 @@ Now we can create a new config in `meta/configs/packages.yaml`:
 This specifies a list of packages we want to install with `apt` including `jq`, `fzf` and `vim`.
 Then in our `meta/profiles/linux` looks like:
 
-```
+```bash
 git
 packages-sudo
 ```
