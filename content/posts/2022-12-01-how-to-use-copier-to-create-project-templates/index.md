@@ -35,11 +35,11 @@ You can read more about the comparison in the [copier docs here](https://copier.
 
 ## Let's get started
 
-{{< admonition type="warning" title="Existing Repository" details="false" >}}
+{{< notice type="warning" title="Existing Repository" >}}
 Probably the easiest way to create a template repository is to take an existing one and copy it.
 Then we template out the copied repo. In my case I called it FastAPI Template and created a new
 project on Gitlab.
-{{< /admonition >}}
+{{< /notice >}}
 
 Now that we have a repository, we can start to template it.
 First create a file in the root of your project called `copier.yaml`. The file will be used to prompt the user for answers to these questions.

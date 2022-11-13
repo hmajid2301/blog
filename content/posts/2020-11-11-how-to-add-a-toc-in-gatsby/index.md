@@ -44,10 +44,10 @@ yarn add gatsby-remark-autolink-headers gatsby-plugin-emotion
 The plugin `gatsby-remark-autolink-headers` turns all of the headers into anchor links. This means we can link to the
 headers.
 
-{{< admonition type="info" title="Emotion" details="false" >}}
+{{< notice type="info" title="Emotion" >}}
 You only need to add the emotion plugin if you want to use emotionjs, which is a css-in-js solution.
 You will see this later when we look at the `toc.js` component.
-{{< /admonition >}}
+{{< /notice >}}
 
 {{< highlight js "hl_lines=1-2,5" >}}
 `gatsby-plugin-emotion`,
@@ -191,7 +191,7 @@ const headings = [
 
 As discussed earlier we are using the `autolink` headers plugin. This plugin auto-generates anchor links for all of our header. We will use the `href` attribute to link to these headers in our ToC.
 
-{{< admonition type="info" title="href" details="false" >}}
+{{< notice type="info" title="href" >}}
 The `href` link we replace all the whitespace with `-` so `"Heading 1"` becomes the anchor link `#heading-1`.
 
 ```jsx
@@ -199,7 +199,7 @@ The `href` link we replace all the whitespace with `-` so `"Heading 1"` becomes 
   {heading.value}
 </ToCLink>
 ```
-{{< /admonition >}}
+{{< /notice >}}
 
 ### Twin Macro & EmotionJS
 
@@ -226,10 +226,10 @@ vim package.json
 }
 ```
 
-{{< admonition type="info" title="TailwindCSS with Gatsby" details="false" >}}
+{{< notice type="info" title="TailwindCSS with Gatsby" >}}
 Gatsby have a good tutorial [here](https://www.gatsbyjs.com/docs/tailwind-css/), on how to integrate
 TailwindCSS with a Gatsby site.
-{{< /admonition >}}
+{{< /notice >}}
 
 The `twin.macro` library allows us to use [`TailwindCSS`](https://tailwindcss.com/). Tailwind provides us with
 many pre-generated classes that we can then leverage within our code. Here I am assuming you are somewhat familiar with how it works.
@@ -267,7 +267,7 @@ const InnerScroll = styled.div`
 `;
 ```
 
-{{< admonition type="info" title="div" details="false" >}}
+{{< notice type="info" title="div" >}}
 Gatsby have a good tutorial [here](https://www.gatsbyjs.com/docs/tailwind-css/), on how to integrate
 The `styled.div` this means `InnerScroll` when translated to HTML code will be `<div>`.
 
@@ -278,7 +278,7 @@ The `styled.div` this means `InnerScroll` when translated to HTML code will be `
   </li>
 </div>
 ```
-{{< /admonition >}}
+{{< /notice >}}
 
 
 Another interesting component to look at is the `ToC`. This combined twin.macro and emotionjs

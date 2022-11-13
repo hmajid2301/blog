@@ -18,19 +18,19 @@ a project template. I listed the only reason I choose to use copier over say coo
 "easy" way to update downstream projects.
 
 
-{{< admonition type="tip" title="Existing Repository" details="false" >}}
+{{< notice type="tip" title="Existing Repository" >}}
 From here on out we will assume you have a template repository that uses `copier`.
 Here is an [example repository](https://gitlab.com/banter-bus/fastapi-template).
-{{< /admonition >}}
+{{< /notice >}}
 
 ## Update
 
-{{< admonition type="tip" title="Terminology" details="false" >}}
+{{< notice type="tip" title="Terminology" >}}
 Some terminology:
 
 - Template Repository: The repository is built using `copier`. This is the repository which we use to create projects.
 - Downstream Project: A project created using the template repository. This is the project we will deploy into production.
-{{< /admonition >}}
+{{< /notice >}}
 
 To be able to use `copier update` to update a downstream project we need to meet the following conditions:
 
@@ -80,9 +80,9 @@ This is how we keep track of what version of the template this project is curren
 
 > If you need to install `copier` you can read how to do it [here](https://copier.readthedocs.io/en/stable/#installation).
 
-{{< admonition type="tip" title="More Details" details="false" >}}
+{{< notice type="tip" title="More Details" >}}
 If you want more specifics about how copier does its update you can [read about it here](https://copier.readthedocs.io/en/stable/updating/#never-change-the-answers-file-manually).
-{{< /admonition >}}
+{{< /notice >}}
 
 ## That's It!
 

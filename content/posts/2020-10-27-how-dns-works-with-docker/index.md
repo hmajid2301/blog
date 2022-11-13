@@ -50,15 +50,15 @@ dig +short google.com AAAA
 2a00:1450:4009:810::200e
 ```
 
-{{< admonition type="important" title="More Details" details="false" >}}
+{{< notice type="important" title="More Details" >}}
 In a future article, I will do a deeper dive into the mechanics of how DNS works and the actual process of converting a domain name to an IP address.
-{{< /admonition >}}
+{{< /notice >}}
 
 So that's DNS in a nutshell! On to how it relates to Docker.
 
-{{< admonition type="tip" title="tl:dr" details="false" >}}
+{{< notice type="tip" title="tl:dr" >}}
 DNS is a system used to convert domain names into IP addresses because it's much easier for humans to remember names as compared with numbers.
-{{< /admonition >}}
+{{< /notice >}}
 
 ## Docker
 
@@ -104,10 +104,10 @@ volumes:
 
 It will create three containers, Nginx, a flask app and a Postgres database, when we run `docker-compose up --build`, in particular take **note** of the `container_name`(s): `postgres`, `nginx`, `flask`.
 
-{{< admonition type="tip" title="Source Code" details="false" >}}
+{{< notice type="tip" title="Source Code" >}}
 The source code for those Docker containers can be found
 [here](https://gitlab.com/hmajid2301/articles/-/tree/master/7.%20Multi%20Docker%20Container%20with%20Nginx%2C%20Flask%20and%C2%A0MySQL/source_code)
-{{< /admonition >}}
+{{< /notice >}}
 
 ### Nginx
 
@@ -169,9 +169,9 @@ using the container name `postgres` rather than an IP in our connection URI. As 
 DATABASE_CONNECTION_URI = f'postgresql+psycopg2://{user}:{password}@postgres:5432/{database}'
 ```
 
-{{< admonition type="info" title="Example" details="false" >}}
+{{< notice type="info" title="Example" >}}
 The example above is a URI used by the SQLAlchemy library to connect to the Postgres database.
-{{< /admonition >}}
+{{< /notice >}}
 
 ## Deep Diver
 
@@ -188,9 +188,9 @@ It contains the following components:
 
 When we install Docker we are also installing the Docker Engine.
 
-{{< admonition type="info" title="More Details" details="false" >}}
+{{< notice type="info" title="More Details" >}}
 In a future article, I will do a deeper dive into the Docker Engine as well 🐳.
-{{< /admonition >}}
+{{< /notice >}}
 
 Briefly, how it works is we use the CLI i.e. `docker run`/`docker-compose`, which makes
 API requests (on our behalf) to the Docker daemon. The Docker daemon then interacts with containerd, which is responsible for the creation/deletion of our containers. Essentially containerd is a container supervisor.
@@ -206,27 +206,27 @@ returns that IP back to the requesting container.
 
 ![Docker Engine DNS](images/docker_engine.png)
 
-{{< admonition type="tip" title="Normal Queries" details="false" >}}
+{{< notice type="tip" title="Normal Queries" >}}
 For all other DNS queries the Docker Engine will use the host machine's DNS settings,
 unless overwritten (explained below in the `Misc` section).
-{{< /admonition >}}
+{{< /notice >}}
 
 
-{{< admonition type="info" title="Daemon vs Engine" details="false" >}}
+{{< notice type="info" title="Daemon vs Engine" >}}
 > Docker Daemon checks the client request and communicates with the Docker components to perform a service whereas, Docker Engine or Docker is the base engine installed on your host machine to build and run containers using Docker components and services - Anjali Nair, [Quora](https://www.quora.com/What-is-the-difference-between-the-Docker-Engine-and-Docker-Daemon)
-{{< /admonition >}}
+{{< /notice >}}
 
 ## Misc
 
-{{< admonition type="info" title="Docker DNS Settings" details="false" >}}
+{{< notice type="info" title="Docker DNS Settings" >}}
 We can customise Docker's default DNS settings by using the `--dns` flag, for example, to use Google's DNS you could
 go `--dns 8.8.8.8`. You can also provide your DNS records for the container to use by using the `--extra_hosts` flag.
 For example `--extra_hosts somehost:162.242.195.82`.
-{{< /admonition >}}
+{{< /notice >}}
 
-{{< admonition type="warnings" title="Docker DNS Settings" details="false" >}}
+{{< notice type="warnings" title="Docker DNS Settings" >}}
 Custom hosts defined in the `/etc/hosts` file are ignored. They must be passed in using the `extra_hosts` flag.
-{{< /admonition >}}
+{{< /notice >}}
 
 ## Appendix
 

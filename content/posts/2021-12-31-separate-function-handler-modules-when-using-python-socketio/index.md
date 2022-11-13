@@ -34,10 +34,10 @@ socket_manager = SocketManager(app=application, mount_location="/")
 
 Here is where we setup our FastAPI application and create a Socketio server as a sub-application and mount it.
 
-{{< admonition type="info" title="fastapi-socketio" details="false" >}}
+{{< notice type="info" title="fastapi-socketio" >}}
 Here I am using the `fastapi-socketio` library to handle mounting the application into the Fastapi app.
 But this again can be done without the library, see this [Github issue](https://github.com/tiangolo/fastapi/issues/129#issuecomment-547806432) for an example.
-{{< /admonition >}}
+{{< /notice >}}
 
 Anyhow we could simply do something like, this create a Socketio only server without FastAPI.
 

@@ -42,12 +42,12 @@ the intermediate server. Also, there are other advantages in using your local de
 all your shortcuts saved, perhaps you use a different shell zsh, fish vs bash on the server itself. For whatever
 reason, it may be more convenient to access `Server B` directly from our local machine.
 
-{{< admonition type="warning" title="🔐 Production Access" details="false" >}}
+{{< notice type="warning" title="🔐 Production Access" >}}
 Now depending on where you work and how your policies work it may not be possible or a good idea to access
 your production servers from your local machine. This is just a simple example of one reason you may
 want to use a SOCKS proxy. There may be many others, such as accessing your test environment instead of
 production.
-{{< /admonition >}}
+{{< /notice >}}
 
 ## SOCKS Proxy
 
@@ -59,11 +59,11 @@ server (`Server B`), it merely passes it onto between the two.
 
 ![OSI Model](https://upload.wikimedia.org/wikipedia/commons/2/2b/Osi-model.png)
 
-{{< admonition type="tip" title="SOCKS Proxy" details="false" >}}
+{{< notice type="tip" title="SOCKS Proxy" >}}
 You can learn more about
 [SOCKS proxies here](https://securityintelligence.com/posts/socks-proxy-primer-what-is-socks5-and-why-should-you-use-it/).
 This article goes into much more detail than I do!
-{{< /admonition >}}
+{{< /notice >}}
 
 ### SSH Command
 
@@ -79,9 +79,9 @@ ssh -D 8123 -f -C -q -N haseeb@10.10.10.10
 - `-q`: Quiet mode doesn't show any output
 - `-N`: Doesn't execute remote commands, useful for just port forward (protocol 2+)
 
-{{< admonition type="tip" title="Multiple Proxies" details="false" >}}
+{{< notice type="tip" title="Multiple Proxies" >}}
 You can create multiple SOCKS proxies by running the SSH command binding to different local ports.
-{{< /admonition >}}
+{{< /notice >}}
 
 If the command worked, you now have a SOCKS proxy. One common use case of a SOCKS proxy is for internet
 browsing using very much the same logic described above. Maybe you can access a website at work which is
@@ -161,9 +161,9 @@ proxychains curl https://10.10.10.11/api/v1/healthcheck
 
 Or if you wanted to use terraform to deploy something on `Server B`, you could do something like:
 
-{{< admonition type="tip" title="Terraform" details="false" >}}
+{{< notice type="tip" title="Terraform" >}}
 To get terraform to use our SOCKS proxy we need to export the `HTTP_PROXY` and `HTTPS_PROXY` variables.
-{{< /admonition >}}
+{{< /notice >}}
 
 ```bash
 export HTTP_PROXY=socks5://127.0.0.1:8123
@@ -172,10 +172,10 @@ proxychains terraform plan
 proxychains terraform apply
 ```
 
-{{< admonition type="warning" title="ProxyChains TCP" details="false" >}}
+{{< notice type="warning" title="ProxyChains TCP" >}}
 proxychains will only proxy TCP connections from your `Local Machine`.
 However, it can resolve DNS through the proxy as well.
-{{< /admonition >}}
+{{< /notice >}}
 
 What is essentially going on here is that traffic is being sent from our `Local Machine` to `Server A` which can
 connect to `Server B` and pass traffic to the server. This in effect makes it seem our `Local Machine` can connect

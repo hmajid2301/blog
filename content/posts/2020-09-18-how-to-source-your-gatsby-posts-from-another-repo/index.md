@@ -28,10 +28,10 @@ yarn add gatsby-source-git
 
 Then add the plugin to your `gatsby-config.js` to tell it where to source its data from.
 
-{{< admonition type="warning" title="Gatsby Filesystem" details="false" >}}
+{{< notice type="warning" title="Gatsby Filesystem" >}}
 You need to use the `gatsby-source-filesystem` before the `gatsby-source-git`.
 You can read more about it [here at this Github issue](https://github.com/stevetweeddale/gatsby-source-git/issues/22).
-{{< /admonition >}}
+{{< /notice >}}
 
 ```js
 {
@@ -165,10 +165,10 @@ So every time we make a change in our article repo we want to trigger a rebuild 
 show you how you can do this with Gitlab CI. Every commit on the master branch, on our repo that contains our
 articles, will trigger a rebuild on the Gatsby repo.
 
-{{< admonition type="warning" title="Assumption" details="false" >}}
+{{< notice type="warning" title="Assumption" >}}
 This next section assumes that you use Gitlab to host your repos.
 It also assumes that for your Gatsby blog you use Gitlab CI to build/publish it.
-{{< /admonition >}}
+{{< /notice >}}
 
 For example, in my use case [the article repo](https://gitlab.com/hmajid2301/articles) will trigger a rebuild for
 [the Gatsby repo](https://gitlab.com/hmajid2301/portfolio-site/-/tree/7258fe7ca1366024f17da5952077cdc00f00a3a8).
@@ -238,19 +238,19 @@ deploy:site:
     - build:site
 {{< /highlight >}}
 
-{{< admonition type="tip" title="Artifcats" details="false" >}}
+{{< notice type="tip" title="Artifcats" >}}
 The `deploy:site` job uses the build artifacts from the previous `build:site` job which has the site data stored in the `public`
 folder. Due to the sites default settings on Netlify, this is what is uploaded when we use `netlify-cli`.
-{{< /admonition >}}
+{{< /notice >}}
 
 I build and deploy the site from Gitlab CI to save the build minutes on Netlify. All you need to do this is to get your
 `NETLIFY_SITE_ID` and create a `NETLIFY_PERSONAL_TOKEN` that can make the API request to publish the site on your behalf.
 
 ![Gatsby Blog CI](images/gatsby-blog-ci.png)
 
-{{< admonition type="info" title="Gitlab CI" details="false" >}}
+{{< notice type="info" title="Gitlab CI" >}}
 You can, of course, change the `deploy:site` job to suit how you want to deploy your site, i.e. Gitlab pages, Github Pages, Vercel etc.
-{{< /admonition >}}
+{{< /notice >}}
 
 ## Netlify
 

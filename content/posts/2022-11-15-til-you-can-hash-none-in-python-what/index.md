@@ -26,7 +26,7 @@ What this also meant is that `None` must be hashable as only hashable objects ca
 These objects include `strings`, `tuples`, `sets` but don't include `lists` as they are mutable and not
 hashable.
 
-{{< admonition type="tip" title="Lists as keys?" details="true" >}}
+{{< notice type="tip" title="Lists as keys?" opened="false" >}}
 Using a list as a key won't provide a consistent hash therefore you wouldn't be able
 to find the value associated with that list. Again this is because lists are mutable
 so their hash would change.
@@ -44,7 +44,7 @@ TypeError: unhashable type: 'list'
 ```
 
 In fact for this very reason you cannot even hash them using the builtin `hash` function in python.
-{{< /admonition >}}
+{{< /notice >}}
 
 ## Hash?
 
@@ -57,7 +57,7 @@ Out[1]: 8783956518372
 
 > So yeah you can use `None` as a key in a dictionary.
 
-{{< admonition type="warning" title="JSON Caveat" details="true" >}}
+{{< notice type="warning" title="JSON Caveat" opened="false" >}}
 One thing to note is when transforming a dictionary into JSON. The `None` will become a string.
 So when you convert it back from JSON to a python dictionary it will be something like:
 
@@ -67,4 +67,4 @@ d = {
   # ...
 }
 ```
-{{< /admonition >}}
+{{< /notice >}}

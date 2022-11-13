@@ -19,9 +19,9 @@ and for my actual projects interacting with an actual database.
 
 We will be using `pytest` as our testing framework.
 
-{{< admonition type="info" title="ASGI" details="false" >}}
+{{< notice type="info" title="ASGI" >}}
 ASGI (Asynchronous Server Gateway Interface) is a spiritual successor to WSGI, intended to provide a standard interface between async-capable Python web servers, frameworks, and applications. - https://asgi.readthedocs.io/en/latest/
-{{< /admonition >}}
+{{< /notice >}}
 
 ## main.py
 
@@ -127,9 +127,9 @@ async def client() -> AsyncIterator[AsyncClient]:
 
 ### Quick Aside FastAPI Testing
 
-{{< admonition type="danger" title="Uvicorn" details="false" >}}
+{{< notice type="danger" title="Uvicorn" >}}
 tl:dr: We need to start and stop the Uvicorn server within our tests.
-{{< /admonition >}}
+{{< /notice >}}
 
 Now when testing say a FastAPI application, it has a builtin test client we can use. This means we don't actually have
 to spin up a Uvicorn server to test our application. We can simply pretend to send requests to the FastAPI web service
@@ -271,16 +271,16 @@ Onto the second method `startup` this also overwrites a method in the parent cla
 the parent class's `startup` method (`await super().startup()`). Then we start the event loop ourselves
 `self.config.setup_event_loop()`, where our web app will run.
 
-{{< admonition type="info" title="Event Loop" details="false" >}}
+{{< notice type="info" title="Event Loop" >}}
 This is a different event loop in which our tests run in.
-{{< /admonition >}}
+{{< /notice >}}
 
 Finally we do `self._startup_done.set()`, we are setting this event as true i.e. is complete. So any coroutines waiting
 until this set can be carry on their execution.
 
-{{< admonition type="info" title="Asyncio" details="false" >}}
+{{< notice type="info" title="Asyncio" >}}
 An Event object manages an internal flag that can be set to true with the set() method and reset to false with the clear() method. The wait() method blocks until the flag is set to true. The flag is set to false initially. - https://docs.python.org/3/library/asyncio-sync.html#asyncio.Event
-{{< /admonition >}}
+{{< /notice >}}
 
 #### Yet another tangent on run() method
 
@@ -321,14 +321,14 @@ Remember these are the two methods we will call in our "startup and shutdown" fi
 to our empty variable from the `__init__` method `self._serve_task = asyncio.create_task(self.serve())`. It calls the `serve` method to start
 the Uvicorn server.
 
-{{< admonition type="info" title="What does create_task do?" details="false" >}}
+{{< notice type="info" title="What does create_task do?" >}}
 
 It submits the coroutine to run "in the background", i.e. concurrently with the current task and all other tasks, switching between them at await points. It returns an awaitable handle called a "task" which you can also use to cancel the execution of the coroutine. - https://stackoverflow.com/questions/62528272/what-does-asyncio-create-task-do
-{{< /admonition >}}
+{{< /notice >}}
 
-{{< admonition type="info" title="What is a task?" details="false" >}}
+{{< notice type="info" title="What is a task?" >}}
 It's an asyncio construct that tracks execution of a coroutine in a concrete event loop. When you call create_task, you submit a coroutine for execution and receive back a handle. You can await this handle when you actually need the result, or you can never await it, if you don't care about the result. This handle is the task, and it inherits from Future, which makes it awaitable and also provides the lower-level callback-based interface, such as add_done_callback. - https://stackoverflow.com/questions/62528272/what-does-asyncio-create-task-do
-{{< /admonition >}}
+{{< /notice >}}
 
 Then we `await self._startup_done.wait()`, this is the event we created earlier. It will wait until the `set()` function
 has been called in the in the `startup` method above.

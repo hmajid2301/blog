@@ -17,7 +17,7 @@ desktop and my work laptop or distro hopping on Linux. See relevant meme below:
 
 ![Distro Hopping Meme](images/distro_hopping.jpg)
 
-{{< admonition type="info" title="What are dotfiles?" details="false" >}}
+{{< notice type="info" title="What are dotfiles?" >}}
 Many tools/program store their configuration files as files on your machine.
 For example on Linux you will often find these in `~/.config` directory.
 
@@ -26,7 +26,7 @@ Some common examples of dotfiles:
 	- .vimrc
 	- .bashrc
 	- .gitconfig
-{{< /admonition >}}
+{{< /notice >}}
 
 I wanted to find an easy way to manage my dotfiles and share them between mutiple systems.
 I also wanted a easy way to install software/tools I used between my systems.
@@ -39,9 +39,9 @@ Dotbot works by creating symlinks between files in your git repo i.e `~/dotfiles
 So this means if we edit either file it will edit in both places. Typically I will edit the files in the dotfiles repo.
 You can then commit and push your changes at your leisure.
 
-{{< admonition type="info" title="Symlinks" details="false" >}}
+{{< notice type="info" title="Symlinks" >}}
 A symlink or a Symbolic Link is basically a shortcut to another file. It is a file that points to another file.
-{{< /admonition >}}
+{{< /notice >}}
 
 ## Why manage dotfiles with git? 
 

@@ -12,10 +12,10 @@ cover:
   image: images/cover.png
 ---
 
-{{< admonition type="warning" title="Previous article" details="false" >}}
+{{< notice type="warning" title="Previous article" >}}
 This article assumes you are familiar with dotfiles and Dobot.
 If you want to know more about Dotbot [click here](/posts/2022-10-15-how-to-manage-your-dotfiles-with-dotbot)
-{{< /admonition >}}
+{{< /notice >}}
 
 
 ![Dotfiles backup meme](images/meme.png)

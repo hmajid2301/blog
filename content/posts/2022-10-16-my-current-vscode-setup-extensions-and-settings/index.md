@@ -11,10 +11,10 @@ cover:
 
 Today I will go over my current VSCode setup covering both extensions and settings.
 
-{{< admonition type="warning" title="Out of date" details="false" >}}
+{{< notice type="warning" title="Out of date" >}}
 This article may be out of date, by the time you are reading this. It is accurate as of
 16th October 2022.
-{{< /admonition >}}
+{{< /notice >}}
 
 ![vscode meme](images/vscode-meme.png)
 

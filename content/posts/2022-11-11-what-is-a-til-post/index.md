@@ -25,10 +25,10 @@ Also, a TIL is a lot easier to write as they are a lot shorter. I cannot stress 
 More seriously it also will hopefully force me to be more concise and try to write fewer words to convey what I mean.
 These posts are also great for me, and I can reference them later if I forget something, which I definitely will.
 
-{{< admonition type="warning" title="Disclaimer" details="false" >}}
+{{< notice type="warning" title="Disclaimer" >}}
 However, most likely it will be something I learnt recently, as I often don't have the energy/time to post
 the same day I learn something new 😅.
-{{< /admonition >}}
+{{< /notice >}}
 
 ## Appendix
 

@@ -67,9 +67,9 @@ will have.
 
 ## Unmarshal
 
-{{< admonition type="info" title="BSON" details="false" >}}
+{{< notice type="info" title="BSON" >}}
 Binary JSON the format used by MongoDB readme more about it [here](https://www.mongodb.com/json-and-bson)
-{{< /admonition >}}
+{{< /notice >}}
 
 To do this we need to create a custom BSON unmarshal function. This will work very similarly to JSON unmarshaling.
 When we try to get data from MongoDB, doing something like:
@@ -185,10 +185,10 @@ us to partially unmarshal values. You can read more about it [here](https://godo
 Next, we need to unmarshal the data into the `QuestionSet` struct, this is mainly to fill all the other fields (`GameName`)
 besides `Questions`.
 
-{{< admonition type="info" title="Names" details="false" >}}
+{{< notice type="info" title="Names" >}}
 The struct tags we've defined `bson:"x"` should match the name of that field in the database, else the unmarshaling will not
 work correctly i.e. the struct fields will be `nil`.
-{{< /admonition >}}
+{{< /notice >}}
 
 ```go
 	var questions struct {
@@ -204,10 +204,10 @@ work correctly i.e. the struct fields will be `nil`.
 Now onto the part that deals with the `Questions` field. Here we get the raw BSON data only related to the `Questions` field. So it won't have anything
 related to `GameName`. We create a "temporary" struct to hold this BSON data, with the same field name.
 
-{{< admonition type="warning" title="BSON Struct Tags" details="false" >}}
+{{< notice type="warning" title="BSON Struct Tags" >}}
 If your field has an `_` or something else a bit different, you should use the `bson` struct tags
 to specify the name of the field in the database.
-{{< /admonition >}}
+{{< /notice >}}
 
 ```go
 	switch questionPool.GameName {

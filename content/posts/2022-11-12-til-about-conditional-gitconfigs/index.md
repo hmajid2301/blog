@@ -51,10 +51,10 @@ Then in the `.gitconfig.mac` we can do something like:
 
 This will replace the email with my work one when I commit when we run the `git` CLI command in a folder within `/Users/` folder.
 
-{{< admonition type="tip" title="Wild Card" details="false" >}}
+{{< notice type="tip" title="Wild Card" >}}
 When we specify `/Users/` in the `gitdir` if clause it automatically treats it like `/Users/**`.
 So any sub-directories within users also count.
-{{< /admonition >}}
+{{< /notice >}}
 
 That's it! Now we can keep separate settings between work and home. We can also extend this to have different settings between
 different OS's such as default editor.

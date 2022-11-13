@@ -119,17 +119,17 @@ To see how the `alias` is used, is to look at the environment variables we have 
 this host. You can read more about Docker is able to resolve this to an [IP address here](/blog/dns-docker-explained/). Another example is how the URL core-api will use to connect to the management-api
 `BANTER_BUS_CORE_API_MANAGEMENT_API_URL: http://banter-bus-management-api`.
 
-{{< admonition type="danger" title="ENV Variable" details="false" >}}
+{{< notice type="danger" title="ENV Variable" >}}
 One environment variable we must provide is `FF_NETWORK_PER_BUILD` set to `1` (or true). Docker then
 creates a bridge network so all the services can communicate amognst themselves. You can read more about
 [it here](https://docs.gitlab.com/runner/executors/docker.html#create-a-network-for-each-job)
-{{< /admonition >}}
+{{< /notice >}}
 
 We've discussed the most important part of the CI file, but lets quickly discuss the rest for completeness
 
-{{< admonition type="info" title="Optional" details="false" >}}
+{{< notice type="info" title="Optional" >}}
 I've discussed the main point of this article, how to use services and how to get them to work together.
-{{< /admonition >}}
+{{< /notice >}}
 
 ### Variables
 

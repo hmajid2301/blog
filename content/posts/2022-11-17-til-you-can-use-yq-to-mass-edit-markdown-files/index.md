@@ -14,10 +14,10 @@ cover:
 
 **TIL you can use `yq` to mass edit markdown files**
 
-{{< admonition type="tip" title="yq" details="true" >}}
+{{< notice type="tip" title="yq" opened="false" >}}
 `yq` is a tool similar to `jq` except it allows you to edit, JSON, XML and YAML.
 It has a very similar syntax to parse and edit files as `jq` does.
-{{< /admonition >}}
+{{< /notice >}}
 
 I was recently adding new open graph images to all of my blog posts. After creating these images and storing them
 next to the post, where the structure looks like:

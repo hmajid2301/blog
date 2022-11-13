@@ -57,13 +57,13 @@ Now onto the real meat and potatoes of this article. We will create three differ
 
 Our project will follow the structure shown above. We will go (no pun intended 🤷) over what each of the folder "do".
 
-{{< admonition type="info" title="Core Code" details="false" >}}
+{{< notice type="info" title="Core Code" >}}
 Since this example application is so simple we don't have a `core` folder but for more complicated
 applications you should probably add another folder inline with the `server` folder. For example, this could include code that interacts with the database.
 
 This helps to de-couple the application's various layers. You could, for example, remove the web service part in the `server` folder and
 turn into a CLI application at a later date. Using the core code you already have.
-{{< /admonition >}}
+{{< /notice >}}
 
 ## Dependencies
 
@@ -80,9 +80,9 @@ This folder contains all the logic related to the web service itself. This will 
 models (data structure returned to the client) and the controllers, which are functions
 that will handle the various requests sent by clients. They act as an "interface" to our application.
 
-{{< admonition type="info" title="Fizz Routing" details="false" >}}
+{{< notice type="info" title="Fizz Routing" >}}
 The Fizz library abstracts away routing partially for us, more on this later.
-{{< /admonition >}}
+{{< /notice >}}
 
 #### models
 
@@ -226,9 +226,9 @@ func GetPet(_ *gin.Context, params *models.PetParams) (models.Pet, error) {
 }
 ```
 
-{{< admonition type="info" title="JuJu Errors" details="false" >}}
+{{< notice type="info" title="JuJu Errors" >}}
 For throwing errors in this application we used [juju's error library](https://github.com/juju/errors).
-{{< /admonition >}}
+{{< /notice >}}
 
 The main difference in this function is we pass in an extra parameter which is the query parameter `{name}`. The logic of this function is not very smart because
 it expects the name of the pet to be `bob` in order to send a successful respone back to the client. Of course in

@@ -12,18 +12,18 @@ cover:
   image: images/cover.png
 ---
 
-{{< admonition type="warning" title="Previous article" details="false" >}}
+{{< notice type="warning" title="Previous article" >}}
 This article assumes you are familiar with dotfiles and Dobot.
 If you want to know more about Dotbot [click here](/posts/2022-10-15-how-to-manage-your-dotfiles-with-dotbot)
-{{< /admonition >}}
+{{< /notice >}}
 
 In this article I will show you how you can use Dotbot plugins. We can use Dotbot plugins to run new directives such as `apt`.
 So we can use the apt package manager, so install packages.
 
-{{< admonition type="note" title="Tip" details="false" >}}
+{{< notice type="note" title="Tip" >}}
 One useful use case is when we setup on a new system we may want to make we have some packages installed like `vim` or `make`.
 We can automate some of this with Dotbot and its plugins.
-{{< /admonition >}}
+{{< /notice >}}
 
 ![Automate Meme](images/automate.png)
 
@@ -101,10 +101,10 @@ You can find a full list of [Dotbot plugins here](https://github.com/anishathaly
 
 ### dobot-apt
 
-{{< admonition type="warning" title="Profiles" details="false" >}}
+{{< notice type="warning" title="Profiles" >}}
 This assumes you are using Dotbot with profiles.
 If not you can add the submodule to the root directory not to the `meta` folder.
-{{< /admonition >}}
+{{< /notice >}}
 
 In this example we will add the [dotbot-apt](https://github.com/bryant1410/dotbot-apt) plugin.
 
