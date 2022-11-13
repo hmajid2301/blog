@@ -381,7 +381,7 @@ with vscode, and avoid using the mouse as much as possible. But I'm getting a lo
 
 And finally, I will leave you with this:
 
-<div style='position:relative; padding-bottom:calc(57.50% + 44px)'><iframe src='https://gfycat.com/ifr/PlaintiveAdorableBactrian' frameborder='0' scrolling='no' width='100%' height='100%' style='position:absolute;top:0;left:0;' allowfullscreen></iframe></div><p> <a href="https://gfycat.com/plaintiveadorablebactrian">via Gfycat</a></p>
+{{< gfycat src="PlaintiveAdorableBactrian" >}}
 
 ## Appendix
 
