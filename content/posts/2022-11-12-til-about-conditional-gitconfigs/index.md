@@ -19,8 +19,9 @@ Where my config looks something like this:
 
 ```ini
 [user]
-	email = hello@haseebmajid.dev
-	name = Haseeb Majid
+  email = hello@haseebmajid.dev
+  name = Haseeb Majid
+
 # ...
 ```
 
@@ -33,8 +34,8 @@ read more about [them here](https://git-scm.com/docs/git-config#_conditional_inc
 
 ```ini
 [user]
-	email = hello@haseebmajid.dev
-	name = Haseeb Majid
+  email = hello@haseebmajid.dev
+  name = Haseeb Majid
 [includeIf "gitdir:/Users/"]
   path = .gitconfig.mac
 
@@ -46,7 +47,7 @@ Then in the `.gitconfig.mac` we can do something like:
 
 ```ini
 [user]
-	email = haseeb@work.com
+  email = haseeb@work.com
 ```
 
 This will replace the email with my work one when I commit when we run the `git` CLI command in a folder within `/Users/` folder.
