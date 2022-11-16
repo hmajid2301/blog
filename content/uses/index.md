@@ -60,6 +60,12 @@ My Backup strategy is as follows:
 - [bat](https://github.com/sharkdp/bat): A better version of `cat`
 - [zoxide](https://github.com/ajeetdsouza/zoxide): A great tool for jumping between multiple directories.
 
+#### Useful Commands:
+
+- `git fetch -p && git branch -vv | awk '/: gone]/{print $1}' | xargs git branch -D`: Delete branches locally that don't exist on remote, i.e. have been merged in
+- `docker kill (docker ps -q) $argv`: Kill all running Docker containers
+- `docker rm (docker ps -a -q) $argv`: Remove all killed Docker containers
+
 # About This Site
 
 This site was built with [hugo](https://gohugo.io/) and the [PaperModX Theme](https://github.com/hmajid2301/hugo-PaperModX) (using a fork of a fork at the moment).
