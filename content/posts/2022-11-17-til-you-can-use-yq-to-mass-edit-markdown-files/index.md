@@ -22,7 +22,7 @@ It has a very similar syntax to parse and edit files as `jq` does.
 I was recently adding new open graph images to all of my blog posts. After creating these images and storing them
 next to the post, where the structure looks like:
 
-```
+```bash
 content/posts/2020-01-13-using-tox-with-a-makefile-to-automate-python-related-tasks/
 ├── images
 │   └── cover.png

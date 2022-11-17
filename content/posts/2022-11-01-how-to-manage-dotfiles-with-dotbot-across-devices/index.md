@@ -95,7 +95,7 @@ For a more thorough explanation of the directives.
 Next we want to create our profiles for our different devices. Let's see we want to create a Linux one. We create a called `meta/profiles/linux`.
 In the file we write all the yaml files we want dotbot to execute for this profile. So at the moment our files would look something like:
 
-```
+```bash
 git
 ```
 

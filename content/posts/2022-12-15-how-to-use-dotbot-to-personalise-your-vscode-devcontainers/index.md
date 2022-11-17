@@ -88,7 +88,7 @@ correctly so we will create another file called `meta/configs/shell.yaml` which 
 This will copy (symlink) all of my fish config files to `~/.config/fish/` directory in the dev container from the dotfiles repo.
 Next, let us create a new profile `meta/profiles/devcontainer` which will look like:
 
-```
+```bash
 packages.debian-sudo
 shell
 ```
@@ -114,7 +114,7 @@ The reason we need this we need to provide an executable file in our VS Code con
 
 Our repo structure now looks like
 
-```
+```bash
 ├── ....
 ├── bashrc
 ├── fish
