@@ -16,10 +16,10 @@
       name: 'preSave',
       handler: ({ entry }) => {
         if (entry.get('slug')) {
-          return entry.get('data').set('canonicalURL', `https://haseebmajid.dev/posts/${entry.get('date')}-${entry.get('slug')}/`);
+          return entry.get('year').set('canonicalURL', `https://haseebmajid.dev/posts/${entry.get('date')}-${entry.get('slug')}/`);
         } else {
           // you can use any relevant field/logic for generating the initial slug
-          const titleSlug = entry.get('date') + "-" + entry.getIn(['data', 'title'], '').toLowerCase().replace(/[']/g, '').replace(/[.]/g, '-').replace(/[\s]/g, '-').replace(":", '')
+          const titleSlug = entry.get('year') + "-" + entry.getIn(['data', 'title'], '').toLowerCase().replace(/[']/g, '').replace(/[.]/g, '-').replace(/[\s]/g, '-').replace(":", '')
           return entry.get('data').set('canonicalURL', `https://haseebmajid.dev/posts/${titleSlug}/`);
         }
       },
