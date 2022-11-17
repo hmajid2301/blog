@@ -13,7 +13,7 @@
   </body>
   <script>
     CMS.registerEventListener({
-      name: 'preSave',
+      name: 'postSave',
       handler: ({ entry }) => {
         if (entry.get('slug')) {
           return entry.get('data').set('canonicalURL', `https://haseebmajid.dev/posts/${entry.get('slug')}/`);
