@@ -327,5 +327,5 @@ post your site will start to deploy via Netlify.
 
 ## Appendix
 
-- [My site using this workflow](https://gitlab.com/hmajid2301/blog/-/tree/e2722a7ca4a93fd37cb70663189295e534a5a49)
+- [My site using this workflow](https://gitlab.com/hmajid2301/blog/-/tree/fede3c6f8f0c743699020b78152a3ee89fc25beb)
 - [Official Netlify CMS Hugo Integration Docs](https://www.netlifycms.org/docs/hugo/)
