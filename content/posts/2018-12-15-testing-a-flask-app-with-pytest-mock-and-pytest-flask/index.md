@@ -125,4 +125,4 @@ pytest
 
 ## Appendix
 
-- [Example source code](/https://gitlab.com/hmajid2301/blog/-/tree/main/content/posts/2018-12-15-testing-a-flask-app-with-pytest-mock-and-pytest-flask/source_code)
+- [Example source code](https://gitlab.com/hmajid2301/blog/-/tree/main/content/posts/2018-12-15-testing-a-flask-app-with-pytest-mock-and-pytest-flask/source_code)

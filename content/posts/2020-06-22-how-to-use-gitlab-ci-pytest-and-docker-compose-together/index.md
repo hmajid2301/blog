@@ -231,4 +231,4 @@ and `postgres` and you wanted to run your tests within the `flask` container. Bu
 
 ## Appendix
 
-- [Example source code](/https://gitlab.com/hmajid2301/blog/-/tree/main/content/posts/2020-06-22-how-to-use-gitlab-ci-pytest-and-docker-compose-together/source_code)
+- [Example source code](https://gitlab.com/hmajid2301/blog/-/tree/main/content/posts/2020-06-22-how-to-use-gitlab-ci-pytest-and-docker-compose-together/source_code)

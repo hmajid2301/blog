@@ -7,7 +7,7 @@ tasks:
 
   start_server:
     cmds:
-      - hugo server -D
+      - hugo server -D --buildFuture
 
   new_post:
     cmds:

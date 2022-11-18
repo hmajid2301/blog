@@ -332,5 +332,5 @@ they set last time, such as dark mode instead of the light mode.
 
 ## Appendix
 
-- [Example source code](/https://gitlab.com/hmajid2301/blog/-/tree/main/content/posts/2020-04-05-using-react-hooks-context-local-storage/source_code)
+- [Example source code](https://gitlab.com/hmajid2301/blog/-/tree/main/content/posts/2020-04-05-using-react-hooks-context-local-storage/source_code)
 - Photo by [Cristian Palmer](https://unsplash.com/@cristianpalmer) on Unsplash

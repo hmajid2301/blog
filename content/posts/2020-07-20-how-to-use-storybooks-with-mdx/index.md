@@ -732,4 +732,4 @@ for reading!
 ## Appendix
 
 - [Example Project](https://gitlab.com/hmajid2301/personal-site/-/tree/e415420744b2a8f49eddaf2d3058b23c70f46638/.storybook)
-- [Example source code](/https://gitlab.com/hmajid2301/blog/-/tree/main/content/posts/2020-07-20-how-to-use-storybooks-with-mdx/source_code)
+- [Example source code](https://gitlab.com/hmajid2301/blog/-/tree/main/content/posts/2020-07-20-how-to-use-storybooks-with-mdx/source_code)

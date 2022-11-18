@@ -371,7 +371,7 @@ export default class Settings extends Component {
 
 ## Appendix
 
-- [Example source code](/https://gitlab.com/hmajid2301/blog/-/tree/main/content/posts/2019-03-04-drawernavigator-tabnavigator-and-stacknavigator-with-react-navigation/source_code)
+- [Example source code](https://gitlab.com/hmajid2301/blog/-/tree/main/content/posts/2019-03-04-drawernavigator-tabnavigator-and-stacknavigator-with-react-navigation/source_code)
 - [React Navigation](https://reactnavigation.org/)
 - [Genymotion emulator](https://www.genymotion.com/)
 - GIFs created with [screentogif](https://www.screentogif.com/)

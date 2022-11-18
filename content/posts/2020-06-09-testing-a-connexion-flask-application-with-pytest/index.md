@@ -365,4 +365,4 @@ web service.
 
 ## Appendix
 
-- [Example source code](/https://gitlab.com/hmajid2301/blog/-/tree/main/content/posts/2020-06-09-testing-a-connexion-flask-application-with-pytest/source_code)
+- [Example source code](https://gitlab.com/hmajid2301/blog/-/tree/main/content/posts/2020-06-09-testing-a-connexion-flask-application-with-pytest/source_code)

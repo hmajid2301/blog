@@ -425,4 +425,4 @@ browsing the site on a Laptop/Desktop.
 
 ## Appendix
 
-- [Example source code](/https://gitlab.com/hmajid2301/blog/-/tree/main/content/posts/2020-11-11-how-to-add-a-toc-in-gatsby/source_code)
+- [Example source code](https://gitlab.com/hmajid2301/blog/-/tree/main/content/posts/2020-11-11-how-to-add-a-toc-in-gatsby/source_code)

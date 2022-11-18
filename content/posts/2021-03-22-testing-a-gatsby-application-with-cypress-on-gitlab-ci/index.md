@@ -293,6 +293,6 @@ That's it, quite simple to add Cypress tests that run in our CI pipeline.
 
 ## Appendix
 
-- [Example source code](/https://gitlab.com/hmajid2301/blog/-/tree/main/content/posts/2021-03-22-testing-a-gatsby-application-with-cypress-on-gitlab-ci/source_code)
+- [Example source code](https://gitlab.com/hmajid2301/blog/-/tree/main/content/posts/2021-03-22-testing-a-gatsby-application-with-cypress-on-gitlab-ci/source_code)
 - [Cypress](http://cypress.io/)
 - [Example Job](https://gitlab.com/hmajid2301/portfolio-site/-/jobs/1080367107)

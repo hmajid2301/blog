@@ -638,7 +638,7 @@ CRUD (Create Read Update Delete) operation and endpoints defined in the OAS.
 
 ## Appendix
 
-- [Example source code](/https://gitlab.com/hmajid2301/blog/-/tree/main/content/posts/2019-03-04-drawernavigator-tabnavigator-and-stacknavigator-with-react-navigation/source_code)
+- [Example source code](https://gitlab.com/hmajid2301/blog/-/tree/main/content/posts/2019-03-04-drawernavigator-tabnavigator-and-stacknavigator-with-react-navigation/source_code)
 - [OpenAPI](https://swagger.io/docs/specification/about/)
 - [Swagger Codegen](https://github.com/swagger-api/swagger-codegen)
 - [Swagger Editor](https://editor.swagger.io/)

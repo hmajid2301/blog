@@ -56,6 +56,6 @@ Then you should see something like the image below instead of the default green 
 
 ## Appendix
 
-- [Example source code](/https://gitlab.com/hmajid2301/blog/-/tree/main/content/posts/2019-11-09-add-adaptive-icons-to-your-android-app/source_code)
+- [Example source code](https://gitlab.com/hmajid2301/blog/-/tree/main/content/posts/2019-11-09-add-adaptive-icons-to-your-android-app/source_code)
 - [Android Asset Studio](https://romannurik.github.io/AndroidAssetStudio/index.html)
 - [Cover Photo from UpLabs](https://www.uplabs.com/posts/adaptive-icons-for-android-o)

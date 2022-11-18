@@ -376,7 +376,7 @@ look at how you can do this. An example of it working can be found [here](https:
 
 ## Appendix
 
-- [Example source code](/https://gitlab.com/hmajid2301/blog/-/tree/main/content/posts/2018-12-23-theme-your-expo-react-native-app-with-redux-and-react-navigation/source_code)
+- [Example source code](https://gitlab.com/hmajid2301/blog/-/tree/main/content/posts/2018-12-23-theme-your-expo-react-native-app-with-redux-and-react-navigation/source_code)
 - [React Navigation](https://reactnavigation.org/)
 - [Redux Animation](https://css-tricks.com/learning-react-redux/)
 - [Redux Diagram](http://slides.com/jenyaterpil/redux-from-twitter-hype-to-production#)

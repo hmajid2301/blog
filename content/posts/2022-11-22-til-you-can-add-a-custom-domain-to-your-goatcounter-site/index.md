@@ -1,6 +1,6 @@
 ---
 title: "TIL: You can add a custom domain to your Goatcounter site"
-canonicalURL: https://haseebmajid.dev/posts/til-you-can-add-a-custom-domain-to-your-goatcounter-site/
+canonicalURL: https://haseebmajid.dev/posts/2022-11-22-til-you-can-add-a-custom-domain-to-your-goatcounter-site/
 date: 2022-11-22
 tags:
   - goatcounter

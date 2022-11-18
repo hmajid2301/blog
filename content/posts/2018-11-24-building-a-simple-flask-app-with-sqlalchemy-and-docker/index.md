@@ -308,6 +308,6 @@ curl -XPOST -H "Content-type: application/json" -d \
 
 ## Appendix
 
-- [Example source code](/https://gitlab.com/hmajid2301/blog/-/tree/main/content/posts/2018-11-24-building-a-simple-flask-app-with-sqlalchemy-and-docker/source_code)
+- [Example source code](https://gitlab.com/hmajid2301/blog/-/tree/main/content/posts/2018-11-24-building-a-simple-flask-app-with-sqlalchemy-and-docker/source_code)
 - [Postman](https://www.getpostman.com/)
 - [Insomnia](https://insomnia.rest/)

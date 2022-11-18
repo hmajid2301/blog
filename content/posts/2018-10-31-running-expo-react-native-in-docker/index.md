@@ -191,7 +191,7 @@ An example `.env` file used to pass environment variables (using docker-compose)
 
 ## Appendix
 
-- [Example source code](/https://gitlab.com/hmajid2301/blog/-/tree/main/content/posts/2018-10-31-running-expo-react-native-in-docker/source_code)
+- [Example source code](https://gitlab.com/hmajid2301/blog/-/tree/main/content/posts/2018-10-31-running-expo-react-native-in-docker/source_code)
 - [Docker explained](https://medium.freecodecamp.org/a-beginner-friendly-introduction-to-containers-vms-and-docker-79a9e3e119b)
 - [GitHub issue around could not connect errors](https://github.com/react-community/create-react-native-app/issues/81)
 - [Genymotion emulator](https://www.genymotion.com/)

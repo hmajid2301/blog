@@ -125,5 +125,5 @@ The part of our code is the actual test. It sends "Hello World" to the TCP serve
 
 ## Appendix
 
-- [Example source code](/https://gitlab.com/hmajid2301/blog/-/tree/main/content/posts/2018-11-05-pytest-with-background-thread-fixtures/source_code)
+- [Example source code](https://gitlab.com/hmajid2301/blog/-/tree/main/content/posts/2018-11-05-pytest-with-background-thread-fixtures/source_code)
 - [Pytest](https://docs.pytest.org/en/latest/)

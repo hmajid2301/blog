@@ -566,6 +566,6 @@ And that's it! We successfully added search to our `Gatsby` blog alongside searc
 
 ## Appendix
 
-- [Example source code](/https://gitlab.com/hmajid2301/blog/-/tree/main/content/posts/2020-08-20-how-to-add-offline-search-to-a-gatsby-blog/source_code)
+- [Example source code](https://gitlab.com/hmajid2301/blog/-/tree/main/content/posts/2020-08-20-how-to-add-offline-search-to-a-gatsby-blog/source_code)
 - [Example Project](https://gitlab.com/hmajid2301/personal-site/-/blob/d5f413310d4404fc6a1761a592f5e10840fc30df/src/components/organisms/SearchBar/SearchBar.tsx)
 - [Cover Photo by Markus Winkler](https://unsplash.com/@markuswinkler?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText)

@@ -39,18 +39,18 @@ Next, go look for a file which is used as the template for all of our pages.
 In my case, it is located at `layouts/_default/baseof.html` and add the
 following just above your footer:
 
-{{< highlight html "hl_lines=5-7" >}}
-    {{- partialCached "header.html" . .Page -}}
-    <main class="main {{- if (eq .Kind `page`) -}}{{- print " post" -}}{{- end -}}">
-        {{- block "main" . }}{{ end }}
-    </main>
-    {{- if .Site.Params.goatcounter }}
-        {{ partial "analytics.html" . -}}
-    {{- end}}
-    {{ partial "footer.html" . -}}
-    {{- partial "search.html" . -}}
-    {{- block "body_end" . }}
-{{< /highlight >}}
+```go-html-template {hl_lines=["5-7"]}
+  {{- partialCached "header.html" . .Page -}}
+  <main class="main {{- if (eq .Kind `page`) -}}{{- print " post" -}}{{- end -}}">
+      {{- block "main" . }}{{ end }}
+  </main>
+  {{- if .Site.Params.goatcounter }}
+      {{ partial "analytics.html" . -}}
+  {{- end}}
+  {{ partial "footer.html" . -}}
+  {{- partial "search.html" . -}}
+  {{- block "body_end" . }}
+```
 
 {{< notice type="tip" title="File Names"  >}}
 Note here the file location and name here `{{ partial "analytics.html" . -}}`, matches what I said above.

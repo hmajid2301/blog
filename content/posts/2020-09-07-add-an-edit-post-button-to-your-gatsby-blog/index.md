@@ -252,6 +252,6 @@ the markdown files exist. They can then perhaps fork the project make their edit
 
 ## Appendix
 
-- [Example source code](/https://gitlab.com/hmajid2301/blog/-/tree/main/content/posts/2020-09-07-add-an-edit-post-button-to-your-gatsby-blog/source_code)
+- [Example source code](https://gitlab.com/hmajid2301/blog/-/tree/main/content/posts/2020-09-07-add-an-edit-post-button-to-your-gatsby-blog/source_code)
 - [Site in video](https://haseebmajid.dev/)
 - [Source code](https://gitlab.com/hmajid2301/portfolio-site) for site in video

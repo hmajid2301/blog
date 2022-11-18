@@ -480,4 +480,4 @@ Here is a GIF of the app running.
 That's it we successfully created an app that auto changes the user's theme depending on
 the time of day, using the user's location to determine sunrise and sunset.
 
-- [Example source code](/https://gitlab.com/hmajid2301/blog/-/tree/main/content/posts/2020-01-25-auto-toggle-dark-theme-on-your-react-native-app/source_code)
+- [Example source code](https://gitlab.com/hmajid2301/blog/-/tree/main/content/posts/2020-01-25-auto-toggle-dark-theme-on-your-react-native-app/source_code)

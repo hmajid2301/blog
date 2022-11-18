@@ -284,6 +284,6 @@ can also automate the rebuild of our site using Gitlab CI and Netlify.
 
 ## Appendix
 
-- [Example source code](/https://gitlab.com/hmajid2301/blog/-/tree/main/content/posts/2020-09-18-how-to-source-your-gatsby-posts-from-another-repo/source_code)
+- [Example source code](https://gitlab.com/hmajid2301/blog/-/tree/main/content/posts/2020-09-18-how-to-source-your-gatsby-posts-from-another-repo/source_code)
 - Example [Gatsby blog](https://gitlab.com/hmajid2301/portfolio-site/-/tree/7258fe7ca1366024f17da5952077cdc00f00a3a8) repo
 - Example [Articles](https://gitlab.com/hmajid2301/articles) repo

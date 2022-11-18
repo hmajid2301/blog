@@ -473,5 +473,5 @@ Firebase (with authentication).
 
 ## Appendix
 
-- [Example source code](/https://gitlab.com/hmajid2301/blog/-/tree/main/content/posts/2020-02-22-using-react-native-with-firebase-cloud-functions-and-gitlab-ci/source_code)
+- [Example source code](https://gitlab.com/hmajid2301/blog/-/tree/main/content/posts/2020-02-22-using-react-native-with-firebase-cloud-functions-and-gitlab-ci/source_code)
 - [Example Firebase project](https://gitlab.com/hmajid2301/stegappasaurus-api)

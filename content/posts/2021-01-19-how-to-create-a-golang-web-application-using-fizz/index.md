@@ -467,7 +467,7 @@ And voila you now have a working web service you have created using Fizz. That's
 
 ## Appendix
 
-- [Example source code](/https://gitlab.com/hmajid2301/blog/-/tree/main/content/posts/2021-01-19-how-to-create-a-golang-web-application-using-fizz/source_code)
+- [Example source code](https://gitlab.com/hmajid2301/blog/-/tree/main/content/posts/2021-01-19-how-to-create-a-golang-web-application-using-fizz/source_code)
 - [Fizz](https://github.com/wI2L/fizz/)
 - [Tonic](https://github.com/loopfz/gadgeto/tree/master/tonic)
 - [Juju's Errors](https://github.com/juju/errors)

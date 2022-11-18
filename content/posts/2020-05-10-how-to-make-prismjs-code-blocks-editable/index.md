@@ -107,5 +107,5 @@ to be syntax highlighted.
 
 ## Appendix
 
-- [Example source code](/https://gitlab.com/hmajid2301/blog/-/tree/main/content/posts/2020-05-10-how-to-make-prismjs-code-blocks-editable/source_code)
+- [Example source code](https://gitlab.com/hmajid2301/blog/-/tree/main/content/posts/2020-05-10-how-to-make-prismjs-code-blocks-editable/source_code)
 - [Example Project](https://composerisation.haseebmajid.dev/#yaml)

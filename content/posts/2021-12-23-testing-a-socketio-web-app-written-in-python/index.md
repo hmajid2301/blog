@@ -400,7 +400,7 @@ That's it, the code itself is fairly simple once everything is setup in `conftes
 
 ## Appendix
 
-- [Example source code](/https://gitlab.com/hmajid2301/blog/-/tree/main/content/posts/2021-12-23-testing-a-socketio-web-app-written-in-python/source_code)
+- [Example source code](https://gitlab.com/hmajid2301/blog/-/tree/main/content/posts/2021-12-23-testing-a-socketio-web-app-written-in-python/source_code)
 - [Github Issue: UvicornTestServer](https://github.com/miguelgrinberg/python-socketio/issues/332#issuecomment-712928157)
 - [Async Create Task SO](https://stackoverflow.com/questions/62528272/what-does-asyncio-create-task-do)
 - [Real application using this testing pattern](https://gitlab.com/banter-bus/banter-bus-core-api)

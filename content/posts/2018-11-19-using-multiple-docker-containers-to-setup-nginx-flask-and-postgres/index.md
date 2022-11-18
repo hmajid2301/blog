@@ -229,4 +229,4 @@ docker run -d --name postgres -p 5432:5432 \
 
 ## Appendix
 
-- [Example source code](/https://gitlab.com/hmajid2301/blog/-/tree/main/content/posts/2018-11-19-using-multiple-docker-containers-to-setup-nginx-flask-and-postgres/source_code)
+- [Example source code](https://gitlab.com/hmajid2301/blog/-/tree/main/content/posts/2018-11-19-using-multiple-docker-containers-to-setup-nginx-flask-and-postgres/source_code)

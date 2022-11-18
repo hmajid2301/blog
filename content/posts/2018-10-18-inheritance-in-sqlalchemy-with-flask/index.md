@@ -67,6 +67,6 @@ cleanest in terms of code readability.
 
 ## Appendix
 
-- [Example source code](<https://gitlab.com/hmajid2301/blog/-/tree/main/content/posts/2018-10-18-inheritance-in-sqlalchemy-with-flask/source_code/source_code/example>)
+- [Example source code](https://gitlab.com/hmajid2301/blog/-/tree/main/content/posts/2018-10-18-inheritance-in-sqlalchemy-with-flask/source_code/source_code/example)
 - [SQLAlchemy](https://www.sqlalchemy.org/)
 - [flask-sqlalchemy](http://flask-sqlalchemy.pocoo.org/2.3/)
