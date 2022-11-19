@@ -10,7 +10,7 @@ ShowWordCount: false
 hideMeta: false
 ---
 
-{{< youtube JSSG4FqKaGI >}}
+{{< invidious JSSG4FqKaGI >}}
 
 - [Abstract](https://ep2022.europython.eu/session/my-journey-using-docker-as-a-development-tool)
 - [Slides](https://docker-as-a-dev-tool.haseebmajid.dev/)

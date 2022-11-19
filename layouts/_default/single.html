@@ -1,0 +1,77 @@
+{{- define "main" }}
+
+<article class="post-single">
+  <header class="post-header">
+    {{ partial "breadcrumbs.html" . }}
+
+    <h1 class="post-title">
+      {{- .Title -}}
+      {{- if .Draft -}}<sup><span class="entry-isdraft">&nbsp;&nbsp;[draft]</span></sup>{{- end -}}
+    </h1>
+    {{- if .Description }}
+    <div class="post-description">
+      {{- .Description -}}
+    </div>
+    {{- end }}
+    {{- if not (.Param "hideMeta") }}
+    <div class="post-meta">
+      {{- partial "post_meta.html" . -}}
+      {{/* TODO move to footer */}}
+      {{- if .Params.ShowLikes | default site.Params.ShowLikes | default false}}
+      {{- partial "likes.html" . }} 
+      {{- end }}
+      {{ if and (.Params.ShowPageViews | default (.Site.Params.ShowPageViews | default true)) }}
+        {{- partial "page_views.html" . -}}
+      {{ end }}
+
+      {{ partial "edit_post.html" . }}
+      {{ partial "post_canonical.html" . }}
+    </div>
+    {{- end }}
+  </header>
+
+  {{ if .Params.series }}
+  {{- partial "series.html" . }}
+  {{end}} 
+
+  {{- $isHidden := .Params.cover.hidden | default site.Params.cover.hiddenInSingle | default site.Params.cover.hidden }}
+  {{- partial "cover.html" (dict "cxt" . "IsHome" false "isHidden" $isHidden) }}
+  {{- if (.Param "ShowToc") }}
+  {{- partial "toc.html" . }}
+  {{- end }}
+
+  {{- if .Content }}
+  <div class="post-content">
+    {{- if not (.Param "disableAnchoredHeadings") }}
+    {{- partial "anchored_headings.html" .Content -}}
+    {{- else }}{{ .Content }}{{ end }}
+  </div>
+  {{- end }}
+
+  <footer class="post-footer">
+    {{- if (.Param "socialLinks") }}
+    {{- partial "social_links.html" . }}
+    {{- end }}
+
+    {{- if (and .Site.Params.ShowShareButtons (ne .Params.disableShare true) ) }}
+    {{- partial "share_icons.html" . }}
+    {{- end }}
+
+    {{- if (.Param "ShowPostNavLinks") }}
+    {{- partial "post_nav_links.html" . }}
+    {{- end }}
+  </footer>
+
+  {{- if not (.Param "noComments") }}
+    {{- partial "comments.html" . }}
+  {{- end }}
+</article>
+
+{{ if .Page.Store.Get "hasMermaid" }}
+  <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({ startOnLoad: true });
+  </script>
+{{ end }}
+
+{{- end }}{{/* end main */}}

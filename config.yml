@@ -1,7 +1,6 @@
 baseURL: "https://haseebmajid.dev/"
 title: Haseeb Majid
 paginate: 25
-theme: PaperModX
 
 enableRobotsTXT: true
 buildDrafts: false
@@ -91,7 +90,6 @@ params:
     - name: linkedin
       url: "https://www.linkedin.com/in/haseeb-majid-ba0a5194/"
     - name: mastodon
-      rel: "me"
       url: "https://hachyderm.io/@majiy00"
 
   cover:

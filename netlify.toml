@@ -3,7 +3,7 @@ publish = "public"
 command = "hugo --gc --minify"
 
 [context.production.environment]
-HUGO_VERSION = "0.104.3"
+HUGO_VERSION = "0.105.0"
 HUGO_ENV = "production"
 HUGO_ENABLEGITINFO = "true"
 
@@ -11,7 +11,7 @@ HUGO_ENABLEGITINFO = "true"
 HUGO_ENABLEGITINFO = "true"
 
 [functions]
-directory = "themes/PaperModX/functions"
+directory = "functions"
 
 [context.deploy-preview]
 command = "hugo --gc --minify --buildFuture -b $DEPLOY_PRIME_URL"

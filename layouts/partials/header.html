@@ -1,0 +1,162 @@
+<script data-no-instant>
+function switchTheme(theme) {
+  switch (theme) {
+    case 'light':
+      document.body.classList.remove('dark');
+      break;
+    case 'dark':
+      document.body.classList.add('dark');
+      break;
+    // auto
+    default:
+      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+      }
+  }
+}
+
+function isDarkTheme() {
+  return document.body.className.includes("dark");
+}
+
+function getPrefTheme() {
+  return localStorage.getItem("pref-theme");
+}
+
+function setPrefTheme(theme) {
+  switchTheme(theme)
+  localStorage.setItem("pref-theme", theme);
+}
+
+const toggleThemeCallbacks = {}
+toggleThemeCallbacks['main'] = (isDark) => {
+  // console.log('window toggle-theme 1')
+  if (isDark) {
+    setPrefTheme('light');
+  } else {
+    setPrefTheme('dark');
+  }
+}
+
+// listen to set-theme event,
+// because window is never changed by InstantClick,
+// we add the listener to window to ensure the event is always received
+window.addEventListener('toggle-theme', function() {
+  // console.log('window toggle-theme')
+  const isDark = isDarkTheme()
+  for (const key in toggleThemeCallbacks) {
+    toggleThemeCallbacks[key](isDark)
+  }
+});
+
+// this function is used as the event listener for toggle-theme button click
+function toggleThemeListener() {
+  // console.log('click theme-toggle')
+  window.dispatchEvent(new CustomEvent('toggle-theme'));
+}
+
+</script>
+<script>
+  // load theme, as early as possible
+  (function() {
+    const defaultTheme = '{{ site.Params.defaultTheme | default "light" }}';
+    const prefTheme = getPrefTheme();
+    const theme = prefTheme ? prefTheme : defaultTheme;
+
+    switchTheme(theme);
+  })();
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            {{- $label_text := (site.Params.logo.text | default site.Title) }}
+            {{- if site.Title }}
+            <a href="{{ "" | absLangURL }}" accesskey="h" title="{{ $label_text }} (Alt + H)">
+                {{- if site.Params.logo.icon }}
+                {{- $img := resources.Get site.Params.logo.icon }}
+                {{- if $img }}
+                    {{- $processableFormats := (slice "jpg" "jpeg" "png" "tif" "bmp" "gif") -}}
+                    {{- if hugo.IsExtended -}}
+                        {{- $processableFormats = $processableFormats | append "webp" -}}
+                    {{- end -}}
+                    {{- $prod := (hugo.IsProduction | or (eq site.Params.env "production")) }}
+                    {{- if and (in $processableFormats $img.MediaType.SubType) (eq $prod true)}}
+                        {{- if site.Params.logo.iconHeight }}
+                            {{- $img = $img.Resize (printf "x%d" site.Params.logo.iconHeight) }}
+                        {{ else }}
+                            {{- $img = $img.Resize "x30" }}
+                        {{- end }}
+                    {{- end }}
+                    <img src="{{ $img.Permalink }}" alt="" aria-label="logo"
+                        height="{{- site.Params.logo.iconHeight | default "30" -}}" width="{{- site.Params.logo.iconWidth | default "30" -}}">
+                {{- else }}
+                <img src="{{ $img.Permalink }}" alt="" aria-label="logo"
+                    height="{{- site.Params.logo.iconHeight | default "30" -}}" width="{{- site.Params.logo.iconWidth | default "30" -}}">
+                {{- end -}}
+                {{- else if hasPrefix site.Params.label.iconSVG "<svg" }}
+                    {{ site.Params.label.iconSVG | safeHTML }}
+                {{- end -}}
+                {{- $label_text -}}
+            </a>
+            {{- end }}
+            <div class="logo-switches">
+                {{- if (not site.Params.disableThemeToggle) }}
+                <button class="icon-hover" id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    {{ safeHTML (index $.Site.Data.svg "moon") }}
+                    {{ safeHTML (index $.Site.Data.svg "sun") }}
+                </button>
+                <button id="search-button"
+                  class="icon-hover"
+                  title="{{ i18n " search.open_button_title" }}">
+                  {{ safeHTML (index $.Site.Data.svg "search") }}
+                </button>
+                {{- end }}
+            <!-- </span> -->
+                {{- $lang := .Lang}}
+                {{- $separator := or $label_text (not site.Params.disableThemeToggle)}}
+                {{- with site.Home.AllTranslations }}
+                <ul class="lang-switch">
+                    {{- if $separator }}<li>|</li>{{ end }}
+                    {{- range . -}}
+                    {{- if ne $lang .Lang }}
+                    <li>
+                        <a href="{{- .Permalink -}}" title="{{ .Language.Params.languageAltTitle | default (.Language.LanguageName | emojify) | default (.Lang | title) }}"
+                            aria-label="{{ .Language.LanguageName | default (.Lang | title) }}">
+                            {{- if (and site.Params.displayFullLangName (.Language.LanguageName)) }}
+                            {{- .Language.LanguageName | emojify -}}
+                            {{- else }}
+                            {{- .Lang | title -}}
+                            {{- end -}}
+                        </a>
+                    </li>
+                    {{- end -}}
+                    {{- end}}
+                </ul>
+                {{- end }}
+            </div>
+<!-- END HERE -->
+        </div>
+        {{- $currentPage := . }}
+        <ul id="menu">
+            {{- range site.Menus.main }}
+            {{- $menu_item_url := (cond (strings.HasSuffix .URL "/") .URL (printf "%s/" .URL)) | absURL }}
+            {{- $page_url:= $currentPage.Permalink }}
+            {{- $is_search := eq (site.GetPage .KeyName).Layout `search` }}
+            <li>
+                <a href="{{ $menu_item_url }}" title="{{ .Title | default .Name }} {{- cond $is_search (" (Alt + /)" | safeHTMLAttr) ("" | safeHTMLAttr ) }}"
+                {{- if $is_search -}}data-no-instant{{- end -}}
+                {{- cond $is_search (" accesskey=/" | safeHTMLAttr) ("" | safeHTMLAttr ) }}
+                {{- if strings.HasPrefix $page_url $menu_item_url }} class="active" {{- end }}
+                {{- if .Params.External }} target="_blank" {{- end }}
+                >
+                    {{- .Pre }}
+                    {{- .Name -}}
+                    {{ .Post -}}
+                    {{- if .Params.External }}<span class="external-link">{{ safeHTML (index $.Site.Data.svg "external-link") }}</span>{{- end }}
+                </a>
+            </li>
+            {{- end }}
+        </ul>
+    </nav>
+</header>

@@ -15,20 +15,30 @@
     CMS.registerEventListener({
       name: "preSave",
       handler: ({ entry }) => {
-        const slug = entry.getIn(['data', 'title'], '').toLowerCase().replace(/[']/g, '').replace(/[.]/g, '-').replace(/[\s]/g, '-').replace(":", '')
+        const slug = entry
+          .getIn(["data", "title"], "")
+          .toLowerCase()
+          .replace(/[']/g, "")
+          .replace(/[.]/g, "-")
+          .replace(/[\s]/g, "-")
+          .replace(":", "");
         const date = new Date();
         let day = date.getDate();
         let month = date.getMonth() + 1;
         let year = date.getFullYear();
         if (day < 10) {
-            day = '0' + day;
+          day = `0${day}`;
         }
         if (month < 10) {
-            month = `0${month}`;
+          month = `0${month}`;
         }
 
-        const formattedDate = `${year}-${month}-${day}`
-        return entry.get("data").set("canonicalURL", `https://haseebmajid.dev/posts/${formattedDate}-${slug}/`);
+        return entry
+          .get("data")
+          .set(
+            "canonicalURL",
+            `https://haseebmajid.dev/posts/${year}-${month}-${day}-${slug}/`
+          );
       },
     });
   </script>

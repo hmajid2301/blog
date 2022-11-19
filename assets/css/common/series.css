@@ -1,0 +1,25 @@
+.container {
+	overflow: hidden; 
+	margin-top: 0.5rem; 
+	margin-bottom: 1.25rem; 
+	border-radius: 0.5rem; 
+}
+
+.summary {
+	padding-top: 0.25rem;
+padding-bottom: 0.25rem; 
+font-size: 1.125rem;
+line-height: 1.75rem; 
+font-weight: 600; 
+cursor: pointer; 
+
+
+
+
+
+}
+
+.post {
+	padding-top: 0.25rem;
+padding-bottom: 0.25rem; 
+}

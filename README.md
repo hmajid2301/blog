@@ -38,3 +38,5 @@ go-task new_talk TALK_NAME=a-talk-post
 ## Appendix
 
 - <a href="https://www.flaticon.com/free-icons/blog" title="blog icons">Blog icons created by Freepik - Flaticon</a>
+- [Custom PaperModX Fork](https://github.com/hmajid2301/hugo-PaperModX)
+   - Note this is no longer used as I have merged the theme with my blog to make it easier to change

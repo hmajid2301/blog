@@ -1,0 +1,26 @@
+<div class="toc">
+    <details {{ if .Params.seriesOpen | default (.Site.Params.seriesOpen | default false) }} open {{ end }}>
+        <summary>
+            <b>
+                {{ index .Params.series 0 }} - This post is part of a series.
+            </b>
+        </summary>
+        <div class="inner">
+            <ul>
+            {{ range $post := sort (index .Site.Taxonomies.series (index .Params.series 0 | urlize)) "Params.series_order" }}
+            {{ if eq $post.Permalink $.Page.Permalink }}
+            <li class="post">
+                {{.Date.Format "Jan 02, 2006"}} - {{ $post.Params.title}} &nbsp; &nbsp; 👈🏼 You are here
+            </li>
+            {{ else }}
+            <li class="post">
+                <a href="{{$post.Permalink}}">
+                    {{.Date.Format "Jan 02, 2006"}} - {{ $post.Params.title}}
+                </a>
+            </li>
+            {{end}}
+            {{end}}
+            </ul>
+        </div>
+    </details>
+</div>
