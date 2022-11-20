@@ -1,5 +1,5 @@
 ---
-title: My Workflow To Create a New Post Using Hugo, Netlifycms, Netlify and Gitlab Together
+title: My Workflow To Create a New Post Using Hugo, NetlifyCMS, Netlify and Gitlab Together
 canonicalURL: https://haseebmajid.dev/posts/2022-12-03-my-workflow-to-create-a-new-post-using-hugo,-netlifycms,-netlify-and-gitlab-together/
 date: 2022-12-03
 tags:
@@ -79,6 +79,24 @@ We will need to enable identity to restrict access to the CMS. To turn on identi
 - Scroll down to Services and click Enable Git Gateway.
 
 We will need to use this later after we've set up NetlifyCMS.
+
+{{< notice type="warning" title="Gitlab Gateway Issues" >}}
+With changes to Gitlab 15 and expiring OAuth tokens, [see more here](https://docs.netlify.com/visitor-access/git-gateway/#troubleshoot-git-gateway-connection-issues-with-gitlab).
+
+You need to use a personal access token to authenticate instead of your normal password.
+Copy the token and keep it somewhere safe i.e. your password manager.
+
+![PAT](images/gitlab_access_token.png)
+
+Then go to your Git Gateway settings in `Site Settings > Identity` (on Netlify).
+Then edit and repalce the access token with the one you created above.
+
+![Netlify Gateway](images/netlify_git_gateway.png)
+
+This should avoid the issue where you cannot access `/admin` after 2 hours.
+Then need to disable and re-enable git gateway (getting a new OAuth JWT).
+Which was quite annoying todo.
+{{< /notice >}}
 
 ### Netlify Preview
 
@@ -275,22 +293,13 @@ Create a new file called `static/admin/index.html`, which looks like this:
           .replace(/[.]/g, "-")
           .replace(/[\s]/g, "-")
           .replace(":", "");
-        const date = new Date();
-        let day = date.getDate();
-        let month = date.getMonth() + 1;
-        let year = date.getFullYear();
-        if (day < 10) {
-          day = `0${day}`;
-        }
-        if (month < 10) {
-          month = `0${month}`;
-        }
+        const date = entry.getIn(["data", "date"], "");
 
         return entry
           .get("data")
           .set(
             "canonicalURL",
-            `https://haseebmajid.dev/posts/${year}-${month}-${day}-${slug}/`
+            `https://haseebmajid.dev/posts/${date}-${slug}/`
           );
       },
     });
@@ -334,24 +343,6 @@ should see a preview environment as a comment from Netlify to preview your site.
 post your site will start to deploy via Netlify.
 
 {{< gfycat src="flamboyantillustriousgiantschnauzer" >}}
-
-{{< notice type="warning" title="Gitlab Gateway Issues" >}}
-With changes to Gitlab 15 and expiring OAuth tokens, [see more here](https://docs.netlify.com/visitor-access/git-gateway/#troubleshoot-git-gateway-connection-issues-with-gitlab).
-
-You need to use a personal access token to authenticate instead of your normal password.
-Copy the token and keep it somewhere safe i.e. your password manager.
-
-![PAT](images/gitlab_access_token.png)
-
-Then go to your Git Gateway settings in `Site Settings > Identity` (on Netlify).
-Then edit and repalce the access token with the one you created above.
-
-![Netlify Gateway](images/netlify_git_gateway.png)
-
-This should avoid the issue where you cannot access `/admin` after 2 hours.
-Then need to disable and re-enable git gateway (getting a new OAuth JWT).
-Which was quite annoying todo.
-{{< /notice >}}
 
 ## Appendix
 

@@ -1,15 +1,9 @@
-image: docker:stable
-
-services:
-  - docker:dind
-
 stages:
   - deploy
 
 deploy_site:
   stage: deploy
-  before_script:
-    - apk add --update curl
+  image: curl
   variables:
     GIT_STRATEGY: none
   script:
