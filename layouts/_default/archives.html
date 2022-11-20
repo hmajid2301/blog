@@ -17,6 +17,10 @@
 {{- end }}
 {{- $pages := where (where site.RegularPages "Section" "in" $sections) "Params.hidden" "!=" true }}
 
+<h2 class="total">
+  Total Posts
+  <sup class="archive-count">{{ len $pages }}</sup>
+</h2>
 {{- range $pages.GroupByPublishDate "2006" }}
 {{- if ne .Key "0001" }}
 <div class="archive-year">

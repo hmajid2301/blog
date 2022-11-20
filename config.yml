@@ -87,10 +87,10 @@ params:
       url: "https://gitlab.com/hmajid2301"
     - name: github
       url: "https://github.com/hmajid2301"
-    - name: linkedin
-      url: "https://www.linkedin.com/in/haseeb-majid-ba0a5194/"
     - name: mastodon
       url: "https://hachyderm.io/@majiy00"
+    - name: buymeacoffee
+      url: "https://www.buymeacoffee.com/haseebmajid"
 
   cover:
     hidden: true
