@@ -1,7 +1,6 @@
 # Blog
 
-My personal website and blog using the [PaperModX](https://github.com/reorx/hugo-PaperModX) theme and
-built with hugo.
+My personal website and blog built using Hugo.
 
 ## Usage
 
@@ -27,6 +26,21 @@ To create a new talk:
 ```
 go-task new_talk TALK_NAME=a-talk-post
 ```
+
+## Theme
+
+The theme is based of PaperModX with some of my own tweaks
+
+- Mermaid Diagram Support
+- Series posts shown
+- Notice/Admonitions (Highlighted sections)
+- Inline Search
+	- Inspired by Blowfish Theme
+- Remove newsletter
+- FaunaDB to show likes per post
+- Page Views
+- A bunch of PRs merged (from PaperModX)
+
 
 ## Older Versions
 

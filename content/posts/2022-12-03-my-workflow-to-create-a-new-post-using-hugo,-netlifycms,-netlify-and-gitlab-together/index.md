@@ -268,20 +268,30 @@ Create a new file called `static/admin/index.html`, which looks like this:
     CMS.registerEventListener({
       name: "preSave",
       handler: ({ entry }) => {
-        const slug = entry.getIn(['data', 'title'], '').toLowerCase().replace(/[']/g, '').replace(/[.]/g, '-').replace(/[\s]/g, '-').replace(":", '')
+        const slug = entry
+          .getIn(["data", "title"], "")
+          .toLowerCase()
+          .replace(/[']/g, "")
+          .replace(/[.]/g, "-")
+          .replace(/[\s]/g, "-")
+          .replace(":", "");
         const date = new Date();
         let day = date.getDate();
         let month = date.getMonth() + 1;
         let year = date.getFullYear();
         if (day < 10) {
-            day = '0' + day;
+          day = `0${day}`;
         }
         if (month < 10) {
-            month = `0${month}`;
+          month = `0${month}`;
         }
 
-        const formattedDate = `${year}-${month}-${day}`
-        return entry.get("data").set("canonicalURL", `https://haseebmajid.dev/posts/${formattedDate}-${slug}/`);
+        return entry
+          .get("data")
+          .set(
+            "canonicalURL",
+            `https://haseebmajid.dev/posts/${year}-${month}-${day}-${slug}/`
+          );
       },
     });
   </script>
@@ -325,7 +335,25 @@ post your site will start to deploy via Netlify.
 
 {{< gfycat src="flamboyantillustriousgiantschnauzer" >}}
 
+{{< notice type="warning" title="Gitlab Gateway Issues" >}}
+With changes to Gitlab 15 and expiring OAuth tokens, [see more here](https://docs.netlify.com/visitor-access/git-gateway/#troubleshoot-git-gateway-connection-issues-with-gitlab).
+
+You need to use a personal access token to authenticate instead of your normal password.
+Copy the token and keep it somewhere safe i.e. your password manager.
+
+![PAT](images/gitlab_access_token.png)
+
+Then go to your Git Gateway settings in `Site Settings > Identity` (on Netlify).
+Then edit and repalce the access token with the one you created above.
+
+![Netlify Gateway](images/netlify_git_gateway.png)
+
+This should avoid the issue where you cannot access `/admin` after 2 hours.
+Then need to disable and re-enable git gateway (getting a new OAuth JWT).
+Which was quite annoying todo.
+{{< /notice >}}
+
 ## Appendix
 
-- [My site using this workflow](https://gitlab.com/hmajid2301/blog/-/tree/fede3c6f8f0c743699020b78152a3ee89fc25beb)
+- [My site using this workflow](https://gitlab.com/hmajid2301/blog/-/tree/4b19bc2347bad46215f6b32518c19052338a2c78)
 - [Official Netlify CMS Hugo Integration Docs](https://www.netlifycms.org/docs/hugo/)

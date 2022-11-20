@@ -62,3 +62,4 @@ hugo.linux
 .netlify
 .env
 node_modules
+feed2toot/*.txt
