@@ -5,6 +5,9 @@
   },
   "dependencies": {
     "faunadb": "^4.7.1",
-    "save": "^2.9.0"
+    "save": "^2.9.0",
+    "jsonwebtoken": "^8.5.1",
+    "encoding": "^0.1.12",
+    "node-fetch": "^2.6.1"
   }
 }
