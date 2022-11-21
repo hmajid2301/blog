@@ -86,17 +86,17 @@ With changes to Gitlab 15 and expiring OAuth tokens, [see more here](https://doc
 You need to use a personal access token to authenticate instead of your normal password.
 Copy the token and keep it somewhere safe i.e. your password manager.
 
-![PAT](images/gitlab_access_token.png)
-
 Then go to your Git Gateway settings in `Site Settings > Identity` (on Netlify).
 Then edit and repalce the access token with the one you created above.
-
-![Netlify Gateway](images/netlify_git_gateway.png)
 
 This should avoid the issue where you cannot access `/admin` after 2 hours.
 Then need to disable and re-enable git gateway (getting a new OAuth JWT).
 Which was quite annoying todo.
+
 {{< /notice >}}
+![PAT](images/gitlab_access_token.png)
+
+![Netlify Gateway](images/netlify_git_gateway.png)
 
 ### Netlify Preview
 
