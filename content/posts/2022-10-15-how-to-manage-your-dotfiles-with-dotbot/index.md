@@ -19,7 +19,7 @@ desktop and my work laptop or distro hopping on Linux. See relevant meme below:
 
 {{< notice type="info" title="What are dotfiles?" >}}
 Many tools/program store their configuration files as files on your machine.
-For example on Linux you will often find these in `~/.config` directory.
+On Linux you will often find these in `~/.config` directory.
 
 Some common examples of dotfiles:
 	
@@ -35,7 +35,7 @@ way to manage our dotfiles using VCS (git).
 
 ## How does it work?
 
-Dotbot works by creating symlinks between files in your git repo i.e `~/dotfiles/bashrc -> ~/.bashrc`.
+Dotbot works by creating symlinks between files in your git repo to a location on your filesystem i.e `~/dotfiles/bashrc -> ~/.bashrc`.
 So this means if we edit either file it will edit in both places. Typically I will edit the files in the dotfiles repo.
 You can then commit and push your changes at your leisure.
 
@@ -46,9 +46,9 @@ A symlink or a Symbolic Link is basically a shortcut to another file. It is a fi
 ## Why manage dotfiles with git? 
 
 One of the main reasons to use VCS (git) to manage your dotfiles is very much the same reason you would use VCS normally.
-It allows us to track the history of files. So we can see all the changes. Recently in my case I have been trying different shell.
+It allows us to track the history of files, so we can see all the changes made to it. Recently in my case I have been trying different shells.
 I prefer to keep my dotfiles clean so when I stop using a shell I delete it. For example I swapped from zsh back to fish.
-When I did this I deleted zsh config from my repo. If I ever need my zsh config back I can trawl through my git
+I moved from zsh to fish shell, and deleted my ZSH config. If I ever need my zsh config back I can trawl through my git
 history and retrieve it.
 
 ## Getting started
@@ -81,9 +81,9 @@ Shall I make the initial commit? (Y/n) y
 Will do.
 ```
 
-This will create an empty dotfiles repo we can then configure as we need. Which will look a bit like this:
+This will create an empty dotfiles repo we can then configure, it will look like:
 
-```
+```bash
 .
 |-- bashrc
 |-- dotbot
@@ -96,7 +96,7 @@ This will create an empty dotfiles repo we can then configure as we need. Which 
 
 The main config file `install.conf.yaml` is where we configure what files to copy and where to copy them.
 
-The default version of this file may look something like this:
+The default version of this file will look something like this:
 
 ```yaml
 - clean: ['~']
@@ -112,13 +112,12 @@ Let's break down what this file is doing;
 
 > Clean commands specify directories that should be checked for dead symbolic links. These dead links are removed automatically. Only dead links that point to somewhere within the dotfiles directory are removed unless the force option is set to true - Dotbot
 
-So this means it will check our home directory for any dead symbolic links and remove them.
+So this means it will check our home directory (`~`) for any dead symbolic links and remove them.
 
 #### link
 
-This is the main part of config file, it tells use where to move files in the dotfiles repo on our systems.
-Where each line refers to a different file.
-The profile file in the dotfiles repository will be copied to `~/.profile` location.
+This is the main part of config file, it tells DotBot where to symlink the files in our dotfiles repo on our systems.
+For example, the profile file in the dotfiles repository will be copied to `~/.profile` location.
 
 ```yaml
 ~/.profile: profile
