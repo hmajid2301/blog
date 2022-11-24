@@ -15,13 +15,7 @@ cover:
 **TIL: How to Add Hugo Shortcode Snippets in VSCode**
 
 Hugo [shortcodes](https://gohugo.io/content-management/shortcodes/) are a great way to add functionality to our Hugo blog.
-However, I find them fiddly to add for example:
-
-```go-html-template
-{{< notice type="warning" title="warning" >}}
-This is a warning
-{{< /notice >}}
-```
+However, I find them fiddly to add.
 
 So let's see how we can leverage VSCode snippets to make it easier to add shortcodes to our markdown files.
 First, open the command palette, then select `Snippets: Configure User Snippets`. In my case, I want to add snippets
@@ -34,15 +28,15 @@ Then I will update the file to make it look like this:
 {
   "invidious": {
     "prefix": "invidious",
-    "body": ["{{< invidious ${1:link} >}}"],
+    "body": ["{{</* invidious ${1:link} */>}}"],
     "description": "invidious Hugo shortcode"
   },
   "notice": {
     "prefix": "notice",
     "body": [
-      "{{< notice type=\"${1:type}\" title=\"${3:title}\" >}}",
+      "{{</* notice type=\"${1:type}\" title=\"${3:title}\" */>}}",
       "${4:content}",
-      "{{< notice >}}",
+      "{{</* notice */>}}",
       "",
       "$0"
     ],
@@ -51,15 +45,15 @@ Then I will update the file to make it look like this:
 }
 ```
 
-Here I added two of my most used shortcodes:
+Which could then easily be turned into this:
 
-```go-html-template
-{{< notice type="warning" title="warning" >}}
+```html
+{{</* notice type="warning" title="warning" */>}}
 This is a warning
-{{< /notice >}}
+{{</* /notice */>}}
 
 
-{{< invidious rALo_BzGKs8 >}}
+{{</* invidious rALo_BzGKs8 */>}}
 ```
 
 To add them to our markdown files we just need to type the prefix i.e. `notice` and then press the auto-complete button i.e. `tab`.
