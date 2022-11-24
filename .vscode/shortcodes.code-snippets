@@ -1,0 +1,18 @@
+{
+  "invidious": {
+    "prefix": "invidious",
+    "body": ["{{< invidious ${1:link} >}}"],
+    "description": "invidious Hugo shortcode"
+  },
+  "notice": {
+    "prefix": "notice",
+    "body": [
+      "{{< notice type=\"${1:type}\" title=\"${3:title}\" >}}",
+      "${4:content}",
+      "{{< notice >}}",
+      "",
+      "$0"
+    ],
+    "description": "notice Hugo shortcode"
+  }
+}

@@ -50,8 +50,6 @@ hugo.linux
 .history
 .ionide
 
-# Support for Project snippet scope
-.vscode/*.code-snippets
 
 # Ignore code-workspaces
 *.code-workspace
