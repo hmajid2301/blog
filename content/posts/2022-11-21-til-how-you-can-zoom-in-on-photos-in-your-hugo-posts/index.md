@@ -14,11 +14,9 @@ cover:
 
 **TIL: How You Can Zoom in on Photos in your Hugo Posts**
 
-A quick before and after (below) is what we want to achieve:
+You can see what we want to achieve in the GIF below:
 
-![Before](images/zoom_before.png)
-
-![After](images/zoom_after.png)
+{{< gfycat src="MisguidedFondDingo" >}}
 
 ## How? 
 
