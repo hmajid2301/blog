@@ -10,24 +10,23 @@ deploy_site:
     - curl -X POST -d '{}' $NETLIFY_BUILD_WEBHOOK
   only:
     - schedules
-
-publish_updates:
-  stage: deploy
-  image: python
-  variables:
-    GIT_LFS_SKIP_SMUDGE: 1
-  before_script:
-    - git config --global user.email "automated@haseebmajid.dev"
-    - git config --global user.name "Automated Gitlab CI"
-    - cd feed2toot
-  script:
-    - pip3 install feed2toot
-    - cp $CLIENT_CRED feed2toot_clientcred.txt
-    - cp $USER_CRED feed2toot_usercred.txt
-    - feed2toot --limit 5 --debug -c feed2toot.ini
-  after_script:
-    - git add feed2toot.db
-    - git commit -m "Updating feed2toot database file"
-    - git push "https://${GITLAB_USER_NAME}:${CI_ACCESS_TOKEN}@${CI_REPOSITORY_URL#*@}" "HEAD:${CI_COMMIT_REF_NAME}" -o skip-ci
-  only:
-    - schedules
+# publish_updates:
+#   stage: deploy
+#   image: python
+#   variables:
+#     GIT_LFS_SKIP_SMUDGE: 1
+#   before_script:
+#     - git config --global user.email "automated@haseebmajid.dev"
+#     - git config --global user.name "Automated Gitlab CI"
+#     - cd feed2toot
+#   script:
+#     - pip3 install feed2toot
+#     - cp $CLIENT_CRED feed2toot_clientcred.txt
+#     - cp $USER_CRED feed2toot_usercred.txt
+#     - feed2toot --limit 5 --debug -c feed2toot.ini
+#   after_script:
+#     - git add feed2toot.db
+#     - git commit -m "Updating feed2toot database file"
+#     - git push "https://${GITLAB_USER_NAME}:${CI_ACCESS_TOKEN}@${CI_REPOSITORY_URL#*@}" "HEAD:${CI_COMMIT_REF_NAME}" -o skip-ci
+#   only:
+#     - schedules
