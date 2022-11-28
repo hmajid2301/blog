@@ -43,8 +43,9 @@ was inspired by [Wes Bros](https://wesbos.com/uses). See more pages like this [h
 - I use ⏱️ [Timeshift](https://itsfoss.com/backup-restore-linux-timeshift/) to create backups
 - I use 🪵 [Logseq](https://logseq.com/) for taking notes
 - I use 🦆 [Mullvad](https://mullvad.net/) as my VPN
+- I use 🔒 [Bitwarden](https://bitwarden.com/) as my password manager (is FOSS)
 
-#### 🔒 Backups
+#### 😟 Backups
 
 My Backup strategy is as follows:
 
@@ -68,8 +69,11 @@ My Backup strategy is as follows:
 
 ## Websites
 
+Some website I use on the regular include:
+
 ### Privacy Focused
 
 - [whoogle](https://github.com/benbusby/whoogle-search): Google frontend without ads, tracking etc
 - [Invidious](https://invidious.io/): Open source youtube front-end
+- [teddit](https://teddit.net/): Open source reddit front-end
 - [Goatcounter](goatcounter.com): Website analytics tools, without tracking
