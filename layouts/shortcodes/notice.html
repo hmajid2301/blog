@@ -1,4 +1,9 @@
-<details class="notice {{ .Get "type" }}" open="{{ .Get "opened" | default true }}">
-  {{- with .Get "title" }}<summary class="notice-title">{{ . }}</summary>{{ end }}
+<details
+  class="notice {{ .Get "type" }}"
+  open="{{ .Get "opened" | default true }}"
+>
+  {{- with .Get "title" }}
+    <summary class="notice-title">{{ . }}</summary>
+  {{ end }}
   {{ .Inner | markdownify }}
 </details>

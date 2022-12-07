@@ -1,19 +1,21 @@
 {{- if .IsTranslated -}}
-{{- if (ne .Layout "search") }}
-{{- if or .Params.author site.Params.author (.Param "ShowReadingTime") (not .Date.IsZero) }}&nbsp;|&nbsp;{{- end -}}
-{{- end }}
-{{- i18n "translations" | default "Translations" }}:
-<ul class="i18n_list">
+  {{- if (ne .Layout "search") }}
+    {{- if or .Params.author site.Params.author (.Param "ShowReadingTime") (not .Date.IsZero) }}
+      &nbsp;|&nbsp;
+    {{- end -}}
+  {{- end }}
+  {{- i18n "translations" | default "Translations" }}:
+  <ul class="i18n_list">
     {{- range .Translations }}
-    <li>
+      <li>
         <a href="{{ .Permalink }}">
-            {{- if (and site.Params.displayFullLangName (.Language.LanguageName)) }}
+          {{- if (and site.Params.displayFullLangName (.Language.LanguageName)) }}
             {{- .Language.LanguageName | emojify -}}
-            {{- else }}
+          {{- else }}
             {{- .Lang | title -}}
-            {{- end -}}
+          {{- end -}}
         </a>
-    </li>
+      </li>
     {{- end }}
-</ul>
+  </ul>
 {{- end -}}

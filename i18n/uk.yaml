@@ -6,7 +6,7 @@
 
 - id: read_time
   translation:
-    one : "1 хвилина"
+    one: "1 хвилина"
     other: "{{ .Count }} хвилин"
 
 - id: toc

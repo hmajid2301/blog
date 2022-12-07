@@ -1,5 +1,5 @@
 {{ with .page }}
-{{ if .IsHome }}
+  {{ if .IsHome }}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -17,13 +17,13 @@
   ]
 }
 </script>
-{{- else if (or .IsPage .IsSection) }}
-{{/* BreadcrumbList */}}
-{{- $url := replace .Parent.Permalink ( printf "%s" site.BaseURL) "" }}
-{{- $lang_url := strings.TrimPrefix ( printf "%s/" .Lang) $url }}
-{{- $bc_list := (split $lang_url "/")}}
+  {{- else if (or .IsPage .IsSection) }}
+    {{/* BreadcrumbList */}}
+    {{- $url := replace .Parent.Permalink ( printf "%s" site.BaseURL) "" }}
+    {{- $lang_url := strings.TrimPrefix ( printf "%s/" .Lang) $url }}
+    {{- $bc_list := (split $lang_url "/") }}
 
-{{- $scratch := newScratch }}
+    {{- $scratch := newScratch }}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -55,8 +55,7 @@
     }
   ]
 }
-</script>
-{{- if .IsPage }}
+</script> {{- if .IsPage }}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -114,7 +113,7 @@
   }
 }
 </script>
-{{- end }}{{/* .IsPage end */}}
-
-{{- end -}}
+    {{- end }}
+    {{/* .IsPage end */}}
+  {{- end -}}
 {{- end -}}

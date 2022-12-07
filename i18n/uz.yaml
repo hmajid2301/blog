@@ -6,7 +6,7 @@
 
 - id: read_time
   translation:
-    one : "Bir daqiqa"
+    one: "Bir daqiqa"
     other: "{{ .Count }} daqiqa"
 
 - id: toc
@@ -17,4 +17,3 @@
 
 - id: home
   translation: "Bosh sahifa"
-  

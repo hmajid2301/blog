@@ -11,7 +11,7 @@
 
 - id: words
   translation:
-    one : "Wort"
+    one: "Wort"
     other: "{{ .Count }} Wörter"
 
 - id: toc

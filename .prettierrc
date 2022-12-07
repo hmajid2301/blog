@@ -7,5 +7,7 @@
       }
     }
   ],
-  "goTemplateBracketSpacing": true
+  "goTemplateBracketSpacing": true,
+  "bracketSameLine": true,
+  "htmlWhitespaceSensitivity": "ignore"
 }

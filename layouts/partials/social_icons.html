@@ -1,16 +1,24 @@
 <div class="social-icons">
-    {{- range .icons }}
-    {{- $icon_name := ( trim .name " " | lower )}}
+  {{- range .icons }}
+    {{- $icon_name := ( trim .name " " | lower ) }}
 
     {{- if (eq .url "email") }}
-    <a href="mailto:{{ $.MaskedEmail | default $.Email }}" title="{{ .name | title }}">
+      <a
+        href="mailto:{{ $.MaskedEmail | default $.Email }}"
+        title="{{ .name | title }}"
+      >
         {{ safeHTML (index $.svg $icon_name | default $.svg.default) }}
-    </a>
+      </a>
     {{- else }}
-    <a href="{{ trim .url " " }}" target="_blank" rel="noopener noreferrer me" title="{{ .name | title }}">
+      <a
+        href="{{ trim .url " " }}"
+        target="_blank"
+        rel="noopener noreferrer me"
+        title="{{ .name | title }}"
+      >
         {{ safeHTML (index $.svg $icon_name | default $.svg.default) }}
-    </a>
+      </a>
     {{- end }}
 
-    {{- end }}
+  {{- end }}
 </div>

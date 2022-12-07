@@ -1,10 +1,13 @@
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, shrink-to-fit=no"
+/>
 {{- if hugo.IsProduction | or (eq site.Params.env "production") }}
-<meta name="robots" content="index, follow">
+  <meta name="robots" content="index, follow" />
 {{- else }}
-<meta name="robots" content="noindex, nofollow">
+  <meta name="robots" content="noindex, nofollow" />
 {{- end }}
 
 {{- /* Title */}}
@@ -16,28 +19,70 @@
 
 {{- /* Meta */}}
 {{- if .IsHome }}
-{{ with site.Params.keywords -}}<meta name="keywords" content="{{- range $i, $e := . }}{{ if $i }}, {{ end }}{{ $e }}{{ end }}">{{ end }}
+  {{ with site.Params.keywords -}}
+    <meta
+      name="keywords"
+      content="{{- range $i, $e := . }}
+        {{ if $i }},{{ end }}{{ $e }}
+      {{ end }}"
+    />
+  {{ end }}
 {{- else }}
-<meta name="keywords" content="{{ if .Params.keywords -}}
-    {{- range $i, $e := .Params.keywords }}{{ if $i }}, {{ end }}{{ $e }}{{ end }} {{- else }}
-    {{- range $i, $e := .Params.tags }}{{ if $i }}, {{ end }}{{ $e }}{{ end }} {{- end -}}">
+  <meta
+    name="keywords"
+    content="{{ if .Params.keywords -}}
+      {{- range $i, $e := .Params.keywords }}
+        {{ if $i }},{{ end }}{{ $e }}
+      {{ end }}
+    {{- else }}
+      {{- range $i, $e := .Params.tags }}{{ if $i }},{{ end }}{{ $e }}{{ end }}
+    {{- end -}}"
+  />
 {{- end }}
-<meta name="description" content="{{- with .Description }}{{ . }}{{- else }}{{- if or .IsPage .IsSection}}
-    {{- .Summary | default (printf "%s - %s" .Title  site.Title) }}{{- else }}
-    {{- with site.Params.description }}{{ . }}{{- end }}{{- end }}{{- end -}}">
-<meta name="author" content="{{ (partial "author.html" . ) }}">
-<link rel="canonical" href="{{ if .Params.canonicalURL -}} {{ trim .Params.canonicalURL " " }} {{- else -}} {{ .Permalink }} {{- end }}">
+<meta
+  name="description"
+  content="{{- with .Description }}
+    {{ . }}
+  {{- else }}
+    {{- if or .IsPage .IsSection }}
+      {{- .Summary | default (printf "%s - %s" .Title  site.Title) }}
+    {{- else }}
+      {{- with site.Params.description }}{{ . }}{{- end }}
+    {{- end }}
+  {{- end -}}"
+/>
+<meta name="author" content="{{ (partial "author.html" . ) }}" />
+<link
+  rel="canonical"
+  href="{{ if .Params.canonicalURL -}}
+    {{ trim .Params.canonicalURL " " }}
+  {{- else -}}
+    {{ .Permalink }}
+  {{- end }}"
+/>
 {{- if site.Params.analytics.googlesiteVerificationTag }}
-<meta name="google-site-verification" content="{{ site.Params.analytics.googlesiteVerificationTag }}">
+  <meta
+    name="google-site-verification"
+    content="{{ site.Params.analytics.googlesiteVerificationTag }}"
+  />
 {{- end }}
 {{- if site.Params.analytics.yandexsiteVerificationTag }}
-<meta name="yandex-verification" content="{{ site.Params.analytics.yandexsiteVerificationTag }}">
+  <meta
+    name="yandex-verification"
+    content="{{ site.Params.analytics.yandexsiteVerificationTag }}"
+  />
 {{- end }}
 {{- if site.Params.analytics.bingsiteVerificationTag }}
-<meta name="msvalidate.01" content="{{ site.Params.analytics.bingsiteVerificationTag }}">
+  <meta
+    name="msvalidate.01"
+    content="{{ site.Params.analytics.bingsiteVerificationTag }}"
+  />
 {{- end }}
 {{- if site.Params.analytics.naver.SiteVerificationTag }}
-<meta name="naver-site-verification" content="{{ site.Params.analytics.naver.SiteVerificationTag }}">
+  <meta
+    name="naver-site-verification"
+    content="{{ site.Params.analytics.naver.SiteVerificationTag }}"
+  />
 {{- end }}
 
 {{- /* Styles */}}
@@ -58,22 +103,44 @@
 {{- $stylesheet := (slice $core $extended $extendedScss) | resources.Concat "assets/css/stylesheet.css" | minify }}
 
 {{- if not site.Params.assets.disableFingerprinting }}
-{{- $stylesheet := $stylesheet | fingerprint }}
-<link crossorigin="anonymous" href="{{ $stylesheet.RelPermalink }}" integrity="{{ $stylesheet.Data.Integrity }}" rel="preload stylesheet" as="style">
+  {{- $stylesheet := $stylesheet | fingerprint }}
+  <link
+    crossorigin="anonymous"
+    href="{{ $stylesheet.RelPermalink }}"
+    integrity="{{ $stylesheet.Data.Integrity }}"
+    rel="preload stylesheet"
+    as="style"
+  />
 {{- else }}
-<link crossorigin="anonymous" href="{{ $stylesheet.RelPermalink }}" rel="preload stylesheet" as="style">
+  <link
+    crossorigin="anonymous"
+    href="{{ $stylesheet.RelPermalink }}"
+    rel="preload stylesheet"
+    as="style"
+  />
 {{- end }}
 
 {{- /* Favicons */}}
-<link rel="icon" href="{{ site.Params.favicon | default "favicon.ico" | absURL }}">
-<link rel="apple-touch-icon" href="{{ site.Params.appleTouchIcon | default "apple-touch-icon.png" | absURL }}">
+<link
+  rel="icon"
+  href="{{ site.Params.favicon | default "favicon.ico" | absURL }}"
+/>
+<link
+  rel="apple-touch-icon"
+  href="{{ site.Params.appleTouchIcon | default "apple-touch-icon.png" | absURL }}
+  "
+/>
 
 {{- /* RSS */}}
 {{ range .AlternativeOutputFormats -}}
-<link rel="{{ .Rel }}" type="{{ .MediaType.Type | html }}" href="{{ .Permalink | safeURL }}">
+  <link
+    rel="{{ .Rel }}"
+    type="{{ .MediaType.Type | html }}"
+    href="{{ .Permalink | safeURL }}"
+  />
 {{ end -}}
 {{- range .AllTranslations -}}
-<link rel="alternate" hreflang="{{ .Lang }}" href="{{ .Permalink }}">
+  <link rel="alternate" hreflang="{{ .Lang }}" href="{{ .Permalink }}" />
 {{ end -}}
 
 {{- /* Misc */}}
@@ -95,7 +162,18 @@
   {{- end }}
 {{- end }}
 <meta name="twitter:title" content="{{ $pageTitle }}" />
-<meta name="twitter:description" content="{{ with .Description }}{{ . }}{{ else }}{{if .IsPage}}{{ .Summary }}{{ else }}{{ with site.Params.description }}{{ . }}{{ end }}{{ end }}{{ end -}}" />
+<meta
+  name="twitter:description"
+  content="{{ with .Description }}
+    {{ . }}
+  {{ else }}
+    {{ if .IsPage }}
+      {{ .Summary }}
+    {{ else }}
+      {{ with site.Params.description }}{{ . }}{{ end }}
+    {{ end }}
+  {{ end -}}"
+/>
 {{- with site.Params.socialAccounts.twitter }}
   <meta name="twitter:site" content="@{{ .username }}" />
   <meta name="twitter:creator" content="@{{ .username }}" />
@@ -107,40 +185,38 @@
 
 {{- partial "extend_head.html" . }}
 <noscript>
+  <style>
+    #theme-toggle,
+    .top-link {
+      display: none;
+    }
+  </style>
+  {{- if (and (ne site.Params.defaultTheme "light") (ne site.Params.defaultTheme "dark")) }}
     <style>
-        #theme-toggle,
-        .top-link {
-            display: none;
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --theme: rgb(29, 30, 32);
+          --entry: rgb(46, 46, 51);
+          --primary: rgb(218, 218, 219);
+          --secondary: rgb(155, 156, 157);
+          --tertiary-bg: rgb(65, 66, 68);
+          --content: rgb(196, 196, 197);
+          --code-bg: rgb(55, 56, 62);
+          --border: rgb(51, 51, 51);
         }
 
-    </style>
-    {{- if (and (ne site.Params.defaultTheme "light") (ne site.Params.defaultTheme "dark")) }}
-    <style>
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --theme: rgb(29, 30, 32);
-                --entry: rgb(46, 46, 51);
-                --primary: rgb(218, 218, 219);
-                --secondary: rgb(155, 156, 157);
-                --tertiary-bg: rgb(65, 66, 68);
-                --content: rgb(196, 196, 197);
-                --code-bg: rgb(55, 56, 62);
-                --border: rgb(51, 51, 51);
-            }
-
-            .list-page {
-                background: var(--theme);
-            }
-
-            .list-page:not(.dark)::-webkit-scrollbar-track {
-                background: 0 0;
-            }
-
-            .list-page:not(.dark)::-webkit-scrollbar-thumb {
-                border-color: var(--theme);
-            }
+        .list-page {
+          background: var(--theme);
         }
 
+        .list-page:not(.dark)::-webkit-scrollbar-track {
+          background: 0 0;
+        }
+
+        .list-page:not(.dark)::-webkit-scrollbar-thumb {
+          border-color: var(--theme);
+        }
+      }
     </style>
-    {{- end }}
+  {{- end }}
 </noscript>

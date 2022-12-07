@@ -1,6 +1,6 @@
 {{- /* You can add your own layouts/comments.html to override this file */ -}}
 
-{{- $pageCommentSystems := .Param "pageCommentSystems"}}
+{{- $pageCommentSystems := .Param "pageCommentSystems" }}
 {{- if not $pageCommentSystems }}
   {{- $pageCommentSystems = site.Params.defaultCommentSystems }}
 {{- end }}
@@ -8,26 +8,26 @@
 {{- $page := . -}}
 {{- with site.Params.commentSystems -}}
   {{- if $pageCommentSystems.remark42 -}}
-  {{- with .remark42 -}}
-    {{- partial "remark42.html" (dict "page" $page "ctx" .) }}
-  {{- end -}}
+    {{- with .remark42 -}}
+      {{- partial "remark42.html" (dict "page" $page "ctx" .) }}
+    {{- end -}}
   {{- end -}}
 
   {{- if $pageCommentSystems.telegramWidget -}}
-  {{- with .telegramWidget -}}
-    {{- partial "telegram_widget.html" . }}
-  {{- end -}}
+    {{- with .telegramWidget -}}
+      {{- partial "telegram_widget.html" . }}
+    {{- end -}}
   {{- end -}}
 
   {{- if $pageCommentSystems.disqus -}}
-  {{- with .disqus -}}
-    {{- partial "disqus.html" (dict "page" $page "ctx" .) }}
-  {{- end -}}
+    {{- with .disqus -}}
+      {{- partial "disqus.html" (dict "page" $page "ctx" .) }}
+    {{- end -}}
   {{- end -}}
 
   {{- if $pageCommentSystems.giscus -}}
-  {{- with .giscus -}}
-    {{- partial "giscus.html" (dict "page" $page "ctx" .) }}
-  {{- end -}}
+    {{- with .giscus -}}
+      {{- partial "giscus.html" (dict "page" $page "ctx" .) }}
+    {{- end -}}
   {{- end -}}
 {{- end -}}

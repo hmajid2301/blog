@@ -2,7 +2,9 @@
   {{- $fileUrlPath := path.Join .File.Path }}
   <span class="meta-item">
     <a
-      href="{{ .Params.editPost.URL | default site.Params.editPost.URL }}{{ if .Params.editPost.appendFilePath | default ( site.Params.editPost.appendFilePath | default false ) }}/{{ $fileUrlPath }}{{ end }}"
+      href="{{ .Params.editPost.URL | default site.Params.editPost.URL }}{{ if .Params.editPost.appendFilePath | default ( site.Params.editPost.appendFilePath | default false ) }}
+        /{{ $fileUrlPath }}
+      {{ end }}"
       rel="noopener noreferrer"
       target="_blank"
     >

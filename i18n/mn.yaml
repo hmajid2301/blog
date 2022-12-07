@@ -6,7 +6,7 @@
 
 - id: read_time
   translation:
-    one : "1 МИН"
+    one: "1 МИН"
     other: "{{ .Count }} МИН"
 
 - id: toc

@@ -1,10 +1,11 @@
 {{ $.Scratch.Set "md" false }}
 
 {{ if .IsNamedParams }}
-{{ $.Scratch.Set "md" (.Get "md") }}
+  {{ $.Scratch.Set "md" (.Get "md") }}
 {{ else }}
-{{ $.Scratch.Set "md" (.Get 0) }}
+  {{ $.Scratch.Set "md" (.Get 0) }}
 {{ end }}
+
 
 <div dir="rtl">
   {{ if eq ($.Scratch.Get "md") false }}
