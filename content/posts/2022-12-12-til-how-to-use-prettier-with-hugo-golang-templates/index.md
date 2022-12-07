@@ -86,8 +86,8 @@ Sometimes our file may look something like this:
 <span>
   Analytics by
   <a href="https://{{ .Site.Params.goatcounter }}.goatcounter.com"
-    >Goatcounter</a
-  >.
+    >Goatcounter.</a
+  >
 </span>
 ```
 
@@ -98,8 +98,7 @@ file will look like:
 <span>
   Analytics by
   <a href="https://{{ .Site.Params.goatcounter }}.goatcounter.com">
-    Goatcounter
+    Goatcounter.
   </a>
-  .
 </span>
 ```
