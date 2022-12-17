@@ -1,0 +1,5 @@
+[*]
+indent_style = space
+
+[*.md]
+indent_size = 4
