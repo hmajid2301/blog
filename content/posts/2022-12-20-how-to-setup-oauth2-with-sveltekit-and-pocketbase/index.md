@@ -291,6 +291,7 @@ for some caveats when try to project routes.
 ## Appendix
 
 - [Bookmarkey App using this pattern](https://gitlab.com/banter-bus/bookmarkey/gui/-/tree/537c7c71e5529c3c1351d98a8a632d9244b16e41/src)
+- [Example source code](https://gitlab.com/hmajid2301/blog/-/tree/main/content/posts/2022-12-20-how-to-setup-oauth2-with-sveltekit-and-pocketbase/source_code/example)
 
 
 [^1]: https://github.com/pocketbase/pocketbase/discussions/537
