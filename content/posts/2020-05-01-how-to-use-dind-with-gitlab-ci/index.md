@@ -9,6 +9,7 @@ tags:
 cover:
   image: images/cover.png
 ---
+
 Like most developers, we want to be able to automate as many and as much of processes as possible. Pushing Docker
 images to a registry is a task that can easily be automated. In this article, we will cover how you can use
 Gitlab CI to build and publish your Docker images, to the Gitlab registry. However, you can also very easily
