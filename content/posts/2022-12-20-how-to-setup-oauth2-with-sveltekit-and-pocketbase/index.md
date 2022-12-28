@@ -16,13 +16,13 @@ PocketBase. [PocketBase](https://pocketbase.io/), is an open-source backend, tha
 in Golang, think of it similar to Firebase or Supabase.
 
 PocketBase will handle authentication for us, creating new users, and storing the password securely. You know things all apps
-need that we don't need to think about. To learn more about authentication with SvelteKit I recommend checking out the web
+need, that we don't want to spend a lot of times building ourselces. To learn more about authentication with SvelteKit I recommend checking out the web
 there are some fantastic tutorials available [^2].
 
 In this post, we will look at how we can use OAuth providers such as Google, Github or Gitlab to authenticate with our app
 and if needed to create a new account.
 
-For a more complicated example, an actual app, using OAuth with SvelteKit [click here](https://gitlab.com/banter-bus/bookmarkey/gui/-/tree/22c3843ddb70d0002584efff0192140466d70283).
+For an actual app using OAuth with SvelteKit [click here](https://gitlab.com/banter-bus/bookmarkey/gui/-/tree/22c3843ddb70d0002584efff0192140466d70283).
 
 ## PocketBase
 
