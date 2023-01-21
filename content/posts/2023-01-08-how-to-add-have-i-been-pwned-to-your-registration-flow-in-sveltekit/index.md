@@ -126,21 +126,21 @@ const registerSchema: z.ZodType<Register> = z.object({
 });
 
 export const actions: Actions = {
-    register: async ({ request }) => {
-        const data: Register = Object.fromEntries((await request.formData()) as Iterable<[Register]>);
-        const result = await registerSchema.safeParseAsync(data);
+  register: async ({ request }) => {
+      const data: Register = Object.fromEntries((await request.formData()) as Iterable<[Register]>);
+      const result = await registerSchema.safeParseAsync(data);
 
-        if (!result.success) {
-            return fail(400, {
-                data: data,
-                errors: result.error.flatten().fieldErrors
-            });
-        }
+      if (!result.success) {
+          return fail(400, {
+              data: data,
+              errors: result.error.flatten().fieldErrors
+          });
+      }
 
-        // Create user logic here ...
-        console.log('CREATE USER');
-        throw redirect(303, '/');
-    }
+      // Create user logic here ...
+      console.log('CREATE USER');
+      throw redirect(303, '/');
+  }
 };
 ```
 
@@ -154,12 +154,12 @@ export interface Register {
 }
 
 const registerSchema: z.ZodType<Register> = z.object({
-    email: z
-        .string({ required_error: 'Email is required' })
-        .email({ message: 'Email must be a valid email.' }),
-    password: z
-        .string({ required_error: 'Password is required' })
-        .min(8, 'Password must be a minimum of 8 characters.')
+  email: z
+      .string({ required_error: 'Email is required' })
+      .email({ message: 'Email must be a valid email.' }),
+  password: z
+      .string({ required_error: 'Password is required' })
+      .min(8, 'Password must be a minimum of 8 characters.')
 });
 ```
 
@@ -170,21 +170,21 @@ The next part of the file is our form action [^4], which receives a request from
 
 ```ts
 export const actions: Actions = {
-    register: async ({ request }) => {
-        const data: Register = Object.fromEntries((await request.formData()) as Iterable<[Register]>);
-        const result = await registerSchema.safeParseAsync(data);
+  register: async ({ request }) => {
+    const data: Register = Object.fromEntries((await request.formData()) as Iterable<[Register]>);
+    const result = await registerSchema.safeParseAsync(data);
 
-        if (!result.success) {
-            return fail(400, {
-                data: data,
-                errors: result.error.flatten().fieldErrors
-            });
-        }
-
-        // Create user logic here ...
-        console.log('CREATE USER');
-        throw redirect(303, '/');
+    if (!result.success) {
+        return fail(400, {
+            data: data,
+            errors: result.error.flatten().fieldErrors
+        });
     }
+
+    // Create user logic here ...
+    console.log('CREATE USER');
+    throw redirect(303, '/');
+  }
 };
 ```
 
@@ -201,10 +201,10 @@ const data: Register = Object.fromEntries((await request.formData()) as Iterable
 const result = await registerSchema.safeParseAsync(data);
 
 if (!result.success) {
-    return fail(400, {
-        data: data,
-        errors: result.error.flatten().fieldErrors
-    });
+  return fail(400, {
+      data: data,
+      errors: result.error.flatten().fieldErrors
+  });
 }
 ```
 
@@ -235,13 +235,13 @@ on if the password has been compromised or not.
 
 ```ts
 const isSafePassword = async (password: string) => {
-    try {
-        const pwned = await pwnedPassword(password);
-        return pwned <= 3;
-    } catch (err) {
-        console.log(err);
-        return true;
-    }
+  try {
+      const pwned = await pwnedPassword(password);
+      return pwned <= 3;
+  } catch (err) {
+      console.log(err);
+      return true;
+  }
 };
 ```
 
@@ -252,15 +252,15 @@ Now in our schema validation let's add the `refine` function:
 
 ```ts {hl_lines=[8-10]}
 const registerSchema: z.ZodType<Register> = z.object({
-    email: z
-        .string({ required_error: 'Email is required' })
-        .email({ message: 'Email must be a valid email.' }),
-    password: z
-        .string({ required_error: 'Password is required' })
-        .min(8, 'Password must be a minimum of 8 characters.')
-        .refine(isSafePassword, () => ({
-            message: `Password has been compromised, please try again`
-        }))
+  email: z
+      .string({ required_error: 'Email is required' })
+      .email({ message: 'Email must be a valid email.' }),
+  password: z
+      .string({ required_error: 'Password is required' })
+      .min(8, 'Password must be a minimum of 8 characters.')
+      .refine(isSafePassword, () => ({
+          message: `Password has been compromised, please try again`
+      }))
 });
 ```
 
