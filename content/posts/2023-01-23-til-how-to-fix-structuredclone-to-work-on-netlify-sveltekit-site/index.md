@@ -29,9 +29,9 @@ try {
 ```
 
 I needed to add the `structuredClone` function so that only POJO (plain old javascript objects) would get stored in the `event.locals.users`
-variable. However when I deployed this to production in Netlify. This broke my site! Specifically it wouldn't let the user login.
+variable. However when I deployed this to production in Netlify. This broke my site! Specifically, it wouldn't let the user log in.
 
-If you deploy your SvelteKit app on Netlify the server side code gets turned into functions for us automagically! I was able to work out
+If you deploy your SvelteKit app on Netlify the server-side code gets turned into functions for us automagically! I was able to work out
 that `structuredClone` function broke my app because in my `login` function I could see something like:
 
 ```

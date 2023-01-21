@@ -63,7 +63,7 @@ you should add that to the Netlify GUI directly.
 
 {{< notice type="info" title="Netlify Build Env Vars" >}}
 All the other sentry variables were pre-populated. I only added `SENTRY_AUTH_TOKEN` via the Netlify GUI.
-{{< notice >}}
+{{< /notice >}}
 
 {{< notice type="warning" title="Sentry Repository Name" >}}
 Note the name of the repository is not the Git URL but rather
@@ -72,7 +72,7 @@ the name of the project shown in your Sentry integration (shown in the above pho
 You can find this name by going to `Settings > Repositories`.
 Then copy the name of the project i.e. `HaseebMajid Apps / Bookmarkey / gui`.
 It is not the hyperlink (`gitlab.com/banter-bus/bookmarkey/gui`) [^2].
-{{< notice >}}
+{{< /notice >}}
 
 [^1]: https://github.com/getsentry/sentry-netlify-build-plugin
 [^2]: Related GitHub Issue, https://github.com/getsentry/sentry-netlify-build-plugin/issues/21

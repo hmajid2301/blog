@@ -9,7 +9,7 @@
     "body": [
       "{{< notice type=\"${1:type}\" title=\"${3:title}\" >}}",
       "${4:content}",
-      "{{< notice >}}",
+      "{{< /notice >}}",
       "",
       "$0"
     ],

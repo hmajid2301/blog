@@ -54,7 +54,7 @@ deploy:
 {{< notice type="warning" title="Limitation" >}}
 At the moment the script will only work with repositories you are the owner of in GitLab.
 Hence you cannot just say point to my google cloud function and get it to work with your repository.
-{{< notice >}}
+{{< /notice >}}
 
 ## Google Cloud
 

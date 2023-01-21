@@ -58,7 +58,7 @@ developing at home I have allowed all traffic on port 5173.
 Make sure you know what you are doing when playing around with your firewall rules!
 You don't want to allow more access than is necessary. Especially if you working in say
 a coffee shop on public WIFI.
-{{< notice >}}
+{{< /notice >}}
 
 ### Firefox
 
@@ -80,7 +80,7 @@ Now on your PC still:
 {{< notice type="warning" title="Cannot See Smartphone" >}}
 If you don't see your device it may be because your USB preferences are set to only charge your device.
 On my phone, I have to change it to `File Transfer/Android Auto`. Then Firefox can see the phone.
-{{< notice >}}
+{{< /notice >}}
 
 ![USB Preferences Android](images/android_usb_preferences)
 
