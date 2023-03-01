@@ -11,9 +11,7 @@ tasks:
 
   new_post:
     cmds:
-      - hugo new --kind post-bundle posts/{{now | date "2006-01-02"}}-{{.ARTICLE_NAME}}
-    env:
-      ARTICLE_NAME: foo
+      - script/add {{.CLI_ARGS}}
 
   new_talk:
     cmds:
