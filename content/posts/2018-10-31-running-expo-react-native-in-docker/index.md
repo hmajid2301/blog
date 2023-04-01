@@ -173,7 +173,7 @@ one step. Quick aside docker-compose is great for development, especially when y
 but is not really built to be used in production. Look at using a container orchestration tool such as Kubernetes.
 
 I also mount my current directory on the host machine to /app/ directory on the docker container, this is so that any
-files that change on my the host machine will also change in the Docker container, rather than having to build the
+files that change on my host machine will also change in the Docker container, rather than having to build the
 Docker container again.
 
 ```bash
