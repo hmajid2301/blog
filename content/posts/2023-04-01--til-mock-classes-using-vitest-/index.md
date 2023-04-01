@@ -73,3 +73,7 @@ on the object itself.
 That's it! Thanks for reading.
 
 [^1]: https://testing-library.com/docs/svelte-testing-library/intro/
+
+## Appendix
+
+- [Example Test from my App](https://gitlab.com/bookmarkey/gui/-/blob/main/src/lib/components/organisms/__tests__/AddBookmarkModal.test.ts#L11)
