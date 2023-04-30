@@ -1,10 +1,11 @@
 ---
 title: Uses
 summary: What I use!
-canonicalURL: 'https://haseebmajid.dev/uses/'
+canonicalURL: "https://haseebmajid.dev/uses/"
 url: /uses/
 date: 2022-10-08T00:00:00.000Z
 ---
+
 # What do I use?
 
 The following is a list of the tools that I use on a daily basis. This page
@@ -34,7 +35,7 @@ was inspired by [Wes Bros](https://wesbos.com/uses). See more pages like this [h
 
 - I use the [alacritty terminal](https://github.com/alacritty/alacritty) with [Starship prompt](https://starship.rs/)
 - I use [fish 🐟 shell](https://fishshell.com/) as my shell
-- I also use [tmux](https://gitlab.com/hmajid2301/dotfiles/-/blob/main/tmux/.tmux.conf) with [t-smart-tmux-session manager](https://github.com/joshmedeski/t-smart-tmux-session-manager) plugin
+- I also use [tmux](https://gitlab.com/hmajid2303/dotfiles/-/blob/main/tmux/.tmux.conf) with [t-smart-tmux-session manager](https://github.com/joshmedeski/t-smart-tmux-session-manager) plugin
 
 ## ⚙️ Tools
 
