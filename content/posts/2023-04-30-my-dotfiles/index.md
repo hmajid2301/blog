@@ -1,15 +1,17 @@
 ---
-title:  My Dotfiles
+title: My Dotfiles
 date: 2023-04-30
-canonicalURL: https://haseebmajid.dev/posts/2023-04-30--my-dotfiles-
+canonicalURL: https://haseebmajid.dev/posts/2023-04-30-my-dotfiles/
 tags:
     - dotfiles
+series:
+  - My Terminal Workflow
 ---
 
 This post is a quick introduction to 
 [dotfiles](https://gitlab.com/hmajid2301/dotfiles/-/tree/af7ec81b7ad48af758f73233a7b2a0461f95e285), accurate as of 25th of April 2023.
 
-{{< notice type="info" title="div" >}}
+{{< notice type="info" title="dotfiles" >}}
 These dotfiles are very likely to change.
 {{< /notice >}}
 
