@@ -5,7 +5,7 @@ canonicalURL: https://haseebmajid.dev/posts/2023-04-30-my-dotfiles/
 tags:
     - dotfiles
 series:
-  - My Terminal Workflow
+  - My Development Workflow
 ---
 
 This post is a quick introduction to 
@@ -73,11 +73,11 @@ You can find a full list of all the packages I "use" [here](https://gitlab.com/h
 
 CLI tools that I use often include:
 
-- [fzf](https://github.com/junegunn/fzf): Fuzzy search tool
-  - Especially for reverse search in my terminal with [fish shell](https://github.com/PatrickF1/fzf.fish)
+- [fzf](https://github.com/junegunn/fzf): Fuzzy search tool,Especially for reverse search in my terminal with [fish shell](https://github.com/PatrickF1/fzf.fish)
 - [zoxide](https://github.com/ajeetdsouza/zoxide): Smarter cd tool, integrated well with fzf, nvim and tmux
-- [exa](https://github.com/ogham/exa): A replacement for `ls` with better syntax highlighting
+- [exa](https://github.com/ogham/exa): ls replacement, used with [exa aliases](https://github.com/gazorby/fish-exa)
 - [ripgrep](https://github.com/BurntSushi/ripgrep): A faster `grep`
+- [lazygit](https://github.com/jesseduffield/lazygit): A TUI based git management client
 - [navi](https://github.com/denisidoro/navi): Interactive cheat sheet
 
 ### Wallpaper

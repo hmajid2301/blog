@@ -2,10 +2,9 @@
 
 TITLE=${1:-}
 
-TITLE_SLUG="$(echo -n "$TITLE" | sed -e 's/[^[:alnum:]]/-/g' | tr -s '-' | tr A-Z a-z)"
+TITLE_SLUG="$(echo -n "$TITLE" | sed -e 's/[^[:alnum:]]/-/g' | tr -s '-' | tr A-Z a-z | tail -c +2 | head -c -1)"
 DATE="$(date +"%F")"
 SLUG="$DATE-$TITLE_SLUG"
 
 git checkout -b "$SLUG"
 hugo new --kind post-bundle posts/$SLUG
-

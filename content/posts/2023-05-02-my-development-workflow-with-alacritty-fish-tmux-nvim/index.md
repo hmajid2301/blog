@@ -8,8 +8,13 @@ tags:
     - tmux
     - fish
 series:
-  - My Terminal Workflow
+  - My Development Workflow
 ---
+
+{{< notice type="info" title="Workflows Change" >}}
+This post is accurate as of date of publish. But likely will go stale, if I update my workflows I will likely publish
+another post.
+{{< /notice >}}
 
 In this blog post, I will go over my current development workflow using the above tools namely, fish shell tmux and neovim.
 I'll be using the [dotfiles](https://gitlab.com/hmajid2301/dotfiles/-/tree/8da9d515234d050dc34703e94f647fd9cb40c61a)
@@ -220,6 +225,9 @@ I remap the prefix key from `ctrl + b` to `ctrl + a` and to create a split using
 splits (all taken from other people's configs ofc 😅). These mappings just make more sense in my head and also are
 similar to mappings to make splits in nvim as well.
 
+The `-c "#{pane_current_path}"` part means when we open the new pane the working directory will be same as the current
+pane it is opened from.
+
 I use the following plugins:
 
 ```conf
@@ -241,7 +249,7 @@ config you can do `<prefix> + shift + I`.
 - aserowy/tmux.nvim: Installed in tmux and nvim allows for easier navigation between the two
 - joshmedeski/t-smart-tmux-session-manager: We spoke about this above, easier session management
 - tmux-plugins/tmux-resurrect: This and tmux-continuum are used to save and restore sessions so they persist even after shutdown
-- ofirgall/tmux-browser: I haven't gotten this to work yet but in theory, it opens a browser when you attach and closes when you detach
+- ofirgall/tmux-browser: It opens a browser when you attach and closes when you detach
 
 For restoring sessions:
 
@@ -294,8 +302,6 @@ folders on the fly. If we add a shortcut like this:
 allowing us to revert to a previous version.
 
 `vim.keymap.set("n", "<leader>uu", "<cmd>Telescope undo<cr>", { desc = "Show undoo tree" })`
-
-![Undo Tree](images/telescope-undo.png)
 
 To integrate with tmux we also install the [aseorwy/tmux.nvim](https://github.com/aserowy/tmux.nvim) in nvim.
 Now we can navigate our nvim and splits to our tmux panes. Which means we can say have a terminal open at the bottom.
