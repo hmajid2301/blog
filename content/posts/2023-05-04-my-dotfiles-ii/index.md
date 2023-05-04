@@ -1,63 +1,43 @@
 ---
-title: My Dotfiles
-date: 2023-04-30
-canonicalURL: https://haseebmajid.dev/posts/2023-04-30-my-dotfiles/
+title: My Dotfiles II
+date: 2023-05-04
+canonicalURL: https://haseebmajid.dev/posts/2023-05-04-my-dotfiles-ii
 tags:
     - dotfiles
 series:
   - My Development Workflow
 ---
 
-This post is a quick introduction to 
-[dotfiles](https://gitlab.com/hmajid2301/dotfiles/-/tree/af7ec81b7ad48af758f73233a7b2a0461f95e285), accurate as of 25th of April 2023.
-
-{{< notice type="caution" title="out of date" >}}
-These dotfiles are out of date check out my updated ones [here](/posts/2023-05-04-my-dotfiles-ii/)
-{{< /notice >}}
-
-# Dotfiles
-
-:house: My dotfiles setup using [Dotbot](https://github.com/anishathalye/dotbot/).
-
-## Install
-
-> :fire: I wouldn't recommend just blinding using my dotfiles. They are setup for my specific use-case. I think you're better picking and choosing what you like :smile:.
-
-```
-git clone git@github.com:hmajid2301/dotfiles.git
-cd dotfiles
-make install profile=arch
-```
+I know I recently made a post about my dotfiles but I've made a few changes since then, so here are my updated dotfiles.
 
 ## System Overview
 
-![Quick Settings](images/quick_settings.png)
-![Tmux](images/tmux.png)
+![neovim](images/dev.png)
+![Tmux](images/fun.png)
 
 - OS: Arch Linux
 - DE: Gnome
 - Shell: Fish
   - Prompt: [Starship](https://starship.rs/)
 - Terminal: Alacritty
-  - Editor: Neovim (using [astronvim](https://astronvim.com/) config)
-- Colorscheme: [Dracula](https://draculatheme.com/)
-- Icons: [Tela-circle-dracula-dark](https://github.com/vinceliuice/Tela-circle-icon-theme)
+  - Editor: Neovim (using [LazyVim](https://www.lazyvim.org) config)
+- Colorscheme: [Catppuccin for EVERYTHING!!!](https://github.com/catppuccin)
 - Fonts: [Mono Lisa](https://www.monolisa.dev/)
 
 ### Extensions
 
 I use the following Gnome extension. You can find the config for the extensions in this [massive file here](gnome/settings.ini).
 
-- [Aylurs Widgets](https://extensions.gnome.org/extension/5338/aylurs-widgets/)
-- [Just Perfection](https://extensions.gnome.org/extension/3843/just-perfection/)
-- [Logo Menu](https://extensions.gnome.org/extension/4451/logo-menu/)
-- [Blur my Shell](https://extensions.gnome.org/extension/3193/blur-my-shell/)
 - [Pop Shell](https://github.com/pop-os/shell)
-  - Used for tiling
-- [Rounded Window Corners](https://extensions.gnome.org/extension/5237/rounded-window-corners/)
-- [Pano](https://extensions.gnome.org/extension/5279/pano/)
+- [Space Bar](https://extensions.gnome.org/extension/5090/space-bar/)
+- [Aylurs Widgets](https://extensions.gnome.org/extension/5338/aylurs-widgets/)
 - [AppIndicator](https://extensions.gnome.org/extension/615/appindicator-support/)
 - [Updates Indicator](https://extensions.gnome.org/extension/1010/archlinux-updates-indicator/)
+- [Blur my Shell](https://extensions.gnome.org/extension/3193/blur-my-shell/)
+- [Rounded Window Corners](https://extensions.gnome.org/extension/5237/rounded-window-corners/)
+- [Pano](https://extensions.gnome.org/extension/5279/pano/)
+- [Just Perfection](https://extensions.gnome.org/extension/3843/just-perfection/)
+- [Logo Menu](https://extensions.gnome.org/extension/4451/logo-menu/)
 
 ### Top Bar
 
@@ -73,11 +53,11 @@ You can find a full list of all the packages I "use" [here](https://gitlab.com/h
 
 CLI tools that I use often include:
 
-- [fzf](https://github.com/junegunn/fzf): Fuzzy search tool,Especially for reverse search in my terminal with [fish shell](https://github.com/PatrickF1/fzf.fish)
+- [fzf](https://github.com/junegunn/fzf): Fuzzy search tool
+  - Especially for reverse search in my terminal with [fish shell](https://github.com/PatrickF1/fzf.fish)
 - [zoxide](https://github.com/ajeetdsouza/zoxide): Smarter cd tool, integrated well with fzf, nvim and tmux
-- [exa](https://github.com/ogham/exa): ls replacement, used with [exa aliases](https://github.com/gazorby/fish-exa)
+- [exa](https://github.com/ogham/exa): A replacement for `ls` with better syntax highlighting
 - [ripgrep](https://github.com/BurntSushi/ripgrep): A faster `grep`
-- [lazygit](https://github.com/jesseduffield/lazygit): A TUI based git management client
 - [navi](https://github.com/denisidoro/navi): Interactive cheat sheet
 
 ### Wallpaper
@@ -95,7 +75,7 @@ Which is a great script because it changes depending on the time of day i.e. whe
 ![Neovim Telescope](images/neovim_telescope.png)
 ![Neovim Noice](images/neovim_noice.png)
 
-I have started using nvim as my default editor (IDE?). It uses [astronvim](astronvim.com/) as
+I have started using nvim as my default editor (IDE?). It uses [LazyVim](lazyvim.org/) as
 the base config and adds a few plugins on top.
 
 - [trouble](https://github.com/folke/trouble.nvim): For showing all lsp diagnostic issues in a file
@@ -106,7 +86,7 @@ Including the status bar.
 
 Check out this cool place for tracking my neovim setup:
 
-- <https://dotfyle.com/hmajid2301/dotfiles-nvim>
+- <https://dotfyle.com/hmajid2301/starter>
 
 ## Appendix
 
@@ -120,5 +100,4 @@ Check out this cool place for tracking my neovim setup:
 - <https://github.com/ghostx31/dotfiles/tree/37587b043f277ff5831ce5f1a3287fbaec1d9fe3>
 - <https://github.com/Anant-mishra1729/Village-Linux-rice>
 - <https://github.com/colevoss/dotfiles>
-
 
