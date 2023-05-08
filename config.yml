@@ -9,6 +9,12 @@ buildExpired: false
 enableEmoji: True
 ignorefiles: ["source_code/.*"]
 
+module:
+  mounts:
+  - source: content
+    target: content
+    excludeFiles: source_code/*
+
 minify:
   disableXML: true
   minifyOutput: true
