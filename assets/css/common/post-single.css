@@ -577,14 +577,12 @@ h6:hover .anchor {
 /* footnotes */
 .footnotes {
     font-size: .8em;
-    color: var(--primary-dim);
     font-weight: 400;
     padding: 1em;
     background-color: var(--code-bg);
 }
 
 .footnotes a {
-    color: var(--primary-dim);
     font-weight: 400;
 }
 
