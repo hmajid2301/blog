@@ -17,10 +17,13 @@ For more details about my [dotfiles click here](https://gitlab.com/hmajid2301/do
 
 ## 🐧 OS + Hardware
 
-- I am currently using [Arch Linux](https://archlinux.org/)
-- I use the Gnome DE
+- I am currently using [NixOS](https://nixos.org/) with [Hyprland](https://hyprland.org/)
 - I use two 🖥️ 32" 4k monitors
-- I use a ⌨️ [Keychron Q3](https://www.keychron.com/products/keychron-q3-qmk-custom-mechanical-keyboard) with brown switches and [Logitech G502](https://www.logitechg.com/en-gb/products/gaming-mice/g502-lightspeed-wireless-gaming-mouse.910-005568.html) 🖱️
+- I use a ⌨️ [Keychron Q1 Pro](https://www.keychron.com/products/keychron-q1-pro-qmk-via-wireless-custom-mechanical-keyboard) with Kalih Box White switches
+- I use a 🖱️ [Logitech G502 X](https://www.logitechg.com/en-gb/products/gaming-mice/g502-x-wireless-lightforce.910-006190.html)
+- I am currently trying to use a [Framework 13" 12 Gen](https://frame.work/gb/en) as my main machine, rather than a desktop
+ - I am using a TB4 dock to have the desktop experience, my laptop remains closed on a stand
+ - I also have an eGPU when I want to game (haven't tried this yet)
 
 ## Theme
 
