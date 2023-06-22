@@ -1,6 +1,6 @@
 ---
 title: "TIL: How to use NUR with Home-Manager & Nix Flakes"
-date: 2023-06-22
+date: 2023-06-29
 canonicalURL: https://haseebmajid.dev/posts/2023-06-22-til-use-nur-with-home-manager-flake/
 tags:
   - nix
