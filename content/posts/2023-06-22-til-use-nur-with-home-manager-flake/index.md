@@ -1,6 +1,6 @@
 ---
 title: "TIL: How to use NUR with Home-Manager & Nix Flakes"
-date: 2023-06-29
+date: 2023-06-22
 canonicalURL: https://haseebmajid.dev/posts/2023-06-22-til-use-nur-with-home-manager-flake/
 tags:
   - nix
@@ -27,3 +27,24 @@ To do so first add it as an input in our `flake.nix` file:
     nur.url = "github:nix-community/NUR";
   };
 ```
+
+Then we can use with home-manager by importing `inputs.nur.hmModules.nur`, for example in your `home.nix` file:
+
+```nix
+  imports = [
+    inputs.nur.hmModules.nur
+  ]
+```
+
+Then we should be able to import packages like so:
+
+```nix
+  home.packages = with pkgs; [
+    nur.repos.peel.rofi-wifi-menu
+    nur.repos.peel.rofi-emoji
+  ];
+```
+
+> Note these packages won't work because they are out of date, and they caused me a lot of grief 😅, thinking it wasn't working.
+
+But that's it! You should be able to use NUR packages with home-manager setup via a flake.
