@@ -12,6 +12,14 @@ cover:
   image: images/cover.png
 ---
 
+{{< notice type="warning" title="Netlify CMS Deprecated" >}}
+Since I have written this post Netlify CMS has been deprecated in favour of decap-cms.
+Thanks to @roneo for raising this [issue](https://gitlab.com/hmajid2301/blog/-/issues/101).
+
+So the Netlify CMS part of this article is no longer relevant. I also no longer use this
+workflow, I instead just create articles locally using a script now!!!
+{{< /notice >}}
+
 In this post, I will go over my new workflow for creating articles/posts that I now use with
 my new (Hugo) blog. Though I'm sure much of this will apply to other JAM stack sites as well.
 
