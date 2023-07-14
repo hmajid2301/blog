@@ -10,6 +10,10 @@ series:
 
 I know I recently made a post about my dotfiles but I've made a few changes since then, so here are my updated dotfiles.
 
+{{< notice type="caution" title="out of date" >}}
+These dotfiles are out of date check out my updated ones [here](/posts/2023-07-15-my-dotfiles-iii/)
+{{< /notice >}}
+
 ## System Overview
 
 ![neovim](images/dev.png)
