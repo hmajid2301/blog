@@ -1,5 +1,5 @@
 ---
-title: NixOS as part of your Development Workflow
+title: "Part 1: NixOS as part of your Development Workflow"
 date: 2023-07-20
 canonicalURL: https://haseebmajid.dev/posts/2023-07-20-nixos-as-part-of-your-development-workflow
 tags:
@@ -323,7 +323,5 @@ Then to install the OS properly on our nvme ssd run `sudo nixos-install`.
 
 In the next post, we will go over how we can set up our window manager (Hyprland). This will also show us how we can use
 NixOS to configure our system.
-
-
 
 
