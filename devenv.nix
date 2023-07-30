@@ -5,7 +5,7 @@
   env.GREET = "devenv";
 
   # https://devenv.sh/packages/
-  packages = [ pkgs.git ];
+  packages = [ pkgs.hugo ];
 
   # https://devenv.sh/scripts/
   scripts.generate_og.exec = "python ./scripts/og/generate.py";
