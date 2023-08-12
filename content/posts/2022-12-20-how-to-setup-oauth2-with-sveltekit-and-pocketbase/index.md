@@ -11,6 +11,11 @@ cover:
   image: images/cover.png
 ---
 
+{{< notice type="warning" title="Out of date" >}}
+This article maybe a bit out of date as PocketBase is adding new features and deprecating old functions. If you encounter
+an issue with the setup [see this issue by Dominick](https://gitlab.com/hmajid2301/blog/-/issues/108)
+{{< /notice >}}
+
 Hi everyone, I've been building a new [bookmarking app](https://gitlab.com/banter-bus/bookmarkey/gui), using SvelteKit and
 PocketBase. [PocketBase](https://pocketbase.io/), is an open-source backend, that we need to self-host [^1]. It is written
 in Golang, think of it similar to Firebase or Supabase.
