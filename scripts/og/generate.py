@@ -1,6 +1,14 @@
 import os
 from pathlib import Path
 import subprocess
+import sys
+
+
+if len(sys.argv) >= 2:
+    d = sys.argv[1]
+else:
+    d = 'content/posts/'
+
 
 d = "content/posts"
 for path in os.listdir(d):

@@ -8,3 +8,4 @@ SLUG="$DATE-$TITLE_SLUG"
 
 git checkout -b "$SLUG"
 hugo new --kind post-bundle posts/$SLUG
+python scripts/og/generate.py content/posts/$SLUG
