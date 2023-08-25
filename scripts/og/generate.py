@@ -9,8 +9,6 @@ if len(sys.argv) >= 2:
 else:
     d = 'content/posts/'
 
-
-d = "content/posts"
 for path in os.listdir(d):
     full_path = os.path.join(d, path)
     if os.path.isdir(full_path):
