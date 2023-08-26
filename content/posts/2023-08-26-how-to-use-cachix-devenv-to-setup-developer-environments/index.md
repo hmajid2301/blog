@@ -41,7 +41,7 @@ So first let's install devenv, go to `flake.nix` and add the following input:
 
 This will make it available to the rest of our configuration as input. Now my flake config looks like this:
 
-```nix {hl_lines=[20]}
+```nix {hl_lines=[19]}
   outputs = {
     self,
     nixpkgs,
