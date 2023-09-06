@@ -37,8 +37,6 @@ In this post, we will go over what I think is the first part of your development
 I use NixOS, so we will go over why I use NixOS but first, let me explain why I don't use Windows or MacOS.
 
 
-
-
 ### tl:dr;
 
 If you like tinkering Linux is the OS for you.
@@ -96,7 +94,10 @@ declaratively means we define the end state in code, i.e. what packages we want 
 get to that state.
 
 So your desktop environment is reproducible. I could easily share config between multiple devices.
-Read more about why I swapped to [NixOS](/posts/2023-06-25-why-i-moved-to-nixos/).
+
+{{< notice type="info" title="Why I moved to NixOS" >}}
+You can read about [my article](posts/2023-06-25-why-i-moved-to-nixos/), for more reasons to move to NixOs.
+{{< /notice >}}
 
 ## How to set up NixOS?
 
