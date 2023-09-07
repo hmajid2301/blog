@@ -47,7 +47,7 @@ I bought it. In theory, moving back to my desktop should be a lot easier if I us
 
 ## Nix vs NixOS
 
-The language can be a bit confusing so let's define what we mean: [2]
+The language can be a bit confusing so let's define what we mean: [^2]
 
 - nix: The package manager, think like apt or Pacman
 - nixlang: The nix programming language, a functional language
@@ -86,7 +86,7 @@ So having the ability to define my system state in nixlang was a nice feature to
 
 The final feature that I liked was the ability of atomic updates. So nix never overwrites packages it simply adds them to a new path
 (in the /nix/store directory). It means we can maintain multiple versions of the same library (think like in Golang). It also means
-there is no team where we have some of the old files and new ones. So if your upgrade fails in the middle, we can simply revert to the older version. [1]
+there is no team where we have some of the old files and new ones. So if your upgrade fails in the middle, we can simply revert to the older version. [^1]
 
 ### Summary
 
@@ -100,9 +100,9 @@ In this section, I will go over a few of my learnings, since picking up NixOS a 
 If you are new to Linux I recommend trying a distribution like POP!_OS first then after you are more comfortable with Linux you can try
 nix as a package manager and after that move to NixOS. I will go over more why later in this post.
 
-There was a bunch of confusion about how to set up my repository to configure my system. What I ended up with was the following [3]
+There was a bunch of confusion about how to set up my repository to configure my system. What I ended up with was the following [^3]
 
-- Use Nix Flakes [4]
+- Use Nix Flakes [^4]
  - Improves reproducibility
 - Use home-manager to configure dotfiles
 - Use NixOS configuration for the rest of the system
@@ -116,7 +116,7 @@ There was a bunch of confusion about how to set up my repository to configure my
 ### Imperative vs Declarative
 
 I wanted my config to be declarative, which means I tell NixOS I want x,y,z i.e. Grub, Mullvad VPN and then NixOS works out how to get the system into the correct state.
-Nix/NixOS have some imperative operations [5] like using `nix-env` is which more similar to other package managers to install packages. But I avoid using those.
+Nix/NixOS have some imperative operations [^5] like using `nix-env` is which more similar to other package managers to install packages. But I avoid using those.
 Except `nix-shell -p <pkg>`, which creates a shell with the package installed temporarily which is great for quickly trying out the package without committing to an install.
 Essentially I want to define my system state in code, so it can be reproduced on other machines.
 
@@ -195,8 +195,8 @@ NixOS configuration.
 - [Nix Config](https://gitlab.com/hmajid2301/dotfiles/-/tree/6f2bac80e57999c793eb8ae48ca1dfc8dafa8f9e)
 - [NixOS Basic, a great read imo!](https://thiscute.world/en/posts/nixos-and-flake-basics/#iii-nix-flakes-and-the-old-nix)
 
-^[1]: https://nixos.org/guides/how-nix-works.html
-^[2]: https://news.ycombinator.com/item?id=23251895
-^[3]: Heavily inspired by this repo: https://github.com/Misterio77/nix-config
-^[4]: https://www.tweag.io/blog/2020-05-25-flakes/
-^[5]: https://nixos.wiki/wiki/Overview_of_the_NixOS_Linux_distribution
+[^1]: https://nixos.org/guides/how-nix-works.html
+[^2]: https://news.ycombinator.com/item?id=23251895
+[^3]: Heavily inspired by this repo: https://github.com/Misterio77/nix-config
+[^4]: https://www.tweag.io/blog/2020-05-25-flakes/
+[^5]: https://nixos.wiki/wiki/Overview_of_the_NixOS_Linux_distribution
