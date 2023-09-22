@@ -1,4 +1,4 @@
---
+---
 title: "TIL: How to Use fzf.fish History Search"
 date: 2023-09-19
 canonicalURL: https://haseebmajid.dev/posts/2023-09-19-til-how-to-use-fzf-fish-history-search
