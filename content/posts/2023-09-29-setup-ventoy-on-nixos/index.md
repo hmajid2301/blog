@@ -1,4 +1,5 @@
 ---
+title: Setup Ventoy on Nixos
 date: 2023-09-29
 canonicalURL: https://haseebmajid.dev/posts/2023-09-29-setup-ventoy-on-nixos
 tags:
