@@ -50,15 +50,15 @@
 }
 
 .dark {
-    --theme: #303446;
-    --entry: #414559;
-    --primary: #b5bfe2;
-    --primary-dim: #414559;
+    --theme: #1e1e2e;
+    --entry: #313244;
+    --primary: #b4befe;
+    --primary-dim: #6c7086;
     --secondary: #c6d0f5;
-    --tertiary:#414559;
-    --tertiary-bg: #232634;
-    --content: #c6d0f5;
-    --code-bg: #292c3c;
+    --tertiary:#9399b2;
+    --tertiary-bg: #45475a;
+    --content: #cdd6f4;
+    --code-bg: #313244;
     --border: #414559;
     --link-background-color: #8caaee6d;
     --link-color: var(--primary);
