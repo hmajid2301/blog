@@ -1,5 +1,5 @@
 ---
-title: "Part 2: How You can Configure NixOS as Part of Your Development Workflow"
+title: "My NixOS Dotfiles Explained"
 date: 2023-09-12
 canonicalURL: https://haseebmajid.dev/posts/2023-09-12-how-i-configure-nixos-as-part-of-my-development-workflow
 tags:
@@ -8,15 +8,11 @@ tags:
     - home-manager
     - dotfiles
 series:
-  - Setup Your Development Workflow
+  - My Development Workflow
 ---
 
-So as of the last post, we have chosen Linux and specifically NixOS. In this post, we will go over how we can configure it.
-We will go over the specifics of some of the tools in future posts such as the terminal I use, multiplexers (tmux) and 
-the shell I use. Including why/how I use these specific tools.
-
 In this post, we will just go over the basics of how we can configure our setup using a git repo, nix flakes and
-home-manager.
+home-manager. I will go over how I structured my nix config.
 
 {{< notice type="Info" title="Not an in-depth tutorial" >}}
 Note this will not be an in-depth guide into NixOS/Home Manager itself. That could well be a series on its own.
@@ -378,6 +374,4 @@ my system. Hopefully, it made it more clear how I use NixOS. And even a bit of N
 - [Misterio77's Repo](https://github.com/Misterio77/nix-config)
 - [home-manager options super useful](https://mipmip.github.io/home-manager-option-search/?query=fzf)
 
-[^1]: https://discourse.nixos.org/t/what-are-the-advantages-of-using-home-manager-with-flake-as-opposed-just-flakes-with-nixos/21628
-[^2]: A great book about NixOS and flakes https://nixos-and-flakes.thiscute.world/introduction/
 
