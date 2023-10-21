@@ -34,7 +34,7 @@ One potential to this solution is to use [Nix Flakes](https://nixos.org/flake-ma
 ## Flakes
 
 Nix Flakes exist to improve reproducibility, composability and usability in the Nix ecosystem. What do we mean by that,
-well in general they make it easier [2].
+well in general they make it easier [^2].
 
 - Lock file: They lock all of our dependencies to specific git revisions, so if we try to use the config on another machine it should produce the same "outputs"
 - Entry point: The entry point to every nix flake is the `flake.nix` file, kinda a main function where everything starts from
@@ -265,7 +265,7 @@ Home Manager is a tool we can use to help configure apps using Nix in our home f
 This can partly be done using nix expressions, used to generate the dotfiles.
 
 This is the main part of my config, which I use to configure my "user" space. Basically, everything I can do with my user
-that doesn't require root permissions [1]. This includes things like:
+that doesn't require root permissions [^1]. This includes things like:
 
 - terminal emulator
 - dotfiles

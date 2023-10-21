@@ -23,9 +23,9 @@ provided in the devshell.
 
 ## Flake Template
 
-First, we make sure you have support for Nix flakes [1]. To get started let's use a flake template to create a new flake
+First, we make sure you have support for Nix flakes [^1]. To get started let's use a flake template to create a new flake
 in our go project. First, make sure you are in the root of your project i.e. where `go.mod` is and then run
-`nix flake init -t github:nix-community/gomod2nix#app` [2].
+`nix flake init -t github:nix-community/gomod2nix#app` [^2].
 
 
 {{< notice type="warning" title="Fix" >}}
@@ -209,7 +209,7 @@ When we enter our nix shell it will automatically install pre-commit hooks and t
 ## Build go binary
 
 To build our binary using Nix we can simply run `nix run`, where we can see how this works in our `default.nix`
-file. Particularly the part with `buildGoApplication` [3]:
+file. Particularly the part with `buildGoApplication` [^3]:
 
 ```nix
 buildGoApplication {
@@ -224,7 +224,7 @@ buildGoApplication {
 That's it! We set up a development shell using Nix flakes for our go project. Including adding pre-commits and how
 we can build our Go binary using nix. Leveraging the `gomod2nix` tool.
 
-^[1]: https://nixos.wiki/wiki/Flakes
-^[2]: https://www.tweag.io/blog/2021-03-04-gomod2nix/
-^[3]: https://github.com/nix-community/gomod2nix/blob/master/docs/nix-reference.md
+[^1]: https://nixos.wiki/wiki/Flakes
+[^2]: https://www.tweag.io/blog/2021-03-04-gomod2nix/
+[^3]: https://github.com/nix-community/gomod2nix/blob/master/docs/nix-reference.md
 
