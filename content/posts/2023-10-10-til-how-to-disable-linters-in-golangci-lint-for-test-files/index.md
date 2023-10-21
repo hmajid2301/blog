@@ -68,7 +68,7 @@ if some of our test functions get a big long with different sub-tests.
 
 So to disable some linters for our test files we can do something like this:
 
-```yaml {hl_lines=[6-10]}
+```yaml {hl_lines="6-10"}
 linters:
   enable:
     - bodyclose
