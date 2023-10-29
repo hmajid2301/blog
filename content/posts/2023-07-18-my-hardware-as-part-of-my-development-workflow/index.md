@@ -1,5 +1,5 @@
 ---
-title: "Part 0: My Hardware as Part of My Development Workflow"
+title: "Part 0: Hardware as Part of Your Development Workflow"
 date: 2023-07-18
 canonicalURL: https://haseebmajid.dev/posts/2023-07-18-my-hardware-as-part-of-my-development-workflow
 tags:
