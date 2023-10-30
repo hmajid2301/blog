@@ -279,7 +279,7 @@ If I can configure it via home manager I will. You can find a full list of
 Where the `home.nix` file acts like a `configuration.nix` but for home manager.
 
 ```nix
-
+{
 , pkgs
 , lib
 , config
