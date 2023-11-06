@@ -1,5 +1,5 @@
 ---
-title: How Self Host Your Own Atuin Server
+title: How To Self Host Your Own Atuin Server
 date: 2023-08-16
 canonicalURL: https://haseebmajid.dev/posts/2023-08-16-how-self-host-your-own-atuin-server
 tags:
