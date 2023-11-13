@@ -23,8 +23,8 @@ listed below:
 ![Pi Cluster Front](./images/pi-cluster-front.jpeg)
 ![Pi Cluster Side](./images/pi-cluster-side.jpeg)
 
-- 4x Utronics SSD Cluster Case for Raspberry Pi
- - SKU: U6244
+- Utronics SSD Cluster Case for Raspberry Pi
+  - SKU: U6244
 - 2x Raspberry Pi 4 - 4GB RAM
 - 2x Raspberry Pi 4 - 8GB RAM
 - 2x 2TB SSD
@@ -32,16 +32,16 @@ listed below:
 - 4x SSD to USB 3.0 Cable for Raspberry Pi
 - 4x Raspberry Pi PoE+ HAT
 - 4x MicroSD Extender Set for Uctronics Cluster Cases
- - Easier to access SD cards in the case
+  - Easier to access SD cards in the case
 - 4x 16 GB Micro SD Cards
 - 4x CAT7 Ethernet Cables 0.5M
   - Could've gone a bit smaller (you can see in the photos)
 - Powerline Adapter 
- - P-Link TL-WPA4220
+  - P-Link TL-WPA4220
 - TP-Link 5-Port Gigabit Desktop PoE Switch
- - TL-SG1005P
+  - TL-SG1005P
 - Double sided Velcro
- - Attaches switch to Utronics case
+  - Attaches switch to Utronics case
 
  Extra:
  - Micro SD card to USB Adapter
@@ -113,7 +113,7 @@ ifconfig
 
 Then we can ssh to the pi from the same network, i.e. my main NixOS machine. By doing something like:
 
-`ssh nixos@192.168.0.75`, replace 192.168.0.75 with the IP address of your pi, return from the ifconfig command.
+`ssh nixos@192.168.0.75`, replace 192.168.0.75 with the IP address of your pi, returned from the ifconfig command.
 Then create a new config file:
 
 ### ssh
