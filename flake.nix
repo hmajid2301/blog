@@ -15,7 +15,7 @@
           python ./scripts/og/generate.py
         '';
 
-        buildInputs = with pkgs;[
+        packages = with pkgs;[
           hugo
           python3
           go-task
