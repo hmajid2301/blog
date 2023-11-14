@@ -20,8 +20,8 @@ on it. Such as a GitLab runner, Jellyfin media server & pi hole for ad blocking.
 The list below shows the things I used to set up my rpi cluster. None of this is sponsored! I paid for everything
 listed below:
 
-![Pi Cluster Front](./images/pi-cluster-front.jpeg)
-![Pi Cluster Side](./images/pi-cluster-side.jpeg)
+![Pi Cluster Front](images/pi-cluster-front.jpeg)
+![Pi Cluster Side](images/pi-cluster-side.jpeg)
 
 - Utronics SSD Cluster Case for Raspberry Pi
   - SKU: U6244
@@ -59,19 +59,19 @@ an Ethernet cable from the switch to the Raspberry Pi. We still need to power th
 will be away from my router, I also use a powerline adapter for a more stable internet connection. So 4 of the ports
 in the switch connects to the rpis and the 5th connects to a powerline adapter.
 
-![Ethernet Hat](./images/ethernet-hat.jpeg)
+![Ethernet Hat](images/ethernet-hat.jpeg)
 
 ### SSD to USB
 
 Since the SD cards I got only are 16GB for more persistent storage, I used some of my spares SSDs and hard disks.
 Once nice thing was the case has a nice slot for the SSDs to be placed (under the pis). 
 
-![Side View](./images/side-view.jpeg)
+![Side View](images/side-view.jpeg)
 
 Then we use an adapter to convert the SSDs to USB 3.0 on the pi. So we can still access the SSD, with the PI. For
 more persistent data storage.
 
-![SSD to USB](./images/ssd-to-usb.jpeg)
+![SSD to USB](images/ssd-to-usb.jpeg)
 
 ### Install NixOS
 
