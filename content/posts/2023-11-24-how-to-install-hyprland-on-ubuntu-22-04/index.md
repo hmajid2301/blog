@@ -23,10 +23,7 @@ for Hyprland (and all of it dependencies). So we can add Pika OS as one of our s
 To achieve this, I downloaded the [`dists/lunar/pika-sources.deb`](https://ppa.pika-os.com/dists/lunar/pika-sources.deb) (Where I assume
 Lunar is based on Lunar Lobster, Ubuntu 23.04).
 
-After downloading it, we can install it manually using `dpkg` such as `sudo dpkg -i ./pika-sources.deb`. This will
-add a sources file to `/etc/apt/sources.list.d/`.
-
-But first we can see what it is going to install and where, by doing:
+First we can see what it is going to install and where, by doing:
 
 ```bash
 dpkg -c ./pika-sources.deb
@@ -70,7 +67,8 @@ manager. So after we download the pika-source file, we can then do:
 
 ```bash
 # Assuming you are in the folder where you downloaded pika-sources.deb
-sudo dpkg -i pika-sources.deb
+dpkg-deb --fsys-tarfile pika-sources.deb | tar xv
+sudo xcp ./usr/share/apt/source.list.d/system.sources /etc/apt/sources.list.d/system.sources
 sudo apt update
 sudo apt install hyprland xdg-desktop-portal-hyprland -y
 ```
@@ -79,13 +77,18 @@ This will install Hyprland and the desktop portal, which will allow us to do thi
 on apps like Google Meet.
 
 Finally, you can also remove the Pika sources because in my case it wanted to upgrade 1600 packages as it uses
-Ubuntu 23.04 as a base. So wants to update numerous packages. To achieve this we do: `sudo dpkg -r pika-sources`.
+Ubuntu 23.04 as a base. So wants to update numerous packages. To achieve this we do: `sudo rm /etc/apt/sources.list.d/system.sources`.
 
 That's It! You should now have Hyprland installed and when you reboot, you should be able to select Hyprland in the
 GDM login screen, after selecting the user, click the settings and then select Hyprland. An example below showing different
 versions of Gnome.
 
 ![Gnome Login Screen](./images/gnome.png) [^2]
+
+ {{< notice type="caution" title="dpkg install" >}}
+ I originally used `dpkg` to install the deb it will overwrite
+ your sources.list file. So make sure you revert back to the original version if you do that!
+{{< /notice >}}
 
 [^1]: https://gist.github.com/Vertecedoc4545/3b077301299c20c5b9b4db00f4ca6000?permalink_comment_id=4595603#gistcomment-4595603
 [^2]: Image Source: https://docs.fedoraproject.org/en-US/quick-docs/configuring-xorg-as-default-gnome-session/
