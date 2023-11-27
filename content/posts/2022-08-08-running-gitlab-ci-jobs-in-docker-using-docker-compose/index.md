@@ -43,7 +43,6 @@ variables:
   PIP_CACHE_DIR: "${CI_PROJECT_DIR}/.cache/pip"
   PIP_DOWNLOAD_DIR: ".pip"
   DOCKER_HOST: tcp://docker:2375
-  FF_NETWORK_PER_BUILD: 1
 
 cache:
   key: "${CI_JOB_NAME}"
