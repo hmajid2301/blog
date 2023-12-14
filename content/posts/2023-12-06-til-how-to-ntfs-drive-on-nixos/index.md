@@ -1,5 +1,5 @@
 ---
-title: "TIL: How to NTFS Drive on NixOS"
+title: "TIL: How to Fix a NTFS Drive on NixOS"
 date: 2023-12-06
 canonicalURL: https://haseebmajid.dev/posts/2023-12-06-til-how-to-ntfs-drive-on-nixos
 tags:

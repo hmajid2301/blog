@@ -1,7 +1,7 @@
 ---
 title: "TIL: How to Append to a Config Option String in Nix"
-date: 2023-11-23
-canonicalURL: https://haseebmajid.dev/posts/2023-11-23-til-how-to-append-to-a-config-option-string-in-nix
+date: 2023-12-01
+canonicalURL: https://haseebmajid.dev/posts/2023-12-01-til-how-to-append-to-a-config-option-string-in-nix
 tags:
   - nix
 series:
