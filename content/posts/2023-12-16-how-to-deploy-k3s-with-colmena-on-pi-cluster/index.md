@@ -70,7 +70,7 @@ Where they are all running in the same local network; hence they can connect usi
 avahi service we set up in a previous post.
 
 So in each 3 of my agent nodes this config is copies, so these nodes act as agents and connect to the k8s cluster
-correctly. We can then deploy the app as we normally would using colmena, `colmena apply switch --build-on-target`.
+correctly. We can then deploy the app as we normally would using Colmena, `colmena apply switch --build-on-target`.
 
 Then we can follow this [tutorial](https://docs.k3s.io/cluster-access) for cluster access using `kubectl`. We can 
 then check all the nodes in the cluster by doing:
@@ -85,5 +85,5 @@ guava        Ready    <none>                 35d   v1.27.6+k3s1
 ```
 
 That's it! We successfully deployed k3s to our PI cluster using Colmena and even sops-nix from our previous posts.
-In the next post, we will look at how we can add tailscales to be able to securely connect to our cluster from anywhere.
+In the next post, we will look at how we can add Tailscale to be able to securely connect to our cluster from anywhere.
 
