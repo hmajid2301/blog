@@ -11,7 +11,7 @@ tasks:
 
   new_post:
     cmds:
-      - scripts/add "{{.CLI_ARGS}}"
+      - new_post "{{.CLI_ARGS}}"
 
   new_talk:
     cmds:
