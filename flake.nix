@@ -9,15 +9,13 @@
     devShell.x86_64-linux =
       let
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
-      in
-      pkgs.mkShell {
         new_post = pkgs.writeScriptBin "new_post" ''
           #!/usr/bin/env bash
 
           TITLE=$(gum input --prompt "Post title:")
           USER_DATE=$(gum input --prompt "Date to publish YYYY-MM-DD:")
 
-          TITLE_SLUG="$(echo -n "$TITLE" | sed -e 's/[^[:alnum:]]/-/g' | tr -s '-' | tr A-Z a-z | tail -c +2 | head -c -1)"
+          TITLE_SLUG="$(echo -n "$TITLE" | sed -e 's/[^[:alnum:]]/-/g' | tr -s '-' | tr A-Z a-z | tail -c | head -c)"
           DATE="$(date +"%F")"
           SLUG="$DATE-$TITLE_SLUG"
 
@@ -33,11 +31,15 @@
           python ./scripts/og/generate.py
         '';
 
-        packages = with pkgs;[
-          hugo
-          python3
-          go-task
-          gum
+      in
+      pkgs.mkShell {
+        packages = [
+          new_post
+          generate_og
+          pkgs.hugo
+          pkgs.python3
+          pkgs.go-task
+          pkgs.gum
         ];
       };
   };
