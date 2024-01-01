@@ -96,6 +96,8 @@ One of the other significant changes was in May I moved from Arch (I used arch b
 into it. Which probably wasn't the cleverest thing I've ever done. As there was a steep learning curve. I've written 
 some previous articles which go more into detail about NixOS and how I set it up.
 
+![NixOS](images/btw.jpg)
+
 The best thing about Nix was I can use declaratively set up my config, which makes it easier to keep multiple machines
 in sync. I also think alongside home-manager it makes managing my user, such as installing software and config 
 for the apps. So even when I use another OS, I can still use nix and share config between multiple machines.
