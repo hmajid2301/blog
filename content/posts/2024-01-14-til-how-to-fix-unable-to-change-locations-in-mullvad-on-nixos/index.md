@@ -1,7 +1,7 @@
 ---
 title: "TIL: How to fix being unable to change locations in Mullvad VPN on NixOS"
-canonicalURL: https://haseebmajid.dev/posts/2024-01-05-til-how-to-fix-unable-to-change-locations-in-mullvad-on-nixos/
-date: 2024-01-05
+canonicalURL: https://haseebmajid.dev/posts/2024-01-14-til-how-to-fix-unable-to-change-locations-in-mullvad-on-nixos/
+date: 2024-01-14
 tags:
   - mullvad
   - nixos
