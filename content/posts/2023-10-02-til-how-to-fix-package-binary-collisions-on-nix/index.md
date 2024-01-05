@@ -3,9 +3,11 @@ title: "TIL: How to Fix Package Binary Collisions on Nix"
 date: 2023-10-02
 canonicalURL: https://haseebmajid.dev/posts/2023-10-02-til-how-to-fix-package-binary-collisions-on-nix
 tags:
- - nix
+  - nix
 series:
- - TIL
+  - TIL
+cover:
+  image: images/cover.png
 ---
 
 **TIL: How to Fix Package Binary Collisions on Nix**

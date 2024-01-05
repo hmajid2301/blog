@@ -3,11 +3,13 @@ title: "Part 2: How to Setup Nixos as Part of Your Development Workflow"
 date: 2023-10-24
 canonicalURL: https://haseebmajid.dev/posts/2023-10-24-part-2-how-to-setup-nixos-as-part-of-your-development-workflow
 tags:
-    - nixos
-    - nix
-    - home-manager
+  - nixos
+  - nix
+  - home-manager
 series:
-    - Setup Your Development Workflow
+  - Setup Your Development Workflow
+cover:
+  image: images/cover.png
 ---
 
 ## Premable

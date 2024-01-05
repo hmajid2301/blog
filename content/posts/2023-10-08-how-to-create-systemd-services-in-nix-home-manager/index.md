@@ -3,9 +3,11 @@ title: How to Create Systemd Services in Nix Home Manager
 date: 2023-10-08
 canonicalURL: https://haseebmajid.dev/posts/2023-10-08-how-to-create-systemd-services-in-nix-home-manager
 tags:
- - nix
- - home-manager
- - systemd
+  - nix
+  - home-manager
+  - systemd
+cover:
+  image: images/cover.png
 ---
 
 I recently learnt in home-manager (Nix) you can run systemd services as your own user. This is nice because we don't need

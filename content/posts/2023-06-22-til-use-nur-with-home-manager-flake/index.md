@@ -8,6 +8,8 @@ tags:
   - nur
 series:
   - TIL
+cover:
+  image: images/cover.png
 ---
 
 **TIL: How to use NUR with Home-Manager & Nix Flakes**

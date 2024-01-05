@@ -3,9 +3,11 @@ title: How to Use Cachix Devenv to Setup Developer Environments
 date: 2023-08-26
 canonicalURL: https://haseebmajid.dev/posts/2023-08-24-how-to-use-cachix-devenv-to-setup-developer-environments
 tags:
- - nix
- - devenv
- - devex
+  - nix
+  - devenv
+  - devex
+cover:
+  image: images/cover.png
 ---
 
 In this post, I will go over how you can use Cachix's [devenv](https://devenv.sh/) tool to help create/set up consistent

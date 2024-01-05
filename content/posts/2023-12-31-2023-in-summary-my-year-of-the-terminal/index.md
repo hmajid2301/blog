@@ -8,6 +8,8 @@ tags:
   - tmux
 series:
   - Year Summary
+cover:
+  image: images/cover.png
 ---
 
 For once, I am actually doing a year in review, to go over some of the things I've learnt over the last year. 

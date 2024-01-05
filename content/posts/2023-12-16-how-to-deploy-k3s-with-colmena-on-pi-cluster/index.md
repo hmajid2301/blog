@@ -9,6 +9,8 @@ tags:
   - k3s
 series:
   - Setup Raspberry Pi Cluster with K3S and NixOS
+cover:
+  image: images/cover.png
 ---
 
 In this post, we will go over how we can deploy K3S on our PI cluster we have set up. Which is running NixOS,

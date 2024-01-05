@@ -3,11 +3,13 @@ title: How to Use Neotest Dap With Lazyvim for Golang Development
 date: 2023-07-31
 canonicalURL: https://haseebmajid.dev/posts/2023-07-29-how-to-use-neotest-dap-with-lazyvim-for-golang-development
 tags:
-    - nvim
-    - lazyvim
-    - golang
-    - testing
-    - debugging
+  - nvim
+  - lazyvim
+  - golang
+  - testing
+  - debugging
+cover:
+  image: images/cover.png
 ---
 
 In this blog post, I will show you how you can easily setup Neotest to make testing easier in neovim and DAP to make

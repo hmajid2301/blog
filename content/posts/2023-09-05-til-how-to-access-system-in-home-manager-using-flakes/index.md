@@ -3,11 +3,13 @@ title: "TIL: How to Access System in Home Manager Using Flakes"
 date: 2023-09-05
 canonicalURL: https://haseebmajid.dev/posts/2023-09-05-til-how-to-access-system-in-home-manager-using-flakes
 tags:
- - nix
- - home-manager
- - flakes
+  - nix
+  - home-manager
+  - flakes
 series:
- - TIL
+  - TIL
+cover:
+  image: images/cover.png
 ---
 
 **TIL: How to Access System in Home Manager Using Flakes**

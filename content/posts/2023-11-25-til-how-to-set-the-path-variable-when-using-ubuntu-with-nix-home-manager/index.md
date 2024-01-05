@@ -9,6 +9,8 @@ tags:
   - hyprland
 series:
   - TIL
+cover:
+  image: images/cover.png
 ---
 
 **TIL: How to Set the Path Variable When Using Ubuntu With Nix (Home Manager)**

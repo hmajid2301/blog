@@ -3,10 +3,12 @@ title: Setting Up Tmux With Nix Home Manager
 date: 2023-07-10
 canonicalURL: https://haseebmajid.dev/posts/2023-07-10-setting-up-tmux-with-nix-home-manager
 tags:
-    - nixos
-    - nix
-    - tmux
-    - dotfiles
+  - nixos
+  - nix
+  - tmux
+  - dotfiles
+cover:
+  image: images/cover.png
 ---
 
 

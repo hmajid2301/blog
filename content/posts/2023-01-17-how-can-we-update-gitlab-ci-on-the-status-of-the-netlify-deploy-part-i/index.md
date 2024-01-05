@@ -8,7 +8,7 @@ tags:
   - gitlab
   - ci/cd
 series:
-    - Netlify Gitlab Deploy Notification
+  - Netlify Gitlab Deploy Notification
 cover:
   image: images/cover.png
 ---

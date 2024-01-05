@@ -7,6 +7,8 @@ tags:
   - zsa
 series:
   - TIL
+cover:
+  image: images/cover.png
 ---
 
 **TIL: Show to Use the Media Keys on a ZSA Keyboard With Hyprland**

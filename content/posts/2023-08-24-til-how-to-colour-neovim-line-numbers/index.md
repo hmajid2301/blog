@@ -6,6 +6,8 @@ tags:
   - neovim
 series:
   - TIL
+cover:
+  image: images/cover.png
 ---
 
 **TIL: How to Colour Neovim Line Numbers**

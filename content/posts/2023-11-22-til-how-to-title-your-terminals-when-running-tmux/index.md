@@ -2,10 +2,12 @@
 title: "TIL: How to Title Your Terminals When Running Tmux"
 date: 2023-11-22
 canonicalURL: https://haseebmajid.dev/posts/2023-11-22-til-how-to-title-your-terminals-when-running-tmux
-tags: 
+tags:
   - tmux
 series:
   - TIL
+cover:
+  image: images/cover.png
 ---
 
 **TIL: How to Title Your Terminals When Running Tmux**

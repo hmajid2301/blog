@@ -7,6 +7,8 @@ tags:
   - framework
 series:
   - Setup Your Development Workflow
+cover:
+  image: images/cover.png
 ---
 
 This series has been inspired by [Dev Workflow Intro by Josh Medeski](https://www.joshmedeski.com/guides/dev-workflow-intro/).

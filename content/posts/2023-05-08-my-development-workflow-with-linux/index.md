@@ -3,11 +3,13 @@ title: My Development Workflow With Linux
 date: 2023-05-08
 canonicalURL: https://haseebmajid.dev/posts/2023-05-08-my-development-workflow-with-linux
 tags:
-    - linux
-    - gnome
-    - arch
+  - linux
+  - gnome
+  - arch
 series:
   - My Development Workflow
+cover:
+  image: images/cover.png
 ---
 
 Following on from my previous post about dotfiles and my development workflow (WIP), in this post I will go over my

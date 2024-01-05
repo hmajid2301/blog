@@ -3,11 +3,13 @@ title: How To Self Host Your Own Atuin Server
 date: 2023-08-16
 canonicalURL: https://haseebmajid.dev/posts/2023-08-16-how-self-host-your-own-atuin-server
 tags:
-    - atuin
-    - shell
-    - fly.io
+  - atuin
+  - shell
+  - fly.io
 series:
-    - Atuin with NixOS
+  - Atuin with NixOS
+cover:
+  image: images/cover.png
 ---
 
 In this article, we will go over how we can [self-host](https://atuin.sh/docs/self-hosting/) our instance of [Atuin](https://atuin.sh/).

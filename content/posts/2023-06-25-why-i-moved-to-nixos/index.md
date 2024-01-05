@@ -6,6 +6,8 @@ tags:
   - nixos
   - nix
   - linux
+cover:
+  image: images/cover.png
 ---
 
 Recently I decided to move from Arch Linux to NixOS. Rather than doing what I should've done which was

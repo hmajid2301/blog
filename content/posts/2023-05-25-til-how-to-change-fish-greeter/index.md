@@ -7,6 +7,8 @@ tags:
   - nixos
 series:
   - TIL
+cover:
+  image: images/cover.png
 ---
 
 **TIL: How to change the fish greeter**

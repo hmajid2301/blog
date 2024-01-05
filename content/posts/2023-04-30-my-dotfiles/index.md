@@ -3,9 +3,11 @@ title: My Dotfiles
 date: 2023-04-30
 canonicalURL: https://haseebmajid.dev/posts/2023-04-30-my-dotfiles/
 tags:
-    - dotfiles
+  - dotfiles
 series:
   - My Development Workflow
+cover:
+  image: images/cover.png
 ---
 
 This post is a quick introduction to 

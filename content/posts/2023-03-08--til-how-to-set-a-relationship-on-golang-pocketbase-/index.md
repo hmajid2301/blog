@@ -3,10 +3,12 @@ title: "TIL: How to Set a Relationship on Golang Pocketbase"
 date: 2023-03-08
 canonicalURL: https://haseebmajid.dev/posts/2023-03-08--til-how-to-set-a-relationship-on-golang-pocketbase-
 tags:
-    - golang
-    - pocketbase
+  - golang
+  - pocketbase
 series:
-    - TIL
+  - TIL
+cover:
+  image: images/cover.png
 ---
 
 **TIL: How to Set a Relationship on Golang Pocketbase**

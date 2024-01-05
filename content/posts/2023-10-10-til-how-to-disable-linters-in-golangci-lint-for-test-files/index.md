@@ -8,6 +8,8 @@ tags:
   - golangci-lint
 series:
   - TIL
+cover:
+  image: images/cover.png
 ---
 
 **TIL: How to Disable Linters in Golangci Lint for Test Files**

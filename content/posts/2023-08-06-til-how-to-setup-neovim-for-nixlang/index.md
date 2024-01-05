@@ -3,10 +3,12 @@ title: "TIL: How to Setup Neovim for Nixlang"
 date: 2023-08-06
 canonicalURL: https://haseebmajid.dev/posts/2023-08-06-til-how-to-setup-neovim-for-nixlang
 tags:
- - nixlang
- - nvim
+  - nixlang
+  - nvim
 series:
- - TIL
+  - TIL
+cover:
+  image: images/cover.png
 ---
 
 **TIL: How to Setup Neovim for Nixlang**

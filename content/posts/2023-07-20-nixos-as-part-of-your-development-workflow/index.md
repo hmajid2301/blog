@@ -3,11 +3,13 @@ title: "Part 1: NixOS as part of your Development Workflow"
 date: 2023-07-20
 canonicalURL: https://haseebmajid.dev/posts/2023-07-20-nixos-as-part-of-your-development-workflow
 tags:
-    - nix
-    - nixos
-    - dotfiles
+  - nix
+  - nixos
+  - dotfiles
 series:
   - Setup Your Development Workflow
+cover:
+  image: images/cover.png
 ---
 
 ## Introduction

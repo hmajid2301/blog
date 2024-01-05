@@ -3,10 +3,12 @@ title: "TIL: How to Fix tmux-resurrect on NixOS"
 date: 2023-09-01
 canonicalURL: https://haseebmajid.dev/posts/2023-09-01-til-how-to-fix-tmux-resurrect-on-nixos
 tags:
- - tmux
- - nix
+  - tmux
+  - nix
 series:
- - TIL
+  - TIL
+cover:
+  image: images/cover.png
 ---
 
 **TIL: How to Fix tmux-resurrect on NixOS**

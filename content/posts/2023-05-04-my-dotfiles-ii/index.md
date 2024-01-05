@@ -3,9 +3,11 @@ title: My Dotfiles II
 date: 2023-05-04
 canonicalURL: https://haseebmajid.dev/posts/2023-05-04-my-dotfiles-ii
 tags:
-    - dotfiles
+  - dotfiles
 series:
   - My Development Workflow
+cover:
+  image: images/cover.png
 ---
 
 I know I recently made a post about my dotfiles but I've made a few changes since then, so here are my updated dotfiles.

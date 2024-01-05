@@ -3,11 +3,13 @@ title: How Sync Your Shell History With Atuin in Nix
 date: 2023-08-12
 canonicalURL: https://haseebmajid.dev/posts/2023-08-12-how-sync-your-shell-history-with-atuin-in-nix
 tags:
-    - atuin
-    - shell
-    - nix
+  - atuin
+  - shell
+  - nix
 series:
-    - Atuin with NixOS
+  - Atuin with NixOS
+cover:
+  image: images/cover.png
 ---
 
 [Atuin](https://atuin.sh/docs/) is a great tool I recently discovered that can be used to sync our shell history across
