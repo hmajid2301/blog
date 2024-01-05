@@ -3,10 +3,12 @@ title: "TIL: How to Get VSCode ESLint to Sort Imports"
 date: 2023-04-09
 canonicalURL: https://haseebmajid.dev/posts/2023-04-09--til-how-to-get-vscode-eslint-to-sort-imports-
 series:
-    - TIL
+  - TIL
 tags:
-    - vscode
-    - eslint
+  - vscode
+  - eslint
+cover:
+  image: images/cover.png
 ---
 
 I use VS Code as my text editor, one of the features I really like about VS Code is that it will format our file on save.

@@ -6,7 +6,7 @@ tags:
   - wezterm
   - terminal
 series:
- - Setup Your Development Workflow
+  - Setup Your Development Workflow
 cover:
   image: images/cover.png
 ---

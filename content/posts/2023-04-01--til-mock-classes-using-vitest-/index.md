@@ -3,10 +3,12 @@ title: "TIL: How to Mock Classes Using Vitest"
 date: 2023-04-01
 canonicalURL: https://haseebmajid.dev/posts/2023-04-01--til-mock-classes-using-vitest-
 series:
-    - TIL
+  - TIL
 tags:
-    - vitest
-    - testing
+  - vitest
+  - testing
+cover:
+  image: images/cover.png
 ---
 
 **TIL: How to Mock Classes Using Vitest**

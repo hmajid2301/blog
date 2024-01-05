@@ -2,7 +2,7 @@
 title: "TIL: How to Debug a Test in Golang With Build Tags in Neovim"
 date: 2023-11-16
 canonicalURL: https://haseebmajid.dev/posts/2023-11-16-til-how-to-debug-a-test-in-golang-with-build-tags-in-neovim
-tags: 
+tags:
   - golang
   - neovim
   - debugging
@@ -10,6 +10,8 @@ tags:
   - nixvim
 series:
   - TIL
+cover:
+  image: images/cover.png
 ---
 
 **TIL: How to Debug a Test in Golang With Build Tags in Neovim**

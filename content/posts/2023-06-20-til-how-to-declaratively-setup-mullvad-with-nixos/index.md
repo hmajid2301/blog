@@ -8,6 +8,8 @@ tags:
   - mullvad
 series:
   - TIL
+cover:
+  image: images/cover.png
 ---
 
 **TIL: How to Declaratively Setup Mullvad VPN with NixOS**

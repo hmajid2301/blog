@@ -3,11 +3,13 @@ title: "TIL: How to Use Multiple Auth Files in Playwright"
 date: 2023-03-22
 canonicalURL: https://haseebmajid.dev/posts/2023-03-22--til-how-to-use-multiple-auth-in-playwright-
 tags:
-    - playwright
-    - testing
-    - sveltekit
+  - playwright
+  - testing
+  - sveltekit
 series:
-    - TIL
+  - TIL
+cover:
+  image: images/cover.png
 ---
 
 **TIL: How to Load Authenticate State in Playwright**

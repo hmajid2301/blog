@@ -286,3 +286,51 @@ Some other things to look into are progressive enhancement to improve UX [^5].
 [^3]: Zod, https://github.com/colinhacks/zod
 [^4]: https://kit.svelte.dev/docs/form-actions
 [^5]: https://www.youtube.com/watch?v=jXtzWMhdI2U
+---
+title: {? {slicestr (replace .Name "-" " ") 11 | title: ''} : ''}
+date: {? {dateFormat "2006-01-02" .Date: ''} : ''}
+canonicalURL: https://haseebmajid.dev/posts/{{.Name}}
+tags: []
+cover:
+  image: images/cover.png
+---
+cover:
+  image: images/cover.png
+---
+title: Hello World
+date: "2015-05-01T22:12:03.284Z"
+description: "Hello World"
+cover:
+  image: images/cover.png
+---
+This is my first post on my new fake blog! How exciting! I'm sure I'll write a lot more interesting things in the future. Oh, and here's a great quote from this Wikipedia on [salted duck eggs](https://en.wikipedia.org/wiki/Salted_duck_egg). > A salted duck egg is a Chinese preserved food product made by soaking duck > eggs in brine, or packing each egg in damp, salted charcoal. In Asian > supermarkets, these eggs are sometimes sold covered in a thick layer of salted > charcoal paste. The eggs may also be sold with the salted paste removed, > wrapped in plastic, and vacuum packed. From the salt curing process, the > salted duck eggs have a briny aroma, a gelatin-like egg white and a > firm-textured, round yolk that is bright orange-red in color. ![Chinese Salty Egg](./salty_egg.jpg)
+---
+title: My Second Post!
+date: "2015-05-06"
+tags: ["food", "blog"]
+cover:
+  image: images/cover.png
+---
+Wow! I love blogging so much already. Did you know that "despite its name, salted duck eggs can also be made from chicken eggs, though the taste and texture will be somewhat different, and the egg yolk will be less rich."? ([Wikipedia Link](https://en.wikipedia.org/wiki/Salted_duck_egg)) Yeah, I didn't either.
+---
+title: Hello World
+date: "2015-05-01"
+tags: ["food", "duck"]
+cover:
+  image: images/cover.png
+---
+This is my first post on my new fake blog! How exciting! I'm sure I'll write a lot more interesting things in the future. Oh, and here's a great quote from this Wikipedia on [salted duck eggs](https://en.wikipedia.org/wiki/Salted_duck_egg). > A salted duck egg is a Chinese preserved food product made by soaking duck > eggs in brine, or packing each egg in damp, salted charcoal. In Asian > supermarkets, these eggs are sometimes sold covered in a thick layer of salted > charcoal paste. The eggs may also be sold with the salted paste removed, > wrapped in plastic, and vacuum packed. From the salt curing process, the > salted duck eggs have a briny aroma, a gelatin-like egg white and a > firm-textured, round yolk that is bright orange-red in color. ![Chinese Salty Egg](./salty_egg.jpg)
+---
+title: My Second Post!
+date: "2015-05-06T23:46:37.121Z"
+cover:
+  image: images/cover.png
+---
+Wow! I love blogging so much already. Did you know that "despite its name, salted duck eggs can also be made from chicken eggs, though the taste and texture will be somewhat different, and the egg yolk will be less rich."? ([Wikipedia Link](https://en.wikipedia.org/wiki/Salted_duck_egg)) Yeah, I didn't either.
+---
+title: My Second Post!
+date: "2015-05-06T23:46:37.121Z"
+cover:
+  image: images/cover.png
+---
+Wow! I love blogging so much already. Did you know that "despite its name, salted duck eggs can also be made from chicken eggs, though the taste and texture will be somewhat different, and the egg yolk will be less rich."? ([Wikipedia Link](https://en.wikipedia.org/wiki/Salted_duck_egg)) Yeah, I didn't either.

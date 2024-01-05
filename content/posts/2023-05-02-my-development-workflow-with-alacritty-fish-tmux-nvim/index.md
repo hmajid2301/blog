@@ -3,12 +3,14 @@ title: My Development Workflow With Alacritty Fish Tmux Nvim
 date: 2023-05-02
 canonicalURL: https://haseebmajid.dev/posts/2023-05-02-my-development-workflow-with-alacritty-fish-tmux-nvim/
 tags:
-    - dotfiles
-    - nvim
-    - tmux
-    - fish
+  - dotfiles
+  - nvim
+  - tmux
+  - fish
 series:
   - My Development Workflow
+cover:
+  image: images/cover.png
 ---
 
 {{< notice type="info" title="Workflows Change" >}}

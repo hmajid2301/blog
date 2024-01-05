@@ -8,6 +8,8 @@ tags:
   - colmena
 series:
   - Setup Raspberry Pi Cluster with K3S and NixOS
+cover:
+  image: images/cover.png
 ---
 
 So in the previous article I showed you how I had set up my 4 RPI (Raspberry Pi) cluster and put NixOS on the machines.

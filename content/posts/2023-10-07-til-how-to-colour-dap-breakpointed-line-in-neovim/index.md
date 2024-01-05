@@ -3,10 +3,12 @@ title: "TIL: How to Colour Dap Breakpointed Line in Neovim"
 date: 2023-10-07
 canonicalURL: https://haseebmajid.dev/posts/2023-10-07-til-how-to-colour-dap-breakpointed-line-in-neovim
 tags:
- - neovim
- - dap
+  - neovim
+  - dap
 series:
- - TIL
+  - TIL
+cover:
+  image: images/cover.png
 ---
 
 **TIL: How to Colour Dap Breakpointed Line in Neovim**

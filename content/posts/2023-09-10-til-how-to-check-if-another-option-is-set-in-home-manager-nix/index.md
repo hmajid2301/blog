@@ -3,10 +3,12 @@ title: "TIL: How to Check if Another Option Is Set in Home Manager (Nix)"
 date: 2023-09-10
 canonicalURL: https://haseebmajid.dev/posts/2023-09-10-til-how-to-check-if-another-option-is-set-in-home-manager-nix
 tags:
- - nix
- - home-manager
+  - nix
+  - home-manager
 series:
- - TIL
+  - TIL
+cover:
+  image: images/cover.png
 ---
 
 **TIL: How to Check if Another Option Is Set in Home Manager (Nix)**

@@ -3,12 +3,14 @@ title: "My NixOS Dotfiles Explained"
 date: 2023-09-12
 canonicalURL: https://haseebmajid.dev/posts/2023-09-12-how-i-configure-nixos-as-part-of-my-development-workflow
 tags:
-    - nix
-    - nixos
-    - home-manager
-    - dotfiles
+  - nix
+  - nixos
+  - home-manager
+  - dotfiles
 series:
   - My Development Workflow
+cover:
+  image: images/cover.png
 ---
 
 In this post, we will just go over the basics of how we can configure our setup using a git repo, nix flakes and

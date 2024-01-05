@@ -3,10 +3,12 @@ title: "TIL: How to Deploy 'Multiple' Sites on One GitLab Page Site"
 date: 2023-04-06
 canonicalURL: https://haseebmajid.dev/posts/2023-04-06-til-how-to-deploy-multiple-sites-on-one-gitlab-page-site
 series:
-    - TIL
+  - TIL
 tags:
-    - gitlab
-    - CI/CD
+  - gitlab
+  - CI/CD
+cover:
+  image: images/cover.png
 ---
 
 I have a repo which I use to store all of my conference and similar talks. This repo includes any code examples

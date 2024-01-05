@@ -7,6 +7,8 @@ tags:
   - nix
   - atuin
   - fish
+cover:
+  image: images/cover.png
 ---
 
 I have made an [post in the past](/2023-08-12-how-sync-your-shell-history-with-atuin-in-nix/) about how you can set up

@@ -3,11 +3,13 @@ title: "TIL: How to get Kanshi to work on NixOS and Hyprland"
 date: 2023-07-25
 canonicalURL: https://haseebmajid.dev/posts/2023-07-25-nixos-kanshi-and-hyprland
 tags:
-    - nix
-    - nixos
-    - hyprland
+  - nix
+  - nixos
+  - hyprland
 series:
-    - TIL
+  - TIL
+cover:
+  image: images/cover.png
 ---
 
 **TIL: How to get Kanshi to work on NixOS and Hyprland**

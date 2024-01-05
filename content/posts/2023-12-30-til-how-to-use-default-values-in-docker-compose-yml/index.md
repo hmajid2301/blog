@@ -7,6 +7,8 @@ tags:
   - bash
 series:
   - TIL
+cover:
+  image: images/cover.png
 ---
 
 **TIL: How to Use Default Values in docker-compose.yml**

@@ -6,6 +6,8 @@ tags:
   - fish
 series:
   - TIL
+cover:
+  image: images/cover.png
 ---
 
 **TIL: How to Add Vim Navigation FZF**

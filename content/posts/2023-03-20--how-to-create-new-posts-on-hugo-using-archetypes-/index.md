@@ -1,10 +1,12 @@
 ---
-title: How to Create New Posts on Hugo Using Archetypes 
+title: How to Create New Posts on Hugo Using Archetypes
 date: 2023-03-20
 canonicalURL: https://haseebmajid.dev/posts/2023-03-20--how-to-create-new-posts-on-hugo-using-archetypes-
 tags:
-    - hugo
-    - automation
+  - hugo
+  - automation
+cover:
+  image: images/cover.png
 ---
 
 In this post, I will go over how you can use Hugo's archetypes to quickly create new posts.

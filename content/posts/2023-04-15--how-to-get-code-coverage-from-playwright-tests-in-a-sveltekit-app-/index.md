@@ -1,12 +1,14 @@
 ---
-title: How to Get Code Coverage From Playwright Tests in a Sveltekit App 
+title: How to Get Code Coverage From Playwright Tests in a Sveltekit App
 date: 2023-04-15
 canonicalURL: https://haseebmajid.dev/posts/2023-04-15--how-to-get-code-coverage-from-playwright-tests-in-a-sveltekit-app-
 tags:
-    - sveltekit
-    - playwright
-    - testing
-    - ci/cd
+  - sveltekit
+  - playwright
+  - testing
+  - ci/cd
+cover:
+  image: images/cover.png
 ---
 
 ![Code Coverage Meme](images/code_coverage.jpg)

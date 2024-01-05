@@ -3,9 +3,11 @@ title: My Dotfiles III
 date: 2023-07-15
 canonicalURL: https://haseebmajid.dev/posts/2023-07-15-my-dotfiles-iii
 tags:
-    - dotfiles
+  - dotfiles
 series:
   - My Development Workflow
+cover:
+  image: images/cover.png
 ---
 
 My latest iteration of my dotfiles, where I am now using a Laptop as my main development machine (Framework).

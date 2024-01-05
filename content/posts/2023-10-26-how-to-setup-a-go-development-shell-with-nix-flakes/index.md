@@ -8,6 +8,8 @@ tags:
   - flake
   - devshells
   - go
+cover:
+  image: images/cover.png
 ---
 
 As you may know, I have been using Nix/NixOS for the last few months. I finally started doing some development, after

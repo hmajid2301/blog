@@ -7,6 +7,8 @@ tags:
   - nixos
 series:
   - Setup Raspberry Pi Cluster with K3S and NixOS
+cover:
+  image: images/cover.png
 ---
 
 ## Background

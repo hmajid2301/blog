@@ -7,6 +7,8 @@ tags:
   - linux
 series:
   - TIL
+cover:
+  image: images/cover.png
 ---
 
 **TIL: How to Set Network Manager Priority to Use Wired Connection Over Wi-Fi**

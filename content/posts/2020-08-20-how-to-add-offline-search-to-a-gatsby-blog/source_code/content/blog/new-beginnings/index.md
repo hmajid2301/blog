@@ -2,6 +2,8 @@
 title: New Beginnings
 date: "2015-05-28"
 tags: ["deer", "horse"]
+cover:
+  image: images/cover.png
 ---
 
 Far far away, behind the word mountains, far from the countries Vokalia and
