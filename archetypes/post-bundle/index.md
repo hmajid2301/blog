@@ -6,5 +6,3 @@ tags: []
 cover:
   image: images/cover.png
 ---
-cover:
-  image: images/cover.png
