@@ -98,7 +98,7 @@ get to that state.
 So your desktop environment is reproducible. I could easily share config between multiple devices.
 
 {{< notice type="info" title="Why I moved to NixOS" >}}
-You can read about [my article](posts/2023-06-25-why-i-moved-to-nixos/), for more reasons to move to NixOs.
+You can read about [my article](/posts/2023-06-25-why-i-moved-to-nixos/), for more reasons to move to NixOs.
 {{< /notice >}}
 
 ## How to set up NixOS?
