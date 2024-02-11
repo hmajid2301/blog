@@ -22,6 +22,7 @@
         SLUG="$DATE-$TITLE_SLUG"
 
         git checkout -b "$SLUG"
+        echo $SLUG
         hugo new --kind post-bundle posts/$SLUG
 
         echo "Creating OG for content/posts/$SLUG"
