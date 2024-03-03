@@ -4,6 +4,8 @@ date: 2024-02-11
 canonicalURL: https://haseebmajid.dev/posts/2024-02-11-how-to-move-files-between-two-git-repositories-and-keep-its-history
 tags:
   - git
+series:
+  - TIL
 cover:
   image: images/cover.png
 ---

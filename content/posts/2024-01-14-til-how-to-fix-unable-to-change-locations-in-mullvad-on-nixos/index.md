@@ -5,6 +5,8 @@ date: 2024-01-14
 tags:
   - mullvad
   - nixos
+series:
+  - TIL
 cover:
   image: images/cover.png
 ---

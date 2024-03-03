@@ -5,6 +5,8 @@ canonicalURL: https://haseebmajid.dev/posts/2024-03-15-til-how-to-get-swaync-to-
 tags:
   - swaync
   - waybar
+series:
+  - TIL
 cover:
   image: images/cover.png
 ---

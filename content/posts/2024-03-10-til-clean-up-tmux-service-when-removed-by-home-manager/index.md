@@ -6,6 +6,8 @@ tags:
   - nix
   - home-manager
   - tmux
+series:
+  - TIL
 cover:
   image: images/cover.png
 ---
