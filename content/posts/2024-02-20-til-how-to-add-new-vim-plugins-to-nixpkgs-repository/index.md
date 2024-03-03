@@ -6,6 +6,8 @@ tags:
   - vim
   - neovim
   - nix
+series:
+  - TIL
 cover:
   image: images/cover.png
 ---

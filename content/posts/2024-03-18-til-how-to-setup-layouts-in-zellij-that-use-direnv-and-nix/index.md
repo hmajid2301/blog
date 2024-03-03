@@ -6,6 +6,8 @@ tags:
   - zellij
   - direnv
   - nix
+series:
+  - TIL
 cover:
   image: images/cover.png
 ---

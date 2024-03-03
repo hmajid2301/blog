@@ -6,6 +6,8 @@ tags:
   - hyprland
   - firefox
   - bug
+series:
+  - TIL
 cover:
   image: images/cover.png
 ---
