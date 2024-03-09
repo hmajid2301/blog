@@ -337,7 +337,7 @@ Now onto the `tear_down` method where we set the `should_exit` to true. There is
 `serve` method in the parent class. This `main_loop` calls an `on_tick` function which returns if `self.should_exit` is true.
 So the call chain looks like: `serve` -> `main_loop` -> `on_tick`. When on_tick returns `should_exist` as true, it exits it main loop:
 
-{{< highlight python "hl_lines=3,8" >}}
+```python {hl_lines=[3,8]}
 async def main_loop(self) -> None:
     counter = 0
     should_exit = await self.on_tick(counter)
@@ -346,7 +346,7 @@ async def main_loop(self) -> None:
         counter = counter % 864000
         await asyncio.sleep(0.1)
         should_exit = await self.on_tick(counter)
-{{< /highlight >}}
+```
 
 ### Client Fixture
 
