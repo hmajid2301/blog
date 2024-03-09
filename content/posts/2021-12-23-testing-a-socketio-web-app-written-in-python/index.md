@@ -287,7 +287,7 @@ An Event object manages an internal flag that can be set to true with the set() 
 Now the parent class does have a `run` method we could use, which would start the event loop for us. This however won't work,
 lets pretend we change `startup_and_shutdown_server` function too look like this (`server.run()`).
 
-```python{4}
+```python {hl_lines=[4]}
 @pytest.fixture(autouse=True, scope="session")
 async def startup_and_shutdown_server():
     server = UvicornTestServer()
