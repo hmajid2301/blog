@@ -225,7 +225,7 @@ host.
 
 Then going over the rest of our config:
 
-```nix {hl_lines=7-13}
+```nix {hl_lines=[7-13]}
 {
 strawberry = {
   imports = [

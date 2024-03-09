@@ -49,7 +49,7 @@ You only need to add the emotion plugin if you want to use emotionjs, which is a
 You will see this later when we look at the `toc.js` component.
 {{< /notice >}}
 
-{{< highlight js "hl_lines=1-2,5" >}}
+```js {hl_lines=[1-2,5]}
 `gatsby-plugin-emotion`,
 `gatsby-plugin-smoothscroll`,
 {
@@ -62,7 +62,7 @@ You will see this later when we look at the `toc.js` component.
     },
 },
 // ...
-{{< /highlight >}}
+```
 
 Our header elements with the `autolinks` plugin will now look something like:
 

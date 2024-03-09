@@ -30,7 +30,7 @@ which will then build our ISO.
 
 Within our `nixosConfigurations`, in our `flake.nix` file we will add a new section, which I simply named `iso`.
 
-```nix {hl_lines=3-10}
+```nix {hl_lines=[3-10]}
 {
 nixosConfigurations = {
   iso = lib.nixosSystem {

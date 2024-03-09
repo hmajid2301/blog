@@ -37,7 +37,7 @@ The key prop here is `ref`, which we will use to focus on our input.
 `ref` is a reference to the component itself.
 Then in our parent component say called `AddCollection.svelte` we can do something like:
 
-```svelte {hl_lines[9-10]}
+```svelte {hl_lines=[9-10]}
 <script lang="ts">
 	import { tick } from "svelte";
     let ref: HTMLInputElement;

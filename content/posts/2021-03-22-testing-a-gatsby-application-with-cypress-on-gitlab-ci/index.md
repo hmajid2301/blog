@@ -111,7 +111,7 @@ Next, let's create a `cypress.json` folder in the project root.
 
 Next, let's add some new "scripts" to the `package.json` file.
 
-{{< highlight json "hl_lines=1-2,10" >}}
+```json {hl_lines=[1-2,10]}
   "scripts": {
     "cy:open": "cypress open",
     "cy:run": "cypress run",
@@ -125,7 +125,7 @@ Next, let's add some new "scripts" to the `package.json` file.
     "test:e2e": "start-server-and-test 'yarn develop' http://localhost:8000 'yarn cy:open'",
     "test:e2e:ci": "start-server-and-test 'yarn develop' http://localhost:8000 'yarn cy:run'"
   }
-{{< /highlight >}}
+```
 
 These scripts allow us to start Cypress, `cy:open` opens a GUI to visualise our tests whereas `cy:run` does it all
 in the terminal (the browser runs in headless mode). Where we will run `test:e2e:ci` in our CI pipeline, here we use
