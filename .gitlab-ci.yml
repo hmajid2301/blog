@@ -7,6 +7,6 @@ deploy_site:
   variables:
     GIT_STRATEGY: none
   script:
-    - curl -X POST -d '{}' $NETLIFY_BUILD_WEBHOOK
+    - curl -X POST -d '{}' $CLOUDFLARE_DEPLOY_HOOK
   only:
     - schedules
