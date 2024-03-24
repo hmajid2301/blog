@@ -1,0 +1,58 @@
+FROM python:3.9.8-slim as base
+
+ARG PYSETUP_PATH
+ENV PYTHONPATH="/app"
+ENV PIP_NO_CACHE_DIR=off \
+	PIP_DISABLE_PIP_VERSION_CHECK=on \
+	PIP_DEFAULT_TIMEOUT=100 \
+	\
+	POETRY_VERSION=1.1.11 \
+	POETRY_HOME="/opt/poetry" \
+	POETRY_VIRTUALENVS_IN_PROJECT=true \
+	PYSETUP_PATH="/opt/pysetup" \
+	POETRY_NO_INTERACTION=1 \
+	\
+	VENV_PATH="/opt/pysetup/.venv"
+
+ENV PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PATH"
+
+
+FROM base as builder
+
+RUN apt-get update && apt-get install git openssh-client -y && \
+	mkdir -p -m 0600 ~/.ssh && ssh-keyscan gitlab.com >> ~/.ssh/known_hosts && \
+	pip install poetry==$POETRY_VERSION
+
+WORKDIR $PYSETUP_PATH
+COPY poetry.lock pyproject.toml ./
+
+RUN --mount=type=ssh poetry install --no-dev
+
+
+
+FROM builder as development
+
+RUN --mount=type=ssh poetry install
+
+WORKDIR /app
+COPY . .
+
+EXPOSE 80
+CMD ["bash", "/app/start.sh", "--reload"]
+
+
+
+FROM base as production
+
+RUN addgroup --gid 1000 --system app \
+	&& adduser --no-create-home --shell \
+	/bin/false --disabled-password --uid 1000 --system --group app
+
+USER app
+COPY --from=builder $VENV_PATH $VENV_PATH
+
+WORKDIR /app
+COPY ./app /app
+
+EXPOSE 80
+CMD ["bash", "/app/start.sh"]

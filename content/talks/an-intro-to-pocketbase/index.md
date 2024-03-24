@@ -14,7 +14,7 @@ hideMeta: false
 
 - [Abstract](https://www.meetup.com/londongophers/events/292486307/)
 - [Related Code](https://gitlab.com/hmajid2301/talks/-/tree/main/an-intro-to-pocketbase)
-- [Slides](https://talks.haseebmajid.dev/an-intro-to-pocketbase)
+- [Slides](https://haseebmajid.dev/talks/an-intro-to-pocketbase/slides)
 
 ## Photo from meetup
 

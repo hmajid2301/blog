@@ -1,0 +1,15 @@
+stages:
+  - deploy
+
+deploy:
+  stage: deploy
+  only:
+    - main
+  image: docker
+  services:
+    - docker:dind
+  before_script:
+    - apk add curl
+    - curl -L https://fly.io/install.sh | sh
+  script:
+    - /root/.fly/bin/flyctl deploy

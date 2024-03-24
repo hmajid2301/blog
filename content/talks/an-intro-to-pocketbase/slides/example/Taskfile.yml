@@ -1,0 +1,7 @@
+version: "3"
+
+tasks:
+  start:
+    internal: true
+    cmds:
+      - go run main.go serve

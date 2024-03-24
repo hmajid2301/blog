@@ -38,6 +38,7 @@
         packages = [
           new_post
           generate_og
+          pkgs.go_1_22
           pkgs.hugo
           pkgs.python3
           pkgs.go-task

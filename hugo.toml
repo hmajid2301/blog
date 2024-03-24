@@ -1,0 +1,183 @@
+baseURL = "https://haseebmajid.dev/"
+title = "Haseeb Majid"
+paginate = 25
+enableRobotsTXT = true
+buildDrafts = false
+buildFuture = false
+buildExpired = false
+enableEmoji = true
+ignorefiles = ["source_code/.*"]
+theme = ["github.com/dzello/reveal-hugo"]
+
+[module]
+
+  [[module.mounts]]
+    source = "content"
+    target = "content"
+    excludeFiles = "source_code/*"
+
+[minify]
+  disableXML = true
+  minifyOutput = true
+
+[markup.highlight]
+  noclasses = false
+  codeFences = false
+
+[params]
+  env = "production"
+  title = "Haseeb Majid"
+  description = "Haseeb Majid's blog"
+  keywords = ["Blog", "Portfolio", "PaperMod"]
+  author = "Me"
+  images = ["cover.png"]
+  DateFormat = "2006-01-02"
+  defaultTheme = "auto"
+  ShowReadingTime = true
+  ShowPageViews = true
+  ShowLikes = false
+  ShowShareButtons = false
+  ShowPostNavLinks = true
+  ShowBreadCrumbs = true
+  ShowCodeCopyButtons = true
+  ShowWordCount = true
+  ShowRssButtonInSectionTermList = true
+  UseHugoToc = true
+  disableSpecial1stPost = false
+  disableScrollToTop = false
+  comments = false
+  hidemeta = false
+  hideSummary = false
+  showtoc = true
+  tocopen = false
+  SeriesOpen = false
+  goatcounter = "haseebmajid"
+  [params.assets]
+    favicon = "/favicon.ico"
+    favicon16x16 = "/favicon-16x16.png"
+    favicon32x32 = "/favicon-32x32.png"
+    apple_touch_icon = "/apple-touch-icon.png"
+    safari_pinned_tab = "/safari-pinned-tab.svg"
+    disableHLJS = true
+  [params.label]
+    text = "Haseeb Majid"
+    icon = "/apple-touch-icon.png"
+    iconHeight = 35
+  [params.profileMode]
+    enabled = true
+    title = "Haseeb Majid"
+    subtitle = "Backend software engineer 💻 and village cricketer 🏏"
+    imageUrl = "https://www.gravatar.com/avatar/7ddefc94d562a0b5896ef7f1b7c69e0e?s=250"
+    imageWidth = 250
+    imageHeight = 250
+    imageTitle = "A photo of Haseeb Majid"
+
+    [[params.profileMode.buttons]]
+      name = "Posts"
+      url = "posts"
+
+    [[params.profileMode.buttons]]
+      name = "Series"
+      url = "series"
+
+    [[params.profileMode.buttons]]
+      name = "Archive"
+      url = "archive"
+
+    [[params.profileMode.buttons]]
+      name = "Tags"
+      url = "tags"
+  [params.homeInfoParams]
+    Title = "Hi there 👋"
+    Content = "Welcome to my blog"
+
+  [[params.socialIcons]]
+    name = "gitlab"
+    url = "https://gitlab.com/hmajid2301"
+
+  [[params.socialIcons]]
+    name = "github"
+    url = "https://github.com/hmajid2301"
+
+  [[params.socialIcons]]
+    name = "mastodon"
+    url = "https://hachyderm.io/@majiy00"
+
+  [[params.socialIcons]]
+    name = "buymeacoffee"
+    url = "https://www.buymeacoffee.com/haseebmajid"
+  [params.cover]
+    hidden = true
+    hiddenInList = true
+    hiddenInSingle = true
+  [params.editPost]
+    URL = "https://gitlab.com/hmajid2301/blog/-/blob/main/content"
+    appendFilePath = true
+  [params.fuseOpts]
+    isCaseSensitive = false
+    shouldSort = true
+    location = 0
+    distance = 100
+    threshold = 0.0
+    minMatchCharLength = 0
+
+    [[params.fuseOpts.keys]]
+      name = "title"
+      weight = 0.8
+
+    [[params.fuseOpts.keys]]
+      name = "section"
+      weight = 0.2
+
+    [[params.fuseOpts.keys]]
+      name = "content"
+      weight = 0.4
+
+[taxonomies]
+  category = "categories"
+  tag = "tags"
+  series = "series"
+
+[menu]
+
+  [[menu.main]]
+    identifier = "posts"
+    name = "Posts"
+    url = "/posts/"
+    weight = 10
+
+  [[menu.main]]
+    identifier = "talks"
+    name = "Talks"
+    url = "/talks/"
+    weight = 20
+
+  [[menu.main]]
+    identifier = "uses"
+    name = "Uses"
+    url = "/uses/"
+    weight = 40
+
+  [[menu.main]]
+    identifier = "stats"
+    name = "Stats"
+    url = "https://stats.haseebmajid.dev/"
+    weight = 50
+    [menu.main.params]
+      external = true
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
+[markup.goldmark.renderer]
+  unsafe = true
+
+[outputFormats.Reveal]
+  baseName = "index"
+  mediaType = "text/html"
+  isHTML = true
+
+[sitemap]
+  changefreq = "monthly"
+  filename = "sitemap.xml"
+  priority = 0.5
