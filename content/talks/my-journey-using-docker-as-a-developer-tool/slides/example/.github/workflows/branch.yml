@@ -1,0 +1,27 @@
+name: Check changes on branch
+
+on:
+  push:
+    branches:
+      - "*"
+      - "!main"
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v3
+        with:
+          python-version: "3.9"
+          cache: "pip"
+      - name: Run Lint Jobs
+        run: make lint
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run Tests
+        run: make test
