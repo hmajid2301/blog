@@ -1,9 +1,11 @@
 +++
-title = "GitLab Runners: Docker-in-Docker Explained"
+title = "Gitlab Runners Docker-in-Docker Explained"
 outputs = ["Reveal"]
+layout = "bundle"
 
 [reveal_hugo]
-theme = "dracula"
+custom_theme = "stylesheets/reveal/zoe.css"
+slide_number = true
 +++
 
 # GitLab Runners: Docker-in-Docker Explained
@@ -25,7 +27,7 @@ An application which works with GitLab CI to run jobs in a pipeline [^1].
 - SaaS (Shared): GitLab's own runners
    - Enabled by default
    - Limited by credits
-- Self-Hosted: Runners we manage 
+- Self-Hosted: Runners we manage
    - On our own infrastructure
    - Need to register them with GitLab to use them
 

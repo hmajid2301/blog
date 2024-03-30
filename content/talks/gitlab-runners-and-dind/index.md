@@ -10,6 +10,5 @@ ShowWordCount: false
 hideMeta: false
 ---
 
-- [Slides](http://haseebmajid.dev/talks/gitlab-runners-and-dind/slides)
+- [Slides](https://talks.haseebmajid.dev/gitlab-runners-and-dind/)
 
- 

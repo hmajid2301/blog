@@ -1,10 +1,6 @@
 version: "3"
 
 tasks:
-  start_docker:
-    cmds:
-      - docker compose up --build
-
   start_server:
     cmds:
       - hugo server -D --buildFuture
