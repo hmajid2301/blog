@@ -10,4 +10,4 @@ ShowWordCount: false
 hideMeta: false
 ---
 
-- [Slides](http://haseebmajid.dev/talks/reproducible-envs-with-nix/slides)
+- [Slides](/talks/reproducible-envs-with-nix/slides)

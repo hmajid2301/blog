@@ -1,9 +1,7 @@
 +++
 title = "An Introduction to PocketBase: A Go-Based Backend as a Service"
 outputs = ["Reveal"]
-
-[reveal_hugo]
-theme = "dracula"
+layout = "bundle"
 +++
 
 # An Introduction to PocketBase:
