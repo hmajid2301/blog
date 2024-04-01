@@ -14,7 +14,7 @@ cover:
 
 Typically when we want to install a new OS we use an ISO to create a bootable USB drive. We can then plug this into
 our device, say laptop, and boot from that USB and install our OS. However, typically you can only put a single ISO on
-a USB. So what if wanted a USB with say Window, Arch Linux, TailsOS and NixOS how could we do that? 
+a USB. So what if wanted a USB with say Window, Arch Linux, TailsOS and NixOS how could we do that?
 
 I'm sure there are other multi-bootable USB tools we could use but I recently came across [ventoy](https://www.ventoy.net/).
 All we need to do is format our USB drive with Ventoy, then simply copy our ISO (or other relevant files) onto it.
@@ -41,7 +41,7 @@ sudo ventoy-web
 ===============================================================
 ```
 
-- Open the webpage at `http://127.0.0.1:24680`, 
+- Open the webpage at `http://127.0.0.1:24680`,
 - Select the device you would like to flash
 - Press the install button
 

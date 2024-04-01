@@ -20,8 +20,8 @@ excludeFiles = "source_code/*"
 disableXML = true
 minifyOutput = true
 
-# [markup.highlight]
-# codeFences = false
+[markup.highlight]
+codeFences = false
 
 [params]
 env = "production"
