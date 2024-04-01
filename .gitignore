@@ -55,19 +55,6 @@ hugo.linux
 *.code-workspace
 
 # End of https://www.toptal.com/developers/gitignore/api/hugo,linux,visualstudiocode
-
-# Local Netlify folder
-.netlify
-.env
-node_modules
-feed2toot/*.txt
-# Devenv
-.devenv*
-devenv.local.nix
-
-# direnv
 .direnv
-
-# pre-commit
 .pre-commit-config.yaml
-
+.task/

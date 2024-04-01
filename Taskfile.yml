@@ -2,6 +2,9 @@ version: "3"
 
 tasks:
   start_server:
+    watch: true
+    sources:
+      - 'content/**/*.md'
     cmds:
       - hugo server -D --buildFuture
 

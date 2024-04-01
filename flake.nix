@@ -35,14 +35,15 @@
       '';
     in
       pkgs.mkShell {
-        packages = [
+        packages = with pkgs; [
           new_post
           generate_og
-          pkgs.go_1_22
-          pkgs.hugo
-          pkgs.python3
-          pkgs.go-task
-          pkgs.gum
+          go_1_22
+          hugo
+          python3
+          go-task
+          gum
+          vhs
         ];
       };
   };

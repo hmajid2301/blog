@@ -1,5 +1,5 @@
-@import url(https://fonts.googleapis.com/css?family=Karla:400,700);
-@import url(https://fonts.googleapis.com/css?family=Libre+Caslon+Text:400,700);
+@import url(https://fonts.googleapis.com/css?family=Poppins:400,700);
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,700);
 
 html * {
   color-profile: sRGB;
@@ -10,30 +10,30 @@ html * {
  * GLOBAL STYLES
  *********************************************/
 :root {
-  --r-background-color: #3b2f2f;
-  --r-main-font: Karla, sans-serif;
+  --r-background-color: #11111b;
+  --r-main-font: "Poppins", sans-serif;
   --r-main-font-size: 40px;
-  --r-main-color: #f2e9e1;
+  --r-main-color: #cdd6f4;
   --r-block-margin: 20px;
   --r-heading-margin: 0 0 20px 0;
-  --r-heading-font: "Libre Caslon Text", sans-serif;
-  --r-heading-color: #f2e9e1;
+  --r-heading-font: "Roboto", sans-serif;
+  --r-heading-color: #cdd6f4;
   --r-heading-line-height: 1.2;
   --r-heading-letter-spacing: normal;
   --r-heading-text-shadow: none;
-  --r-heading-font-weight: normal;
+  --r-heading-font-weight: 700;
   --r-heading1-text-shadow: none;
   --r-heading1-size: 2.2em;
-  --r-heading2-size: 2.11em;
+  --r-heading2-size: 2em;
   --r-heading3-size: 1.55em;
   --r-heading4-size: 1em;
   --r-code-font: monospace;
-  --r-link-color: #7a6f6f;
-  --r-link-color-dark: #5a4d4d;
-  --r-link-color-hover: #9a8d8d;
-  --r-selection-background-color: #7a6f6f;
-  --r-selection-color: #f2e9e1;
-  --r-progress-bar-color: #7a6f6f;
+  --r-link-color: #89dceb;
+  --r-link-color-dark: #89dceb;
+  --r-link-color-hover: #f2cdcd;
+  --r-selection-background-color: #b4befe;
+  --r-selection-color: #fff;
+  --r-progress-bar-color: #89b4fa;
 }
 
 .reveal-viewport {
