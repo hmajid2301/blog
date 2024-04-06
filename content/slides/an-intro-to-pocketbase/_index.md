@@ -1,7 +1,6 @@
 +++
 title = "An Introduction to PocketBase: A Go-Based Backend as a Service"
 outputs = ["Reveal"]
-layout = "bundle"
 +++
 
 # An Introduction to PocketBase:

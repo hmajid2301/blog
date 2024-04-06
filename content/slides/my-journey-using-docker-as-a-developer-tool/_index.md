@@ -1,7 +1,6 @@
 +++
 title = "My Journey Using Docker as a Development Tool"
 outputs = ["Reveal"]
-layout = "bundle"
 
 [reveal_hugo]
 custom_theme = "stylesheets/reveal/zoe.css"

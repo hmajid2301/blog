@@ -1,7 +1,6 @@
 +++
 title = "Gitlab Runners Docker-in-Docker Explained"
 outputs = ["Reveal"]
-layout = "bundle"
 
 [reveal_hugo]
 custom_theme = "stylesheets/reveal/zoe.css"
