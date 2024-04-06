@@ -51,16 +51,16 @@ Or I was getting 429 network errors, too many requests to GitHub.
 I found this great person who was able to solve my issue on [discourse](https://discourse.nixos.org/t/adding-new-neovim-to-nixpkgs/34834/2).
 Assuming you have a fork of nixpkgs and have to clone it locally, i.e. `git clone https://github.com/hmajid2301/nixpkgs.git`
 
-1. Go to `nixpkgs/pkgs/applications/editors/vim/plugins`
-1. update the `vim-plugin-names`
-  a. Can do this using the `./update.py add "gbprod/yanky.nvim"` (where `gbprod/yanky.nvim` is the path to git repository)
+1. Update `nixpkgs/pkgs/applications/editors/vim/plugins/vim-plugin-names`
+  1. Can do this using the `./update.py add "gbprod/yanky.nvim"` (where `gbprod/yanky.nvim` is the path to git repository)
 1. Export your GitHub Personal Token
-  a. You can create one by following [this link](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-personal-access-token-classic)
-  b. `export GITHUB_API_TOKEN=your_token`
-  c. I will do a post in the future about how you can do this in fish shell and keep secrets out of your shell history.
-1. `nix-shell -p vimPluginsUpdater -run "vim-plugins-updater"`
+  1. You can create one by following [this link](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-personal-access-token-classic)
+  1. `export GITHUB_API_TOKEN=your_token`
+  1. I will do a post in the future about how you can do this in fish shell and keep secrets out of your shell history.
+1. `nix-shell -I nixpkgs=channel:nixpkgs-unstable -p vimPluginsUpdater --run vim-plugins-updater`
+  1. Make sure to run this in the repository root
 1. Push your changes and create a PR with nixpkgs repo
-  a. You will likely need to rebase your commits to follow the contribution guidelines, check those when creating the PR
+  1. You will likely need to rebase your commits to follow the contribution guidelines, check those when creating the PR
 
 
 That's it! I am not sure if this will be useful for others (I will most likely reference this myself in the future), but

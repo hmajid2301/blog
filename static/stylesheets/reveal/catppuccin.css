@@ -207,7 +207,7 @@ html * {
   width: 100%;
   margin: var(--r-block-margin) auto;
   text-align: left;
-  font-size: 0.75em;
+  font-size: 0.65em;
   font-family: var(--r-code-font);
   line-height: 1.2em;
   word-wrap: break-word;

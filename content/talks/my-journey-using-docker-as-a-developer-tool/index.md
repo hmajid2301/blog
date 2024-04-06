@@ -19,4 +19,4 @@ hideMeta: false
 ## Photo from conference
 
 ![Docker Talk](images/docker_talk.jpg)
- 
+
