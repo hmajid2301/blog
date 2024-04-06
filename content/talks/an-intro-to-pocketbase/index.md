@@ -19,4 +19,4 @@ hideMeta: false
 ## Photo from meetup
 
 ![Talk](images/talk.jpeg)
- 
+
