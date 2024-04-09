@@ -3,11 +3,13 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    tcardgen.url = "github:hmajid2301/tcardgen";
   };
 
   outputs = {
     self,
     nixpkgs,
+    tcardgen,
   }: {
     devShell.x86_64-linux = let
       pkgs = nixpkgs.legacyPackages.x86_64-linux;
@@ -26,18 +28,15 @@
         hugo new --kind post-bundle posts/$SLUG
 
         echo "Creating OG for content/posts/$SLUG"
-        python scripts/og/generate.py content/posts/$SLUG
+        # python scripts/og/generate.py content/posts/$SLUG
         rm content/posts/$SLUG/images/.gitkeep
-      '';
-
-      generate_og = pkgs.writeScriptBin "generate_og" ''
-        python ./scripts/og/generate.py
       '';
     in
       pkgs.mkShell {
         packages = with pkgs; [
+          parallel
+          tcardgen.packages.x86_64-linux.default
           new_post
-          generate_og
           go_1_22
           hugo
           python3
