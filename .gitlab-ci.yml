@@ -1,5 +1,30 @@
 stages:
+  - pre
   - deploy
+  - test
+
+include:
+  - 'https://gitlab.com/Cynerd/gitlab-ci-nix/-/raw/master/template.yml'
+
+# .task:
+#   stage: test
+#   extends: .nix
+#   only:
+#     - merge_request
+#
+# install:deps:
+#   stage: pre
+#   extends: .nix
+#   only:
+#     - merge_request
+#   script:
+#     - nix develop
+#
+# check:og:
+#   extends:
+#     - .task
+#   script:
+#     - nix develop -c task
 
 deploy_site:
   stage: deploy
@@ -10,3 +35,4 @@ deploy_site:
     - curl -X POST -d '{}' $CLOUDFLARE_DEPLOY_HOOK
   only:
     - schedules
+

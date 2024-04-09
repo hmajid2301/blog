@@ -5,11 +5,11 @@ Set Width 1920
 Set Height 1080
 
 Sleep 1s
-Type "hugo version"
+Type "which golangci-lint"
 Enter
 Sleep 5s
 
-Type "cd ~/projects/blog"
+Type "cd ~/projects/optinix"
 Sleep 500ms
 Enter
 
@@ -25,8 +25,8 @@ Enter
 Show
 
 Sleep 5s
-Type "hugo version"
-Sleep 2s
+Type "which golangci-lint"
+Sleep 4s
 Enter
 
 Sleep 5s
