@@ -26,25 +26,27 @@ slide_number = true
 
 ---
 
-## Who is this talk for?
+## Who is this for?
 
-- Interested in learning more about Nix
-- Create consistent development environments
+- Interested in Nix
+- Consistent development environments
   - Old project; still works
   - New developers
   - "It works on my machine"
 
 {{% note %}}
 - Explain reproducible
-- Explain ephermeral short lived
+- Explain ephemeral short-lived
 - Looking to improve the developer experience
 - Scared to re-run
-  -Fails on CI
+- Fails on CI
 {{% /note %}}
 
 ---
 
 <img width="70%" height="auto" data-src="images/say-it-again.jpg">
+
+[Credit](https://elbruno.com/2015/12/20/humor-it-works-on-my-machine/)
 
 {{% /section %}}
 
@@ -58,8 +60,10 @@ slide_number = true
 - NixOS: A Linux distribution that can be configured using Nixlang
 
 {{% note %}}
-- Nixlang the programming language that powers Nix
-  - Pure, functional and lazyily evaluated
+- limited lanuage
+- Pure functional: no side effects, same inputs same outputs
+- Lazy: only evaluates what is needed for that nix file
+- nixos is not nix
 {{% /note %}}
 
 ---
@@ -75,7 +79,7 @@ slide_number = true
 ```
 
 {{% note %}}
-> "declarative configuration" means that users only need to declare the desired outcome. For instance, if you declare that you want to replace the i3 window manager with sway. You don't have to worry about the underlying details, such as which packages sway requires for installation... - https://nixos-and-flakes.thiscute.world/introduction
+- imperative: instructions
 
 - Declarative is what to do not how to do it
 The main advantage of declarative package managers is that they are more predictable and reproducible. Since you're describing what you want rather than how to get it, you can be sure that you'll get the same result every time
@@ -84,6 +88,8 @@ The main advantage of declarative package managers is that they are more predict
 ---
 
 <img width="80%" height="auto" data-src="images/i-use-nix.jpg">
+
+[Credit](https://devrant.com/rants/1590154/everytime-i-see-a-topic-about-linux)
 
 {{% /section %}}
 
@@ -94,21 +100,19 @@ The main advantage of declarative package managers is that they are more predict
 
 ## What is the problem?
 
-- Binary `/usr/local/bin/golangci-lint`
-- What’s the version of the package it came from?
-- What are the libraries it uses?
-- What configure flags were enabled during the build?
-- What if you want two versions of the same package?
+- `/usr/local/bin/golangci-lint`
+    - Dependencies
+    - Configuration flags & Env Vars
+    - Two versions of this package
 
 ---
 
 There are various other packaging solutions that try to fix these issues:
 
-- Snap
-- Flatpak
-- Docker
+- Snap/Flatpak
 - asdf
 - virtualenv
+
 ---
 
 ## Summary
@@ -124,7 +128,6 @@ There are various other packaging solutions that try to fix these issues:
   - Allows us to maintain multiple versions of the same tool
 {{% /note %}}
 
-
 {{% /section %}}
 
 ---
@@ -137,14 +140,9 @@ There are various other packaging solutions that try to fix these issues:
 
 ## Golang
 
-- How is this relevant to Go?
-- How do we make sure all developers are using the same tool?
-- How can we say it is the same as the version running on CI?
-
-{{% note %}}
-  - `tools.go`
-    - Only works with go dependencies
-{{% /note %}}
+- Tooling to aid development
+- Use the same tool
+- Same versions running on CI
 
 ---
 
@@ -163,10 +161,18 @@ import (
 )
 ```
 
+{{% note %}}
+  - manage deps with go.mod
+  - `tools.go`
+    - Only works with go dependencies
+{{% /note %}}
+
+
 ---
 
 ```bash
-cat tools.go | grep _ | awk -F'"' '{print $2}' | xargs -tI % go install %
+cat tools.go | grep _ | awk -F'"' '{print $2}' \
+| xargs -tI % go install %
 ```
 
 ---
@@ -187,7 +193,7 @@ cat tools.go | grep _ | awk -F'"' '{print $2}' | xargs -tI % go install %
 
 # flake.nix
 
-```nix{6|9-14|15|17|19|20|21-29}
+```nix{4-6|9-14|15|18|20|21|22-30}
 {
   description = "Development environment for example project";
 
@@ -204,6 +210,7 @@ cat tools.go | grep _ | awk -F'"' '{print $2}' | xargs -tI % go install %
   }: (
     flake-utils.lib.eachDefaultSystem
     (system: let
+      # system is like "x86_64-linux" or "aarch64-linux"
       pkgs = nixpkgs.legacyPackages.${system};
     in {
       devShells.default = pkgs.mkShell {
@@ -245,11 +252,10 @@ cat tools.go | grep _ | awk -F'"' '{print $2}' | xargs -tI % go install %
 ---
 
 ## Summary
-- Leverage Flakes and devshells for installing packages
-  - Load into shell using `nix develop`
-- Make sure each developer gets the same package
-  - Until we update lock file
-    - `nix flake update`
+- Leverage Flakes devshells for installing packages
+  - Load into shell: `nix develop`
+- Make sure each dev gets the same package
+  - Update lock file: `nix flake update`
 
 {{% /section %}}
 
@@ -267,6 +273,8 @@ cat tools.go | grep _ | awk -F'"' '{print $2}' | xargs -tI % go install %
 use flake
 ```
 
+[Direnv Code "use flake"](https://github.com/nix-community/nix-direnv/blob/57f831e2e43c6d8a6b11511e40e18eb59ca1f471/direnvrc#L244)
+
 {{% note %}}
 - Allows us to automatically activate the devshell when we go to a folder
 - a helper function from direnv
@@ -277,7 +285,7 @@ use flake
 ## Usage
 
 
-```bash{1-2|4-7|10-12|13-15}
+```bash{1-2|4-8|10-12|13-16}
 > cd example
 > which golangci-lint
 
@@ -381,17 +389,16 @@ use flake "github:the-nix-way/dev-templates?dir=go"
 
 
 ```nix{1|2|3-6}
-{pkgs, ...}: {
-  pkgs.mkShell {
-    packages = with pkgs; [
-      go_1_22
-      golangci-lint
-    ];
-  }
+{pkgs, ...}:
+pkgs.mkShell {
+  packages = with pkgs; [
+    go_1_22
+    golangci-lint
+  ];
 }
 ```
 
-- https://nixos.org/manual/nixpkgs/stable/#sec-pkgs-mkShell
+[mk.shell docs](https://nixos.org/manual/nixpkgs/stable/#sec-pkgs-mkShell)
 
 {{% note %}}
 - pkgs.mkShell is a helper function
@@ -448,7 +455,7 @@ buildGoModule rec {
 }
 ```
 
-- https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/development/tools/golangci-lint/default.nix
+[golangci-lint Nix expression](https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/development/tools/golangci-lint/default.nix)
 
 ---
 
@@ -456,17 +463,14 @@ buildGoModule rec {
 stdenv.mkDerivation
 ```
 
-- https://github.com/NixOS/nixpkgs/blob/fdf020573d6298cb0dbe7a8df8ac4930b76afba6/pkgs/build-support/go/module.nix
+[buildGoModule function](https://github.com/NixOS/nixpkgs/blob/fdf020573d6298cb0dbe7a8df8ac4930b76afba6/pkgs/build-support/go/module.nix)
 
 ---
 
 ## Evaluation
 
-- Evaluation Time: Nix Expression (`.nix`) is parsed and returns a derivation set
-  - `.drv`
-- Build Time: The derivation is built
-  - First builds inputs
-
+- Evaluation Time: Nix Expression (`.nix`) is parsed and returns a derivation set `.drv`
+- Build Time: The derivation is built into a package
 
 {{% note %}}
 nix-build does two jobs:
@@ -486,7 +490,7 @@ nix-build does two jobs:
 ```
 
 {{% note %}}
-Multiple versions of go, nix can add them to our path as and when
+- Multiple versions of go, nix can add them to our path as and when
 {{% /note %}}
 
 ---
@@ -611,6 +615,11 @@ nix derivation show nixpkgs#go_1_21
 }
 ```
 
+{{% note %}}
+- Only inputs are made available to the package
+- Compute address without building
+{{% /note %}}
+
 ---
 
 ## Advantages
@@ -639,7 +648,7 @@ nix derivation show nixpkgs#go_1_21
 ## Advantages
 - Binary cache
 
-```bash{4,5}
+```bash{4,5|6}
 > nix-shell -p go_1_21
 
 this path will be fetched (39.16 MiB download, 204.47 MiB unpacked):
@@ -647,6 +656,10 @@ this path will be fetched (39.16 MiB download, 204.47 MiB unpacked):
 copying path '/nix/store/k7chjapvryivjixp01iil9z0z7yzg7z4-go-1.21.8' from '
 https://cache.nixos.org'..
 ```
+{{% note %}}
+- prebuilt
+- Compute address without building
+{{% /note %}}
 
 ---
 ## Advantages
@@ -697,12 +710,15 @@ After the build, Nix sets the last-modified timestamp on all files in the build 
 
 Removes case of non-determinism
 
-In some cases, the build process of a package might embed the timestamp of the files into the resulting binary. If these timestamps were different on different machines or at different times, the resulting binary would be different even if the source code and dependencies were exactly the same. This would defeat one of the main goals of Nix, which is to ensure that builds are reproducible, meaning that they will produce the exact same result given the same inputs.
+In some cases, the build process of a package might embed the timestamp of the files into the resulting binary.
 {{% /note %}}
 
 ---
 
 <img width="70%" height="auto" data-src="images/bin-cat.jpg">
+
+
+[Credit](https://old.reddit.com/r/linuxmemes/comments/15yi79m/explaining_linux_with_cats/)
 
 ---
 
@@ -768,6 +784,7 @@ In some cases, the build process of a package might embed the timestamp of the f
 
 {{% note %}}
   - update using github action/ci
+  - The hash of the NAR serialisation (in SRI format) of the contents of the flake. This is useful for flake types such as tarballs that lack a unique content identifier such as a Git commit hash.
 {{% /note %}}
 
 ---
@@ -813,7 +830,7 @@ In some cases, the build process of a package might embed the timestamp of the f
 
 ---
 
-```yml{1|9-15|17-23}
+```yml{1-2|9-15|17-23}
 include:
   - 'https://gitlab.com/Cynerd/gitlab-ci-nix/-/raw/master/template.yml'
 
@@ -854,30 +871,22 @@ tests:
 
 # CI Logs
 
-```bash
-copying path '/nix/store/4vhcj8nx4lvqgjc449shdkja4cmdhps8-nix-shell-env'
+```bash{1,2}
+copying path '/nix/store/97j7mjdvbxb59jnkr97qmhlkk97mnly8-source'
 from 'file:///builds/hmajid2301/optinix/.nix-cache'...
-these 4 paths will be fetched (1.79 MiB download, 10.97 MiB unpacked):
-  /nix/store/vmgwn3xsbyj860z2bazvg4n10c4kp3xk-bash-interactive-5.2p26
-  /nix/store/sbgq69ls47c0d9si99wyj1n6230rz9gg-bash-interactive-5.2p26-man
-  /nix/store/5sqn9ipaj6zm26pypl6l748ahw9n6i3f-ncurses-6.4
-  /nix/store/d48gzzk85sjwxgdrnannajrg3inzmv64-readline-8.2p10
-copying path '/nix/store/sbgq69ls47c0d9si99wyj1n6230rz9gg-bash-interactive-5.2p26-man'
-from 'file:///builds/hmajid2301/optinix/.nix-cache'...
-section_end:1711368078:step_script
-[0Ksection_start:1711368078:after_script
-[0K[0K[36;1mRunning after_script[0;m[0;m
-[32;1mRunning after script...[0;m
-[32;1m$ gitlab-ci-nix-cache-after[0;m
-copying 1 paths...
-copying path '/nix/store/4sx2n8c1hzhsqb93lgv7l516gcz08g6p-source' to 'file:///builds/hmajid2301/optinix/.nix-cache'...
-section_end:1711368079:after_script
+copying path '/nix/store/yj1wxm9hh8610iyzqnz75kvs6xl8j3my-source' from 'file:///builds/hmajid2301/optinix/.nix-cache'...
+copying path '/nix/store/gig8j85kj7ybjy3ksn6k3aich8j2k59y-source' from 'file:///builds/hmajid2301/optinix/.nix-cache'...
+copying path '/nix/store/lrq619bzwr9z810hac96cg7r5ga6fkq4-source' from 'file:///builds/hmajid2301/optinix/.nix-cache'...
+copying path '/nix/store/3phl7qxbxvxdg5b053q81mgqwf95gsiv-source' from 'file:///builds/hmajid2301/optinix/.nix-cache'...
+copying path '/nix/store/pgid9c9xfcrbqx2giry0an0bi0df7s5c-source' from 'file:///builds/hmajid2301/optinix/.nix-cache'...
+copying path '/nix/store/g16z4fs1mrbkxc4x6wm8xbrh13nc7aw4-source' from 'file:///builds/hmajid2301/optinix/.nix-cache'...
 ```
-
 
 ---
 
 <img width="70%" height="auto" data-src="images/i-like-nix.jpg">
+
+[Credit](https://mstdn.social/@godmaire/111544747165375207)
 
 {{% /section %}}
 
@@ -885,48 +894,21 @@ section_end:1711368079:after_script
 
 {{% section %}}
 
-## Docker
+## Why not Docker?
 
-- Great for package and deploying your service(s)
 - Docker is imperative
-  - Set of instructions to run
-
+  - Repeatable but not reproducible
+- Hard to personalise
+  - bash vs fish vs zsh
 
 {{% note %}}
-For example, two people using the same docker image will always get the same results, but two people building the
+- specifically about dockerfile to image
+
+- Docker is great for services
+
+- For example, two people using the same docker image will always get the same results, but two people building the
 same Dockerfile can (and often do) end up with two different images.
 {{% /note %}}
-
----
-
-## Dockerfile
-
-```Dockerfile{4-5}
-FROM golang
-
-ENV DEBIAN_FRONTEND=noninteractive
-RUN apt-get update \
-    && apt-get -y install --no-install-recommends apt-utils 2>&1
-
-# Install Go tools.
-RUN ...
-
-# Revert workaround at top layer.
-ENV DEBIAN_FRONTEND=dialog
-
-# Expose service ports.
-EXPOSE 8000
-```
-
----
-
-## Summary
-
-- Docker is great for packaging our services for deployment
-- Repeatable but not reproducible
-- Lose your shell
-  - bash vs fish vs zsh
-- Hard to personalise
 
 {{% /section %}}
 
@@ -940,6 +922,7 @@ EXPOSE 8000
 - Build Docker image: https://jameswillia.ms/posts/go-nix-containers.html
 - Arion: Manage docker-compose with nix
 - devenv: https://devenv.sh/
+
 ---
 
 <img width="70%" height="auto" data-src="images/nix-feature.jpg">
@@ -949,7 +932,6 @@ EXPOSE 8000
 ## Slides
 
 - Slides: https://haseebmajid.dev/slides/reproducible-envs-with-nix/
-- Code Examples: https://gitlab.com/hmajid2301/blog/-/tree/main/content/talks/reproducible-envs-with-nix/example
 
 ---
 
@@ -968,6 +950,7 @@ EXPOSE 8000
   - https://blog.ysndr.de/posts/guides/2021-12-01-nix-shells/
   - https://serokell.io/blog/what-is-nix
   - https://shopify.engineering/what-is-nix
+  - nix-shell vs nix shell vs nix develop: https://blog.ysndr.de/posts/guides/2021-12-01-nix-shells/
 
 ---
 
@@ -975,9 +958,7 @@ EXPOSE 8000
 
 - Better Nix Installer: https://determinate.systems/posts/determinate-nix-installer/
 
-<section>
-  <img width="95%" height="auto" data-src="images/nix-tree.gif">
-</section>
+<img width="95%" height="auto" data-src="images/nix-tree.gif">
 
 ---
 
@@ -1001,12 +982,14 @@ More about flakes:
   - https://www.youtube.com/@vimjoyer
   - Docker and Nix (Dockercon 2023): https://www.youtube.com/watch?v=l17oRkhgqHE
   - How to build a new package in Nix: https://www.youtube.com/watch?v=3hMIqxbQBRM
+  - https://www.youtube.com/watch?app=desktop&v=TsZte_9GfPE&si=osBujLY3pyBI_Ymi
 
 ---
 
 ## References & Thanks
 
 - GIFs made with [vhs](https://github.com/charmbracelet/vhs)
+- Photos editted with [pixlr](https://pixlr.com/)
 - All my friends who took time to give me feedback on this talk
 
 {{% note %}}
