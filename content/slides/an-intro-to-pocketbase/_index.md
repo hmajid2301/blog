@@ -1,6 +1,13 @@
 +++
 title = "An Introduction to PocketBase: A Go-Based Backend as a Service"
 outputs = ["Reveal"]
+[logo]
+src = "images/logo.png"
+diag = "90%"
+width = "3%"
+[reveal_hugo]
+custom_theme = "stylesheets/reveal/dracula.css"
+slide_number = true
 +++
 
 # An Introduction to PocketBase:
@@ -9,9 +16,9 @@ outputs = ["Reveal"]
 
 <small>by Haseeb Majid</small>
 
-notes:
-
+{{% note %}}
 - Code & Slides shared at the end
+{{% /note %}}
 
 ---
 
@@ -29,15 +36,17 @@ notes:
 
 ---
 
+{{% section %}}
+
 # What is a Backend as a Service (BaaS)?
 
 Handle the basic repetitive tasks
 
-notes:
-
+{{% note %}}
 - Authentication
 - Database Management
 - Email Verification
+{{% /note %}}
 
 ----
 
@@ -56,26 +65,29 @@ notes:
   - Extend as framework
 - Easy to use Dashboard
 
-notes:
-
+{{% note %}}
 - embeds SQLite DB
 - UI Written in Svelte
 - Scale can handle 10k connections on $6 VPS
 - Super easy to self-host
+{{% /note %}}
+
+{{% /section %}}
 
 ---
 
 ## Dashboard
 
-![Dashboard](images/dashboard.mp4)
+<video width="70%" height="auto" data-src="images/dashboard.mp4">
 
 ---
 
+{{% section %}}
 ## Use as a Framework
 
-notes:
-
+{{% note %}}
 - create a simple web application
+{{% /note %}}
 
 ----
 
@@ -112,7 +124,12 @@ func main() {
 go run main.go serve --http=localhost:8080
 ```
 
+
+{{% /section %}}
+
 ---
+
+{{% section %}}
 
 ## Add a Route
 
@@ -139,15 +156,15 @@ func main() {
 
 ```
 
-notes:
-
+{{% note %}}
 - echo V5 server
+{{% /note %}}
 
 ---
 
 ```go
 app.OnBeforeServe().Add(func(e *core.ServeEvent) error {
-    e.Router.POST("/comment", 
+    e.Router.POST("/comment",
 
       //handler
       func(c echo.Context) error {
@@ -162,12 +179,12 @@ app.OnBeforeServe().Add(func(e *core.ServeEvent) error {
 })
 ```
 
-notes:
-
+{{% note %}}
 - actual function
 - some middlewares
   - log request
   - check user is auth
+{{% /note %}}
 
 ----
 
@@ -186,11 +203,15 @@ await pb.send("/comment", {
 });
 ```
 
-notes:
-
+{{% note %}}
 - fetch
+{{% /note %}}
+
+{{% /section %}}
 
 ---
+
+{{% section %}}
 
 ## Add Record to DB
 
@@ -265,7 +286,7 @@ import (
     "github.com/pocketbase/pocketbase"
     "github.com/pocketbase/pocketbase/plugins/migratecmd"
 
-    // you must have have at least one 
+    // you must have have at least one
     // .go migration file in the "migrations" directory
     _ "gitlab.com/hmajid2301/talks/.../migrations"
 )
@@ -288,29 +309,31 @@ func main() {
 
 ---
 
-![SQL vs Sequel](images/sequel.jpg)
+<img width="70%" height="auto" data-src="images/sequel.jpg">
+
+{{% /section %}}
 
 ---
+
+{{% section %}}
 
 ## SQLite
 
 - Does it Scale?
   - Write-Ahead Logging (WAL mode)
 
-notes:
-
 ----
 
 ## What is WAL Mode?
 
-<iframe src="images/wal_animation.html" width="1000" height="500"  frameborder="0">
+<!-- <iframe src="images/wal_animation.html" width="1000" height="500"  frameborder="0"> -->
 
-notes:
-
+{{% note %}}
 - SQLite groups rows together into 4KB chunks called "pages".
 - benefits
 - POSIX system call `fsync()` commits buffered data to permanent storage or disk
 - `fsync()` is expensive
+{{% /note %}}
 
 ----
 
@@ -320,14 +343,19 @@ notes:
 - WAL uses many fewer `fsync()` operations
 - Provides more concurrency as a writer does not block readers.
 
-notes:
-
+{{% note %}}
 - No network file support
 - Not atomic when commits across separate DB's
 - Might be slightly slower 1-2% for read heavy and very rare write apps
 - In rollback mode, you can have concurrent readers but not readers & writers
+{{% /note %}}
+
+{{% /section %}}
 
 ---
+
+{{% section %}}
+
 
 ## Testing
 
@@ -372,7 +400,7 @@ func TestCommentEndpoint(t *testing.T) {
       },
       ExpectedStatus:  201,
       ExpectedContent: nil,
-      ExpectedEvents:  map[string]int{"OnModelAfterCreate": 1, 
+      ExpectedEvents:  map[string]int{"OnModelAfterCreate": 1,
                                       "OnModelBeforeCreate": 1},
       TestAppFactory:  setupTestApp,
     },
@@ -399,11 +427,15 @@ func generateRecordToken(collectionNameOrId string, email string) (string, error
 }
 ```
 
+{{% /section %}}
+
 ---
+
+{{% section %}}
 
 # Deploy
 
-![Deploy](images/deploy.png)
+<img width="70%" height="auto" data-src="images/deploy.png">
 
 ----
 
@@ -508,7 +540,11 @@ deploy:
     - fly deploy
 ```
 
+{{% /section %}}
+
 ---
+
+{{% section %}}
 
 ## Other Features
 
@@ -527,9 +563,11 @@ deploy:
 - Can only scale vertically
   - [LiteFS](https://fly.io/blog/introducing-litefs/)
 
-notes:
-
+{{% note %}}
 - Scale horizontaly with LiteFS
+{{% /note %}}
+
+{{% /section %}}
 
 ---
 

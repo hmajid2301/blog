@@ -951,6 +951,7 @@ same Dockerfile can (and often do) end up with two different images.
   - https://serokell.io/blog/what-is-nix
   - https://shopify.engineering/what-is-nix
   - nix-shell vs nix shell vs nix develop: https://blog.ysndr.de/posts/guides/2021-12-01-nix-shells/
+  - Github Actions: https://determinate.systems/posts/nix-github-actions/
 
 ---
 

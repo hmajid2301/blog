@@ -1,27 +1,28 @@
 +++
 title = "My Journey Using Docker as a Development Tool"
 outputs = ["Reveal"]
-
+[logo]
+src = "images/logo.png"
+diag = "90%"
+width = "3%"
 [reveal_hugo]
 custom_theme = "stylesheets/reveal/zoe.css"
 highlight_theme = "solarized-light"
 slide_number = true
 +++
 
-# My Journey Using Docker as a Development Tool:
+{{< slide background="#fac828" >}}
 
-{{< slide background-color="#fac828" >}}
+# My Journey Using Docker as a Development Tool:
 
 From Zero to Hero
 
 <small>by Haseeb Majid</small>
 
-
 {{% note %}}
 - Presentation in Docker
 - Code & Slides shared at the end
 {{% /note %}}
-
 
 ----
 
@@ -55,10 +56,8 @@ From Zero to Hero
 
 # My Blood Sugar Levels
 
-<section>
-  <img width="30%" height="auto" data-src="images/cgm_before.jpg">
-  <img width="30%" height="auto" data-src="images/cgm_after.jpg">
-</section>
+<img width="30%" height="auto" data-src="images/cgm_before.jpg">
+<img width="30%" height="auto" data-src="images/cgm_after.jpg">
 
 
 {{% note %}}
