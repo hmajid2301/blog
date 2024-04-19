@@ -6,15 +6,19 @@ buildDrafts = false
 buildFuture = false
 buildExpired = false
 enableEmoji = true
-ignorefiles = ["source_code/.*"]
+ignorefiles = ["source_code/.*", "slides.pdf"]
 theme = ["github.com/dzello/reveal-hugo"]
 
 [module]
 
 [[module.mounts]]
-source = "content"
-target = "content"
+source = "content/posts"
+target = "content/posts"
 excludeFiles = "source_code/*"
+[[module.mounts]]
+source = "content/slides"
+target = "content/slides"
+excludeFiles = "slides.pdf"
 
 [minify]
 disableXML = true

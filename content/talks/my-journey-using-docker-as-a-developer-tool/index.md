@@ -14,7 +14,8 @@ hideMeta: false
 
 - [Abstract](https://ep2022.europython.eu/session/my-journey-using-docker-as-a-development-tool)
 - [Related Code](https://gitlab.com/hmajid2301/talks/-/tree/main/docker-as-a-dev-tool/example)
-- [Slides](https://talks.haseebmajid.dev/docker-as-a-dev-tool/)
+- [Slides](https://haseebmajid.dev/slides/my-journey-using-docker-as-a-developer-tool)
+- [PDF](https://gitlab.com/hmajid2301/blog/-/blob/main/content/slides/my-journey-using-docker-as-a-developer-tool/slides.pdf)
 
 ## Photo from conference
 
