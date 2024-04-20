@@ -4,13 +4,16 @@ My personal website and blog built using Hugo.
 
 ## Usage
 
-> You need [go-task](https://taskfile.dev/installation/) installed
+> You need [task](https://taskfile.dev/installation/) installed
+
+Or you can use Nix flakes, with direnv to auto activate your development environment.
 
 ```bash
-go-task start_server
+# Serve Main Site
+task start_server
 
-# To see all talks
-go-task --list-all
+# Serve /slides path
+task start_slides
 ```
 
 ### New Content
@@ -18,13 +21,7 @@ go-task --list-all
 To create a new post:
 
 ```
-go-task new_post ARTICLE_NAME=a-new-post
-```
-
-To create a new talk:
-
-```
-go-task new_talk TALK_NAME=a-talk-post
+task new_post
 ```
 
 ## Theme
