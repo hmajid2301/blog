@@ -2,21 +2,26 @@ version: "3"
 
 tasks:
   start_server:
-    watch: true
-    sources:
-      - 'content/**/*.md'
+    # watch: true
+    # sources:
+    #   - 'content/**/*.md'
     cmds:
       - hugo server -D --buildFuture
+
+  start_slides:
+    # watch: true
+    # sources:
+    #   - 'content/**/*.md'
+    cmds:
+      - hugo server -D --buildFuture --config hugo-slides.toml
 
   new_post:
     cmds:
       - new_post "{{.CLI_ARGS}}"
 
-  new_talk:
-    cmds:
-      - hugo new --kind talk-bundle talks/{{.TALK_NAME}}
-    env:
-      TALK_NAME: foo
+  # new_talk:
+  #   cmds:
+  #     - hugo new --kind talk-bundle talks/{{.TALK_NAME}}
 
   generate:og:
     cmds:

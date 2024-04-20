@@ -6,26 +6,16 @@ buildDrafts = false
 buildFuture = false
 buildExpired = false
 enableEmoji = true
-ignorefiles = ["source_code/.*", "slides.pdf"]
-theme = ["github.com/dzello/reveal-hugo"]
+ignorefiles = ["content/slides"]
 
 [module]
-
-[[module.mounts]]
-source = "content/posts"
-target = "content/posts"
-excludeFiles = "source_code/*"
-[[module.mounts]]
-source = "content/slides"
-target = "content/slides"
-excludeFiles = "slides.pdf"
 
 [minify]
 disableXML = true
 minifyOutput = true
 
 [markup.highlight]
-codeFences = false
+codeFences = true
 
 [params]
 env = "production"
@@ -174,11 +164,6 @@ home = ["HTML", "RSS", "JSON"]
 
 [markup.goldmark.renderer]
 unsafe = true
-
-[outputFormats.Reveal]
-baseName = "index"
-mediaType = "text/html"
-isHTML = true
 
 [sitemap]
 changefreq = "monthly"
