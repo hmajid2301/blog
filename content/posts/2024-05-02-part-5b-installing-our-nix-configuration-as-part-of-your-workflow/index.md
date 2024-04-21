@@ -188,3 +188,7 @@ nixos-anywhere -- --flake '.#workstation' nixos@192.168.1.8
 
 Then follow and answer the question it asks you, like the password to use for LUKS. This is basically a really nice way
 we can now install NixOS onto a new or existing device. With minimal effort, in my opinion.
+
+![nixos infect](images/nixos-infection.jpeg)
+
+[credit for meme](https://old.reddit.com/r/NixOS/comments/1bfc9tm/meme_nixos_infection/)
