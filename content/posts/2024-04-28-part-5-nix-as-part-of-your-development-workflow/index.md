@@ -4,6 +4,7 @@ date: 2024-04-28
 canonicalURL: https://haseebmajid.dev/posts/2024-04-28-part-5-nix-as-part-of-your-development-workflow
 tags:
   - nix
+  - dotfiles
   - snowfall
 series:
   - Setup Your Development Workflow
@@ -604,6 +605,8 @@ Or tying waybar to a specific version of our inputs, again because I'm using an 
 So to summarise I migrated my config to use snowfall-lib, which remove boilerplate and gives me a super opinionated
 layout for my config. Alongside this, using some of the example config below, I made all of my modules now into something
 we need to enable. Making it way easier to turn on "features" in my nix config.
+
+![I use Nix btw](images/i-use-nix-btw.jpg)
 
 
 ## Example Configuration

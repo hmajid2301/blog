@@ -20,15 +20,14 @@
         USER_DATE=$(gum input --prompt "Date to publish YYYY-MM-DD:")
 
         TITLE_SLUG="$(echo -n "$TITLE" | sed -e 's/[^[:alnum:]]/-/g' | tr -s '-' | tr A-Z a-z)"
-        DATE="$(date +"%F")"
-        SLUG="$DATE-$TITLE_SLUG"
+        SLUG="$USER_DATE-$TITLE_SLUG"
 
         git checkout -b "$SLUG"
         echo $SLUG
         hugo new --kind post-bundle posts/$SLUG
 
         echo "Creating OG for content/posts/$SLUG"
-        # python scripts/og/generate.py content/posts/$SLUG
+        task generate:og
         rm content/posts/$SLUG/images/.gitkeep
       '';
     in
