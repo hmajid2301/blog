@@ -8,14 +8,14 @@ buildExpired = false
 enableEmoji = true
 ignorefiles = ["content/slides"]
 
+[markup.highlight]
+noclasses = false
+
 [module]
 
 [minify]
 disableXML = true
 minifyOutput = true
-
-[markup.highlight]
-codeFences = true
 
 [params]
 env = "production"
@@ -164,6 +164,7 @@ home = ["HTML", "RSS", "JSON"]
 
 [markup.goldmark.renderer]
 unsafe = true
+
 
 [sitemap]
 changefreq = "monthly"
