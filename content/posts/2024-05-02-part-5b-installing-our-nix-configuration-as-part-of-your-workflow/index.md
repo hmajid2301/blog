@@ -152,7 +152,7 @@ us an SSH service we can connect to from our source device (my laptop). You can 
   - Likely something like `192.168.1.8` (see output below)
 - Copy our public SSH keys of the source device and put them into the `authorized_keys`
   - In my case, I can grab them from GitHub
-    - `curl https://github.com/hmajid2301.keys > ~/.ssh/authorized_keys`
+    - `mkdir -p ~/.ssh curl https://github.com/hmajid2301.keys > ~/.ssh/authorized_keys`
 - Now we can SSH from source to target
 
 
