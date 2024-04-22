@@ -1,79 +1,78 @@
 :root {
-    --gap: 24px;
-    --content-gap: 20px;
-    --nav-width: 960px;
-    --main-width: 720px;
-    --post-width: 720px;
-    --header-height: 60px;
-    --footer-height: 80px;
-    --radius: 8px;
-    --monospace: "Lucida Console", Monaco, "Consolas", monospace;
+  --gap: 24px;
+  --content-gap: 20px;
+  --nav-width: 960px;
+  --main-width: 720px;
+  --post-width: 720px;
+  --header-height: 60px;
+  --footer-height: 80px;
+  --radius: 8px;
+  --monospace: "Lucida Console", Monaco, "Consolas", monospace;
 
-    --theme: rgb(255, 255, 255);
-    --entry: rgb(255, 255, 255);
-    --primary: rgb(30, 30, 30);
-    --primary-dim: rgb(60, 60, 60);
-    --secondary: rgb(108, 108, 108);
-    --tertiary: rgb(158, 158, 158);
-    --tertiary-bg: rgb(214, 214, 214);
-    --content: rgb(31, 31, 31);
-    --code-bg: rgb(245, 245, 245);
-    --border: rgb(238, 238, 238);
-    --link-background-color: #e8e3f7;
-    --link-color: var(--primary);
-    --link-hover-color: #573eaa;
-    --link-underline-shadow: 0 1px 0 var(--link-color);
-    --link-transition: all 0.3s ease;
-    --line-yellow: url("data:image/svg+xml;charset=utf-8,%3Csvg preserveAspectRatio='none' width='120' height='6' viewBox='0 0 120 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M119 0.8C60 4 50-0.5 1 1.5' stroke='%23fc0' stroke-width='3' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  --theme: rgb(255, 255, 255);
+  --entry: rgb(255, 255, 255);
+  --primary: rgb(30, 30, 30);
+  --primary-dim: rgb(60, 60, 60);
+  --secondary: rgb(108, 108, 108);
+  --tertiary: rgb(158, 158, 158);
+  --tertiary-bg: rgb(214, 214, 214);
+  --content: rgb(31, 31, 31);
+  --code-bg: rgb(245, 245, 245);
+  --border: rgb(238, 238, 238);
+  --link-background-color: #e8e3f7;
+  --link-color: var(--primary);
+  --link-hover-color: #573eaa;
+  --link-underline-shadow: 0 1px 0 var(--link-color);
+  --link-transition: all 0.3s ease;
+  --line-yellow: url("data:image/svg+xml;charset=utf-8,%3Csvg preserveAspectRatio='none' width='120' height='6' viewBox='0 0 120 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M119 0.8C60 4 50-0.5 1 1.5' stroke='%23fc0' stroke-width='3' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
 
-    /* for type pages theming */
-    --signature: var(--primary);
-    --signature-bg: var(--secondary);
+  /* for type pages theming */
+  --signature: var(--primary);
+  --signature-bg: var(--secondary);
 }
 @media screen and (max-width: 500px) {
-    :root {
-        --header-height: 52px;
-    }
-
+  :root {
+    --header-height: 52px;
+  }
 }
 
 ::selection {
-    background: var(--link-background-color);
+  background: var(--link-background-color);
 }
 
 ::-moz-selection {
-    background: var(--link-background-color);
+  background: var(--link-background-color);
 }
 
 ::-webkit-selection {
-    background: var(--link-background-color);
+  background: var(--link-background-color);
 }
 
 .dark {
-    --theme: #1e1e2e;
-    --entry: #313244;
-    --primary: #b4befe;
-    --primary-dim: #6c7086;
-    --secondary: #c6d0f5;
-    --tertiary:#9399b2;
-    --tertiary-bg: #45475a;
-    --content: #cdd6f4;
-    --code-bg: #313244;
-    --border: #414559;
-    --link-background-color: #8caaee6d;
-    --link-color: var(--primary);
-    --link-hover-color: #ca9ee6;
-    --link-underline-shadow: 0 1px 0 var(--link-color);
+  --theme: #1e1e2e;
+  --entry: #313244;
+  --primary: #b4befe;
+  --primary-dim: #6c7086;
+  --secondary: #c6d0f5;
+  --tertiary: #9399b2;
+  --tertiary-bg: #45475a;
+  --content: #cdd6f4;
+  --code-bg: #313244;
+  --border: #414559;
+  --link-background-color: #8caaee6d;
+  --link-color: var(--primary);
+  --link-hover-color: #ca9ee6;
+  --link-underline-shadow: 0 1px 0 var(--link-color);
 
-    /* for type pages theming */
-    --signature: var(--primary);
-    --signature-bg: var(--secondary);
+  /* for type pages theming */
+  --signature: var(--primary);
+  --signature-bg: var(--secondary);
 }
 
 .list-page {
-    background: var(--code-bg);
+  background: var(--code-bg);
 }
 
 .dark.list-page {
-    background: var(--theme);
+  background: var(--theme);
 }
