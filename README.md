@@ -1,12 +1,15 @@
 # Blog
 
 My personal website and blog built using Hugo.
+## Talks
+
+This site also has all of my talks and the slides for them! You can find them [here](https://haseebmajid.dev/talks).
 
 ## Usage
 
-> You need [task](https://taskfile.dev/installation/) installed
-
-Or you can use Nix flakes, with direnv to auto activate your development environment.
+This project is setup to make it easy to get started if you are using Nix and Flakes.
+You can leverage direnv to automatically activate the development environment, which should have all the apps and tools
+you need to get started.
 
 ```bash
 # Serve Main Site
