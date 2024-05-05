@@ -1,6 +1,6 @@
 ---
 title: "TIL: How to Pull Submodules in a Nix Derivation"
-date: 2024-05-05
+date: 2024-05-12
 canonicalURL: https://haseebmajid.dev/posts/2024-05-12-til-how-to-pull-submodules-in-a-nix-derivation
 tags:
   - nix
