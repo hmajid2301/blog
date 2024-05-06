@@ -27,7 +27,7 @@
   --line-yellow: url("data:image/svg+xml;charset=utf-8,%3Csvg preserveAspectRatio='none' width='120' height='6' viewBox='0 0 120 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M119 0.8C60 4 50-0.5 1 1.5' stroke='%23fc0' stroke-width='3' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
 
   /* for type pages theming */
-  --signature: var(--primary);
+  --signature: #f38ba8;
   --signature-bg: var(--secondary);
 }
 @media screen and (max-width: 500px) {
@@ -61,11 +61,11 @@
   --border: #414559;
   --link-background-color: #8caaee6d;
   --link-color: var(--primary);
-  --link-hover-color: #ca9ee6;
+  --link-hover-color: #f38ba8;
   --link-underline-shadow: 0 1px 0 var(--link-color);
 
   /* for type pages theming */
-  --signature: var(--primary);
+  --signature: #f38ba8;
   --signature-bg: var(--secondary);
 }
 
