@@ -97,8 +97,8 @@ name = "mastodon"
 url = "https://hachyderm.io/@majiy00"
 
 [[params.socialIcons]]
-name = "buymeacoffee"
-url = "https://www.buymeacoffee.com/haseebmajid"
+name = "kofi"
+url = "https://ko-fi.com/haseeb36616"
 [params.cover]
 hidden = true
 hiddenInList = true
