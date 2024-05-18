@@ -27,7 +27,7 @@ will also add the token that the K3S nodes will need to communicate with each ot
 ```nix
 {
   services.k3s.enable = true;
-  
+
   sops.secrets.k3s_token = {
     sopsFile = ./secrets.yaml;
   };
