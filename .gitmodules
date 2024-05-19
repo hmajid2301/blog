@@ -1,0 +1,3 @@
+[submodule "content/posts/2024-05-26-how-to-add-hugo-revealjs-to-a-hugo-site/source_code/themes/ananke"]
+	path = content/posts/2024-05-26-how-to-add-hugo-revealjs-to-a-hugo-site/source_code/themes/ananke
+	url = https://github.com/theNewDynamic/gohugo-theme-ananke.git
