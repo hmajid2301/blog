@@ -1,0 +1,9 @@
+baseURL = "https://example.com/"
+title = "Example"
+paginate = 25
+enableRobotsTXT = true
+buildDrafts = false
+buildFuture = false
+buildExpired = false
+enableEmoji = true
+ignorefiles = ["content/slides"]
