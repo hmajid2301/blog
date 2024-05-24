@@ -55,5 +55,5 @@ now you don't need to specify the full path (though maybe you should 🤷)
 
 - [Hyprland Config](https://gitlab.com/hmajid2301/dotfiles/-/blob/9561a21fed329f25802290621a54588e314af1ee/home-manager/desktops/wms/hyprland.nix)
 - [Reddit Thread](https://old.reddit.com/r/NixOS/comments/17rilhc/hyprlandsway_needs_full_path_to_scripts_on/)
-- [Discourse Thread](https://wiki.archlinux.org/title/environment_variables#Graphical_environment)
+- [Discourse Thread](https://discourse.nixos.org/t/hyprland-sway-need-full-path-to-scripts-on-non-nixos/35233)
 
