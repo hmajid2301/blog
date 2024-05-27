@@ -8,12 +8,6 @@ buildExpired = false
 enableEmoji = true
 ignorefiles = ["content/slides"]
 
-[[module.mounts]]
-source = "content/posts"
-target = "content/posts"
-excludeFiles = "source_code/*"
-
-
 [markup.highlight]
 noclasses = false
 
