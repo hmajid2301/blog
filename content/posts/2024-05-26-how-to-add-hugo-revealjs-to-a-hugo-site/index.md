@@ -172,4 +172,3 @@ It wasn't the most elegant solution, but as I said earlier it works well enough 
 
 ## Appendix
 - [My Hugo Blog](https://gitlab.com/hmajid2301/blog)
-- [Example source code](https://gitlab.com/hmajid2301/blog/-/tree/main/content/posts/2024-05-26-how-to-add-hugo-revealjs-to-a-hugo-site/source_code)
