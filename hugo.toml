@@ -99,6 +99,11 @@ url = "https://hachyderm.io/@majiy00"
 [[params.socialIcons]]
 name = "kofi"
 url = "https://ko-fi.com/haseeb36616"
+
+[[params.socialIcons]]
+name = "youtube"
+url = "https://www.youtube.com/@Majiy00"
+
 [params.cover]
 hidden = true
 hiddenInList = true
@@ -146,9 +151,9 @@ url = "/talks/"
 weight = 20
 
 [[menu.main]]
-identifier = "uses"
-name = "Uses"
-url = "/uses/"
+identifier = "videos"
+name = "Videos"
+url = "/videos/"
 weight = 40
 
 [[menu.main]]
