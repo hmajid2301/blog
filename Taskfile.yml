@@ -26,3 +26,4 @@ tasks:
   generate:og:
     cmds:
       - ls content/posts/ | parallel 'mkdir -p content/posts/{}/images && tcardgen -c scripts/og/config.yaml --template=scripts/og/template.png -f scripts/og/fonts/ content/posts/{}/index.md -o content/posts/{}/images/cover.png'
+      - ls content/videos/ | parallel 'mkdir -p content/videos/{}/images && tcardgen -c scripts/og/config.yaml --template=scripts/og/template.png -f scripts/og/fonts/ content/videos/{}/index.md -o content/videos/{}/images/cover.png'
