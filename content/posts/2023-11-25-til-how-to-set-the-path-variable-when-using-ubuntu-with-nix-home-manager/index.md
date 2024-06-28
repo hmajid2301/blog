@@ -46,7 +46,7 @@ PATH="$PATH:/home/haseebmajid/.nix-profile/bin"
 ```
 
 Replace `haseebmajid` with your username (or I guess `$HOME` should work). This means when we run scripts now, it will
-source them from this nix-profile folder. Where the binaries get symlinked, including the volume script above. So 
+source them from this nix-profile folder. Where the binaries get symlinked, including the volume script above. So
 now you don't need to specify the full path (though maybe you should 🤷)
 
 [^1]: https://wiki.archlinux.org/title/environment_variables#Graphical_environment
