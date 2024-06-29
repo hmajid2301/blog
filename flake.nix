@@ -1,18 +1,46 @@
 {
-  description = "Developer Shell";
+  description = "Development environment for Blog";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
+    pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
     tcardgen.url = "github:hmajid2301/tcardgen";
   };
 
   outputs = {
     self,
     nixpkgs,
+    flake-utils,
+    pre-commit-hooks,
     tcardgen,
-  }: {
-    devShell.x86_64-linux = let
-      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+    ...
+  }: (
+    flake-utils.lib.eachDefaultSystem
+    (system: let
+      pkgs = nixpkgs.legacyPackages.${system};
+      pre-commit-check = pre-commit-hooks.lib.${system}.run {
+        src = ./.;
+        hooks = {
+          check-merge-conflicts.enable = true;
+          check-added-large-files.enable = true;
+
+          end-of-file-fixer.enable = true;
+          check-toml.enable = true;
+          markdownlint.enable = true;
+
+          trim-trailing-whitespace.enable = true;
+          cspell = {
+            enable = true;
+          };
+
+          generate-og = {
+            enable = true;
+            name = "Generate Open Graph images";
+            entry = "task generate:og";
+          };
+        };
+      };
       new_post = pkgs.writeScriptBin "new_post" ''
         #!/usr/bin/env bash
 
@@ -30,11 +58,12 @@
         task generate:og
         rm content/posts/$SLUG/images/.gitkeep
       '';
-    in
-      pkgs.mkShell {
+    in {
+      devShells.default = pkgs.mkShell {
+        inherit (pre-commit-check) shellHook;
         packages = with pkgs; [
           parallel
-          tcardgen.packages.x86_64-linux.default
+          tcardgen.packages.${system}.default
           new_post
           go_1_22
           hugo
@@ -44,5 +73,6 @@
           vhs
         ];
       };
-  };
+    })
+  );
 }
