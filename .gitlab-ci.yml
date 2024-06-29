@@ -1,30 +1,32 @@
 stages:
   - pre
-  - deploy
   - test
+  - deploy
 
 include:
   - 'https://gitlab.com/Cynerd/gitlab-ci-nix/-/raw/master/template.yml'
 
-# .task:
-#   stage: test
-#   extends: .nix
-#   only:
-#     - merge_request
-#
-# install:deps:
-#   stage: pre
-#   extends: .nix
-#   only:
-#     - merge_request
-#   script:
-#     - nix develop
-#
-# check:og:
-#   extends:
-#     - .task
-#   script:
-#     - nix develop -c task
+.task:
+  stage: test
+  extends: .nix
+  tags: []
+  only:
+    - merge_request
+
+install:deps:
+  stage: pre
+  extends: .nix
+  only:
+    - merge_request
+  script:
+    - nix develop
+
+check:og:
+  extends:
+    - .task
+  script:
+    - nix develop -c task generate:og
+    - git diff --exit-code
 
 deploy_site:
   stage: deploy
