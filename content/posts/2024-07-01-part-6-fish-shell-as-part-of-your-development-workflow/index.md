@@ -6,7 +6,11 @@ tags:
   - fish
   - shell
 series:
+<<<<<<< Updated upstream
   - Set up Your Development Workflow
+=======
+  - Setup Your Development Workflow
+>>>>>>> Stashed changes
 cover:
   image: images/cover.png
 ---
