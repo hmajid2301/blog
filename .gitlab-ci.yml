@@ -13,13 +13,13 @@ include:
   only:
     - merge_request
 
-install:deps:
-  stage: pre
-  extends: .nix
-  only:
-    - merge_request
-  script:
-    - nix develop
+# install:deps:
+#   stage: pre
+#   extends: .nix
+#   only:
+#     - merge_request
+#   script:
+#     - nix develop
 
 check:og:
   extends:
