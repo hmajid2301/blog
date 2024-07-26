@@ -203,7 +203,7 @@ Then the different colours for the different modes, i.e. normal, tab, locked.
 I also wanted to auto-rename the tabs in zellij like happened in tmux. Depending on the process running, the tab name
 would change to that.
 
-So, with some help from ChatGPT and a Reddit thread (insert here). I came up with the following:
+So, with some help from ChatGPT and a [Reddit thread](https://old.reddit.com/r/zellij/comments/10skez0/does_zellij_support_changing_tabs_name_according/). I came up with the following:
 
 ```fish
 if status is-interactive
