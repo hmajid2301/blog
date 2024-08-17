@@ -3,15 +3,15 @@ stages:
   - test
   - deploy
 
-include:
-  - 'https://gitlab.com/Cynerd/gitlab-ci-nix/-/raw/master/template.yml'
-
 .task:
   stage: test
-  extends: .nix
+  image: nixos/nix
   tags: []
   only:
     - merge_request
+  before_script:
+    - echo "experimental-features = nix-command flakes" >>/etc/nix/nix.conf
+    - nix develop
 
 # install:deps:
 #   stage: pre
