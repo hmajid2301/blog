@@ -21,6 +21,10 @@ You may see an error like this, when trying to access the app:
 
 ![404](images/404.png)
 
+or you may see this
+
+![404](images/not-found.png)
+
 
 ## Background
 
