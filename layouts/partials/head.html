@@ -6,20 +6,16 @@
 {{- else }}
 <meta name="robots" content="noindex, nofollow" />
 {{- end }}
-
 {{- /* Title */}}
 {{- $pageTitle := site.Title }}
 {{- if (and .Title (not .IsHome)) }}
 {{- $pageTitle = printf "%s | %s" .Title $pageTitle }}
 {{- end }}
 <title>{{ $pageTitle }}</title>
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300..800;1,300..800&display=swap"
   rel="stylesheet">
-
-
 {{- /* Meta */}}
 {{- if .IsHome }}
 {{ with site.Params.keywords -}}
@@ -63,7 +59,6 @@
 {{- if site.Params.analytics.naver.SiteVerificationTag }}
 <meta name="naver-site-verification" content="{{ site.Params.analytics.naver.SiteVerificationTag }}" />
 {{- end }}
-
 {{- /* Styles */}}
 {{- $theme_vars := (resources.Get "css/core/theme-vars.css") }}
 {{- $reset := (resources.Get "css/core/reset.css") }}
@@ -71,16 +66,13 @@
 {{- $common := (resources.Match "css/common/*.css") | resources.Concat "assets/css/common.css" }}
 {{- $commonHighlight := (resources.Get "css/common/highlight.scss") | resources.ToCSS }}
 {{- $commonSearch := (resources.Get "css/common/search.scss") | resources.ToCSS }}
-
 {{- /* order is important */}}
 {{- $core := (slice $theme_vars $reset $common $commonHighlight $commonSearch $media) | resources.Concat "assets/css/core.css" }}
 {{- $extended := (resources.Match "css/extended/*.css") | resources.Concat "assets/css/extended.css" }}
 {{- $extendedScss := (resources.Match "css/extended/*.scss") | resources.Concat "assets/css/extended.scss" | resources.ToCSS }}
-
 {{- /* bundle all required css */}}
 {{- /* Add extended css after theme style */ -}}
 {{- $stylesheet := (slice $core $extended $extendedScss) | resources.Concat "assets/css/stylesheet.css" | minify }}
-
 {{- if not site.Params.assets.disableFingerprinting }}
 {{- $stylesheet := $stylesheet | fingerprint }}
 <link crossorigin="anonymous" href="{{ $stylesheet.RelPermalink }}" integrity="{{ $stylesheet.Data.Integrity }}"
@@ -88,12 +80,10 @@
 {{- else }}
 <link crossorigin="anonymous" href="{{ $stylesheet.RelPermalink }}" rel="preload stylesheet" as="style" />
 {{- end }}
-
 {{- /* Favicons */}}
 <link rel="icon" href="{{ site.Params.favicon | default "favicon.ico" | absURL }}" />
 <link rel="apple-touch-icon" href="{{ site.Params.appleTouchIcon | default "apple-touch-icon.png" | absURL }}
   " />
-
 {{- /* RSS */}}
 {{ range .AlternativeOutputFormats -}}
 <link rel="{{ .Rel }}" type="{{ .MediaType.Type | html }}" href="{{ .Permalink | safeURL }}" />
@@ -101,17 +91,12 @@
 {{- range .AllTranslations -}}
 <link rel="alternate" hreflang="{{ .Lang }}" href="{{ .Permalink }}" />
 {{ end -}}
-
 {{- /* Misc */}}
 {{- if hugo.IsProduction | or (eq site.Params.env "production") }}
-{{- if site.GoogleAnalytics }}
-{{- template "_internal/google_analytics.html" . }}
-{{- end -}}
 {{- if site.Params.useCustomAnalytics }}
 {{- partialCached "custom_analytics.html" . "custom_analytics.html" }}
 {{- end -}}
 {{- end -}}
-
 {{- /* https://developer.twitter.com/en/docs/twitter-for-websites/cards/guides/getting-started */}}
 {{- if .Params.cover.image }}
 <meta name="twitter:card" content="summary_large_image" />
@@ -134,11 +119,8 @@
 <meta name="twitter:site" content="@{{ .username }}" />
 <meta name="twitter:creator" content="@{{ .username }}" />
 {{- end }}
-
 {{- template "partials/templates/opengraph.html" (dict "page" . "pageTitle" $pageTitle) }}
-
 {{- template "partials/templates/schema_json.html" (dict "page" . "pageTitle" $pageTitle) }}
-
 {{- partial "extend_head.html" . }}
 <noscript>
   <style>
