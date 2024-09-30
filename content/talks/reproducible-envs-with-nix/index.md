@@ -10,7 +10,7 @@ ShowWordCount: false
 hideMeta: false
 ---
 
-{{< youtube HcNXlC1bjvI >}}
+{{< youtube id="HcNXlC1bjvI" >}}
 
 - [Abstract](https://www.conf42.com/Golang_2024_Haseeb_Majid_using_nix_reproducible)
 - [Example Project](https://gitlab.com/hmajid2301/optinix)
