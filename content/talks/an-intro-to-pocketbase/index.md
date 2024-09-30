@@ -10,7 +10,7 @@ ShowWordCount: false
 hideMeta: false
 ---
 
-{{< invidious y5E1dox9ZEA >}}
+{{< youtube y5E1dox9ZEA >}}
 
 - [Abstract](https://www.meetup.com/londongophers/events/292486307/)
 - [Related Code](https://gitlab.com/hmajid2301/talks/-/tree/main/an-intro-to-pocketbase)
