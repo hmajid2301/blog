@@ -175,6 +175,12 @@ cat tools.go | grep _ | awk -F'"' '{print $2}' \
 
 ---
 
+```bash
+go run
+```
+
+---
+
 ## Creating our first dev environment
 
 
@@ -191,7 +197,7 @@ cat tools.go | grep _ | awk -F'"' '{print $2}' \
 
 # flake.nix
 
-```nix{4-6|9-14|15|18|20|21|22-30}
+```nix{4-7|9-14|15|18|20|21|22-30}
 {
   description = "Development environment for example project";
 
@@ -406,61 +412,205 @@ pkgs.mkShell {
 
 ---
 
-```nix{3}
-{ buildGoModule, fetchFromGitHub, lib, installShellFiles }:
-
-buildGoModule rec {
-  pname = "golangci-lint";
-  version = "1.57.2";
-
-  src = fetchFromGitHub {
-    owner = "golangci";
-    repo = "golangci-lint";
-    rev = "v${version}";
-    hash = "sha256-d3U56fRIyntj/uKTOHuKFvOZqh+6VtzYrbKDjcKzhbI=";
-  };
-
-  vendorHash = "sha256-3gS/F1jcjegtkLfmPcBzYqDA4KmwABkKpPAhTxqguYw=";
-
-  subPackages = [ "cmd/golangci-lint" ];
-
-  nativeBuildInputs = [ installShellFiles ];
-
-  ldflags = [
-    "-s"
-    "-w"
-    "-X main.version=${version}"
-    "-X main.commit=v${version}"
-    "-X main.date=19700101-00:00:00"
-  ];
-
-  postInstall = ''
-    for shell in bash zsh fish; do
-      HOME=$TMPDIR $out/bin/golangci-lint completion $shell > golangci-lint.$shell
-      installShellCompletion golangci-lint.$shell
-    done
-  '';
-
-  meta = with lib; {
-    description = "Fast linters Runner for Go";
-    homepage = "https://golangci-lint.run/";
-    changelog = "https://github.com/golangci/golangci-lint/blob/v${version}/CHANGELOG.md";
-    mainProgram = "golangci-lint";
-    license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ anpryl manveru mic92 ];
-  };
-}
-```
-
-[golangci-lint Nix expression](https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/development/tools/golangci-lint/default.nix)
+<img width="70%" height="auto" data-src="images/nixpkgs.png">
 
 ---
 
-```nix
-stdenv.mkDerivation
+```nix{48}
+{ lib
+, stdenv
+, fetchurl
+, tzdata
+, substituteAll
+, iana-etc
+, Security
+, Foundation
+, xcbuild
+, mailcap
+, buildPackages
+, pkgsBuildTarget
+, threadsCross
+, testers
+, skopeo
+, buildGo122Module
+}:
+
+let
+  goBootstrap = buildPackages.callPackage ./bootstrap121.nix { };
+
+  skopeoTest = skopeo.override { buildGoModule = buildGo122Module; };
+
+  goarch = platform: {
+    "aarch64" = "arm64";
+    "arm" = "arm";
+    "armv5tel" = "arm";
+    "armv6l" = "arm";
+    "armv7l" = "arm";
+    "i686" = "386";
+    "mips" = "mips";
+    "mips64el" = "mips64le";
+    "mipsel" = "mipsle";
+    "powerpc64" = "ppc64";
+    "powerpc64le" = "ppc64le";
+    "riscv64" = "riscv64";
+    "s390x" = "s390x";
+    "x86_64" = "amd64";
+    "wasm32" = "wasm";
+  }.${platform.parsed.cpu.name} or (throw "Unsupported system: ${platform.parsed.cpu.name}");
+
+  # We need a target compiler which is still runnable at build time,
+  # to handle the cross-building case where build != host == target
+  targetCC = pkgsBuildTarget.targetPackages.stdenv.cc;
+
+  isCross = stdenv.buildPlatform != stdenv.targetPlatform;
+in
+stdenv.mkDerivation (finalAttrs: {
+  pname = "go";
+  version = "1.22.7";
+
+  src = fetchurl {
+    url = "https://go.dev/dl/go${finalAttrs.version}.src.tar.gz";
+    hash = "sha256-ZkMth9heDPrD7f/mN9WTD8Td9XkzE/4R5KDzMwI8h58=";
+  };
+
+  strictDeps = true;
+  buildInputs = [ ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [ stdenv.cc.libc.out ]
+    ++ lib.optionals (stdenv.hostPlatform.libc == "glibc") [ stdenv.cc.libc.static ];
+
+  depsTargetTargetPropagated = lib.optionals stdenv.targetPlatform.isDarwin [ Foundation Security xcbuild ];
+
+  depsBuildTarget = lib.optional isCross targetCC;
+
+  depsTargetTarget = lib.optional stdenv.targetPlatform.isWindows threadsCross.package;
+
+  postPatch = ''
+    patchShebangs .
+  '';
+
+  patches = [
+    (substituteAll {
+      src = ./iana-etc-1.17.patch;
+      iana = iana-etc;
+    })
+    # Patch the mimetype database location which is missing on NixOS.
+    # but also allow static binaries built with NixOS to run outside nix
+    (substituteAll {
+      src = ./mailcap-1.17.patch;
+      inherit mailcap;
+    })
+    # prepend the nix path to the zoneinfo files but also leave the original value for static binaries
+    # that run outside a nix server
+    (substituteAll {
+      src = ./tzdata-1.19.patch;
+      inherit tzdata;
+    })
+    ./remove-tools-1.11.patch
+    ./go_no_vendor_checks-1.22.patch
+  ];
+
+  GOOS = if stdenv.targetPlatform.isWasi then "wasip1" else stdenv.targetPlatform.parsed.kernel.name;
+  GOARCH = goarch stdenv.targetPlatform;
+  # GOHOSTOS/GOHOSTARCH must match the building system, not the host system.
+  # Go will nevertheless build a for host system that we will copy over in
+  # the install phase.
+  GOHOSTOS = stdenv.buildPlatform.parsed.kernel.name;
+  GOHOSTARCH = goarch stdenv.buildPlatform;
+
+  # {CC,CXX}_FOR_TARGET must be only set for cross compilation case as go expect those
+  # to be different from CC/CXX
+  CC_FOR_TARGET =
+    if isCross then
+      "${targetCC}/bin/${targetCC.targetPrefix}cc"
+    else
+      null;
+  CXX_FOR_TARGET =
+    if isCross then
+      "${targetCC}/bin/${targetCC.targetPrefix}c++"
+    else
+      null;
+
+  GOARM = toString (lib.intersectLists [ (stdenv.hostPlatform.parsed.cpu.version or "") ] [ "5" "6" "7" ]);
+  GO386 = "softfloat"; # from Arch: don't assume sse2 on i686
+  # Wasi does not support CGO
+  CGO_ENABLED = if stdenv.targetPlatform.isWasi then 0 else 1;
+
+  GOROOT_BOOTSTRAP = "${goBootstrap}/share/go";
+
+  buildPhase = ''
+    runHook preBuild
+    export GOCACHE=$TMPDIR/go-cache
+    # this is compiled into the binary
+    export GOROOT_FINAL=$out/share/go
+
+    export PATH=$(pwd)/bin:$PATH
+
+    ${lib.optionalString isCross ''
+    # Independent from host/target, CC should produce code for the building system.
+    # We only set it when cross-compiling.
+    export CC=${buildPackages.stdenv.cc}/bin/cc
+    ''}
+    ulimit -a
+
+    pushd src
+    ./make.bash
+    popd
+    runHook postBuild
+  '';
+
+  preInstall = ''
+    # Contains the wrong perl shebang when cross compiling,
+    # since it is not used for anything we can deleted as well.
+    rm src/regexp/syntax/make_perl_groups.pl
+  '' + (if (stdenv.buildPlatform.system != stdenv.hostPlatform.system) then ''
+    mv bin/*_*/* bin
+    rmdir bin/*_*
+    ${lib.optionalString (!(finalAttrs.GOHOSTARCH == finalAttrs.GOARCH && finalAttrs.GOOS == finalAttrs.GOHOSTOS)) ''
+      rm -rf pkg/${finalAttrs.GOHOSTOS}_${finalAttrs.GOHOSTARCH} pkg/tool/${finalAttrs.GOHOSTOS}_${finalAttrs.GOHOSTARCH}
+    ''}
+  '' else lib.optionalString (stdenv.hostPlatform.system != stdenv.targetPlatform.system) ''
+    rm -rf bin/*_*
+    ${lib.optionalString (!(finalAttrs.GOHOSTARCH == finalAttrs.GOARCH && finalAttrs.GOOS == finalAttrs.GOHOSTOS)) ''
+      rm -rf pkg/${finalAttrs.GOOS}_${finalAttrs.GOARCH} pkg/tool/${finalAttrs.GOOS}_${finalAttrs.GOARCH}
+    ''}
+  '');
+
+  installPhase = ''
+    runHook preInstall
+    mkdir -p $GOROOT_FINAL
+    cp -a bin pkg src lib misc api doc go.env $GOROOT_FINAL
+    mkdir -p $out/bin
+    ln -s $GOROOT_FINAL/bin/* $out/bin
+    runHook postInstall
+  '';
+
+  disallowedReferences = [ goBootstrap ];
+
+  passthru = {
+    inherit goBootstrap skopeoTest;
+    tests = {
+      skopeo = testers.testVersion { package = skopeoTest; };
+      version = testers.testVersion {
+        package = finalAttrs.finalPackage;
+        command = "go version";
+        version = "go${finalAttrs.version}";
+      };
+    };
+  };
+
+  meta = with lib; {
+    changelog = "https://go.dev/doc/devel/release#go${lib.versions.majorMinor finalAttrs.version}";
+    description = "Go Programming language";
+    homepage = "https://go.dev/";
+    license = licenses.bsd3;
+    maintainers = teams.golang.members;
+    platforms = platforms.darwin ++ platforms.linux ++ platforms.wasi ++ platforms.freebsd;
+    mainProgram = "go";
+  };
+})
 ```
 
-[buildGoModule function](https://github.com/NixOS/nixpkgs/blob/fdf020573d6298cb0dbe7a8df8ac4930b76afba6/pkgs/build-support/go/module.nix)
+[Go Nix Expression](https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/development/compilers/go/1.22.nix)
 
 ---
 
@@ -484,6 +634,7 @@ nix-build does two jobs:
 ```bash
 /nix/store/<hash>-<name>-<version>.drv
 /nix/store/zg65r8ys8y5865lcwmmybrq5gn30n1az-go-1.21.8.drv
+/nix/store/z45pk6pw3h4yx0cpi51fc5nwml49dijc-go-1.22.1.drv
 ```
 
 {{% note %}}
@@ -806,29 +957,27 @@ In some cases, the build process of a package might embed the timestamp of the f
 
 ---
 
-## Gitlab CI
+## GitLab CI
 
 ```yml{1|3-10|10-15}
 image: nixos/nix
 
-.task:
-  stage: test
+tests:unit:
   only:
     - merge_request
   before_script:
     - echo "experimental-features = nix-command flakes" >> /etc/nix/nix.conf
-
-lint:
-  extends:
-    - .task
-  script:
-    - nix develop -c task lint
-
-tests:unit:
-  extends:
-    - .task
   script:
     - nix develop -c task tests:unit
+```
+---
+
+```yaml{5}
+tasks:
+  tests:unit:
+    desc: Runs all the unit tests.
+    cmds:
+      - go test -skip '^TestIntegration' ./internal/...
 ```
 
 ---
@@ -967,13 +1116,31 @@ pkgs.dockerTools.buildImage {
 
 ---
 
-```bash{1|2}
-nix build .#container-ci
-docker load < ./result
-docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-docker image tag banterbus-dev:latest $IMAGE:latest
-docker push $CI_REGISTRY_IMAGE/ci:latest
-docker push $IMAGE:$IMAGE_TAG
+```bash{17-18|19-24}
+publish:docker:ci:
+  stage: pre
+  variables:
+    DOCKER_HOST: tcp://docker:2375
+    DOCKER_DRIVER: overlay2
+    DOCKER_TLS_CERTDIR: ""
+    IMAGE: $CI_REGISTRY_IMAGE/ci
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      changes:
+        - "containers/ci.nix"
+  services:
+    - docker:25-dind
+  script:
+    - echo "experimental-features = nix-command flakes" > /etc/nix/nix.conf
+    - nix-env -iA nixpkgs.docker
+    - nix build .#container-ci
+    - docker load < ./result
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker image tag banterbus-dev:latest $IMAGE:latest
+    - docker image tag banterbus-dev:latest $IMAGE:$IMAGE_TAG
+    - docker push $CI_REGISTRY_IMAGE/ci:latest
+    - docker push $IMAGE:$IMAGE_TAG
+
 ```
 
 ---
@@ -1011,11 +1178,11 @@ download:dependency:
   cache:
     policy: pull-push
 
-lint:
+tests:unit:
   extends:
     - .task
   script:
-    - task lint
+    - task tests:unit
 
 format:
   extends:
@@ -1024,12 +1191,11 @@ format:
     -  task format
 ```
 
-
 ---
 
 ## Time Improvement
 
-- lint job
+- unit tests job
   - 2 minutes 28 seconds
   - 54 seconds
 
@@ -1037,8 +1203,6 @@ format:
 ---
 
 <img width="70%" height="auto" data-src="images/i-like-nix.jpg">
-
----
 
 [Credit](https://mstdn.social/@godmaire/111544747165375207)
 
@@ -1085,7 +1249,7 @@ same Dockerfile can (and often do) end up with two different images.
 
 ## Slides
 
-- Slides: https://haseebmajid.dev/slides/reproducible-envs-with-nix/
+- Slides: https://haseebmajid.dev/slides/go-lab-reproducible-envs-with-nix/
 
 ---
 
