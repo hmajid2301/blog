@@ -176,7 +176,7 @@ cat tools.go | grep _ | awk -F'"' '{print $2}' \
 ---
 
 ```bash
-go run
+go run github.com/onsi/ginkgo/v2/ginkgo
 ```
 
 ---
@@ -1315,4 +1315,3 @@ Don't forget to thank the audience.
 {{% /note %}}
 
 {{% /section %}}
-
