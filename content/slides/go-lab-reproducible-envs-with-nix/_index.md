@@ -2,6 +2,9 @@
 title = "Reproducible & Ephemeral Development Environments with Nix"
 outputs = ["Reveal"]
 [logo]
+src = "images/logo.png"
+diag = "90%"
+width = "5%"
 [reveal_hugo]
 custom_theme = "stylesheets/reveal/catppuccin.css"
 slide_number = true
@@ -55,13 +58,16 @@ slide_number = true
 
 - Nix is a declarative package manager
 - Nixlang the programming language that powers Nix
-- NixOS: A Linux distribution that can be configured using Nixlang
+- Nixpkgs is the largest repository of Nix packages
 
 {{% note %}}
 - limited lanuage
 - Pure functional: no side effects, same inputs same outputs
 - Lazy: only evaluates what is needed for that nix file
 - nixos is not nix
+    - NixOS: A Linux distribution that can be configured using Nixlang
+- nixpkgs
+    - maintained by community and NixOS foundation
 {{% /note %}}
 
 ---
@@ -89,34 +95,12 @@ The main advantage of declarative package managers is that they are more predict
 
 [Credit](https://devrant.com/rants/1590154/everytime-i-see-a-topic-about-linux)
 
-{{% /section %}}
-
----
-
-{{% section %}}
-
-
-## What is the problem?
-
-- `/usr/local/bin/golangci-lint`
-    - Dependencies
-    - Configuration flags & Env Vars
-    - Two versions of this package
-
----
-
-There are various other packaging solutions that try to fix these issues:
-
-- Snap/Flatpak
-- asdf
-- virtualenv
-
 ---
 
 ## Summary
+
 - We want reproducible and ephemeral environments
 - Nix is an ecosystem of tools
-- Our current packaging system all have various different flaws
 
 {{% note %}}
 - Nix is an ecosystem of tools
@@ -132,30 +116,30 @@ There are various other packaging solutions that try to fix these issues:
 
 {{% section %}}
 
-<img width="90%" height="auto" data-src="images/nix-develop.gif">
+<img width="100%" height="auto" data-src="images/nix-develop.gif">
 
 ---
 
 ## Golang
 
-- Tooling to aid development
-- Use the same tool
-- Same versions running on CI
+- Tools to aid development
+  - lint
+  - testing
+  - docker
 
 ---
 
 ## tools.go
 
 
-```go
+```go{1-3|6-7}
 // +build tools
 
 package main
 
 import (
-    _ "github.com/golangci/golangci-lint/cmd/golangci-lint"
-    _ "github.com/goreleaser/goreleaser"
-    _ "github.com/spf13/cobra/cobra"
+_ "github.com/golangci/golangci-lint/cmd/golangci-lint"
+_ "github.com/goreleaser/goreleaser"
 )
 ```
 
@@ -168,41 +152,34 @@ import (
 
 ---
 
-```bash
-cat tools.go | grep _ | awk -F'"' '{print $2}' \
-| xargs -tI % go install %
+```vim
+go run github.com/...../cmd/golangci-lint
 ```
 
 ---
 
-```bash
-go run github.com/onsi/ginkgo/v2/ginkgo
-```
 
----
-
-## Creating our first dev environment
-
-
-```bash
-> ls -al
+```vim{3-6|9}
+example on  main via 🐹 v1.22.8
+❯ ls -al
 .rw-r--r-- 101 haseebmajid 28 Mar 15:36 go.mod
 .rw-r--r-- 191 haseebmajid 28 Mar 15:37 go.sum
 .rw-r--r-- 313 haseebmajid 28 Mar 15:33 main.go
 .rw-r--r--   0 haseebmajid 28 Mar 14:55 main_test.go
+
+example on  main via 🐹 v1.22.8
+❯ nvim flake.nix
 ```
 
 ---
 
 
-# flake.nix
-
-```nix{4-7|9-14|15|18|20|21|22-30}
+```nix{4-7|9-14|15|18|20|21|22-29}
 {
-  description = "Development environment for example project";
+  description = "I use Nix btw!";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs";
     flake-utils.url = "github:numtide/flake-utils";
   };
 
@@ -236,13 +213,16 @@ go run github.com/onsi/ginkgo/v2/ginkgo
 
 ---
 
-```bash
-> which golangci-lint
+```vim{2|5|8-9}
+example on  main via 🐹 v1.22.8
+❯ which golangci-lint
 
-> nix develop
+example on  main via 🐹 v1.22.8
+❯ nix develop
 
-> which golangci-lint
-/nix/store/kc58bqdmjdc6mfilih5pywprs7r7lxrw-golangci-lint-1.56.2/bin/golangci-lint
+example on  main via 🐹 v1.22.8
+❯ which golangci-lint
+/nix/store/kcd...golangci-lint-1.56.2/bin/golangci-lint
 ```
 
 
@@ -251,14 +231,32 @@ go run github.com/onsi/ginkgo/v2/ginkgo
   - Will also create the `flake.lock` file if it does not exist
 {{% /note %}}
 
+---
+
+```vim{1|3-11}
+nix run 'gitlab:hmajid2301/optinix' get --no-tui
+
+# Output
+
+Option: 0
+Name: services.prometheus.scrapeConfigs.*.docker_sd_configs.*.refresh_interval
+Type: null or string
+Default: null
+Example:
+From: NixOS
+Sources: [/nix/store/xr9wjzx0cdnwkmhzz74h8lphgn5jmyv3-source/nixos/modules/services/monitoring/prometheus/default.nix]
+
+```
+
 
 ---
 
 ## Summary
-- Leverage Flakes devshells for installing packages
-  - Load into shell: `nix develop`
+
+- Leverage dev shells for installing packages
+  - `nix develop`
 - Make sure each dev gets the same package
-  - Update lock file: `nix flake update`
+  - `nix flake update`
 
 {{% /section %}}
 
@@ -288,23 +286,30 @@ use flake
 ## Usage
 
 
-```bash{1-2|4-8|10-12|13-16}
-> cd example
-> which golangci-lint
+```vim{1|3|4-7|9|10-13|16-17|20-21|23}
+❯ which golangci-lint
 
-> direnv allow
-direnv: loading ~/projects/example/.envrc
+❯ cd banterbus
+direnv: error /home/haseeb/banterbus/.envrc
+is blocked. Run `direnv allow` to approve
+its content
+
+banterbus on  main via 🐹 v1.22.7
+❯ direnv allow
+direnv: loading ~/banterbus/.envrc
 direnv: using flake
-direnv: nix-direnv: using cached dev shell
-direnv: export +AR +AS +CC +CONFIG_SHELL +CXX +GOTOOLDIR +HOST_PATH +IN_NIX_SHELL +LD +NIX_BINTOOLS +NIX_BINTOOLS_WRAPPER_TARGET_HOST_x86_64_unknown_linux_gnu +NIX_BUILD_CORES +NIX_CC +NIX_CC_WRAPPER_TARGET_HOST_x86_64_unknown_linux_gnu +NIX_CFLAGS_COMPILE +NIX_ENFORCE_NO_NATIVE +NIX_HARDENING_ENABLE +NIX_LDFLAGS +NIX_STORE +NM +OBJCOPY +OBJDUMP +RANLIB +READELF +SIZE +SOURCE_DATE_EPOCH +STRINGS +STRIP +__structuredAttrs +buildInputs +buildPhase +builder +cmakeFlags +configureFlags +depsBuildBuild +depsBuildBuildPropagated +depsBuildTarget +depsBuildTargetPropagated +depsHostHost +depsHostHostPropagated +depsTargetTarget +depsTargetTargetPropagated +doCheck +doInstallCheck +dontAddDisableDepTrack +hardeningDisable +mesonFlags +name +nativeBuildInputs +out +outputs +patches +phases +preferLocalBuild +propagatedBuildInputs +propagatedNativeBuildInputs +shell +shellHook +stdenv +strictDeps +system ~PATH ~XDG_DATA_DIRS
+direnv: nix-direnv: Renewed cache
+...
 
-> example on  main via ❄ impure (nix-shell-env) took 5s
-> which golangci-lint
-/nix/store/kc58bqdmjdc6mfilih5pywprs7r7lxrw-golangci-lint-1.56.2/bin/golangci-lint
+banterbus on  main via 🐹 v1.22.8 via ❄️  impure (nix-shell-env)
+❯ which golangci-lint
+/nix/store/kcd...golangci-lint-1.56.2/bin/golangci-lint
 
-> cd ..
+banterbus on  main via 🐹 v1.22.8 via ❄️  impure (nix-shell-env)
+❯ cd ..
 direnv: unloading
-> which golangci-lint
+
+❯ which golangci-lint
 ```
 
 {{% note %}}
@@ -327,48 +332,48 @@ use flake "github:the-nix-way/dev-templates?dir=go"
 
 ```nix{7|20-25|29}
 {
-  description = "Development environment for example project";
+description = "Development environment for example project";
 
-  inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    flake-utils.url = "github:numtide/flake-utils";
-    pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
+inputs = {
+nixpkgs.url = "github:NixOS/nixpkgs";
+flake-utils.url = "github:numtide/flake-utils";
+pre-commit.url = "github:cachix/pre-commit-hooks.nix";
+};
+
+outputs = {
+self,
+nixpkgs,
+flake-utils,
+pre-commit,
+...
+}: (
+flake-utils.lib.eachDefaultSystem
+(system: let
+  pkgs = nixpkgs.legacyPackages.${system};
+  pre-commit-check = pre-commit.lib.${system}.run {
+    src = ./.;
+    hooks = {
+      golangci-lint.enable = true;
+      gotest.enable = true;
+    };
   };
-
-  outputs = {
-    self,
-    nixpkgs,
-    flake-utils,
-    pre-commit-hooks,
-    ...
-  }: (
-    flake-utils.lib.eachDefaultSystem
-    (system: let
-      pkgs = nixpkgs.legacyPackages.${system};
-      pre-commit-check = pre-commit-hooks.lib.${system}.run {
-        src = ./.;
-        hooks = {
-          golangci-lint.enable = true;
-          gotest.enable = true;
-        };
-      };
-    in {
-      devShells.default = pkgs.mkShell {
-        shellHook = pre-commit-check.shellHook;
-        packages = with pkgs; [
-          go_1_22
-          golangci-lint
-          gotools
-          go-junit-report
-          gocover-cobertura
-          go-task
-          goreleaser
-          sqlc
-          docker-compose
-        ];
-      };
-    })
-  );
+in {
+  devShells.default = pkgs.mkShell {
+    shellHook = pre-commit-check.shellHook;
+    packages = with pkgs; [
+      go_1_22
+      golangci-lint
+      gotools
+      go-junit-report
+      gocover-cobertura
+      go-task
+      goreleaser
+      sqlc
+      docker-compose
+    ];
+  };
+})
+);
 }
 ```
 
@@ -376,13 +381,17 @@ use flake "github:the-nix-way/dev-templates?dir=go"
 
 
 ## Summary
-- We can use `direnv` to further reduce cognitive load
-- Can even use flakes from remote git repository
-  - Share between multiple projects
+
+- We can use `direnv` to reduce cognitive load
+- Use dev shell from remote git repository
 - We can manage pre-commit in Nix as well
-  - However using an abstraction
 
 {{% /section %}}
+
+{{% note %}}
+  - Share between multiple projects
+  - However using an abstraction
+{{% /note %}}
 
 ---
 
@@ -412,11 +421,11 @@ pkgs.mkShell {
 
 ---
 
-<img width="70%" height="auto" data-src="images/nixpkgs.png">
+<img width="100%" height="auto" data-src="images/nixpkgs.png">
 
 ---
 
-```nix{48}
+```nix{48|49-55}
 { lib
 , stdenv
 , fetchurl
@@ -465,13 +474,13 @@ let
   isCross = stdenv.buildPlatform != stdenv.targetPlatform;
 in
 stdenv.mkDerivation (finalAttrs: {
-  pname = "go";
-  version = "1.22.7";
+    pname = "go";
+    version = "1.22.7";
 
-  src = fetchurl {
-    url = "https://go.dev/dl/go${finalAttrs.version}.src.tar.gz";
-    hash = "sha256-ZkMth9heDPrD7f/mN9WTD8Td9XkzE/4R5KDzMwI8h58=";
-  };
+    src = fetchurl {
+        url = "https://go.dev/dl/go....";
+        hash = "sha256-ZkMth9h...";
+    };
 
   strictDeps = true;
   buildInputs = [ ]
@@ -617,6 +626,7 @@ stdenv.mkDerivation (finalAttrs: {
 ## Evaluation
 
 - Evaluation Time: Nix Expression (`.nix`) is parsed and returns a derivation set `.drv`
+
 - Build Time: The derivation is built into a package
 
 {{% note %}}
@@ -631,10 +641,10 @@ nix-build does two jobs:
 ## Derivations
 
 
-```bash
+```vim{1|2}
 /nix/store/<hash>-<name>-<version>.drv
-/nix/store/zg65r8ys8y5865lcwmmybrq5gn30n1az-go-1.21.8.drv
-/nix/store/z45pk6pw3h4yx0cpi51fc5nwml49dijc-go-1.22.1.drv
+/nix/store/zg65r8ys8y5865lcwmmybrq5g...-go-1.21.8.drv
+/nix/store/z45pk6pw3h4yx0cpi51fc5nwm...-go-1.22.1.drv
 ```
 
 {{% note %}}
@@ -643,15 +653,15 @@ nix-build does two jobs:
 
 ---
 
-```json{3|8|9|53|109-115}
+```json{3|8|9|53|54-64|109-115}
 nix derivation show nixpkgs#go_1_21
 {
-"/nix/store/gccilxhvxkbhm79hkmcczn0vxbb7dl20-go-1.21.8.drv": {
+"/nix/store/gccilxhvxkbhm79....-go-1.21.8.drv": {
 "args": [
   "-e",
   "/nix/store/v6x3cs394jgqfbi0a42pam708flxaphh-default-builder.sh"
 ],
-"builder": "/nix/store/5lr5n3qa4day8l1ivbwlcby2nknczqkq-bash-5.2p26/bin/bash",
+"builder": "/nix/store/5lr5n...-bash-5.2p26/bin/bash",
 "env": {
   "CGO_ENABLED": "1",
   "GO386": "softfloat",
@@ -697,13 +707,13 @@ nix derivation show nixpkgs#go_1_21
   "version": "1.21.8"
 },
 "inputDrvs": {
-  "/nix/store/17gdfyx2nzzcbhh8c2fm6zm8973nnrsd-stdenv-linux.drv": {
+  "/nix/store/17gdfyx....-stdenv-linux.drv": {
     "dynamicOutputs": {},
     "outputs": [
       "out"
     ]
   },
-  "/nix/store/9j2pqjj8j88az2qysmsvljx8xksvljyd-mailcap-1.17.patch.drv": {
+  "/nix/store/9j2pqjj8...-mailcap-1.17.patch.drv": {
     "dynamicOutputs": {},
     "outputs": [
       "out"
@@ -755,7 +765,7 @@ nix derivation show nixpkgs#go_1_21
 "name": "go-1.21.8",
 "outputs": {
   "out": {
-    "path": "/nix/store/afv3zwqxyw062vg2j220658jq0g1yadv-go-1.21.8"
+    "path": "/nix/store/afv3zwqxyw062...-go-1.21.8"
   }
 },
 "system": "x86_64-linux"
@@ -774,7 +784,7 @@ nix derivation show nixpkgs#go_1_21
 
 - A derivation is immutable
 
-```bash
+```vim
 /nix/store/afv3zwqxyw062vg2j220658jq0g1yadv-go-1.21.8
 ├── bin
 │  ├── go -> ../share/go/bin/go
@@ -796,13 +806,14 @@ nix derivation show nixpkgs#go_1_21
 ## Advantages
 - Binary cache
 
-```bash{4,5|6}
+```vim{4,5|6-7}
 > nix-shell -p go_1_21
 
-this path will be fetched (39.16 MiB download, 204.47 MiB unpacked):
-  /nix/store/k7chjapvryivjixp01iil9z0z7yzg7z4-go-1.21.8
-copying path '/nix/store/k7chjapvryivjixp01iil9z0z7yzg7z4-go-1.21.8' from '
-https://cache.nixos.org'..
+this path will be fetched
+(39.16 MiB download, 204.47 MiB unpacked):
+  /nix/store/k7chjapvryi....-go-1.21.8
+copying path '/nix/store/k7chjapvryi....-go-1.21.8'
+from 'https://cache.nixos.org'..
 ```
 {{% note %}}
 - prebuilt
@@ -814,16 +825,16 @@ https://cache.nixos.org'..
 
 - Forces us to make our dependency tree explicit
 
-```bash
-> nix-store -q --tree /nix/store/k7chjapvryivjixp01iil9z0z7yzg7z4-go-1.21.8
+```vim
+> nix-store -q --tree /nix/store/k7chj...-go-1.21.8
 
-/nix/store/k7chjapvryivjixp01iil9z0z7yzg7z4-go-1.21.8
-├───/nix/store/7vvggrs9367d3g9fl23vjfyvsv10gb0r-mailcap-2.1.53
-├───/nix/store/a1s263pmsci9zykm5xcdf7x9rv26w6d5-bash-5.2p26
-│   ├───/nix/store/ddwyrxif62r8n6xclvskjyy6szdhvj60-glibc-2.39-5
-│   │   ├───/nix/store/rxganm4ibf31qngal3j3psp20mak37yy-xgcc-13.2.0-libgcc
-│   │   ├───/nix/store/s32cldbh9pfzd9z82izi12mdlrw0yf8q-libidn2-2.3.7
-│   │   │   ├───/nix/store/7n0mbqydcipkpbxm24fab066lxk68aqk-libunistring-1>
+/nix/store/k7chj...-go-1.21.8
+├───/nix/store/7vvggrs9367d3...-mailcap-2.1.53
+├───/nix/store/a1s263pmsci9z...-bash-5.2p26
+│   ├───/nix/store/ddwyrxif6...-glibc-2.39-5
+│   │   ├───/nix/store/rxgan...-xgcc-13.2.0-libgcc
+│   │   ├───/nix/store/s32cl...-libidn2-2.3.7
+│   │   │   ├───/nix/store/7n...-libunistring-1>
 │   │   │   │   └───/nix/store/7n0mbqydcipkpbxm24fab066lxk68aqk-libunistri>
 │   │   │   └───/nix/store/s32cldbh9pfzd9z82izi12mdlrw0yf8q-libidn2-2.3.7 >
 │   │   └───/nix/store/ddwyrxif62r8n6xclvskjyy6szdhvj60-glibc-2.39-5 [...]
@@ -837,11 +848,10 @@ https://cache.nixos.org'..
 
 ## Advantages
 
-- Symlink
 - Atomic updates
 
-```bash
-> ls ~/.nix-profile/bin
+```vim
+> ls -al ~/.nix-profile/bin
 
 lrwxrwxrwx - root  1 Jan  1970 , -> /nix/store/09irdfc2nqr6plb0gcf684k7h3fsk4mr-home-manager-path/bin/,
 lrwxrwxrwx - root  1 Jan  1970 accessdb -> /nix/store/09irdfc2nqr6plb0gcf684k7h3fsk4mr-home-manager-path/bin/accessdb
@@ -872,9 +882,9 @@ In some cases, the build process of a package might embed the timestamp of the f
 
 ## Summary
 
-- Nix derivations allow us to have immutable packages
-  - Require us to make dependencies explicit
-- What if package is not in nixpkgs
+- Derivations are a key building block of Nix
+
+- Nix derivations -> immutable packages
 
 {{% /section %}}
 
@@ -884,10 +894,15 @@ In some cases, the build process of a package might embed the timestamp of the f
 
 ##  Nix Flakes
 
-- Generates a lock file
-- Improve reproducibility
+- Per project dependencies
+    - `flake.lock`
+- Improves reproducibility
+
+
+{{% note %}}
 - Use other git repo as inputs
 - Define some structure
+{{% /note %}}
 
 ---
 
@@ -914,13 +929,13 @@ In some cases, the build process of a package might embed the timestamp of the f
       "locked": {
         "lastModified": 1668703332,
         // A SHA of the contents of the flake
-        "narHash": "sha256-PW3vz3ODXaInogvp2IQyDG9lnwmGlf07A6OEeA1Q7sM=",
+        "narHash": "sha256-PW3vz3ODXaInogvp2I...=",
         // The GitHub org
         "owner": "NixOS",
         // The GitHub repo
         "repo": "nixpkgs",
         // The specific revision
-        "rev": "de60d387a0e5737375ee61848872b1c8353f945e",
+        "rev": "de60d387a0e5737375ee61848872b1...",
         // The type of input
         "type": "github"
       }
@@ -938,9 +953,11 @@ In some cases, the build process of a package might embed the timestamp of the f
 ---
 ## Summary
 
-- Nix Flakes improve reproducibility across systems
-  - Lock dependencies
-- Provide a more standard way to configure system
+- Nix Flakes improve reproducibility
+    - Lock dependencies
+
+- Provide a more standard way to configure Nix
+
 - Are an EXPERIMENTAL feature still
 
 {{% /section %}}
@@ -953,13 +970,12 @@ In some cases, the build process of a package might embed the timestamp of the f
 
 - Use same versions as local
 - Leverage Nix "cachability"
-  - Packages share dependencies
 
 ---
 
 ## GitLab CI
 
-```yml{1|3-10|10-15}
+```yml{1|3-10|9}
 image: nixos/nix
 
 tests:unit:
@@ -982,8 +998,9 @@ tasks:
 
 ---
 
-```bash{1-8|34-40}
-copying path '/nix/store/49mrmsvafx8lscgi9623i2ywnsq631j4-source' from 'https://cache.nixos.org'...
+```bash{1-2|35-36}
+copying path '/nix/store/49mrmsvafx8lscgi...-source'
+from 'https://cache.nixos.org'...
 copying path '/nix/store/v6gqc89sr4gvh3gl75ncg0ajc4rbah49-tailwindcss-3.4.7' from 'https://cache.nixos.org'...
 copying path '/nix/store/ba7r274fm1v4r9zfgjr4qfsby1hxikgc-git-2.45.1-doc' from 'https://cache.nixos.org'...
 copying path '/nix/store/8rvn0r46zg5zd5chc9wqdpz0cva2p96p-iana-etc-20240318' from 'https://cache.nixos.org'...
@@ -1030,7 +1047,7 @@ go: downloading github.com/gomig/avatar v1.0.2
 
 ---
 
-```nix{6|13-21|22}
+```nix{6|13-21}
 {
   pkgs,
   myPackages,
@@ -1102,7 +1119,7 @@ pkgs.dockerTools.buildImage {
         sqlc
       ];
     in {
-      packages.container-ci = pkgs.callPackage ./containers/ci.nix {
+      packages.ci = pkgs.callPackage ./ci.nix {
         inherit pkgs;
         inherit myPackages;
       };
@@ -1133,13 +1150,11 @@ publish:docker:ci:
   script:
     - echo "experimental-features = nix-command flakes" > /etc/nix/nix.conf
     - nix-env -iA nixpkgs.docker
-    - nix build .#container-ci
+    - nix build .#ci
     - docker load < ./result
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker image tag banterbus-dev:latest $IMAGE:latest
-    - docker image tag banterbus-dev:latest $IMAGE:$IMAGE_TAG
     - docker push $CI_REGISTRY_IMAGE/ci:latest
-    - docker push $IMAGE:$IMAGE_TAG
 
 ```
 
@@ -1155,7 +1170,7 @@ stages:
 
 .task:
   stage: test
-  image: $CI_REGISTRY_IMAGE/ci:$IMAGE_TAG
+  image: $CI_REGISTRY_IMAGE/ci:latest
   variables:
     GOPATH: $CI_PROJECT_DIR/.go
   cache:
@@ -1199,10 +1214,9 @@ format:
   - 2 minutes 28 seconds
   - 54 seconds
 
-
 ---
 
-<img width="70%" height="auto" data-src="images/i-like-nix.jpg">
+<img width="75%" height="auto" data-src="images/i-like-nix.jpg">
 
 [Credit](https://mstdn.social/@godmaire/111544747165375207)
 
@@ -1256,7 +1270,8 @@ same Dockerfile can (and often do) end up with two different images.
 ## My Links
 
 - [My Dotfiles Configured Using Nix](https://gitlab.com/hmajid2301/nixicle)
-- [Project using Nix Development Env](https://gitlab.com/hmajid2301/banterbus)
+- [How I setup dev shell for a Go project](https://www.youtube.com/watch?v=ffpMe7RH8lU&t=738s)
+  - [Project using dev shell](https://gitlab.com/hmajid2301/banterbus)
 
 ---
 
