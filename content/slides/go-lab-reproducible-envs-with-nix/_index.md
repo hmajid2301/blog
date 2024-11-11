@@ -1,5 +1,5 @@
 +++
-title = "Reproducible & Ephemeral Development Environments with Nix"
+title = "Using Nix to create reproducible Go development environments"
 outputs = ["Reveal"]
 [logo]
 src = "images/logo.png"
@@ -10,7 +10,7 @@ custom_theme = "stylesheets/reveal/catppuccin.css"
 slide_number = true
 +++
 
-# Reproducible & Ephemeral Development Environments with Nix
+# Using Nix to Create Reproducible Go Development Environments
 
 ---
 
@@ -61,6 +61,7 @@ slide_number = true
 - Nixpkgs is the largest repository of Nix packages
 
 {{% note %}}
+- Put your hand up if you've heard of Nix
 - limited lanuage
 - Pure functional: no side effects, same inputs same outputs
 - Lazy: only evaluates what is needed for that nix file
@@ -220,7 +221,7 @@ example on  main via 🐹 v1.22.8
 example on  main via 🐹 v1.22.8
 ❯ nix develop
 
-example on  main via 🐹 v1.22.8
+example on  main via 🐹 v1.22.8 ❄️ impure (nix-shell-env)
 ❯ which golangci-lint
 /nix/store/kcd...golangci-lint-1.56.2/bin/golangci-lint
 ```
@@ -400,7 +401,9 @@ in {
 ## How does Nix work?
 
 
-```nix{1|2|3-6}
+```nix{3|4|5-7}
+# shell.nix
+
 {pkgs, ...}:
 pkgs.mkShell {
   packages = with pkgs; [
@@ -410,7 +413,7 @@ pkgs.mkShell {
 }
 ```
 
-[mk.shell docs](https://nixos.org/manual/nixpkgs/stable/#sec-pkgs-mkShell)
+[mkShell docs](https://nixos.org/manual/nixpkgs/stable/#sec-pkgs-mkShell)
 
 {{% note %}}
 - pkgs.mkShell is a helper function
@@ -421,7 +424,21 @@ pkgs.mkShell {
 
 ---
 
-<img width="100%" height="auto" data-src="images/nixpkgs.png">
+
+```nix
+# flake.nix
+
+{
+  devShells.default = pkgs.callPackage ./shell.nix {
+    inherit pkgs;
+  };
+}
+```
+---
+
+<img width="80%" height="auto" data-src="images/nixpkgs.png">
+
+[search.nixos.org](https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&type=packages&query=go)
 
 ---
 
@@ -922,7 +939,7 @@ In some cases, the build process of a package might embed the timestamp of the f
 
 ## flake.lock
 
-```json{7|13}
+```json{3-17|7|13}
 {
   "nodes": {
     "nixpkgs": {
@@ -1047,7 +1064,7 @@ go: downloading github.com/gomig/avatar v1.0.2
 
 ---
 
-```nix{6|13-21}
+```nix{6|13-21|21}
 {
   pkgs,
   myPackages,
@@ -1085,7 +1102,7 @@ pkgs.dockerTools.buildImage {
 
 ---
 
-```nix{23-32|34-37}
+```nix{23-32|34-37|38-41}
 # flake.nix
 {
   description = "Development environment for BanterBus";
@@ -1123,8 +1140,10 @@ pkgs.dockerTools.buildImage {
         inherit pkgs;
         inherit myPackages;
       };
-      devShells.default = pkgs.mkShell {
-        packages = myPackages;
+      devShells.default = pkgs.mkShell ./shell.nix {
+        inherit pkgs;
+        inherit myPackages;
+      }
       };
     })
   );
@@ -1162,7 +1181,7 @@ publish:docker:ci:
 
 # CI Improved
 
-```yml{6-16|18-29|31-35}
+```yml{6-16|8|9-14|18-29|31-35}
 
 stages:
   - deps
@@ -1248,6 +1267,34 @@ same Dockerfile can (and often do) end up with two different images.
 
 {{% section %}}
 
+## Try Nix!
+
+- Install Nix
+   - https://determinate.systems/posts/determinate-nix-installer/
+- Use dev template
+   - https://flakehub.com/f/the-nix-way/dev-templates
+- Install direnv-nix
+   - https://github.com/nix-community/nix-direnv
+
+{{% note %}}
+- flake.nix with all packages you want
+- Most value
+{{% /note %}}
+
+---
+
+```vim
+curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
+nix flake init --template "https://flakehub.com/f/the-nix-way/dev-templates/*#go"
+nix profile install nixpkgs#nix-direnv
+```
+
+{{% /section %}}
+
+---
+
+{{% section %}}
+
 ## Further
 
 - gomod2nix: https://www.tweag.io/blog/2021-03-04-gomod2nix/
@@ -1278,18 +1325,14 @@ same Dockerfile can (and often do) end up with two different images.
 ## Appendix
 
 - Useful Articles:
-
   - https://blog.ysndr.de/posts/guides/2021-12-01-nix-shells/
   - https://serokell.io/blog/what-is-nix
   - https://shopify.engineering/what-is-nix
   - nix-shell vs nix shell vs nix develop: https://blog.ysndr.de/posts/guides/2021-12-01-nix-shells/
-  - Github Actions: https://determinate.systems/posts/nix-github-actions/
 
 ---
 
 ## Useful Tools
-
-- Better Nix Installer: https://determinate.systems/posts/determinate-nix-installer/
 
 <img width="95%" height="auto" data-src="images/nix-tree.gif">
 
