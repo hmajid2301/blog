@@ -16,6 +16,7 @@ slide_number = true
 
 {{% section %}}
 
+
 ## Introduction
 
 - Haseeb Majid
@@ -892,7 +893,6 @@ In some cases, the build process of a package might embed the timestamp of the f
 
 <img width="70%" height="auto" data-src="images/bin-cat.jpg">
 
-
 [Credit](https://old.reddit.com/r/linuxmemes/comments/15yi79m/explaining_linux_with_cats/)
 
 ---
@@ -1064,10 +1064,12 @@ go: downloading github.com/gomig/avatar v1.0.2
 
 ---
 
+## ci.nix
+
 ```nix{6|13-21|21}
 {
   pkgs,
-  myPackages,
+  devPackages,
   ...
 }:
 pkgs.dockerTools.buildImage {
@@ -1085,7 +1087,7 @@ pkgs.dockerTools.buildImage {
         curl
         git
       ]
-      ++ myPackages;
+      ++ devPackages;
   };
   config = {
     Env = [
@@ -1101,6 +1103,8 @@ pkgs.dockerTools.buildImage {
 ```
 
 ---
+
+## flake.nix
 
 ```nix{23-32|34-37|38-41}
 # flake.nix
@@ -1125,7 +1129,7 @@ pkgs.dockerTools.buildImage {
     (system: let
       pkgs = nixpkgs.legacyPackages.${system};
 
-      myPackages = with pkgs; [
+      devPackages = with pkgs; [
         go_1_22
         golangci-lint
         gotools
@@ -1138,11 +1142,11 @@ pkgs.dockerTools.buildImage {
     in {
       packages.ci = pkgs.callPackage ./ci.nix {
         inherit pkgs;
-        inherit myPackages;
+        inherit devPackages;
       };
       devShells.default = pkgs.mkShell ./shell.nix {
         inherit pkgs;
-        inherit myPackages;
+        inherit devPackages;
       }
       };
     })
@@ -1151,6 +1155,8 @@ pkgs.dockerTools.buildImage {
 ```
 
 ---
+
+## .gitlab-ci.yml
 
 ```bash{17-18|19-24}
 publish:docker:ci:
@@ -1284,10 +1290,15 @@ same Dockerfile can (and often do) end up with two different images.
 ---
 
 ```vim
-curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
-nix flake init --template "https://flakehub.com/f/the-nix-way/dev-templates/*#go"
+curl --proto '=https' --tlsv1.2 -sSf -L \
+ https://install.determinate.systems/nix | sh -s -- install
+
+nix flake init --template \
+  "https://flakehub.com/f/the-nix-way/dev-templates/*#go"
+
 nix profile install nixpkgs#nix-direnv
 ```
+
 
 {{% /section %}}
 
@@ -1306,11 +1317,6 @@ nix profile install nixpkgs#nix-direnv
 
 <img width="70%" height="auto" data-src="images/nix-feature.jpg">
 
----
-
-## Slides
-
-- Slides: https://haseebmajid.dev/slides/go-lab-reproducible-envs-with-nix/
 
 ---
 
@@ -1362,11 +1368,18 @@ More about flakes:
 
 ---
 
+<img width="50%" height="auto" data-src="images/qr-code.svg">
+
+https://haseebmajid.dev/slides/go-lab-reproducible-envs-with-nix/
+
+---
+
 ## References & Thanks
 
 - GIFs made with [vhs](https://github.com/charmbracelet/vhs)
 - Photos editted with [pixlr](https://pixlr.com/)
 - All my friends who took time to give me feedback on this talk
+- Some memes from https://github.com/gytis-ivaskevicius/high-quality-nix-content
 
 {{% note %}}
 Don't forget to thank the audience.
