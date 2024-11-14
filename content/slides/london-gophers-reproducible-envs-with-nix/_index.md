@@ -16,13 +16,6 @@ slide_number = true
 
 {{% section %}}
 
-## Slides
-
-<img width="70%" height="auto" data-src="images/qr-code.svg">
-
-- https://haseebmajid.dev/slides/london-gophers-reproducible-envs-with-nix/
-
----
 
 ## Introduction
 
@@ -257,7 +250,6 @@ Sources: [/nix/store/xr9wjzx0cdnwkmhzz74h8lphgn5jmyv3-source/nixos/modules/servi
 
 ```
 
-
 ---
 
 ## Summary
@@ -407,46 +399,6 @@ in {
 {{% section %}}
 
 ## How does Nix work?
-
-
-```nix{3|4|5-7}
-# shell.nix
-
-{pkgs, ...}:
-pkgs.mkShell {
-  packages = with pkgs; [
-    go_1_22
-    golangci-lint
-  ];
-}
-```
-
-[mkShell docs](https://nixos.org/manual/nixpkgs/stable/#sec-pkgs-mkShell)
-
-{{% note %}}
-- pkgs.mkShell is a helper function
-- nix expression
-- function with args package
-- attribute set
-{{% /note %}}
-
----
-
-
-```nix
-# flake.nix
-
-{
-  devShells.default = pkgs.callPackage ./shell.nix {
-    inherit pkgs;
-  };
-}
-```
----
-
-<img width="80%" height="auto" data-src="images/nixpkgs.png">
-
-[search.nixos.org](https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&type=packages&query=go)
 
 ---
 
@@ -829,6 +781,7 @@ nix derivation show nixpkgs#go_1_21
 ---
 
 ## Advantages
+
 - Binary cache
 
 ```vim{4,5|6-7}
@@ -846,60 +799,8 @@ from 'https://cache.nixos.org'..
 {{% /note %}}
 
 ---
-## Advantages
-
-- Forces us to make our dependency tree explicit
-
-```vim
-> nix-store -q --tree /nix/store/k7chj...-go-1.21.8
-
-/nix/store/k7chj...-go-1.21.8
-├───/nix/store/7vvggrs9367d3...-mailcap-2.1.53
-├───/nix/store/a1s263pmsci9z...-bash-5.2p26
-│   ├───/nix/store/ddwyrxif6...-glibc-2.39-5
-│   │   ├───/nix/store/rxgan...-xgcc-13.2.0-libgcc
-│   │   ├───/nix/store/s32cl...-libidn2-2.3.7
-│   │   │   ├───/nix/store/7n...-libunistring-1>
-│   │   │   │   └───/nix/store/7n0mbqydcipkpbxm24fab066lxk68aqk-libunistri>
-│   │   │   └───/nix/store/s32cldbh9pfzd9z82izi12mdlrw0yf8q-libidn2-2.3.7 >
-│   │   └───/nix/store/ddwyrxif62r8n6xclvskjyy6szdhvj60-glibc-2.39-5 [...]
-│   └───/nix/store/a1s263pmsci9zykm5xcdf7x9rv26w6d5-bash-5.2p26 [...]
-├───/nix/store/lscnjrqblizizhfbwbha05cyff7d7606-iana-etc-20231227
-│   └───/nix/store/lscnjrqblizizhfbwbha05cyff7d7606-iana-etc-20231227 [...]
-└───/nix/store/s1wmpnb0pyxh1idkmxc3n9hnbfgj67c0-tzdata-2024a
-```
-
----
-
-## Advantages
-
-- Atomic updates
-
-```vim
-> ls -al ~/.nix-profile/bin
-
-lrwxrwxrwx - root  1 Jan  1970 , -> /nix/store/09irdfc2nqr6plb0gcf684k7h3fsk4mr-home-manager-path/bin/,
-lrwxrwxrwx - root  1 Jan  1970 accessdb -> /nix/store/09irdfc2nqr6plb0gcf684k7h3fsk4mr-home-manager-path/bin/accessdb
-lrwxrwxrwx - root  1 Jan  1970 addgnupghome -> /nix/store/09irdfc2nqr6plb0gcf684k7h3fsk4mr-home-manager-path/bin/addgnupghome
-lrwxrwxrwx - root  1 Jan  1970 ag -> /nix/store/09irdfc2nqr6plb0gcf684k7h3fsk4mr-home-manager-path/bin/ag
-lrwxrwxrwx - root  1 Jan  1970 animate -> /nix/store/09irdfc2nqr6plb0gcf684k7h3fsk4mr-home-manager-path/bin/animate
-lrwxrwxrwx - root  1 Jan  1970 applygnupgdefaults -> /nix/store/09irdfc2nqr6plb0gcf684k7h3fsk4mr-home-manager-path/bin/applygnupgdefaults
-lrwxrwxrwx - root  1 Jan  1970 apropos -> /nix/store/09irdfc2nqr6plb0gcf684k7h3fsk4mr-home-manager-path/bin/apropos
-lrwxrwxrwx - root  1 Jan  1970 atuin -> /nix/store/09irdfc2nqr6plb0gcf684k7h3fsk4mr-home-manager-path/bin/atuin
-```
-
-{{% note %}}
-After the build, Nix sets the last-modified timestamp on all files in the build result to 1 (00:00:01 1/1/1970 UTC),
-
-Removes case of non-determinism
-
-In some cases, the build process of a package might embed the timestamp of the files into the resulting binary.
-{{% /note %}}
-
----
 
 <img width="70%" height="auto" data-src="images/bin-cat.jpg">
-
 
 [Credit](https://old.reddit.com/r/linuxmemes/comments/15yi79m/explaining_linux_with_cats/)
 
@@ -996,15 +897,12 @@ In some cases, the build process of a package might embed the timestamp of the f
 - Use same versions as local
 - Leverage Nix "cachability"
 
----
-
-## GitLab CI
-
+## ci.nix
 
 ```nix{6|13-21|21}
 {
   pkgs,
-  myPackages,
+  devPackages,
   ...
 }:
 pkgs.dockerTools.buildImage {
@@ -1022,7 +920,7 @@ pkgs.dockerTools.buildImage {
         curl
         git
       ]
-      ++ myPackages;
+      ++ devPackages;
   };
   config = {
     Env = [
@@ -1039,7 +937,9 @@ pkgs.dockerTools.buildImage {
 
 ---
 
-```nix{23-32|34-37|38-41}
+## flake.nix
+
+```nix{23-32|34-37}
 # flake.nix
 {
   description = "Development environment for BanterBus";
@@ -1062,7 +962,7 @@ pkgs.dockerTools.buildImage {
     (system: let
       pkgs = nixpkgs.legacyPackages.${system};
 
-      myPackages = with pkgs; [
+      devPackages = with pkgs; [
         go_1_22
         golangci-lint
         gotools
@@ -1075,12 +975,7 @@ pkgs.dockerTools.buildImage {
     in {
       packages.ci = pkgs.callPackage ./ci.nix {
         inherit pkgs;
-        inherit myPackages;
-      };
-      devShells.default = pkgs.mkShell ./shell.nix {
-        inherit pkgs;
-        inherit myPackages;
-      }
+        inherit devPackages;
       };
     })
   );
@@ -1088,6 +983,8 @@ pkgs.dockerTools.buildImage {
 ```
 
 ---
+
+## .gitlab-ci.yml
 
 ```bash{17-18|19-24}
 publish:docker:ci:
@@ -1118,7 +1015,7 @@ publish:docker:ci:
 
 # CI Improved
 
-```yml{6-16|8|9-14|18-29|31-35}
+```yml{7-16|18-22}
 
 stages:
   - deps
@@ -1136,19 +1033,6 @@ stages:
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
 
-download:dependency:
-  extends: .task
-  stage: deps
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      changes:
-        - go.mod
-        - go.sum
-  script:
-    - go mod download
-  cache:
-    policy: pull-push
-
 tests:unit:
   extends:
     - .task
@@ -1164,16 +1048,6 @@ format:
 
 ---
 
-```yaml{5}
-tasks:
-  tests:unit:
-    desc: Runs all the unit tests.
-    cmds:
-      - go test -skip '^TestIntegration' ./internal/...
-```
-
----
-
 ## Time Improvement
 
 - unit tests job
@@ -1185,6 +1059,28 @@ tasks:
 <img width="75%" height="auto" data-src="images/i-like-nix.jpg">
 
 [Credit](https://mstdn.social/@godmaire/111544747165375207)
+
+{{% /section %}}
+
+---
+
+{{% section %}}
+
+## Why not Docker?
+
+- Docker is imperative
+  - Repeatable but not reproducible
+- Hard to personalise
+  - bash vs fish vs zsh
+
+{{% note %}}
+- specifically about dockerfile to image
+
+- Docker is great for services
+
+- For example, two people using the same docker image will always get the same results, but two people building the
+same Dockerfile can (and often do) end up with two different images.
+{{% /note %}}
 
 {{% /section %}}
 
@@ -1209,10 +1105,15 @@ tasks:
 ---
 
 ```vim
-curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
-nix flake init --template "https://flakehub.com/f/the-nix-way/dev-templates/*#go"
+curl --proto '=https' --tlsv1.2 -sSf -L \
+ https://install.determinate.systems/nix | sh -s -- install
+
+nix flake init --template \
+  "https://flakehub.com/f/the-nix-way/dev-templates/*#go"
+
 nix profile install nixpkgs#nix-direnv
 ```
+
 
 {{% /section %}}
 
@@ -1230,6 +1131,7 @@ nix profile install nixpkgs#nix-direnv
 ---
 
 <img width="70%" height="auto" data-src="images/nix-feature.jpg">
+
 
 ---
 
@@ -1281,11 +1183,18 @@ More about flakes:
 
 ---
 
+<img width="50%" height="auto" data-src="images/qr-code.svg">
+
+https://haseebmajid.dev/slides/london-gophers-reproducible-envs-with-nix/
+
+---
+
 ## References & Thanks
 
 - GIFs made with [vhs](https://github.com/charmbracelet/vhs)
 - Photos editted with [pixlr](https://pixlr.com/)
 - All my friends who took time to give me feedback on this talk
+- Some memes from https://github.com/gytis-ivaskevicius/high-quality-nix-content
 
 {{% note %}}
 Don't forget to thank the audience.
