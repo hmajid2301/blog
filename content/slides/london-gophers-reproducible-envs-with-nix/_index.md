@@ -3,8 +3,8 @@ title = "Using Nix to create reproducible Go development environments"
 outputs = ["Reveal"]
 [logo]
 src = "images/logo.png"
-diag = "90%"
-width = "5%"
+diag = "85%"
+width = "8%"
 [reveal_hugo]
 custom_theme = "stylesheets/reveal/catppuccin.css"
 slide_number = true
@@ -800,6 +800,33 @@ from 'https://cache.nixos.org'..
 
 ---
 
+## Advantages
+
+- Atomic updates
+
+```vim
+> ls -al ~/.nix-profile/bin
+
+lrwxrwxrwx - root  1 Jan  1970 , -> /nix/store/09irdfc2nqr6plb0gcf684k7h3fsk4mr-home-manager-path/bin/,
+lrwxrwxrwx - root  1 Jan  1970 accessdb -> /nix/store/09irdfc2nqr6plb0gcf684k7h3fsk4mr-home-manager-path/bin/accessdb
+lrwxrwxrwx - root  1 Jan  1970 addgnupghome -> /nix/store/09irdfc2nqr6plb0gcf684k7h3fsk4mr-home-manager-path/bin/addgnupghome
+lrwxrwxrwx - root  1 Jan  1970 ag -> /nix/store/09irdfc2nqr6plb0gcf684k7h3fsk4mr-home-manager-path/bin/ag
+lrwxrwxrwx - root  1 Jan  1970 animate -> /nix/store/09irdfc2nqr6plb0gcf684k7h3fsk4mr-home-manager-path/bin/animate
+lrwxrwxrwx - root  1 Jan  1970 applygnupgdefaults -> /nix/store/09irdfc2nqr6plb0gcf684k7h3fsk4mr-home-manager-path/bin/applygnupgdefaults
+lrwxrwxrwx - root  1 Jan  1970 apropos -> /nix/store/09irdfc2nqr6plb0gcf684k7h3fsk4mr-home-manager-path/bin/apropos
+lrwxrwxrwx - root  1 Jan  1970 atuin -> /nix/store/09irdfc2nqr6plb0gcf684k7h3fsk4mr-home-manager-path/bin/atuin
+```
+
+{{% note %}}
+After the build, Nix sets the last-modified timestamp on all files in the build result to 1 (00:00:01 1/1/1970 UTC),
+
+Removes case of non-determinism
+
+In some cases, the build process of a package might embed the timestamp of the files into the resulting binary.
+{{% /note %}}
+
+---
+
 <img width="70%" height="auto" data-src="images/bin-cat.jpg">
 
 [Credit](https://old.reddit.com/r/linuxmemes/comments/15yi79m/explaining_linux_with_cats/)
@@ -896,6 +923,8 @@ from 'https://cache.nixos.org'..
 
 - Use same versions as local
 - Leverage Nix "cachability"
+
+---
 
 ## ci.nix
 
