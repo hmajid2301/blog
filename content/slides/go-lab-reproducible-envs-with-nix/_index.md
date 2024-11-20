@@ -162,14 +162,14 @@ go run github.com/...../cmd/golangci-lint
 
 
 ```vim{3-6|9}
-example on  main via 🐹 v1.22.8
+example on main via 🐹 v1.22.8
 ❯ ls -al
 .rw-r--r-- 101 haseebmajid 28 Mar 15:36 go.mod
 .rw-r--r-- 191 haseebmajid 28 Mar 15:37 go.sum
 .rw-r--r-- 313 haseebmajid 28 Mar 15:33 main.go
 .rw-r--r--   0 haseebmajid 28 Mar 14:55 main_test.go
 
-example on  main via 🐹 v1.22.8
+example on main via 🐹 v1.22.8
 ❯ nvim flake.nix
 ```
 
@@ -216,13 +216,13 @@ example on  main via 🐹 v1.22.8
 ---
 
 ```vim{2|5|8-9}
-example on  main via 🐹 v1.22.8
+example on main via 🐹 v1.22.8
 ❯ which golangci-lint
 
-example on  main via 🐹 v1.22.8
+example on main via 🐹 v1.22.8
 ❯ nix develop
 
-example on  main via 🐹 v1.22.8 ❄️ impure (nix-shell-env)
+example on main via 🐹 v1.22.8 ❄️ impure (nix-shell-env)
 ❯ which golangci-lint
 /nix/store/kcd...golangci-lint-1.56.2/bin/golangci-lint
 ```
@@ -296,18 +296,18 @@ direnv: error /home/haseeb/banterbus/.envrc
 is blocked. Run `direnv allow` to approve
 its content
 
-banterbus on  main via 🐹 v1.22.7
+banterbus on main via 🐹 v1.22.7
 ❯ direnv allow
 direnv: loading ~/banterbus/.envrc
 direnv: using flake
 direnv: nix-direnv: Renewed cache
 ...
 
-banterbus on  main via 🐹 v1.22.8 via ❄️  impure (nix-shell-env)
+banterbus on main via 🐹 v1.22.8 via ❄️  impure (nix-shell-env)
 ❯ which golangci-lint
 /nix/store/kcd...golangci-lint-1.56.2/bin/golangci-lint
 
-banterbus on  main via 🐹 v1.22.8 via ❄️  impure (nix-shell-env)
+banterbus on main via 🐹 v1.22.8 via ❄️  impure (nix-shell-env)
 ❯ cd ..
 direnv: unloading
 

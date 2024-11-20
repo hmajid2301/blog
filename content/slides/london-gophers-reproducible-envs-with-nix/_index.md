@@ -968,7 +968,7 @@ pkgs.dockerTools.buildImage {
 
 ## flake.nix
 
-```nix{23-32|34-37}
+```nix{23-32|34-37|38-40}
 # flake.nix
 {
   description = "Development environment for BanterBus";
@@ -1006,6 +1006,9 @@ pkgs.dockerTools.buildImage {
         inherit pkgs;
         inherit devPackages;
       };
+      devShells.default = pkgs.mkShell {
+        packages = devPackages;
+      };
     })
   );
 }
@@ -1042,9 +1045,7 @@ publish:docker:ci:
 
 ---
 
-# CI Improved
-
-```yml{7-16|18-22}
+```yml{6-16|8|9-14|18-22}
 
 stages:
   - deps
@@ -1066,22 +1067,8 @@ tests:unit:
   extends:
     - .task
   script:
-    - task tests:unit
-
-format:
-  extends:
-    - .task
-  script:
-    -  task format
+    - go test -skip '^TestIntegration' ./internal/...
 ```
-
----
-
-## Time Improvement
-
-- unit tests job
-  - 2 minutes 28 seconds
-  - 54 seconds
 
 ---
 
