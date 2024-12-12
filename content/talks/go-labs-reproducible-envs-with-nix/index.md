@@ -10,7 +10,7 @@ ShowWordCount: false
 hideMeta: false
 ---
 
-{{< youtube id="" >}}
+{{< youtube id="bdGfn_ihHOk" >}}
 
 - [Abstract](https://golab.io/talks/using-nix-to-create-reproducible-go-development-environments)
 - [Example Project](https://gitlab.com/hmajid2301/banterbus)
