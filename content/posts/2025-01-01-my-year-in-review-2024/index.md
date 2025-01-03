@@ -84,6 +84,8 @@ above. At least something down on paper.
 
 ## Banter Bus
 
+![Banter Bus](images/banterbus.png)
+
 Main big main side project of the year, I started YouTube series about the development of this web app. Which I
 Unfortunately, didn't really keep up, but will kick-start in the new year. But essentially this is my 3rd crack at
 making a multiplayer browser game. Similar to say Jack Box, or Skribl.io etc.
@@ -114,6 +116,8 @@ fragile at the moment.
 
 ## Conference Talks
 
+![Conference](images/conference.jpeg)
+
 This year I was lucky enough to do two conferences talks, basically the same talk about using Nix to create
 development environments in [Go](https://www.youtube.com/watch?v=bdGfn_ihHOk&list=PLSCmmmcxRB6DilKhSz09JL9F4CVl7Vyd3&index=4).
 
@@ -126,6 +130,8 @@ than I normally would. You know what they say, the best way to learn something d
 can explain it clearly, it shows you must know the topic pretty well.
 
 ## YouTube
+
+Link to [my channel](https://www.youtube.com/@Majiy00)
 
 I also started a YouTube channel this year, it started off well, but my last few videos didn't get very many views.
 I want to keep up the YouTube channel but focusing on really improving the quality of my videos and finding my
