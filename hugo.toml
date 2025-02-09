@@ -151,12 +151,6 @@ url = "/talks/"
 weight = 20
 
 [[menu.main]]
-identifier = "videos"
-name = "Videos"
-url = "/videos/"
-weight = 40
-
-[[menu.main]]
 identifier = "stats"
 name = "Stats"
 url = "https://stats.haseebmajid.dev/"
