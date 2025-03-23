@@ -6,7 +6,6 @@ tags:
   - gofeedback
   - buildinpublic
   - micro-saas
-
 cover:
   image: images/cover.png
 ---
