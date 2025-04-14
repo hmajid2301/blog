@@ -1,5 +1,5 @@
 ---
-title: Voxicle Week 7 Week 8
+title: Voxicle Week 7 & Week 8
 date: 2025-04-14
 canonicalURL: https://haseebmajid.dev/posts/2025-04-14-voxicle-week-7-week-8
 tags:
