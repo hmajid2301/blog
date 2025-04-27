@@ -6,6 +6,8 @@ tags:
   - voxicle
   - buildinpublic
   - micro-saas
+series:
+  - Build In Public
 cover:
   image: images/cover.png
 ---
