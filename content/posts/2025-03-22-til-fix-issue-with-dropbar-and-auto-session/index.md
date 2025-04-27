@@ -13,7 +13,7 @@ cover:
 ---
 
 {{< notice type="danger" title="Actual Fix" >}}
-This fix didn't actually work the actual fix can be found [here](/2025-04-12-til-how-to-get-dropbar-and-auto-session-to-work)
+This fix didn't actually work the actual fix can be found [here](/posts/2025-04-12-til-how-to-get-dropbar-and-auto-session-to-work)
 {{< /notice >}}
 
 I recently moved to [dropbar](https://github.com/Bekaboo/dropbar.nvim) from barbecue as it has been archived and kept
