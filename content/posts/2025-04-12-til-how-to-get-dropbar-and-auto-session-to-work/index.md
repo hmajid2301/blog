@@ -14,7 +14,6 @@ cover:
 
 {{< notice type="info" title="Original Article" >}}
 You can find more context on the problem [here](/posts/2025-03-22-til-fix-issue-with-dropbar-and-auto-session)
-This fix didn't actually work the actual fix can be found [here](/posts/2025-04-12-til-how-to-get-dropbar-and-auto-session-to-work)
 {{< /notice >}}
 
 In my post last month I thought I had fixed this issue but turns out I did not. The actual fix to stop getting
