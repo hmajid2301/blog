@@ -152,6 +152,7 @@ As an aside, I am becoming a big fun of the mini.nvim plugins so may replace thi
 
 
 ## nvim-navbuddy
+
 - Link: https://github.com/SmiteshP/nvim-navbuddy
 
 nvim-navbuddy allows us to navigate a file using breadcrumb style navigation. It uses the LSP to help break down
