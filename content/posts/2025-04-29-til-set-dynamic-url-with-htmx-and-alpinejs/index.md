@@ -1,5 +1,5 @@
 ---
-title: TIL - How to Set Dynamic uRL With hTMX and Alpinejs
+title: TIL - How to Set Dynamic URL With HTMX and AlpineJS
 date: 2025-04-29
 canonicalURL: https://haseebmajid.dev/posts/2025-04-29-til-set-dynamic-url-with-htmx-and-alpinejs
 tags:
