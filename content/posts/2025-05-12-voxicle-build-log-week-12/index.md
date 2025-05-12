@@ -2,6 +2,7 @@
 title: Voxicle Build Log Week 12
 date: 2025-05-12
 canonicalURL: https://haseebmajid.dev/posts/2025-05-12-voxicle-build-log-week-12
+tags:
   - voxicle
   - buildinpublic
   - micro-saas
