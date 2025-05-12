@@ -1,5 +1,3 @@
-@import url(https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,700);
-
 .post-header {
   margin: var(--content-gap) 0 calc(var(--content-gap) * 1.5);
 }
