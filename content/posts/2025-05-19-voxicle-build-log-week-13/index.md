@@ -1,5 +1,5 @@
 ---
-title: Voxicle Build Log Week 13
+title: Voxicle Build Log 13
 date: 2025-05-19
 canonicalURL: https://haseebmajid.dev/posts/2025-05-19-voxicle-build-log-week-13
 tags:
@@ -13,11 +13,14 @@ cover:
   image: images/cover.png
 ---
 
-## ⏮️ Last Weeks Objectives
+I will stop making these weekly I think and produce them when there is actual stuff to share, as not make them
+stale and boring. Some times they may end up weekly, depending on how much progress I am making.
 
-- Better error modals (fixed)
-- Start working on public page
-- Multi tenant sub domains
+## ⏮️ Previous Build Log Objectives
+
+- ✅ Better error modals (fixed)
+- ✅ Start working on public page
+- ✅ Multi tenant sub domains
   - i.e. org1.voxicle.app
 
 ## 🛠️ What I Worked On
@@ -82,6 +85,11 @@ but then also vote for it anonymously or if you are logged in the vote counts as
 Part of the public page is allowing the app to handle subdomains i.e. `org1.voxicle.app/public/feedback` to show
 the public feedback page.
 
+## Refactored Schema
+
+Remove organization_id and replaced with slug as this is already unique and means we have to do fewer looks up to the DB.
+Involved a long migration script and updating tests and some code as well.
+
 ## ✅ Wins
 
 - Error modal fixed
@@ -89,11 +97,16 @@ the public feedback page.
 
 ## ⚠️ Challenges
 
+- Not understanding why `hx-swap-oob` wouldn't work with `HX-Retarget`.
+
 ## 💡 What I Learned
 
 - (remembered) HTMX only swaps by default on 200 HTTP Status code
   - `<meta name="htmx-config" content='{"responseHandling": [{"code":"...", "swap": true}]}'/>`
 - `hx-swap-oob` used for other changes first container is replaced, we can use `hx-retarget`
 
-## ⏭️ Next Weeks Objectives
+## ⏭️ Next Build Log Objectives
 
+- Public page for feedback
+  - private and public feedbacks
+  - allow anonymous voting
