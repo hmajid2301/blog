@@ -1,6 +1,6 @@
 baseURL = "https://haseebmajid.dev/slides"
 title = "Haseeb Majid"
-theme = ["github.com/dzello/reveal-hugo"]
+theme = ["github.com/joshed-io/reveal-hugo"]
 contentDir = "content/slides"
 publishDir = "public/slides"
 staticDir = "static/slides"
