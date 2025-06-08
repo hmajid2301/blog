@@ -1,6 +1,6 @@
 baseURL = "https://haseebmajid.dev/"
 title = "Haseeb Majid"
-paginate = 25
+pagination.pagerSize = 25
 enableRobotsTXT = true
 buildDrafts = false
 buildFuture = false
