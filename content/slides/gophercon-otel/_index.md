@@ -52,15 +52,18 @@ slide_number = true
 
 ---
 
-## Why Observability Matters
+## Why Observability Matters?
 
 - Provide context to issues
 - Bottlenecks in the system
+
+{{% note %}}
 - 53% of users abandon after 3s delay (Google)
+{{% /note %}}
 
 ---
 
-## What is otel?
+## What is OTel?
 
 - OpenTelemetry
 - Open Standard
@@ -73,14 +76,14 @@ slide_number = true
 
 ---
 
-## What is otel?
+## What is OTel?
 
 - CNCF-graduated project
 - Originally just for tracing
 
 ---
 
-## Why use otel?
+## Why use OTel?
 
 - Open Standard
   - Solves vendor lock-in
@@ -96,7 +99,7 @@ slide_number = true
 
 ## Example service
 
-```go{17-22|25-41|11-15}
+```go{16-18|19-20|24-31}
 package main
 
 import (
@@ -113,11 +116,10 @@ func main() {
     }
 
     r := mux.NewRouter()
+    r.HandleFunc("/user/{id}", h.userHandler).Methods("GET")
 
-	r.HandleFunc("/user/{id}", h.userHandler).Methods("GET")
-
-	log.Println("Server starting on port 8080...")
-	log.Fatal(http.ListenAndServe(":8080", r))
+    log.Println("Server starting on port 8080...")
+    log.Fatal(http.ListenAndServe(":8080", r))
 }
 
 func (h *Handler) userHandler(w http.ResponseWriter, r *http.Request) {
@@ -125,10 +127,10 @@ func (h *Handler) userHandler(w http.ResponseWriter, r *http.Request) {
     // Validation logic ...
 
     // Interact with the DB.
-	user := h.store.getUser(id)
+    user := h.store.getUser(id)
 
-	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(user)
+    w.Header().Set("Content-Type", "application/json")
+    json.NewEncoder(w).Encode(user)
 }
 ```
 
@@ -141,7 +143,7 @@ func (h *Handler) userHandler(w http.ResponseWriter, r *http.Request) {
 
 ---
 
-## What is (a distributed) tracing?
+## What is (distributed) tracing?
 
 - Caused by a single action
 - Contains information acrosses different components
@@ -153,13 +155,14 @@ func (h *Handler) userHandler(w http.ResponseWriter, r *http.Request) {
 
 ## Span
 
-- operation name
-- start and finish timestamp
-- attributes (key value pairs)
-- a set of events
-- parent span ID
-- links to other spans
-- span context
+- Operation name
+- Start and finish timestamp
+- Attributes
+  - key-value pairs
+- A set of events
+- Parent span ID
+- Links to other spans
+- Span context
 
 ---
 
@@ -172,8 +175,14 @@ tracestate: mycompany=true
 
 ---
 
-- traceid: d4cda95b652f4a1592b449d5929fda1b
-- spanid: 6e0c63257de34c92
+```http
+traceparent:
+00-d4cda95b652f4a1592b449d5929fda1b-6e0c63257de34c92-01
+tracestate: mycompany=true
+```
+
+- trace-id: d4cda95b652f4a1592b449d5929fda1b
+- span-id: 6e0c63257de34c92
 - trace flags: 01
 - trace state: mycompany=true
 
@@ -219,7 +228,7 @@ go get go.opentelemetry.io/otel \
 
 ---
 
-```go
+```go{24-32|34-36|38-42|44-45|48-49|51-59|61-71}
 package main
 
 import (
@@ -240,54 +249,58 @@ import (
 
 
 func main() {
-	// Initialize tracer
+    // Initialize tracer
     ctx := context.Background()
 
-	var shutdownFuncs []func(context.Context) error
-	shutdown = func(ctx context.Context) error {
-		var err error
-		for _, fn := range shutdownFuncs {
-			err = errors.Join(err, fn(ctx))
-		}
-		shutdownFuncs = nil
-		return err
-	}
+    var shutdownFuncs []func(context.Context) error
+    shutdown = func(ctx context.Context) error {
+        var err error
+        for _, fn := range shutdownFuncs {
+            err = errors.Join(err, fn(ctx))
+        }
+        shutdownFuncs = nil
+        return err
+    }
 
-	handleErr := func(inErr error) {
-		err = errors.Join(inErr, shutdown(ctx))
-	}
+    handleErr := func(inErr error) {
+        err = errors.Join(inErr, shutdown(ctx))
+    }
 
-	tp, err := newTracerProvider(ctx)
-	if err != nil {
-		handleErr(err)
-		return shutdown, err
-	}
+    tp, err := newTracerProvider(ctx)
+    if err != nil {
+        handleErr(err)
+        return shutdown, err
+    }
 
-	shutdownFuncs = append(shutdownFuncs, tracerProvider.Shutdown)
-	defer shutdown()
+    shutdownFuncs = append(shutdownFuncs, tracerProvider.Shutdown)
+    defer shutdown()
 }
 
-func newTracerProvider(ctx context.Context) (*trace.TracerProvider, error) {
-	// Create OTLP exporter
-	exporter, err := otlptracehttp.New(ctx)
-	if err != nil {
-		return nil, fmt.Errorf("failed to create exporter: %w", err)
-	}
+func newTracerProvider(ctx context.Context)
+    (*trace.TracerProvider, error) {
+    // Create OTLP exporter
+    exporter, err := otlptracehttp.New(ctx)
+    if err != nil {
+        return nil, fmt.Errorf("failed to create exporter: %w", err)
+    }
 
-	// Create trace provider
-	tp := sdktrace.NewTracerProvider(
-		sdktrace.WithBatcher(exporter),
-	)
+    // Create trace provider
+    tp := sdktrace.NewTracerProvider(
+        sdktrace.WithBatcher(exporter),
+    )
 
-	// Set global tracer provider
-	otel.SetTracerProvider(tp)
-    otel.SetTextMapPropagator(propagation.NewCompositeTextMapPropagator(
+    // Set global tracer provider
+    otel.SetTracerProvider(tp)
+    otel.SetTextMapPropagator(
+        propagation.NewCompositeTextMapPropagator(
             propagation.TraceContext{},
             propagation.Baggage{},
-    ))
+        )
+    )
 
-	// Return shutdown function
-	return tp, nil
+    // Return shutdown function
+    return tp, nil
+}
 ```
 
 ---
@@ -309,7 +322,7 @@ baggage: userId=12345,role=admin,region=us-east
 
 ---
 
-```go
+```go{3|4|9}
 func main() {
 	// Initialize tracer
 	shutdown := initTracer()
@@ -347,31 +360,40 @@ go get go.opentelemetry.io/otel/metric \
 
 ## Instrument metrics
 
-```go
-func newMeterProvider(ctx context.Context) (*sdkmetric.MeterProvider, error) {
-	// Create OTLP metric exporter
-	exporter, err := otlpmetrichttp.New(ctx)
-	if err != nil {
-		return nil, fmt.Errorf("failed to create metric exporter: %w", err)
-	}
+```go{1-2|4-9|11-15|17-22|24-29|32-33}
+func newMeterProvider(ctx context.Context)
+    (*sdkmetric.MeterProvider, error) {
 
-	// Create meter provider
-	mp := sdkmetric.NewMeterProvider(
-		sdkmetric.WithReader(sdkmetric.NewPeriodicReader(exporter)),
-	)
+    // Create OTLP metric exporter
+    exporter, err := otlpmetrichttp.New(ctx)
+    if err != nil {
+        return nil, err
+    }
 
-	if err = runtimeMetrics.Start(runtimeMetrics.WithMeterProvider(mp)); err != nil {
-		return nil, fmt.Errorf("failed to start runtime metrics: %w", err)
-	}
+    // Create meter provider
+    mp := sdkmetric.NewMeterProvider(
+        sdkmetric.WithReader(
+            sdkmetric.NewPeriodicReader(exporter)
+        ),
+    )
 
-	if err = hostMetrics.Start(hostMetrics.WithMeterProvider(mp)); err != nil {
-		return nil, fmt.Errorf("failed to start host metrics: %w", err)
-	}
+    err = runtimeMetrics.Start(
+        runtimeMetrics.WithMeterProvider(mp)
+    )
+    if  err != nil {
+        return nil, err
+    }
 
-	// Set global meter provider
-	otel.SetMeterProvider(mp)
+    err = hostMetrics.Start(
+        hostMetrics.WithMeterProvider(mp)
+    )
+    if  err != nil {
+        return nil, err
+    }
 
-	return mp, nil
+    // Set global meter provider
+    otel.SetMeterProvider(mp)
+    return mp, nil
 }
 ```
 
@@ -379,18 +401,18 @@ func newMeterProvider(ctx context.Context) (*sdkmetric.MeterProvider, error) {
 
 ## Instrument metrics
 
-```go
+```go{6-11}
 func main() {
-	ctx := context.Background()
+    ctx := context.Background()
 
     // Previous code ...
 
-	// Setup meter
-	mp, err := newMeterProvider(ctx)
-	if err != nil {
-		log.Fatalf("failed to setup meter: %v", err)
-	}
-	shutdownFuncs = append(shutdownFuncs, mp.Shutdown)
+    // Setup meter
+    mp, err := newMeterProvider(ctx)
+    if err != nil {
+        log.Fatalf("failed to setup meter: %v", err)
+    }
+    shutdownFuncs = append(shutdownFuncs, mp.Shutdown)
 
     // Rest of the code ...
 
@@ -422,21 +444,24 @@ func main() {
 
 ## Instrument logs
 
-```go
-func newLoggerProvider(ctx context.Context, logLevel minsev.Severity) (*log.LoggerProvider, error) {
-	exporter, err := otlploghttp.New(ctx)
-	if err != nil {
-		return nil, err
-	}
+```go{1-4|5-8|10-14|16-17}
+func newLoggerProvider(
+    ctx context.Context,
+    logLevel minsev.Severity,
+) (*log.LoggerProvider, error) {
+    exporter, err := otlploghttp.New(ctx)
+    if err != nil {
+        return nil, err
+    }
 
-	p := log.NewBatchProcessor(exporter)
-	processor := minsev.NewLogProcessor(p, logLevel)
-	lp := log.NewLoggerProvider(
-		log.WithProcessor(processor),
-	)
+    p := log.NewBatchProcessor(exporter)
+    processor := minsev.NewLogProcessor(p, logLevel)
+    lp := log.NewLoggerProvider(
+        log.WithProcessor(processor),
+    )
 
-	global.SetLoggerProvider(gp)
-	return lp, nil
+    global.SetLoggerProvider(gp)
+    return lp, nil
 }
 ```
 
@@ -445,21 +470,20 @@ func newLoggerProvider(ctx context.Context, logLevel minsev.Severity) (*log.Logg
 ## Instrument logs
 
 
-```go
+```go{6-11}
 func main() {
-	ctx := context.Background()
+    ctx := context.Background()
 
     // Previous code ...
 
-	// Setup meter
-	lp, err := newLoggerProvider(ctx)
-	if err != nil {
-		log.Fatalf("failed to setup meter: %v", err)
-	}
-	shutdownFuncs = append(shutdownFuncs, mp.Shutdown)
+    // Setup logger
+    lp, err := newLoggerProvider(ctx)
+    if err != nil {
+        log.Fatalf("failed to setup lp: %v", err)
+    }
+    shutdownFuncs = append(shutdownFuncs, mp.Shutdown)
 
     // Rest of the code ...
-
 }
 ```
 
@@ -467,7 +491,7 @@ func main() {
 
 ## Instrument logs
 
-```go
+```go{8-11|16-22|23-25|27-29}
 package telemetry
 
 import (
@@ -512,17 +536,206 @@ func NewLogger() *slog.Logger {
 
 ## Resources
 
+```go
+res, err := resource.New(
+    ctx,
+    resource.WithHost(),
+    resource.WithContainerID(),
+    resource.WithAttributes(
+        semconv.ServiceNamespaceKey.String(environment),
+        semconv.ServiceNameKey.String("user-service"),
+    ),
+)
+if err != nil {
+    handleErr(err)
+    return shutdown, err
+}
+```
+
+---
+
+```go
+loggerProvider := log.NewLoggerProvider(
+    log.WithProcessor(processor),
+    log.WithResource(res),
+)
+
+meterProvider := metric.NewMeterProvider(
+    metric.WithReader(reader),
+    metric.WithResource(res)
+)
+
+traceProvider := trace.NewTracerProvider(
+    trace.WithBatcher(traceExporter,
+        trace.WithBatchTimeout(time.Second),
+    ),
+    trace.WithSpanProcessor(sentrySp),
+    trace.WithResource(res),
+)
+```
+
 ---
 
 ## Postgres
+
+```bash
+go get github.com/exaring/otelpgx
+```
+
+---
+
+```go{6}
+func NewPool(ctx context.Context, uri string) (*pgxpool.Pool, error) {
+	pgxConfig, err := pgxpool.ParseConfig(uri)
+	if err != nil {
+		return nil, fmt.Errorf("failed to parse db URI: %w", err)
+	}
+	pgxConfig.ConnConfig.Tracer = otelpgx.NewTracer()
+
+	pool, err := pgxpool.NewWithConfig(ctx, pgxConfig)
+	if err != nil {
+		return nil, fmt.Errorf("failed to setup database: %w", err)
+	}
+
+	return pool, err
+}
+```
 
 ---
 
 ## Valkey
 
+```bash
+go get github.com/redis/go-redis/extra/redisotel/v9
+```
+
+---
+
+```go{9}
+func NewRedisClient(address string, retries int) (Client, error) {
+	r := redis.NewClient(&redis.Options{
+		Addr:       address,
+		Password:   "",
+		DB:         0,
+		MaxRetries: retries,
+	})
+
+    err := redisotel.InstrumentTracing(r)
+	if  err != nil {
+		return Client{}, err
+	}
+
+	return Client{
+		Redis:       r,
+		Subscribers: map[string]*redis.PubSub{},
+	}, nil
+}
+```
+
 ---
 
 ## HTTP Client
+
+```bash
+go get go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp
+```
+
+---
+
+```go{1-3|5-8|10-14|16-19|21-23}
+
+func NewHTTPClient() *http.Client {
+    // Wrap default transport with OTel instrumentation
+    transport := otelhttp.NewTransport(
+        http.DefaultTransport,
+        otelhttp.WithSpanNameFormatter(func(operation string, r *http.Request) string {
+            return fmt.Sprintf("%s %s", r.Method, r.URL.Path)
+        }),
+    )
+
+    return &http.Client{
+        Transport: transport,
+        Timeout:   5 * time.Second,
+    }
+}
+
+func (s *Service) callExternalAPI(ctx context.Context) {
+    client := NewHTTPClient()
+    req, _ := http.NewRequestWithContext(ctx, "GET", "https://api.example.com/data", nil)
+
+    // Trace context automatically injected!
+    resp, err := client.Do(req)
+
+    // ... handle response ...
+}
+```
+
+
+---
+
+## Kafka
+
+```bash
+go get github.com/twmb/franz-go \
+     github.com/twmb/franz-go/plugin/kotel
+```
+
+---
+
+```go
+import (
+	"github.com/twmb/franz-go/pkg/kgo"
+	"github.com/twmb/franz-go/plugin/kotel"
+)
+
+// Initialize instrumented Kafka client
+func NewKafkaClient(brokers []string, group string) (*kgo.Client, error) {
+    // Create Kotel tracer
+    tracer := kotel.NewTracer(
+        kotel.WithTracerProvider(otel.GetTracerProvider()),
+    )
+
+    // Configure client with instrumentation
+    opts := []kgo.Opt{
+        kgo.SeedBrokers(brokers...),
+        kgo.ConsumerGroup(group),
+        kgo.WithHooks(tracer.Hooks()), // Instrumentation hook
+    }
+
+    // Add record production hook (optional)
+    opts = append(opts, kgo.WithProduceBatchInterceptor(
+        kotel.NewProduceBatchInterceptor(tracer),
+    )
+
+    return kgo.NewClient(opts...)
+}
+
+// Producer usage
+func (s *Service) produceMessage(ctx context.Context, topic, msg string) {
+    record := &kgo.Record{
+        Topic: topic,
+        Value: []byte(msg),
+        Headers: []kgo.RecordHeader{
+            // Context automatically injected via hooks!
+        },
+    }
+
+    s.kafkaClient.Produce(ctx, record, func(r *kgo.Record, err error) {
+        // Span automatically ends after produce callback
+    })
+}
+
+// Consumer usage
+func (s *Service) consumeMessages(ctx context.Context) {
+    for {
+        fetches := s.kafkaClient.PollFetches(ctx)
+        fetches.EachRecord(func(r *kgo.Record) {
+            // New span automatically created per message
+            processMessage(ctx, r)
+        })
+    }
+}
+```
 
 ---
 
@@ -539,8 +752,9 @@ func NewLogger() *slog.Logger {
 
 ```yaml
 services:
+
   otel-collector:
-    image: otel/opentelemetry-collector:0.123.0
+    image: otel/opentelemetry-collector-contrib:0.123.0
     profiles:
       - monitoring
     ports:
@@ -550,15 +764,22 @@ services:
       - 8888:8888
       - 8889:8889
     volumes:
-      - ./docker/otelcol.yaml:/etc/otelcol/config.yaml
+      - ./docker/otelcol.yaml:/etc/otelcol-contrib/config.yaml
     depends_on:
       - tempo
+      - loki
+      - mimir
 
   mimir:
     image: grafana/mimir:2.11.0
     profiles:
       - monitoring
+    command:
+      - "-auth.multitenancy-enabled=false"
+      - "-auth.no-auth-tenant=anonymous"
+      - "-config.file=/etc/mimir/config.yaml"
     volumes:
+      - ./docker/mimir.yaml:/etc/mimir/config.yaml
       - mimir-data:/data
 
   grafana:
@@ -571,7 +792,8 @@ services:
       - GF_AUTH_ANONYMOUS_ENABLED=true
       - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
     volumes:
-      - grafana-data:/var/lib/grafana
+     - ./docker/grafana/datasources.yaml:/etc/grafana/provisioning/datasources/datasources.yml:ro
+     - grafana-data:/var/lib/grafana
 
   tempo:
     image: grafana/tempo:2.7.2
@@ -580,6 +802,7 @@ services:
     command: ["-config.file=/etc/tempo.yaml"]
     volumes:
       - ./docker/tempo.yaml:/etc/tempo.yaml
+      - tempo-data:/var/tempo
 
   loki:
     image: grafana/loki:3.5.0
@@ -588,15 +811,157 @@ services:
     command: ["-config.file=/etc/loki/loki-config.yaml"]
     volumes:
       - ./docker/loki.yaml:/etc/loki/loki-config.yaml
+      - loki-data:/loki
 
 volumes:
   grafana-data:
   mimir-data:
+  tempo-data:
+  loki-data:
 ```
 
 ---
 
-## otel collector
+## Tempo Config
+
+```yaml
+server:
+  http_listen_port: 3200
+  grpc_listen_port: 9096
+
+distributor:
+  receivers:
+    otlp:
+      protocols:
+        http:
+          endpoint: "0.0.0.0:4418"
+
+ingester:
+  trace_idle_period: 1s
+  max_block_duration: 1s
+  flush_check_period: 1s
+  lifecycler:
+    address: 127.0.0.1
+    ring:
+      kvstore:
+        store: inmemory
+      replication_factor: 1
+    min_ready_duration: 1s
+
+storage:
+  trace:
+    backend: local
+    wal:
+      path: /var/tempo/wal
+    local:
+      path: /var/tempo/blocks
+```
+
+---
+
+## Mimir Config
+
+```yaml
+# Single-binary Mimir config
+target: all
+multitenancy_enabled: false
+
+common:
+  storage:
+    backend: filesystem
+    filesystem:
+      dir: /data
+
+blocks_storage:
+  storage_prefix: blocks
+  bucket_store:
+    sync_dir: /data/tsdb-sync
+  tsdb:
+    dir: /data/tsdb
+
+compactor:
+  data_dir: /data/compactor
+  sharding_ring:
+    kvstore:
+      store: inmemory
+
+distributor:
+  ring:
+    instance_addr: 127.0.0.1
+    kvstore:
+      store: inmemory
+
+ingester:
+  ring:
+    instance_addr: 127.0.0.1
+    kvstore:
+      store: inmemory
+    replication_factor: 1
+
+ruler_storage:
+  backend: filesystem
+  filesystem:
+    dir: /data/rules
+
+server:
+  http_listen_port: 9009
+  log_level: info
+
+store_gateway:
+  sharding_ring:
+    replication_factor: 1
+
+usage_stats:
+  enabled: false
+```
+
+---
+
+## Loki Config
+
+```yaml
+auth_enabled: false
+
+server:
+  http_listen_port: 3100
+  grpc_listen_port: 9096
+
+common:
+  instance_addr: 127.0.0.1
+  path_prefix: /tmp/loki
+  storage:
+    filesystem:
+      chunks_directory: /tmp/loki/chunks
+      rules_directory: /tmp/loki/rules
+  replication_factor: 1
+  ring:
+    kvstore:
+      store: inmemory
+
+query_range:
+  results_cache:
+    cache:
+      embedded_cache:
+        enabled: true
+        max_size_mb: 100
+
+schema_config:
+  configs:
+    - from: 2020-10-24
+      store: tsdb
+      object_store: filesystem
+      schema: v13
+      index:
+        prefix: index_
+        period: 24h
+
+ruler:
+  alertmanager_url: http://localhost:9093
+```
+
+---
+
+## OTel collector
 
 - observability pipelines
 - convert between otel and others
@@ -610,41 +975,61 @@ volumes:
 receivers:
   otlp:
     protocols:
-      http:
+      grpc:
         endpoint: 0.0.0.0:4317
-
-processors:
-  batch:
+      http:
+        endpoint: 0.0.0.0:4318
 
 exporters:
-  otlp:
-    endpoint: tempo:4317
+  otlphttp:
+    endpoint: http://tempo:4418
     tls:
       insecure: true
-  prometheus:
-    endpoint: "0.0.0.0:8889"
 
-extensions:
-  health_check:
-  pprof:
-    endpoint: :1888
+  prometheusremotewrite:
+    endpoint: http://mimir:9009/api/v1/push
+
+  loki:
+    endpoint: http://loki:3100/loki/api/v1/push
 
 service:
-  extensions: [health_check, pprof]
   pipelines:
     traces:
       receivers: [otlp]
-      processors: [batch]
-      exporters: [otlp]
+      exporters: [otlphttp]
     metrics:
       receivers: [otlp]
-      processors: [batch]
-      exporters: [prometheus]
+      exporters: [prometheusremotewrite]
+    logs:
+      receivers: [otlp]
+      exporters: [loki]
 ```
 
 ---
 
 ## Setup Grafana
+
+```yaml
+apiVersion: 1
+datasources:
+  - name: Prometheus
+    type: prometheus
+    access: proxy
+    url: http://mimir:9009/prometheus
+    isDefault: true
+
+  - name: Loki
+    type: loki
+    access: proxy
+    url: http://loki:3100
+    isDefault: false
+
+  - name: Tempo
+    type: tempo
+    access: proxy
+    url: http://tempo:3200
+    isDefault: false
+```
 
 ---
 
@@ -692,4 +1077,3 @@ https://haseebmajid.dev/slides/gophercon-otel/
 ## References & Thanks
 
 - Example App: https://gitlab.com/hmajid2301/banterbus
-
