@@ -30,9 +30,19 @@ Logged in users can mark feedback as private so it won't be shown on the public 
 I started using the Gitlab dependency proxy so that we can pull in image from Docker hub using Gitlab to avoid hiting
 rate limits. But also means we can use image cache which should makes jobs a quicker when pulling say `postgres`.
 
+## Add Dev Environment
+
+Previously there was just a local and production environment. Now there is a development environment we can deploy to.
+This is now done CI on a MR via GitLab CI.
+
+It is available at: https://dev.voxicle.app
+
 ## ✅ Wins
 
 ## ⚠️ Challenges
+
+- Getting the GitLab proxy to work took longer than expected
+- Trying to work out how much is left in this app before I should start sharing with people and collecting real feedback
 
 ## 💡 What I Learned
 
