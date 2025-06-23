@@ -273,7 +273,7 @@ func main() {
     }
 
     shutdownFuncs = append(shutdownFuncs, tracerProvider.Shutdown)
-    defer shutdown()
+    return shutdownFuncs, nil
 }
 
 func newTracerProvider(ctx context.Context)
@@ -340,11 +340,236 @@ func main() {
 
 ---
 
+## Custom Trace
+
+---
+
+## Postgres
+
+```bash
+go get github.com/exaring/otelpgx
+```
+
+---
+
+```go{6}
+func NewPool(ctx context.Context, uri string) (*pgxpool.Pool, error) {
+	pgxConfig, err := pgxpool.ParseConfig(uri)
+	if err != nil {
+		return nil, fmt.Errorf("failed to parse db URI: %w", err)
+	}
+	pgxConfig.ConnConfig.Tracer = otelpgx.NewTracer()
+
+	pool, err := pgxpool.NewWithConfig(ctx, pgxConfig)
+	if err != nil {
+		return nil, fmt.Errorf("failed to setup database: %w", err)
+	}
+
+	return pool, err
+}
+```
+
+---
+
+## Valkey
+
+```bash
+go get github.com/redis/go-redis/extra/redisotel/v9
+```
+
+---
+
+```go{2|9}
+func NewRedisClient(address string, retries int) (Client, error) {
+    r := redis.NewClient(&redis.Options{
+        Addr:       address,
+        Password:   "",
+        DB:         0,
+        MaxRetries: retries,
+    })
+
+    err := redisotel.InstrumentTracing(r)
+    if  err != nil {
+        return Client{}, err
+    }
+
+    return Client{
+        Redis:       r,
+        Subscribers: map[string]*redis.PubSub{},
+    }, nil
+}
+```
+
+---
+
+## HTTP Client
+
+```bash
+go get go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp
+```
+
+---
+
+```go{1-3|5-8|10-14|16-19|21-23}
+
+func NewHTTPClient() *http.Client {
+    // Wrap default transport with OTel instrumentation
+    transport := otelhttp.NewTransport(
+        http.DefaultTransport,
+        otelhttp.WithSpanNameFormatter(func(operation string, r *http.Request) string {
+            return fmt.Sprintf("%s %s", r.Method, r.URL.Path)
+        }),
+    )
+
+    return &http.Client{
+        Transport: transport,
+        Timeout:   5 * time.Second,
+    }
+}
+
+func (s *Service) callExternalAPI(ctx context.Context) {
+    client := NewHTTPClient()
+    req, _ := http.NewRequestWithContext(ctx, "GET", "https://api.example.com/data", nil)
+
+    // Trace context automatically injected!
+    resp, err := client.Do(req)
+
+    // ... handle response ...
+}
+```
+
+---
+
+## Kafka
+
+```bash
+go get github.com/twmb/franz-go \
+     github.com/twmb/franz-go/plugin/kotel
+```
+
+---
+
+```go
+import (
+	"github.com/twmb/franz-go/pkg/kgo"
+	"github.com/twmb/franz-go/plugin/kotel"
+)
+
+// Initialize instrumented Kafka client
+func NewKafkaClient(brokers []string, group string) (*kgo.Client, error) {
+    // Create Kotel tracer
+    tracer := kotel.NewTracer(
+        kotel.WithTracerProvider(otel.GetTracerProvider()),
+    )
+
+    // Configure client with instrumentation
+    opts := []kgo.Opt{
+        kgo.SeedBrokers(brokers...),
+        kgo.ConsumerGroup(group),
+        kgo.WithHooks(tracer.Hooks()),
+    }
+
+    // Add record production hook (optional)
+    opts = append(opts, kgo.WithProduceBatchInterceptor(
+        kotel.NewProduceBatchInterceptor(tracer),
+    )
+
+    return kgo.NewClient(opts...)
+}
+
+// Producer usage
+func (s *Service) produceMessage(ctx context.Context, topic, msg string) {
+    record := &kgo.Record{
+        Topic: topic,
+        Value: []byte(msg),
+        Headers: []kgo.RecordHeader{
+            // Context automatically injected via hooks!
+        },
+    }
+
+    s.kafkaClient.Produce(ctx, record, func(r *kgo.Record, err error) {
+        // Span automatically ends after produce callback
+    })
+}
+
+// Consumer usage
+func (s *Service) consumeMessages(ctx context.Context) {
+    for {
+        fetches := s.kafkaClient.PollFetches(ctx)
+        fetches.EachRecord(func(r *kgo.Record) {
+            // New span automatically created per message
+            processMessage(ctx, r)
+        })
+    }
+}
+```
+
+---
+
 ![Trace All](images/trace_all.png)
 
 ---
 
 ![Trace Detailed](images/trace_detailed.png)
+
+
+---
+
+## Metrics
+
+- Typically numerical data
+ - state/behaviour
+ - monitoring/alerting
+
+---
+
+- Time series data
+ - collected over time
+- Analyze trends/changes
+
+---
+
+- visualise using Grafana
+ - query using PromQL
+
+---
+
+## Metric Types
+
+- Counters: for tracking ever-increasing values, like the total number of exceptions thrown.
+- Gauges: for measuring fluctuating values, such as current CPU usage.
+- Histograms: for observing the distribution of values within predefined buckets.
+- Summaries: for calculating quantiles (percentiles) of observed values.
+
+---
+
+## Metric Model
+
+- Name: A descriptive name like http_requests_total or cpu_usage_seconds_total
+- Labels: Key-value pairs that provide context and allow you to filter and aggregate data across multiple dimensions
+- Timestamp: The time at which the data point was collected
+- Value: The actual numerical value of the metric at that timestamp
+
+---
+
+## Metrics & Otel
+
+- metrics and traces can be correlated
+ - via exemplar
+
+---
+
+## Exemplar
+
+Otel context to a metric event -> connect to a trace signal
+
+---
+
+- (optional) The trace associated with a recording (trace_id, span_id)
+- The time of the observation (time_unix_nano)
+- The recorded value (value)
+- A set of filtered attributes (filtered_attributes)
+  - additional insight into the Context
 
 ---
 
@@ -415,18 +640,8 @@ func main() {
     shutdownFuncs = append(shutdownFuncs, mp.Shutdown)
 
     // Rest of the code ...
-
 }
 ```
-
----
-
-## Metric Types
-
-- histogram
-- counter
-- guage
-- summary
 
 ---
 
@@ -506,21 +721,21 @@ import (
 )
 
 func NewLogger() *slog.Logger {
-	var handler slog.Handler
-	if os.Getenv("EXAMPLE_ENVIRONMENT") == "local" {
-		stdoutHandler := tint.NewHandler(os.Stdout, &tint.Options{
-			AddSource:  true,
-			TimeFormat: time.Kitchen,
-		})
-		otelHandler := otelslog.NewHandler("user-service", otelslog.WithSource(true))
-		handler = slogmulti.Fanout(stdoutHandler, otelHandler)
-	} else {
-		handler = otelslog.NewHandler("user-service", otelslog.WithSource(true))
-	}
+    var handler slog.Handler
+    if os.Getenv("EXAMPLE_ENVIRONMENT") == "local" {
+        stdoutHandler := tint.NewHandler(os.Stdout, &tint.Options{
+            AddSource:  true,
+            TimeFormat: time.Kitchen,
+        })
+        otelHandler := otelslog.NewHandler("user-service", otelslog.WithSource(true))
+        handler = slogmulti.Fanout(stdoutHandler, otelHandler)
+    } else {
+        handler = otelslog.NewHandler("user-service", otelslog.WithSource(true))
+    }
 
-	handler = slogotel.OtelHandler{Next: handler}
-	logger := slog.New(handler)
-	return logger
+    handler = slogotel.OtelHandler{Next: handler}
+    logger := slog.New(handler)
+    return logger
 }
 ```
 
@@ -576,169 +791,6 @@ traceProvider := trace.NewTracerProvider(
 
 ---
 
-## Postgres
-
-```bash
-go get github.com/exaring/otelpgx
-```
-
----
-
-```go{6}
-func NewPool(ctx context.Context, uri string) (*pgxpool.Pool, error) {
-	pgxConfig, err := pgxpool.ParseConfig(uri)
-	if err != nil {
-		return nil, fmt.Errorf("failed to parse db URI: %w", err)
-	}
-	pgxConfig.ConnConfig.Tracer = otelpgx.NewTracer()
-
-	pool, err := pgxpool.NewWithConfig(ctx, pgxConfig)
-	if err != nil {
-		return nil, fmt.Errorf("failed to setup database: %w", err)
-	}
-
-	return pool, err
-}
-```
-
----
-
-## Valkey
-
-```bash
-go get github.com/redis/go-redis/extra/redisotel/v9
-```
-
----
-
-```go{9}
-func NewRedisClient(address string, retries int) (Client, error) {
-	r := redis.NewClient(&redis.Options{
-		Addr:       address,
-		Password:   "",
-		DB:         0,
-		MaxRetries: retries,
-	})
-
-    err := redisotel.InstrumentTracing(r)
-	if  err != nil {
-		return Client{}, err
-	}
-
-	return Client{
-		Redis:       r,
-		Subscribers: map[string]*redis.PubSub{},
-	}, nil
-}
-```
-
----
-
-## HTTP Client
-
-```bash
-go get go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp
-```
-
----
-
-```go{1-3|5-8|10-14|16-19|21-23}
-
-func NewHTTPClient() *http.Client {
-    // Wrap default transport with OTel instrumentation
-    transport := otelhttp.NewTransport(
-        http.DefaultTransport,
-        otelhttp.WithSpanNameFormatter(func(operation string, r *http.Request) string {
-            return fmt.Sprintf("%s %s", r.Method, r.URL.Path)
-        }),
-    )
-
-    return &http.Client{
-        Transport: transport,
-        Timeout:   5 * time.Second,
-    }
-}
-
-func (s *Service) callExternalAPI(ctx context.Context) {
-    client := NewHTTPClient()
-    req, _ := http.NewRequestWithContext(ctx, "GET", "https://api.example.com/data", nil)
-
-    // Trace context automatically injected!
-    resp, err := client.Do(req)
-
-    // ... handle response ...
-}
-```
-
-
----
-
-## Kafka
-
-```bash
-go get github.com/twmb/franz-go \
-     github.com/twmb/franz-go/plugin/kotel
-```
-
----
-
-```go
-import (
-	"github.com/twmb/franz-go/pkg/kgo"
-	"github.com/twmb/franz-go/plugin/kotel"
-)
-
-// Initialize instrumented Kafka client
-func NewKafkaClient(brokers []string, group string) (*kgo.Client, error) {
-    // Create Kotel tracer
-    tracer := kotel.NewTracer(
-        kotel.WithTracerProvider(otel.GetTracerProvider()),
-    )
-
-    // Configure client with instrumentation
-    opts := []kgo.Opt{
-        kgo.SeedBrokers(brokers...),
-        kgo.ConsumerGroup(group),
-        kgo.WithHooks(tracer.Hooks()), // Instrumentation hook
-    }
-
-    // Add record production hook (optional)
-    opts = append(opts, kgo.WithProduceBatchInterceptor(
-        kotel.NewProduceBatchInterceptor(tracer),
-    )
-
-    return kgo.NewClient(opts...)
-}
-
-// Producer usage
-func (s *Service) produceMessage(ctx context.Context, topic, msg string) {
-    record := &kgo.Record{
-        Topic: topic,
-        Value: []byte(msg),
-        Headers: []kgo.RecordHeader{
-            // Context automatically injected via hooks!
-        },
-    }
-
-    s.kafkaClient.Produce(ctx, record, func(r *kgo.Record, err error) {
-        // Span automatically ends after produce callback
-    })
-}
-
-// Consumer usage
-func (s *Service) consumeMessages(ctx context.Context) {
-    for {
-        fetches := s.kafkaClient.PollFetches(ctx)
-        fetches.EachRecord(func(r *kgo.Record) {
-            // New span automatically created per message
-            processMessage(ctx, r)
-        })
-    }
-}
-```
-
----
-
 ## LGTM Stack
 
 - Loki: logs
@@ -750,7 +802,7 @@ func (s *Service) consumeMessages(ctx context.Context) {
 
 ## docker-compose.yml
 
-```yaml
+```yaml{3-18|20-30|31-42|44-51|60-70}
 services:
 
   otel-collector:
@@ -824,7 +876,7 @@ volumes:
 
 ## Tempo Config
 
-```yaml
+```yaml{2-3|10}
 server:
   http_listen_port: 3200
   grpc_listen_port: 9096
@@ -861,7 +913,7 @@ storage:
 
 ## Mimir Config
 
-```yaml
+```yaml{42}
 # Single-binary Mimir config
 target: all
 multitenancy_enabled: false
@@ -919,7 +971,7 @@ usage_stats:
 
 ## Loki Config
 
-```yaml
+```yaml{4-5}
 auth_enabled: false
 
 server:
@@ -1009,7 +1061,7 @@ service:
 
 ## Setup Grafana
 
-```yaml
+```yaml{3-7|9-13|15-19}
 apiVersion: 1
 datasources:
   - name: Prometheus
