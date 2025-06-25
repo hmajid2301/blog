@@ -12,6 +12,9 @@
 {{- $pageTitle = printf "%s | %s" .Title $pageTitle }}
 {{- end }}
 <title>{{ $pageTitle }}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 {{- /* Meta */}}
 {{- if .IsHome }}
 {{ with site.Params.keywords -}}<meta name="keywords" content="{{- range $i, $e := . }}{{ if $i }}, {{ end }}{{ $e }}{{ end }}">{{ end }}

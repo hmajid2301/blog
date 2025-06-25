@@ -71,3 +71,7 @@ there was no `sr-only`. So I still don't know why this fixed anything. Will need
 - The  GitLab dependency proxy doesn't work for personal projects, they need to be in a group i.e. not hmajid2301/voxicle but voxicle/voxicle
 
 ## ⏭️ Next Build Log Objectives
+
+- Finish the setting page
+- Improve observability
+  - Send data to LGTM Grafana Cloud

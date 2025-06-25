@@ -199,18 +199,26 @@ tracestate: mycompany=true
 
 - Think of spans as a directed acylic graph (DAG) to each other
 
-```mermaid
-graph LR
-    A[Frontend] --> B[User Service]
-    B --> C[Postgres]
-    B --> D[Redis]
-    B --> E[Email Service]
-```
-
 ---
 
 ## Image
 
+
+![Flowchart](images/service_flowchart.png)
+
+{{% note %}}
+```mermaid
+---
+config:
+  theme: redux-dark
+  layout: dagre
+  look: handDrawn
+---
+flowchart LR
+    A["Frontend"] --> B["User Service"]
+    B --> C["Postgres"] & D["Redis"] & E["Email Service"]
+```
+{{% /note %}}
 
 ---
 
@@ -218,17 +226,17 @@ graph LR
 
 ```bash
 go get go.opentelemetry.io/otel \
-         go.opentelemetry.io/otel/trace \
-         go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp \
-         go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp \
-         go.opentelemetry.io/otel/sdk/resource \
-         go.opentelemetry.io/otel/sdk/trace \
-         go.opentelemetry.io/otel/semconv/v1.26.0
+ go.opentelemetry.io/otel/trace \
+ go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp \
+ go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp \
+ go.opentelemetry.io/otel/sdk/resource \
+ go.opentelemetry.io/otel/sdk/trace \
+ go.opentelemetry.io/otel/semconv/v1.26.0
 ```
 
 ---
 
-```go{24-32|34-36|38-42|44-45|48-49|51-59|61-71}
+```go{24-32|34-36|38-42|44-47|51-52|53-61|63-73}
 package main
 
 import (
@@ -272,7 +280,10 @@ func main() {
         return shutdown, err
     }
 
-    shutdownFuncs = append(shutdownFuncs, tracerProvider.Shutdown)
+    shutdownFuncs = append(
+        shutdownFuncs,
+        tracerProvider.Shutdown
+    )
     return shutdownFuncs, nil
 }
 
@@ -342,6 +353,37 @@ func main() {
 
 ## Custom Trace
 
+```go{2-3|6-8|11|13|15|17|21-25}
+func getUser(ctx context.Context, userID string) (*User, error) {
+	ctx, span := otel.Tracer("user-service")
+                     .Start(ctx, "getUser")
+	defer span.End()
+
+	span.SetAttributes(
+        attribute.String("user.id", userID)
+    )
+
+	user, err := dbFetch(ctx, userID)
+	if err != nil {
+		if errors.Is(err, ErrNotFound) {
+			span.SetStatus(codes.Error, "user not found")
+		} else {
+			span.SetStatus(codes.Error, "database error")
+		}
+		span.RecordError(err)
+		return nil, err
+	}
+
+	if user.Premium {
+		span.SetAttributes(
+            attribute.Bool("user.premium", true)
+        )
+	}
+
+	return user, nil
+}
+```
+
 ---
 
 ## Postgres
@@ -405,19 +447,23 @@ func NewRedisClient(address string, retries int) (Client, error) {
 ## HTTP Client
 
 ```bash
-go get go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp
+go get \
+ go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp
 ```
 
 ---
 
-```go{1-3|5-8|10-14|16-19|21-23}
-
+```go{2|4|5-6|7-9|21-27|30}
 func NewHTTPClient() *http.Client {
-    // Wrap default transport with OTel instrumentation
     transport := otelhttp.NewTransport(
         http.DefaultTransport,
-        otelhttp.WithSpanNameFormatter(func(operation string, r *http.Request) string {
-            return fmt.Sprintf("%s %s", r.Method, r.URL.Path)
+        otelhttp.WithSpanNameFormatter(
+        func(operation string, r *http.Request)
+        string {
+            return fmt.Sprintf("%s %s",
+                        r.Method,
+                        r.URL.Path,
+            )
         }),
     )
 
@@ -429,7 +475,12 @@ func NewHTTPClient() *http.Client {
 
 func (s *Service) callExternalAPI(ctx context.Context) {
     client := NewHTTPClient()
-    req, _ := http.NewRequestWithContext(ctx, "GET", "https://api.example.com/data", nil)
+    req, _ := http.NewRequestWithContext(
+        ctx,
+        "GET",
+        "https://api.example.com/data",
+        nil,
+    )
 
     // Trace context automatically injected!
     resp, err := client.Do(req)
@@ -449,27 +500,25 @@ go get github.com/twmb/franz-go \
 
 ---
 
-```go
+```go{7-11|16|31|35-37|43-47}
 import (
 	"github.com/twmb/franz-go/pkg/kgo"
 	"github.com/twmb/franz-go/plugin/kotel"
 )
 
-// Initialize instrumented Kafka client
 func NewKafkaClient(brokers []string, group string) (*kgo.Client, error) {
-    // Create Kotel tracer
     tracer := kotel.NewTracer(
-        kotel.WithTracerProvider(otel.GetTracerProvider()),
+        kotel.WithTracerProvider(
+            otel.GetTracerProvider(),
+        ),
     )
 
-    // Configure client with instrumentation
     opts := []kgo.Opt{
         kgo.SeedBrokers(brokers...),
         kgo.ConsumerGroup(group),
         kgo.WithHooks(tracer.Hooks()),
     }
 
-    // Add record production hook (optional)
     opts = append(opts, kgo.WithProduceBatchInterceptor(
         kotel.NewProduceBatchInterceptor(tracer),
     )
@@ -477,7 +526,6 @@ func NewKafkaClient(brokers []string, group string) (*kgo.Client, error) {
     return kgo.NewClient(opts...)
 }
 
-// Producer usage
 func (s *Service) produceMessage(ctx context.Context, topic, msg string) {
     record := &kgo.Record{
         Topic: topic,
@@ -492,7 +540,6 @@ func (s *Service) produceMessage(ctx context.Context, topic, msg string) {
     })
 }
 
-// Consumer usage
 func (s *Service) consumeMessages(ctx context.Context) {
     for {
         fetches := s.kafkaClient.PollFetches(ctx)
@@ -657,6 +704,51 @@ func main() {
 
 ---
 
+## Custom Metrics
+
+---
+
+## HTTP Metrics
+
+---
+
+## Logs
+
+- Debugging
+- What happened
+
+---
+
+> "If you didn't log it, it didn't happen"
+
+---
+
+## Why OTel & Logging?
+
+- Context Propagation: Attach trace context to logs
+- Correlation: Link logs directly to traces
+- Unified Schema: Consistent attributes across signals
+- Reduced Overhead: Single instrumentation pipeline
+
+---
+
+## Example Log
+
+```json{5-6}
+{
+  "time": "2023-10-05T12:34:56Z",
+  "level": "ERROR",
+  "msg": "Failed to get user",
+  "trace_id": "d4cda95b652f4a1592b449d5929fda1b",
+  "span_id": "6e0c63257de34c92",
+  "user_id": "12345",
+  "service.name": "user-service",
+  "error": "record not found"
+}
+```
+
+---
+
 ## Instrument logs
 
 ```go{1-4|5-8|10-14|16-17}
@@ -722,7 +814,7 @@ import (
 
 func NewLogger() *slog.Logger {
     var handler slog.Handler
-    if os.Getenv("EXAMPLE_ENVIRONMENT") == "local" {
+    if os.Getenv("ENVIRONMENT") == "local" {
         stdoutHandler := tint.NewHandler(os.Stdout, &tint.Options{
             AddSource:  true,
             TimeFormat: time.Kitchen,
@@ -751,7 +843,28 @@ func NewLogger() *slog.Logger {
 
 ## Resources
 
-```go
+- Attributes to include in all OTel data
+
+---
+
+## Resources
+
+- Example: Container in k8s
+  - process name
+  - namespace
+  - deployment name
+
+---
+
+```bash
+OTEL_RESOURCE_ATTRIBUTES="service.namespace=tutorial,service.version=1.0"
+```
+
+---
+
+## Resources
+
+```go{|6-7}
 res, err := resource.New(
     ctx,
     resource.WithHost(),
@@ -784,16 +897,33 @@ traceProvider := trace.NewTracerProvider(
     trace.WithBatcher(traceExporter,
         trace.WithBatchTimeout(time.Second),
     ),
-    trace.WithSpanProcessor(sentrySp),
     trace.WithResource(res),
 )
 ```
 
 ---
 
+## semcov
+
+- Semantic Convention
+  - common attributes
+  - collecting, producing and consuming
+
+---
+
+## semcov
+
+```bash
+http.user_agent
+http.request_content_length
+http.response_content_length
+```
+
+---
+
 ## LGTM Stack
 
-- Loki: logs
+- Loki: Logs
 - Grafana: Visualisation
 - Tempo: Traces
 - Mimir: Metrics backend
@@ -802,21 +932,25 @@ traceProvider := trace.NewTracerProvider(
 
 ## docker-compose.yml
 
-```yaml{3-18|20-30|31-42|44-51|60-70}
+```yaml{2-20|21-30|32-43|45-52|61-71}
 services:
-
-  otel-collector:
-    image: otel/opentelemetry-collector-contrib:0.123.0
+  alloy:
+    image: grafana/alloy:v1.9.1
     profiles:
       - monitoring
+    command:
+      [
+        "run",
+        "--server.http.listen-addr=0.0.0.0:12345",
+        "--storage.path=/var/lib/alloy/data",
+        "/etc/alloy/config.alloy",
+      ]
     ports:
       - 4317:4317
       - 4318:4318
-      - 1888:1888
-      - 8888:8888
-      - 8889:8889
+      - 12345:12345
     volumes:
-      - ./docker/otelcol.yaml:/etc/otelcol-contrib/config.yaml
+      - ./docker/config.alloy:/etc/alloy/config.alloy
     depends_on:
       - tempo
       - loki
@@ -1016,45 +1150,79 @@ ruler:
 ## OTel collector
 
 - observability pipelines
-- convert between otel and others
+- convert between formats
   - export prometheus metrics
 
 ---
 
-## otel-collector.yaml
+## Alloy
 
-```yaml{4-5|11-14|15-16|26-29|31-33}
-receivers:
-  otlp:
-    protocols:
-      grpc:
-        endpoint: 0.0.0.0:4317
-      http:
-        endpoint: 0.0.0.0:4318
+- UI
+- Grafana stack
 
-exporters:
-  otlphttp:
-    endpoint: http://tempo:4418
-    tls:
-      insecure: true
+---
 
-  prometheusremotewrite:
-    endpoint: http://mimir:9009/api/v1/push
+## Alloy UI
 
-  loki:
-    endpoint: http://loki:3100/loki/api/v1/push
+![Alloy UI](images/alloy.png)
 
-service:
-  pipelines:
-    traces:
-      receivers: [otlp]
-      exporters: [otlphttp]
-    metrics:
-      receivers: [otlp]
-      exporters: [prometheusremotewrite]
-    logs:
-      receivers: [otlp]
-      exporters: [loki]
+---
+
+## config.alloy
+
+```alloy{4-5|11-14|15-16|26-29|31-33}
+otelcol.receiver.otlp "default" {
+  grpc {
+    endpoint = "0.0.0.0:4317"
+  }
+
+  http {
+    endpoint = "0.0.0.0:4318"
+  }
+
+  output {
+    metrics = [otelcol.processor.batch.default.input]
+    logs    = [otelcol.processor.batch.default.input]
+    traces  = [otelcol.processor.batch.default.input]
+  }
+}
+
+otelcol.processor.batch "default" {
+  output {
+    metrics = [otelcol.exporter.prometheus.default.input]
+    logs    = [otelcol.exporter.loki.default.input]
+    traces  = [otelcol.exporter.otlp.default.input]
+  }
+}
+
+otelcol.exporter.prometheus "default" {
+  forward_to = [prometheus.remote_write.default.receiver]
+}
+
+prometheus.remote_write "default" {
+  endpoint {
+    url = "http://mimir:8080/api/v1/push"
+  }
+}
+
+otelcol.exporter.loki "default" {
+  forward_to = [loki.write.default.receiver]
+}
+
+loki.write "default" {
+  endpoint {
+    url = "http://loki:3100/loki/api/v1/push"
+  }
+}
+
+otelcol.exporter.otlp "default" {
+  client {
+    endpoint = "tempo:4418"
+    tls {
+      insecure = true
+    }
+  }
+}
 ```
 
 ---
@@ -1097,6 +1265,16 @@ datasources:
 
 - High cardinality
   - 1 unique label value = 1 new time series
+
+---
+
+## Logging
+
+- over logging
+- logging PII
+- log levels
+  - print
+  - error
 
 ---
 
