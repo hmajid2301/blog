@@ -54,7 +54,12 @@
 
           git checkout -b "$SLUG"
           echo $SLUG
-          hugo new --kind post-bundle posts/$SLUG --date "$USER_DATE"
+          hugo new --kind post-bundle posts/$SLUG
+
+          POST_FILE="content/posts/$SLUG/index.md"
+          if [ -f "$POST_FILE" ]; then
+             sed -i "s/^date: .*/date: \"$USER_DATE\"/" "$POST_FILE"
+          fi
 
           echo "Creating OG for content/posts/$SLUG"
           task generate:og
