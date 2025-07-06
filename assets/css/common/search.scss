@@ -17,9 +17,11 @@
   @media (min-width: 640px) {
     padding: 1.5rem;
   }
+
   @media (min-width: 768px) {
     padding: 10vh;
   }
+
   @media (min-width: 1024px) {
     padding: 12vh;
   }
@@ -55,11 +57,11 @@
 }
 
 .search-icon {
-  display: flex; 
-  justify-content: center; 
-  align-items: center; 
-  width: 2rem; 
-  height: 2rem; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2rem;
+  height: 2rem;
   color: var(--primary-dim);
 }
 
@@ -104,20 +106,20 @@
   flex: 1 1 auto;
 }
 
-#search-button { 
+#search-button {
   font-size: 26px;
   margin: auto 4px;
 }
 
 .search-item-link {
-  display: flex; 
+  display: flex;
   padding-top: 0.5rem;
-  padding-bottom: 0.5rem; 
+  padding-bottom: 0.5rem;
   padding-left: 0.75rem;
-  padding-right: 0.75rem; 
-  align-items: center; 
-  border-radius: 0.375rem; 
-  appearance: none; 
+  padding-right: 0.75rem;
+  align-items: center;
+  border-radius: 0.375rem;
+  appearance: none;
 
   :hover {
     transition: background-color 0.05s ease;
@@ -126,30 +128,30 @@
 }
 
 .search-item {
-  border-radius:0.375rem;
+  border-radius: 0.375rem;
   padding-top: 0.5rem;
-  padding-bottom: 0.5rem; 
+  padding-bottom: 0.5rem;
   padding-left: 0.75rem;
-  padding-right: 0.75rem; 
+  padding-right: 0.75rem;
   flex-grow: 1;
   background: var(--code-bg);
 }
 
 .search-title {
-  margin-bottom: -0.25rem; 
+  margin-bottom: -0.25rem;
   font-size: 1.125rem;
-  line-height: 1.75rem; 
-  font-weight: 700; 
+  line-height: 1.75rem;
+  font-weight: 700;
 }
 
 .search-date {
   font-size: 0.875rem;
-  line-height: 1.25rem; 
+  line-height: 1.25rem;
   color: var(--primary-dim);
 }
 
 .search-summary {
   font-size: 0.875rem;
-  line-height: 1.25rem; 
-  font-style: italic; 
+  line-height: 1.25rem;
+  font-style: italic;
 }

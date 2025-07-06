@@ -43,8 +43,9 @@
 {{- $media := (resources.Get "css/core/zmedia.css") }}
 {{- $common := (resources.Match "css/common/*.css") | resources.Concat "assets/css/common.css" }}
 {{- $commonHighlight := (resources.Get "css/common/highlight.scss") | css.Sass }}
+{{- $search := (resources.Get "css/common/search.scss") | css.Sass }}
 {{- /* order is important */}}
-{{- $core := (slice $theme_vars $reset $common $commonHighlight $media) | resources.Concat "assets/css/core.css" }}
+{{- $core := (slice $theme_vars $reset $common $commonHighlight $media $search) | resources.Concat "assets/css/core.css" }}
 {{- $extended := (resources.Match "css/extended/*.css") | resources.Concat "assets/css/extended.css" }}
 {{- $extendedScss := (resources.Match "css/extended/*.scss") | resources.Concat "assets/css/extended.scss" | css.Sass }}
 {{- /* bundle all required css */}}
