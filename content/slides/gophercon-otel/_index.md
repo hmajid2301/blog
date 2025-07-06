@@ -32,19 +32,18 @@ slide_number = true
 - Instrument existing app
 
 {{% note %}}
-- a
 {{% /note %}}
 
 ---
 
-## What is observability?
+## What is Observability?
 
 - What is going on with our app
 - Is something wrong?
 
 ---
 
-## What is observability?
+## What is Observability?
 
 - Logs
 - Traces
@@ -91,9 +90,8 @@ slide_number = true
 
 ---
 
-## What do we want?
 
-
+<iframe width="900" height="450" src="https://www.youtube-nocookie.com/embed/Aq6XMWdb5mU?si=RokanbfYt80KMN0v" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 ---
 
@@ -123,7 +121,7 @@ func main() {
 }
 
 func (h *Handler) userHandler(w http.ResponseWriter, r *http.Request) {
-    id := r.URL.Query().Get("id")
+    id := r.PathValue("id")
     // Validation logic ...
 
     // Interact with the DB.
@@ -136,17 +134,18 @@ func (h *Handler) userHandler(w http.ResponseWriter, r *http.Request) {
 
 ---
 
-## Definition
-
-- Trace: Follow the flow of an application, triggered by something i.e. a user presses a button
-- Span: A single component in the trace
+![Trace All](images/trace_all.png)
 
 ---
 
-## What is (distributed) tracing?
+![Trace Detailed](images/trace_detailed.png)
+
+---
+
+## What is Tracing?
 
 - Caused by a single action
-- Contains information acrosses different components
+- Components:
   - Services
   - DBs
   - Events
@@ -159,6 +158,11 @@ func (h *Handler) userHandler(w http.ResponseWriter, r *http.Request) {
 - Start and finish timestamp
 - Attributes
   - key-value pairs
+
+---
+
+## Span
+
 - A set of events
 - Parent span ID
 - Links to other spans
@@ -195,14 +199,11 @@ tracestate: mycompany=true
 
 ---
 
-## Span
+## Span(s)
 
 - Think of spans as a directed acylic graph (DAG) to each other
 
 ---
-
-## Image
-
 
 ![Flowchart](images/service_flowchart.png)
 
@@ -236,7 +237,7 @@ go get go.opentelemetry.io/otel \
 
 ---
 
-```go{24-32|34-36|38-42|44-47|51-52|53-61|63-73}
+```go{20-21|23-26|29-31|34-40|43}
 package main
 
 import (
@@ -255,37 +256,6 @@ import (
 	semconv "go.opentelemetry.io/otel/semconv/v1.26.0"
 )
 
-
-func main() {
-    // Initialize tracer
-    ctx := context.Background()
-
-    var shutdownFuncs []func(context.Context) error
-    shutdown = func(ctx context.Context) error {
-        var err error
-        for _, fn := range shutdownFuncs {
-            err = errors.Join(err, fn(ctx))
-        }
-        shutdownFuncs = nil
-        return err
-    }
-
-    handleErr := func(inErr error) {
-        err = errors.Join(inErr, shutdown(ctx))
-    }
-
-    tp, err := newTracerProvider(ctx)
-    if err != nil {
-        handleErr(err)
-        return shutdown, err
-    }
-
-    shutdownFuncs = append(
-        shutdownFuncs,
-        tracerProvider.Shutdown
-    )
-    return shutdownFuncs, nil
-}
 
 func newTracerProvider(ctx context.Context)
     (*trace.TracerProvider, error) {
@@ -333,11 +303,12 @@ baggage: userId=12345,role=admin,region=us-east
 
 ---
 
-```go{3|4|9}
+```go{4|5|10}
 func main() {
 	// Initialize tracer
-	shutdown := initTracer()
-	defer shutdown(context.Background())
+    ctx := context.Background()
+	tp, err := newTracerProvider(ctx)
+	defer tp.Shutdown(ctx)
 
     // Previous code ...
 
@@ -347,6 +318,21 @@ func main() {
 	r.HandleFunc("/user/{id}", h.userHandler).Methods("GET")
     // Rest of the code ...
 }
+```
+
+---
+
+## ctx
+
+- Inject `traceID` and `spanID` into `ctx`
+
+---
+
+## ctx
+
+```go
+span := trace.SpanFromContext(ctx)
+baggage := baggage.FromContext(ctx)
 ```
 
 ---
@@ -413,7 +399,7 @@ func NewPool(ctx context.Context, uri string) (*pgxpool.Pool, error) {
 
 ---
 
-## Valkey
+## Redis
 
 ```bash
 go get github.com/redis/go-redis/extra/redisotel/v9
@@ -500,7 +486,7 @@ go get github.com/twmb/franz-go \
 
 ---
 
-```go{7-11|16|31|35-37|43-47}
+```go{7-11|16|30-32|35-37|43-47}
 import (
 	"github.com/twmb/franz-go/pkg/kgo"
 	"github.com/twmb/franz-go/plugin/kotel"
@@ -551,14 +537,6 @@ func (s *Service) consumeMessages(ctx context.Context) {
 }
 ```
 
----
-
-![Trace All](images/trace_all.png)
-
----
-
-![Trace Detailed](images/trace_detailed.png)
-
 
 ---
 
@@ -581,10 +559,27 @@ func (s *Service) consumeMessages(ctx context.Context) {
 
 ---
 
+## Metric
+
+![Metric One](images/metric_one.png)
+
+---
+
+## Metric
+
+![Metric Two](images/metric_two.png)
+
+---
+
 ## Metric Types
 
 - Counters: for tracking ever-increasing values, like the total number of exceptions thrown.
 - Gauges: for measuring fluctuating values, such as current CPU usage.
+
+---
+
+## Metric Types
+
 - Histograms: for observing the distribution of values within predefined buckets.
 - Summaries: for calculating quantiles (percentiles) of observed values.
 
@@ -592,31 +587,17 @@ func (s *Service) consumeMessages(ctx context.Context) {
 
 ## Metric Model
 
-- Name: A descriptive name like http_requests_total or cpu_usage_seconds_total
-- Labels: Key-value pairs that provide context and allow you to filter and aggregate data across multiple dimensions
+- Name: A descriptive name like http_requests_total
+
+- Labels: Key-value pairs that provide context
+
+---
+
+## Metric Model
+
 - Timestamp: The time at which the data point was collected
+
 - Value: The actual numerical value of the metric at that timestamp
-
----
-
-## Metrics & Otel
-
-- metrics and traces can be correlated
- - via exemplar
-
----
-
-## Exemplar
-
-Otel context to a metric event -> connect to a trace signal
-
----
-
-- (optional) The trace associated with a recording (trace_id, span_id)
-- The time of the observation (time_unix_nano)
-- The recorded value (value)
-- A set of filtered attributes (filtered_attributes)
-  - additional insight into the Context
 
 ---
 
@@ -684,7 +665,7 @@ func main() {
     if err != nil {
         log.Fatalf("failed to setup meter: %v", err)
     }
-    shutdownFuncs = append(shutdownFuncs, mp.Shutdown)
+    defer mp.Shutdown(ctx)
 
     // Rest of the code ...
 }
@@ -692,23 +673,112 @@ func main() {
 
 ---
 
-## Metric
+## Middleware
 
-![Metric One](images/metric_one.png)
+```go{28-32|89-91}
+package middleware
 
----
+import (
+	"net/http"
+	"strings"
+	"sync"
+	"time"
 
-## Metric
+	"go.opentelemetry.io/otel"
+	"go.opentelemetry.io/otel/attribute"
+	"go.opentelemetry.io/otel/metric"
+	semconv "go.opentelemetry.io/otel/semconv/v1.26.0"
+)
 
-![Metric Two](images/metric_two.png)
+var (
+	metricsOnce  sync.Once
+	requestCount metric.Int64Counter
+	latencyHist  metric.Float64Histogram
+	requestSize  metric.Int64Histogram
+	responseSize metric.Int64Histogram
+)
 
----
+func (m Middleware) Metrics(next http.Handler) http.Handler {
+    metricsOnce.Do(func() {
+        meter := otel.GetMeterProvider().Meter("http.metrics")
 
-## Custom Metrics
+        var err error
+        requestCount, err = meter.Int64Counter(
+            "http.server.request_count",
+            metric.WithUnit("1"),
+            metric.WithDescription("Number of HTTP requests"),
+        )
+        if err != nil {
+            otel.Handle(err)
+        }
 
----
+        latencyHist, err = meter.Float64Histogram(
+            "http.server.duration",
+            metric.WithUnit("ms"),
+            metric.WithDescription("HTTP request duration"),
+        )
+        if err != nil {
+            otel.Handle(err)
+        }
 
-## HTTP Metrics
+        requestSize, err = meter.Int64Histogram(
+            "http.server.request.size",
+            metric.WithUnit("By"),
+            metric.WithDescription("Request body size"),
+        )
+        if err != nil {
+            otel.Handle(err)
+        }
+
+        responseSize, err = meter.Int64Histogram(
+            "http.server.response.size",
+            metric.WithUnit("By"),
+            metric.WithDescription("Response body size"),
+        )
+        if err != nil {
+            otel.Handle(err)
+        }
+    })
+
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		path := r.URL.Path
+		if strings.HasPrefix(path, "/static") || path == "/readiness" || path == "/health" {
+			next.ServeHTTP(w, r)
+			return
+		}
+
+		start := time.Now()
+		ww := wrapResponseWriter(w)
+		next.ServeHTTP(ww, r)
+
+		duration := time.Since(start).Milliseconds()
+		statusCode := ww.Status()
+		if statusCode == 0 {
+			statusCode = http.StatusOK
+		}
+
+		attrs := []attribute.KeyValue{
+			semconv.HTTPRequestMethodKey.String(r.Method),
+			semconv.HTTPResponseStatusCode(statusCode),
+			semconv.HTTPRoute(r.URL.EscapedPath()),
+		}
+
+		ctx := r.Context()
+		if requestCount != nil {
+			requestCount.Add(ctx, 1, metric.WithAttributes(attrs...))
+		}
+		if latencyHist != nil {
+			latencyHist.Record(ctx, float64(duration), metric.WithAttributes(attrs...))
+		}
+		if requestSize != nil && r.ContentLength >= 0 {
+			requestSize.Record(ctx, r.ContentLength, metric.WithAttributes(attrs...))
+		}
+		if responseSize != nil {
+			responseSize.Record(ctx, int64(ww.size), metric.WithAttributes(attrs...))
+		}
+	})
+}
+```
 
 ---
 
@@ -767,7 +837,7 @@ func newLoggerProvider(
         log.WithProcessor(processor),
     )
 
-    global.SetLoggerProvider(gp)
+    global.SetLoggerProvider(lp)
     return lp, nil
 }
 ```
@@ -788,7 +858,7 @@ func main() {
     if err != nil {
         log.Fatalf("failed to setup lp: %v", err)
     }
-    shutdownFuncs = append(shutdownFuncs, mp.Shutdown)
+    defer lp.Shutdown(ctx)
 
     // Rest of the code ...
 }
@@ -807,7 +877,6 @@ import (
 	"time"
 
 	"github.com/lmittmann/tint"
-	slogotel "github.com/remychantenay/slog-otel"
 	slogmulti "github.com/samber/slog-multi"
 	"go.opentelemetry.io/contrib/bridges/otelslog"
 )
@@ -825,7 +894,6 @@ func NewLogger() *slog.Logger {
         handler = otelslog.NewHandler("user-service", otelslog.WithSource(true))
     }
 
-    handler = slogotel.OtelHandler{Next: handler}
     logger := slog.New(handler)
     return logger
 }
@@ -857,27 +925,24 @@ func NewLogger() *slog.Logger {
 ---
 
 ```bash
-OTEL_RESOURCE_ATTRIBUTES="service.namespace=tutorial,service.version=1.0"
+OTEL_RESOURCE_ATTRIBUTES="service.namespace=
+              tutorial,service.version=1.0"
 ```
 
 ---
 
 ## Resources
 
-```go{|6-7}
+```go{|5-7}
 res, err := resource.New(
     ctx,
     resource.WithHost(),
     resource.WithContainerID(),
     resource.WithAttributes(
-        semconv.ServiceNamespaceKey.String(environment),
+        semconv.DeploymentEnvironmentKey.String(environment),
         semconv.ServiceNameKey.String("user-service"),
     ),
 )
-if err != nil {
-    handleErr(err)
-    return shutdown, err
-}
 ```
 
 ---
@@ -932,7 +997,7 @@ http.response_content_length
 
 ## docker-compose.yml
 
-```yaml{2-20|21-30|32-43|45-52|61-71}
+```yaml{2-12||24-31|36-44|49-56|58-65|67-71}
 services:
   alloy:
     image: grafana/alloy:v1.9.1
@@ -1020,7 +1085,7 @@ distributor:
     otlp:
       protocols:
         http:
-          endpoint: "0.0.0.0:4418"
+          endpoint: "0.0.0.0:4318"
 
 ingester:
   trace_idle_period: 1s
@@ -1047,7 +1112,7 @@ storage:
 
 ## Mimir Config
 
-```yaml{42}
+```yaml{43}
 # Single-binary Mimir config
 target: all
 multitenancy_enabled: false
@@ -1170,7 +1235,7 @@ ruler:
 
 ## config.alloy
 
-```alloy{4-5|11-14|15-16|26-29|31-33}
+```json{1-8|10-14|18-22|25-27|29-33|35-37|39-43|45-51}
 otelcol.receiver.otlp "default" {
   grpc {
     endpoint = "0.0.0.0:4317"
@@ -1217,7 +1282,7 @@ loki.write "default" {
 
 otelcol.exporter.otlp "default" {
   client {
-    endpoint = "tempo:4418"
+    endpoint = "tempo:4317"
     tls {
       insecure = true
     }
@@ -1229,42 +1294,147 @@ otelcol.exporter.otlp "default" {
 
 ## Setup Grafana
 
-```yaml{3-7|9-13|15-19}
+```yaml{3-7|9-14|16-21|22-28|30-36|37-45}
 apiVersion: 1
 datasources:
   - name: Prometheus
+    uid: "prometheus"
     type: prometheus
     access: proxy
     url: http://mimir:9009/prometheus
     isDefault: true
+    jsonData:
+      httpMethod: POST
+      exemplarTraceIdDestinations:
+        - name: trace_id
+          datasourceUid: "tempo"
+          url: '${__value.raw}'
 
   - name: Loki
+    uid: "loki"
     type: loki
     access: proxy
     url: http://loki:3100
     isDefault: false
+    jsonData:
+      derivedFields:
+        - name: "🔍 View Trace"
+          matcherRegex: '"traceid":\s*"([0-9a-f]{32})"'
+          url: '$${__value.raw}'
+          datasourceUid: "tempo"
+          matcherType: regex
 
   - name: Tempo
+    uid: "tempo"
     type: tempo
     access: proxy
     url: http://tempo:3200
     isDefault: false
+    jsonData:
+      nodeGraph:
+        enabled: true
+      tracesToLogs:
+        datasourceUid: "loki"
+        spanStartTimeShift: '-5m'
+        spanEndTimeShift: '5m'
+        filterByTraceID: true
+      tracesToMetrics:
+        datasourceUid: "prometheus"
 ```
 
 ---
 
 ## Viewing an error
 
----
-
-## Correleated logs, metrics & traces
+![Logs Error](images/logs_errors.png)
 
 ---
 
-## Lessons learnt
+## Viewing an error
 
-- High cardinality
-  - 1 unique label value = 1 new time series
+![Logs Line](images/log_line.png)
+
+---
+
+## Viewing an error
+
+![Trace](images/trace.png)
+
+---
+
+## Logs -> Traces
+
+- Derived Values
+- Link: http://localhost:3000/connections/datasources/edit/loki
+
+---
+
+## Logs -> Traces
+
+![Derived Values](images/derived_values.png)
+
+---
+
+## Metrics -> Traces
+
+- Exemplar
+- Link: http://localhost:3000/connections/datasources/edit/prometheus
+
+---
+
+![Exemplar](images/exemplars.png)
+
+---
+
+## Exemplars
+
+Otel context to a metric event -> connect to a trace signal
+
+---
+
+- (optional) The trace associated with a recording (trace_id, span_id)
+- The time of the observation (time_unix_nano)
+- The recorded value (value)
+- A set of filtered attributes (filtered_attributes)
+  - additional insight into the Context
+
+---
+
+## OTLP Export
+
+```json
+metrics {
+  name: "http_request_duration_seconds"
+  histogram {
+    data_points {
+      buckets {
+        count: 12
+        exemplars {
+          value: 0.382
+          time_unix_nano: 1678901234000000000
+          span_id: "APBnoLoJArc="  // Base64-encoded span ID
+          trace_id: "S/kyNXezTaajzpKdDg5HNg=="  // Base64-encoded trace ID
+        }
+      }
+      explicit_bounds: [0.5, 1, 2]
+    }
+  }
+}
+```
+
+---
+
+## Traces -> Logs
+
+- trace to logs
+- trace to metrics
+- Link: http://localhost:3000/connections/datasources/edit/tempo
+
+---
+
+## Traces -> Logs
+
+![Trace to logs](images/trace_to_logs.png)
 
 ---
 
@@ -1286,6 +1456,15 @@ datasources:
 
 ---
 
+## Tracing
+
+- avoid PII
+- Sampling
+    - cost
+      - $0.50 per GB
+
+---
+
 ## Lessons learnt
 
 - trace-first approach
@@ -1294,6 +1473,8 @@ datasources:
 
 ## Metrics
 
+- High cardinality
+  - 1 unique label value = 1 new time series
 - Counter resets to 0
 
 ---
