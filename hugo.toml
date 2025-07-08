@@ -6,6 +6,7 @@ buildDrafts = false
 buildFuture = false
 buildExpired = false
 enableEmoji = true
+enableGitInfo = true
 ignorefiles = ["content/slides"]
 
 [markup.highlight]
@@ -34,6 +35,8 @@ ShowPostNavLinks = true
 ShowBreadCrumbs = true
 ShowCodeCopyButtons = true
 ShowWordCount = true
+ShowLastMod = true
+ShowGitRevision = true
 ShowRssButtonInSectionTermList = true
 UseHugoToc = true
 disableSpecial1stPost = false
@@ -45,6 +48,7 @@ showtoc = true
 tocopen = false
 SeriesOpen = false
 goatcounter = "haseebmajid"
+
 [params.assets]
 favicon = "/favicon.ico"
 favicon16x16 = "/favicon-16x16.png"
