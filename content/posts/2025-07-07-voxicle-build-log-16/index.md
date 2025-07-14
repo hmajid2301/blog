@@ -1,6 +1,6 @@
 ---
 title: Voxicle Build Log 16
-date: 2025-07-07
+date: 2025-07-21
 canonicalURL: https://haseebmajid.dev/posts/2025-07-07-voxicle-build-log-15
 tags:
   - voxicle
@@ -34,6 +34,8 @@ an alloy agent on my VPS. So we can send all of our OTLP data their and have con
 Started work on the settings page to allow the user to update various settings about the organization.
 Such as the name, logo and description.
 
+Added ways for user to change their org name, avatar and description.
+
 ## ✅ Wins
 
 - Learnt a lot more about OTLP observability
@@ -49,5 +51,3 @@ Such as the name, logo and description.
 ## ⏭️ Next Build Log Objectives
 
 - Finish the setting page
-- Improve observability
-  - Send data to LGTM Grafana Cloud

@@ -8,11 +8,14 @@ width = "5%"
 [reveal_hugo]
 custom_theme = "stylesheets/reveal/catppuccin.css"
 slide_number = true
+auto_play_media = true
 +++
 
 # Observability Made Painless: Go, Otel & LGTM Stack
 
-"No PhD required"
+{{% note %}}
+- LGTM: Loki, Grafana, Tempo, Mimir
+{{% /note %}}
 
 ---
 
@@ -75,13 +78,6 @@ slide_number = true
 
 ---
 
-## What is OTel?
-
-- CNCF-graduated project
-- Originally just for tracing
-
----
-
 ## Why use OTel?
 
 - Open Standard
@@ -90,14 +86,13 @@ slide_number = true
 
 ---
 
-
-<iframe width="900" height="450" src="https://www.youtube-nocookie.com/embed/Aq6XMWdb5mU?si=RokanbfYt80KMN0v" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+{{< slide background-iframe="https://www.youtube.com/embed/Aq6XMWdb5mU?si=RokanbfYt80KMN0v" >}}
 
 ---
 
 ## Example service
 
-```go{16-18|19-20|24-31}
+```go{16-18|20-21|28-35}
 package main
 
 import (
@@ -114,13 +109,17 @@ func main() {
     }
 
     r := mux.NewRouter()
-    r.HandleFunc("/user/{id}", h.userHandler).Methods("GET")
+    r.HandleFunc("/user/{id}", h.userHandler)
+    .Methods("GET")
 
     log.Println("Server starting on port 8080...")
     log.Fatal(http.ListenAndServe(":8080", r))
 }
 
-func (h *Handler) userHandler(w http.ResponseWriter, r *http.Request) {
+func (h *Handler) userHandler(
+    w http.ResponseWriter,
+    r *http.Request,
+) {
     id := r.PathValue("id")
     // Validation logic ...
 
@@ -134,11 +133,11 @@ func (h *Handler) userHandler(w http.ResponseWriter, r *http.Request) {
 
 ---
 
-![Trace All](images/trace_all.png)
+<img width="95%" height="auto" data-src="images/trace_all.png">
 
 ---
 
-![Trace Detailed](images/trace_detailed.png)
+<img width="75%" height="auto" data-src="images/trace_detailed.png">
 
 ---
 
@@ -161,7 +160,7 @@ func (h *Handler) userHandler(w http.ResponseWriter, r *http.Request) {
 
 ---
 
-## Span
+## Span (Cont..)
 
 - A set of events
 - Parent span ID
@@ -185,10 +184,12 @@ traceparent:
 tracestate: mycompany=true
 ```
 
-- trace-id: d4cda95b652f4a1592b449d5929fda1b
-- span-id: 6e0c63257de34c92
-- trace flags: 01
-- trace state: mycompany=true
+```
+trace-id: d4cda95b652f4a1592b449d5929fda1b
+span-id: 6e0c63257de34c92
+trace flags: 01
+trace state: mycompany=true
+```
 
 ---
 
@@ -205,7 +206,7 @@ tracestate: mycompany=true
 
 ---
 
-![Flowchart](images/service_flowchart.png)
+<img width="95%" height="auto" data-src="images/service_flowchart.png">
 
 {{% note %}}
 ```mermaid
@@ -227,12 +228,14 @@ flowchart LR
 
 ```bash
 go get go.opentelemetry.io/otel \
- go.opentelemetry.io/otel/trace \
- go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp \
- go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp \
- go.opentelemetry.io/otel/sdk/resource \
- go.opentelemetry.io/otel/sdk/trace \
- go.opentelemetry.io/otel/semconv/v1.26.0
+go.opentelemetry.io/otel/trace \
+go.opentelemetry.io/contrib/instrumentation/net/http/\
+otelhttp \
+go.opentelemetry.io/otel/exporters/otlp/otlptrace/\
+otlptracehttp \
+go.opentelemetry.io/otel/sdk/resource \
+go.opentelemetry.io/otel/sdk/trace \
+go.opentelemetry.io/otel/semconv/v1.26.0
 ```
 
 ---
@@ -262,7 +265,7 @@ func newTracerProvider(ctx context.Context)
     // Create OTLP exporter
     exporter, err := otlptracehttp.New(ctx)
     if err != nil {
-        return nil, fmt.Errorf("failed to create exporter: %w", err)
+        return nil, err
     }
 
     // Create trace provider
@@ -303,28 +306,22 @@ baggage: userId=12345,role=admin,region=us-east
 
 ---
 
-```go{4|5|10}
+```go{3|4|9-13}
 func main() {
-	// Initialize tracer
     ctx := context.Background()
-	tp, err := newTracerProvider(ctx)
-	defer tp.Shutdown(ctx)
+    tp, err := newTracerProvider(ctx)
+    defer tp.Shutdown(ctx)
 
     // Previous code ...
 
-	// Add OpenTelemetry middleware
-	r.Use(otelmux.Middleware("user-service"))
+    // Add OpenTelemetry middleware
+    r.Use(otelmux.Middleware("user-service"))
 
-	r.HandleFunc("/user/{id}", h.userHandler).Methods("GET")
+    r.HandleFunc("/user/{id}", h.userHandler)
+     .Methods("GET")
     // Rest of the code ...
 }
 ```
-
----
-
-## ctx
-
-- Inject `traceID` and `spanID` into `ctx`
 
 ---
 
@@ -339,8 +336,9 @@ baggage := baggage.FromContext(ctx)
 
 ## Custom Trace
 
-```go{2-3|6-8|11|13|15|17|21-25}
-func getUser(ctx context.Context, userID string) (*User, error) {
+```go{3-4|7-9|12|14|16|18|22-26}
+func getUser(ctx context.Context, userID string)
+(*User, error) {
 	ctx, span := otel.Tracer("user-service")
                      .Start(ctx, "getUser")
 	defer span.End()
@@ -434,7 +432,8 @@ func NewRedisClient(address string, retries int) (Client, error) {
 
 ```bash
 go get \
- go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp
+go.opentelemetry.io/contrib/instrumentation/net/http/\
+otelhttp
 ```
 
 ---
@@ -486,7 +485,7 @@ go get github.com/twmb/franz-go \
 
 ---
 
-```go{7-11|16|30-32|35-37|43-47}
+```go{7-11|16|30|33-37|43-45}
 import (
 	"github.com/twmb/franz-go/pkg/kgo"
 	"github.com/twmb/franz-go/plugin/kotel"
@@ -516,21 +515,20 @@ func (s *Service) produceMessage(ctx context.Context, topic, msg string) {
     record := &kgo.Record{
         Topic: topic,
         Value: []byte(msg),
-        Headers: []kgo.RecordHeader{
-            // Context automatically injected via hooks!
-        },
+        Headers: []kgo.RecordHeader{},
     }
 
-    s.kafkaClient.Produce(ctx, record, func(r *kgo.Record, err error) {
-        // Span automatically ends after produce callback
-    })
+    s.kafkaClient.Produce(ctx, record,
+        func(r *kgo.Record, err error) {
+            // Do stuff ...
+        }
+    )
 }
 
 func (s *Service) consumeMessages(ctx context.Context) {
     for {
         fetches := s.kafkaClient.PollFetches(ctx)
         fetches.EachRecord(func(r *kgo.Record) {
-            // New span automatically created per message
             processMessage(ctx, r)
         })
     }
@@ -548,40 +546,52 @@ func (s *Service) consumeMessages(ctx context.Context) {
 
 ---
 
+## Metrics (Cont...)
+
 - Time series data
  - collected over time
 - Analyze trends/changes
 
----
 
+{{% note %}}
 - visualise using Grafana
  - query using PromQL
+{{% /note %}}
 
 ---
 
-## Metric
-
-![Metric One](images/metric_one.png)
+<img width="90%" height="auto" data-src="images/metric_one.png">
 
 ---
 
-## Metric
-
-![Metric Two](images/metric_two.png)
+<img width="90%" height="auto" data-src="images/metric_two.png">
 
 ---
 
 ## Metric Types
 
-- Counters: for tracking ever-increasing values, like the total number of exceptions thrown.
-- Gauges: for measuring fluctuating values, such as current CPU usage.
+- Counters: for tracking ever-increasing values
+- Gauges: for measuring fluctuating values
+
+
+{{% note %}}
+counter: total number of requests
+
+guages: cpu usauge
+{{% /note %}}
 
 ---
 
-## Metric Types
+## Metric Types (Cont...)
 
 - Histograms: for observing the distribution of values within predefined buckets.
 - Summaries: for calculating quantiles (percentiles) of observed values.
+
+{{% note %}}
+counter: total number of requests
+
+guages: cpu usauge
+{{% /note %}}
 
 ---
 
@@ -593,7 +603,7 @@ func (s *Service) consumeMessages(ctx context.Context) {
 
 ---
 
-## Metric Model
+## Metric Model (Cont...)
 
 - Timestamp: The time at which the data point was collected
 
@@ -601,29 +611,28 @@ func (s *Service) consumeMessages(ctx context.Context) {
 
 ---
 
-## Instrument metrics
+## Install metrics
 
 ```bash
 go get go.opentelemetry.io/otel/metric \
-         go.opentelemetry.io/otel/sdk/metric \
-         go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetrichttp
+ go.opentelemetry.io/otel/sdk/metric \
+ go.opentelemetry.io/otel/exporters/otlp/otlpmetric/\
+ otlpmetrichttp
 ```
 
 ---
 
 ## Instrument metrics
 
-```go{1-2|4-9|11-15|17-22|24-29|32-33}
+```go{1-2|4-7|9-13|15-19|22-27|30-31}
 func newMeterProvider(ctx context.Context)
     (*sdkmetric.MeterProvider, error) {
 
-    // Create OTLP metric exporter
     exporter, err := otlpmetrichttp.New(ctx)
     if err != nil {
         return nil, err
     }
 
-    // Create meter provider
     mp := sdkmetric.NewMeterProvider(
         sdkmetric.WithReader(
             sdkmetric.NewPeriodicReader(exporter)
@@ -675,7 +684,7 @@ func main() {
 
 ## Middleware
 
-```go{28-32|89-91}
+```go{28-32|89-93}
 package middleware
 
 import (
@@ -704,9 +713,9 @@ func (m Middleware) Metrics(next http.Handler) http.Handler {
 
         var err error
         requestCount, err = meter.Int64Counter(
-            "http.server.request_count",
-            metric.WithUnit("1"),
-            metric.WithDescription("Number of HTTP requests"),
+        "http.server.request_count",
+        metric.WithUnit("1"),
+        metric.WithDescription("Number of requests"),
         )
         if err != nil {
             otel.Handle(err)
@@ -765,7 +774,9 @@ func (m Middleware) Metrics(next http.Handler) http.Handler {
 
 		ctx := r.Context()
 		if requestCount != nil {
-			requestCount.Add(ctx, 1, metric.WithAttributes(attrs...))
+            requestCount.Add(ctx, 1,
+                metric.WithAttributes(attrs...)
+            )
 		}
 		if latencyHist != nil {
 			latencyHist.Record(ctx, float64(duration), metric.WithAttributes(attrs...))
@@ -784,8 +795,11 @@ func (m Middleware) Metrics(next http.Handler) http.Handler {
 
 ## Logs
 
+
+{{% note %}}
 - Debugging
 - What happened
+{{% /note %}}
 
 ---
 
@@ -797,6 +811,11 @@ func (m Middleware) Metrics(next http.Handler) http.Handler {
 
 - Context Propagation: Attach trace context to logs
 - Correlation: Link logs directly to traces
+
+---
+
+## Why OTel & Logging (Cont...)?
+
 - Unified Schema: Consistent attributes across signals
 - Reduced Overhead: Single instrumentation pipeline
 
@@ -868,7 +887,7 @@ func main() {
 
 ## Instrument logs
 
-```go{8-11|16-22|23-25|27-29}
+```go{8-10|15-21|23|26-27}
 package telemetry
 
 import (
@@ -901,11 +920,11 @@ func NewLogger() *slog.Logger {
 
 ---
 
-![Output Logs](images/stdout_logs.png)
+<img width="80%" height="auto" data-src="images/stdout_logs.png">
 
 ---
 
-![Loki Logs](images/loki.png)
+<img width="70%" height="auto" data-src="images/loki.png">
 
 ---
 
@@ -933,13 +952,15 @@ OTEL_RESOURCE_ATTRIBUTES="service.namespace=
 
 ## Resources
 
-```go{|5-7}
+```go{|5-8}
 res, err := resource.New(
     ctx,
     resource.WithHost(),
     resource.WithContainerID(),
     resource.WithAttributes(
-        semconv.DeploymentEnvironmentKey.String(environment),
+        semconv.DeploymentEnvironmentKey.String(
+            environment
+        ),
         semconv.ServiceNameKey.String("user-service"),
     ),
 )
@@ -1227,9 +1248,7 @@ ruler:
 
 ---
 
-## Alloy UI
-
-![Alloy UI](images/alloy.png)
+<img width="95%" height="auto" data-src="images/alloy.png">
 
 ---
 
@@ -1346,19 +1365,17 @@ datasources:
 
 ## Viewing an error
 
-![Logs Error](images/logs_errors.png)
+<img width="95%" height="auto" data-src="images/logs_errors.png">
 
 ---
 
 ## Viewing an error
 
-![Logs Line](images/log_line.png)
+<img width="95%" height="auto" data-src="images/log_line.png">
 
 ---
 
-## Viewing an error
-
-![Trace](images/trace.png)
+<img width="70%" height="auto" data-src="images/trace.png">
 
 ---
 
@@ -1392,8 +1409,16 @@ Otel context to a metric event -> connect to a trace signal
 
 ---
 
+## Exemplar Modal
+
 - (optional) The trace associated with a recording (trace_id, span_id)
+
 - The time of the observation (time_unix_nano)
+
+---
+
+## Exemplar Modal (Cont...)
+
 - The recorded value (value)
 - A set of filtered attributes (filtered_attributes)
   - additional insight into the Context
@@ -1412,8 +1437,10 @@ metrics {
         exemplars {
           value: 0.382
           time_unix_nano: 1678901234000000000
-          span_id: "APBnoLoJArc="  // Base64-encoded span ID
-          trace_id: "S/kyNXezTaajzpKdDg5HNg=="  // Base64-encoded trace ID
+          // Base64-encoded span ID
+          span_id: "APBnoLoJArc="
+          // Base64-encoded trace ID
+          trace_id: "S/kyNXezTaajzpKdDg5HNg=="
         }
       }
       explicit_bounds: [0.5, 1, 2]
@@ -1442,6 +1469,7 @@ metrics {
 
 - over logging
 - logging PII
+  - PII: Personally Identifiable Information
 - log levels
   - print
   - error
@@ -1482,9 +1510,3 @@ metrics {
 <img width="50%" height="auto" data-src="images/qr.png">
 
 https://haseebmajid.dev/slides/gophercon-otel/
-
----
-
-## References & Thanks
-
-- Example App: https://gitlab.com/hmajid2301/banterbus
