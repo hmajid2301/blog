@@ -8,6 +8,7 @@ width = "5%"
 [reveal_hugo]
 custom_theme = "stylesheets/reveal/catppuccin.css"
 slide_number = true
+auto_play_media = true
 +++
 
 # Using Nix to Create Reproducible Go Development Environments
