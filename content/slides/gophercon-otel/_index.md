@@ -46,6 +46,10 @@ auto_play_media = true
 
 ---
 
+<img width="95%" height="auto" data-src="images/monitoring.jpg">
+
+---
+
 ## What is Observability?
 
 - Logs
@@ -793,8 +797,11 @@ func (m Middleware) Metrics(next http.Handler) http.Handler {
 
 ---
 
-## Logs
+<img width="55%" height="auto" data-src="images/log_meme.jpg">
 
+---
+
+## Logs
 
 {{% note %}}
 - Debugging
@@ -887,7 +894,7 @@ func main() {
 
 ## Instrument logs
 
-```go{8-10|15-21|23|26-27}
+```go{15|16-21|22-29|31-34|37-38}
 package telemetry
 
 import (
@@ -903,14 +910,25 @@ import (
 func NewLogger() *slog.Logger {
     var handler slog.Handler
     if os.Getenv("ENVIRONMENT") == "local" {
-        stdoutHandler := tint.NewHandler(os.Stdout, &tint.Options{
-            AddSource:  true,
-            TimeFormat: time.Kitchen,
-        })
-        otelHandler := otelslog.NewHandler("user-service", otelslog.WithSource(true))
-        handler = slogmulti.Fanout(stdoutHandler, otelHandler)
+        stdoutHandler := tint.NewHandler(os.Stdout,
+            &tint.Options{
+                AddSource:  true,
+                TimeFormat: time.Kitchen,
+            }
+        )
+        otelHandler := otelslog.NewHandler(
+            "user-service",
+            otelslog.WithSource(true),
+        )
+        handler = slogmulti.Fanout(
+            stdoutHandler,
+            otelHandler,
+        )
     } else {
-        handler = otelslog.NewHandler("user-service", otelslog.WithSource(true))
+        handler = otelslog.NewHandler(
+            "user-service",
+            otelslog.WithSource(true),
+        )
     }
 
     logger := slog.New(handler)
