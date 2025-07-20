@@ -11,6 +11,28 @@ slide_number = true
 auto_play_media = true
 +++
 
+// TODO
+- Add trace zoomed in view
+- Add metrics with better images
+- Add metrics with labels example
+- Say that alloy/otel-collector is a proxy
+- Note about trace propagation sending data to third parties
+- Voxicle
+ - Redis Span
+ - Kafka Span
+   - Producer/Consumer?
+   - watermill
+ - sections
+   - intro
+   - observability
+   - otel
+   - tracing
+   - metrics
+   - logs
+   - lgtm
+   - lessons learnt
+   - outro
+
 # Observability Made Painless: Go, Otel & LGTM Stack
 
 {{% note %}}
@@ -32,10 +54,16 @@ auto_play_media = true
 ## Who is this for?
 
 - New to OpenTelemetry
-- Instrument existing app
+- Instrument an existing app
 
 {{% note %}}
+- Add observability signals
+- Not covering PromQL
 {{% /note %}}
+
+---
+
+<img width="95%" height="auto" data-src="images/order_service.svg">
 
 ---
 
@@ -55,6 +83,34 @@ auto_play_media = true
 - Logs
 - Traces
 - Metrics
+
+
+{{% note %}}
+Logs:
+ - Lots of context when something goes wrong
+ - Append only, detailed
+
+Metrics:
+ - aggregating numerical data
+ - omitting detailed context
+
+Traces:
+ - See every element of an event
+ - Hollistic view of the system
+ - Sample
+{{% /note %}}
+
+---
+
+## Pizza Shop
+
+- Logs: "Order #123: Large veggie pizza burned at 8:05 PM due to oven failure."
+- Traces: "Order #123 took 30 mins: 5 mins prep → 20 mins cooking (delay) → 5 mins delivery."
+- Metrics: "We sold 50 pizzas/hour (avg cook time: 8 mins)."
+
+----
+
+<img width="95%" height="auto" data-src="images/pizza_cat.jpg">
 
 ---
 
@@ -85,7 +141,6 @@ auto_play_media = true
 ## Why use OTel?
 
 - Open Standard
-  - Solves vendor lock-in
 - Unify logs, metrics & traces
 
 ---
@@ -137,14 +192,6 @@ func (h *Handler) userHandler(
 
 ---
 
-<img width="95%" height="auto" data-src="images/trace_all.png">
-
----
-
-<img width="75%" height="auto" data-src="images/trace_detailed.png">
-
----
-
 ## What is Tracing?
 
 - Caused by a single action
@@ -161,6 +208,13 @@ func (h *Handler) userHandler(
 - Start and finish timestamp
 - Attributes
   - key-value pairs
+
+{{% note %}}
+- Unit of work
+- building blocks of traces
+- never creating a trace
+- linking spans with a trace id
+{{% /note %}}
 
 ---
 
@@ -180,19 +234,19 @@ traceparent: 00-d4cda95b652f4a1592b449d5929fda1b-6e0c63257de34c92-01
 tracestate: mycompany=true
 ```
 
+a list of key-value pairs that can carry vendor-specific trace information
+
 ---
 
 ```http
 traceparent:
 00-d4cda95b652f4a1592b449d5929fda1b-6e0c63257de34c92-01
-tracestate: mycompany=true
 ```
 
-```
+```http
 trace-id: d4cda95b652f4a1592b449d5929fda1b
 span-id: 6e0c63257de34c92
 trace flags: 01
-trace state: mycompany=true
 ```
 
 ---
@@ -202,29 +256,55 @@ trace state: mycompany=true
 - Connect two spans who are related but don't have a direct parent-child relationship.
 - Useful in async/event-driven systems
 
+
+{{% note %}}
+- Cannot predict when subsequent operation will start
+{{% /note %}}
+
 ---
 
-## Span(s)
+## Span Events
+
+- Denote single point of time
+
+- Tracking a page load
+- Denoting when a page becomes interactive
+  - Span Event
+
+
+{{% note %}}
+- Attribute vs Event (Timestamp)
+{{% /note %}}
+
+---
+
+## Span Kind
+
+- One of:
+  - Client, Server, Internal, Producer, or Consumer
+- Assumed to be internal
+- Parent of consumer is always a producer
+- Child of client is always server
+
+---
+
+<img width="95%" height="auto" data-src="images/trace_all.png">
+
 
 - Think of spans as a directed acylic graph (DAG) to each other
 
 ---
 
-<img width="95%" height="auto" data-src="images/service_flowchart.png">
+<img width="75%" height="auto" data-src="images/trace_detailed.png">
 
-{{% note %}}
-```mermaid
+
 ---
-config:
-  theme: redux-dark
-  layout: dagre
-  look: handDrawn
+
+<img width="95%" height="auto" data-src="images/trace_spans.png">
+
 ---
-flowchart LR
-    A["Frontend"] --> B["User Service"]
-    B --> C["Postgres"] & D["Redis"] & E["Email Service"]
-```
-{{% /note %}}
+
+<img width="95%" height="auto" data-src="images/trace_attributes.png">
 
 ---
 
@@ -282,7 +362,6 @@ func newTracerProvider(ctx context.Context)
     otel.SetTextMapPropagator(
         propagation.NewCompositeTextMapPropagator(
             propagation.TraceContext{},
-            propagation.Baggage{},
         )
     )
 
@@ -291,21 +370,22 @@ func newTracerProvider(ctx context.Context)
 }
 ```
 
+
+{{% note %}}
+- Propagation is the mechanism that moves context between services and processes.
+- W3C Trace Context
+- Baggage
+{{% /note %}}
+
 ---
 
 ## Trace Context
 
+- W3C Trace Context
+
 ```http
 traceparent: 00-d4cda95b652f4a1592b449d5929fda1b-6e0c63257de34c92-01
 tracestate: mycompany=true
-```
-
----
-
-## Baggage
-
-```http
-baggage: userId=12345,role=admin,region=us-east
 ```
 
 ---
@@ -369,6 +449,35 @@ func getUser(ctx context.Context, userID string)
 	}
 
 	return user, nil
+}
+```
+
+---
+
+## Trace JSON
+
+```json
+{
+  "name": "hello",
+  "context": {
+    "trace_id": "5b8aa5a2d2c872e8321cf37308d69df2",
+    "span_id": "051581bf3cb55c13"
+  },
+  "parent_id": null,
+  "start_time": "2022-04-29T18:52:58.114201Z",
+  "end_time": "2022-04-29T18:52:58.114687Z",
+  "attributes": {
+    "http.route": "some_route1"
+  },
+  "events": [
+    {
+      "name": "Guten Tag!",
+      "timestamp": "2022-04-29T18:52:58.114561Z",
+      "attributes": {
+        "event_attributes": 1
+      }
+    }
+  ]
 }
 ```
 
@@ -444,6 +553,7 @@ otelhttp
 
 ```go{2|4|5-6|7-9|21-27|30}
 func NewHTTPClient() *http.Client {
+    sanitizedPath := sanitizePath(r.URL.Path)
     transport := otelhttp.NewTransport(
         http.DefaultTransport,
         otelhttp.WithSpanNameFormatter(
@@ -451,7 +561,7 @@ func NewHTTPClient() *http.Client {
         string {
             return fmt.Sprintf("%s %s",
                         r.Method,
-                        r.URL.Path,
+                        sanitizePath,
             )
         }),
     )
@@ -460,6 +570,10 @@ func NewHTTPClient() *http.Client {
         Transport: transport,
         Timeout:   5 * time.Second,
     }
+}
+
+func sanitizePath(path string) string {
+    return regexp.MustCompile(`/\d+`).ReplaceAllString(path, "/{id}")
 }
 
 func (s *Service) callExternalAPI(ctx context.Context) {
@@ -544,16 +658,15 @@ func (s *Service) consumeMessages(ctx context.Context) {
 
 ## Metrics
 
-- Typically numerical data
- - state/behaviour
- - monitoring/alerting
+- Numerical Data
+ - Low Context
+ - Fast to query
 
 ---
 
 ## Metrics (Cont...)
 
 - Time series data
- - collected over time
 - Analyze trends/changes
 
 
@@ -562,15 +675,6 @@ func (s *Service) consumeMessages(ctx context.Context) {
  - query using PromQL
 {{% /note %}}
 
----
-
-<img width="90%" height="auto" data-src="images/metric_one.png">
-
----
-
-<img width="90%" height="auto" data-src="images/metric_two.png">
-
----
 
 ## Metric Types
 
@@ -579,7 +683,7 @@ func (s *Service) consumeMessages(ctx context.Context) {
 
 
 {{% note %}}
-counter: total number of requests
+counter: total number of requests, will never decrease 1000 -> 999
 
 guages: cpu usauge
 {{% /note %}}
@@ -688,7 +792,7 @@ func main() {
 
 ## Middleware
 
-```go{28-32|89-93}
+```go{28-32||82-86|89-93}
 package middleware
 
 import (
@@ -794,6 +898,40 @@ func (m Middleware) Metrics(next http.Handler) http.Handler {
 	})
 }
 ```
+---
+
+## High Cardinality
+
+```go
+// DO NOT DO
+attrs := []attribute.KeyValue{
+    // 1. Raw URL path with IDs (e.g., /users/12345)
+    attribute.String("http.raw_path", r.URL.Path),
+
+    // 2. Full query string with parameters
+    attribute.String("http.query", r.URL.RawQuery),
+
+    // 3. User-specific identifiers
+    attribute.String("user.id", extractUserID(r)),
+
+    // 4. Client IP address
+    attribute.String("network.client.ip", strings.Split(r.RemoteAddr, ":")[0]),
+
+    // 5. Request body hash (extreme cardinality)
+    attribute.String("request.body_hash", hashRequestBody(r)),
+
+    // 6. Random value for "demonstration"
+    attribute.Int("demo.random_tag", rand.Intn(1000)),
+}
+```
+
+---
+
+<img width="90%" height="auto" data-src="images/metric_one.png">
+
+---
+
+<img width="90%" height="auto" data-src="images/metric_two.png">
 
 ---
 
@@ -867,6 +1005,10 @@ func newLoggerProvider(
     return lp, nil
 }
 ```
+
+{{% note %}}
+- global is part of the otel library
+{{% /note %}}
 
 ---
 
@@ -946,6 +1088,27 @@ func NewLogger() *slog.Logger {
 
 ---
 
+## Use Cases
+
+| Question/Use Case                      | Signal   | Why?                                                                 |
+|----------------------------------------|----------|----------------------------------------------------------------------|
+| **How many errors occurred?**          | Metrics  | Aggregate counts needed for alerting                                 |
+| **Why did request ID:123 fail?**       | Logs     | Requires detailed error context (stack trace, inputs)                |
+| **Is latency increasing system-wide?** | Metrics  | Track percentiles (P95/P99) across all requests                      |
+| **What happened to user X at 2:05 PM?**| Logs     | Audit trail with specific user context                               |
+| **Where is the distributed bottleneck?**| Traces   | Breakdown of time spent across services                              |
+| **Why did login for user@x fail?**     | Logs     | Authentication details (wrong password? locked account?)             |
+| **Is checkout latency increasing?**    | Metrics  | Performance trends across all requests                               |
+| **Why was checkout slow for user Y?**  | Traces   | Distributed profiling across microservices                           |
+| **What config changed at 2 AM?**       | Logs     | Discrete administrative events                                       |
+| **Which service calls Inventory?**     | Traces   | Service dependency mapping                                           |
+| **Database CPU spike correlation**     | Metrics  | Infrastructure resource trends                                       |
+| **Why did payment TX-456 timeout?**    | Traces   | Follow call path: Gateway → Auth → Payment → DB                      |
+| **How many 4xx errors on /checkout?**  | Metrics  | High-cardinality aggregation by route/status                         |
+| **What killed pod k8s-pod-123?**       | Logs     | Kernel OOM killer event details                                      |
+
+---
+
 ## Resources
 
 - Attributes to include in all OTel data
@@ -1022,6 +1185,25 @@ http.user_agent
 http.request_content_length
 http.response_content_length
 ```
+
+---
+
+## Anti-Patterns
+
+Logs for high-volume data:
+- Emitting a log for every HTTP request (use metrics instead).
+
+Metrics for deep context:
+- Trying to capture a user ID in a metric (use logs/traces).
+
+Ignoring correlation:
+ - Logs without TraceId (use OTel context propagation).
+
+---
+
+## Anti-Patterns (Cont...)
+
+-
 
 ---
 
@@ -1112,145 +1294,6 @@ volumes:
 
 ---
 
-## Tempo Config
-
-```yaml{2-3|10}
-server:
-  http_listen_port: 3200
-  grpc_listen_port: 9096
-
-distributor:
-  receivers:
-    otlp:
-      protocols:
-        http:
-          endpoint: "0.0.0.0:4318"
-
-ingester:
-  trace_idle_period: 1s
-  max_block_duration: 1s
-  flush_check_period: 1s
-  lifecycler:
-    address: 127.0.0.1
-    ring:
-      kvstore:
-        store: inmemory
-      replication_factor: 1
-    min_ready_duration: 1s
-
-storage:
-  trace:
-    backend: local
-    wal:
-      path: /var/tempo/wal
-    local:
-      path: /var/tempo/blocks
-```
-
----
-
-## Mimir Config
-
-```yaml{43}
-# Single-binary Mimir config
-target: all
-multitenancy_enabled: false
-
-common:
-  storage:
-    backend: filesystem
-    filesystem:
-      dir: /data
-
-blocks_storage:
-  storage_prefix: blocks
-  bucket_store:
-    sync_dir: /data/tsdb-sync
-  tsdb:
-    dir: /data/tsdb
-
-compactor:
-  data_dir: /data/compactor
-  sharding_ring:
-    kvstore:
-      store: inmemory
-
-distributor:
-  ring:
-    instance_addr: 127.0.0.1
-    kvstore:
-      store: inmemory
-
-ingester:
-  ring:
-    instance_addr: 127.0.0.1
-    kvstore:
-      store: inmemory
-    replication_factor: 1
-
-ruler_storage:
-  backend: filesystem
-  filesystem:
-    dir: /data/rules
-
-server:
-  http_listen_port: 9009
-  log_level: info
-
-store_gateway:
-  sharding_ring:
-    replication_factor: 1
-
-usage_stats:
-  enabled: false
-```
-
----
-
-## Loki Config
-
-```yaml{4-5}
-auth_enabled: false
-
-server:
-  http_listen_port: 3100
-  grpc_listen_port: 9096
-
-common:
-  instance_addr: 127.0.0.1
-  path_prefix: /tmp/loki
-  storage:
-    filesystem:
-      chunks_directory: /tmp/loki/chunks
-      rules_directory: /tmp/loki/rules
-  replication_factor: 1
-  ring:
-    kvstore:
-      store: inmemory
-
-query_range:
-  results_cache:
-    cache:
-      embedded_cache:
-        enabled: true
-        max_size_mb: 100
-
-schema_config:
-  configs:
-    - from: 2020-10-24
-      store: tsdb
-      object_store: filesystem
-      schema: v13
-      index:
-        prefix: index_
-        period: 24h
-
-ruler:
-  alertmanager_url: http://localhost:9093
-```
-
----
-
 ## OTel collector
 
 - observability pipelines
@@ -1267,65 +1310,6 @@ ruler:
 ---
 
 <img width="95%" height="auto" data-src="images/alloy.png">
-
----
-
-## config.alloy
-
-```json{1-8|10-14|18-22|25-27|29-33|35-37|39-43|45-51}
-otelcol.receiver.otlp "default" {
-  grpc {
-    endpoint = "0.0.0.0:4317"
-  }
-
-  http {
-    endpoint = "0.0.0.0:4318"
-  }
-
-  output {
-    metrics = [otelcol.processor.batch.default.input]
-    logs    = [otelcol.processor.batch.default.input]
-    traces  = [otelcol.processor.batch.default.input]
-  }
-}
-
-otelcol.processor.batch "default" {
-  output {
-    metrics = [otelcol.exporter.prometheus.default.input]
-    logs    = [otelcol.exporter.loki.default.input]
-    traces  = [otelcol.exporter.otlp.default.input]
-  }
-}
-
-otelcol.exporter.prometheus "default" {
-  forward_to = [prometheus.remote_write.default.receiver]
-}
-
-prometheus.remote_write "default" {
-  endpoint {
-    url = "http://mimir:8080/api/v1/push"
-  }
-}
-
-otelcol.exporter.loki "default" {
-  forward_to = [loki.write.default.receiver]
-}
-
-loki.write "default" {
-  endpoint {
-    url = "http://loki:3100/loki/api/v1/push"
-  }
-}
-
-otelcol.exporter.otlp "default" {
-  client {
-    endpoint = "tempo:4317"
-    tls {
-      insecure = true
-    }
-  }
-}
-```
 
 ---
 
@@ -1399,21 +1383,7 @@ datasources:
 
 ## Logs -> Traces
 
-- Derived Values
-- Link: http://localhost:3000/connections/datasources/edit/loki
-
----
-
-## Logs -> Traces
-
 ![Derived Values](images/derived_values.png)
-
----
-
-## Metrics -> Traces
-
-- Exemplar
-- Link: http://localhost:3000/connections/datasources/edit/prometheus
 
 ---
 
@@ -1471,49 +1441,30 @@ metrics {
 
 ## Traces -> Logs
 
-- trace to logs
-- trace to metrics
-- Link: http://localhost:3000/connections/datasources/edit/tempo
+![Trace to logs](images/trace_to_logs.png)
+
 
 ---
 
-## Traces -> Logs
-
-![Trace to logs](images/trace_to_logs.png)
+## Lessons learnt
 
 ---
 
 ## Logging
 
-- over logging
-- logging PII
+- Storage
+- Logging PII
   - PII: Personally Identifiable Information
-- log levels
-  - print
-  - error
-
----
-
-## Lessons learnt
-
+- Log levels
 - Indexing
-  - Over: Storage
-  - Under: Slow queries
 
 ---
 
 ## Tracing
 
-- avoid PII
+- Avoid PII
 - Sampling
-    - cost
-      - $0.50 per GB
-
----
-
-## Lessons learnt
-
-- trace-first approach
+  - Head vs Tail
 
 ---
 
