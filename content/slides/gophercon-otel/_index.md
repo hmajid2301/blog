@@ -11,28 +11,6 @@ slide_number = true
 auto_play_media = true
 +++
 
-// TODO
-- Add trace zoomed in view
-- Add metrics with better images
-- Add metrics with labels example
-- Say that alloy/otel-collector is a proxy
-- Note about trace propagation sending data to third parties
-- Voxicle
- - Redis Span
- - Kafka Span
-   - Producer/Consumer?
-   - watermill
- - sections
-   - intro
-   - observability
-   - otel
-   - tracing
-   - metrics
-   - logs
-   - lgtm
-   - lessons learnt
-   - outro
-
 # Observability Made Painless: Go, Otel & LGTM Stack
 
 {{% note %}}
@@ -40,6 +18,8 @@ auto_play_media = true
 {{% /note %}}
 
 ---
+
+{{% section %}}
 
 ## Introduction
 
@@ -61,20 +41,16 @@ auto_play_media = true
 - Not covering PromQL
 {{% /note %}}
 
----
-
-<img width="95%" height="auto" data-src="images/order_service.svg">
+{{% /section %}}
 
 ---
+
+{{% section %}}
 
 ## What is Observability?
 
 - What is going on with our app
 - Is something wrong?
-
----
-
-<img width="95%" height="auto" data-src="images/monitoring.jpg">
 
 ---
 
@@ -100,13 +76,18 @@ Traces:
  - Sample
 {{% /note %}}
 
+
+---
+
+<img width="95%" height="auto" data-src="images/monitoring.jpg">
+
 ---
 
 ## Pizza Shop
 
-- Logs: "Order #123: Large veggie pizza burned at 8:05 PM due to oven failure."
-- Traces: "Order #123 took 30 mins: 5 mins prep → 20 mins cooking (delay) → 5 mins delivery."
-- Metrics: "We sold 50 pizzas/hour (avg cook time: 8 mins)."
+{{% fragment %}}Logs: "Order #123: Large veggie pizza burned at 8:05 PM due to oven failure."{{% /fragment %}}
+{{% fragment %}}Traces: "Order #123 took 30 mins: 5 mins prep → 20 mins cooking (delay) → 5 mins delivery."{{% /fragment %}}
+{{% fragment %}}Metrics: "We sold 50 pizzas/hour (avg cook time: 8 mins)."{{% /fragment %}}
 
 ----
 
@@ -122,6 +103,14 @@ Traces:
 {{% note %}}
 - 53% of users abandon after 3s delay (Google)
 {{% /note %}}
+
+---
+
+<img width="90%" height="auto" data-src="images/ops_problem.jpg">
+
+---
+
+<img width="95%" height="auto" data-src="images/service.gif">
 
 ---
 
@@ -147,7 +136,11 @@ Traces:
 
 {{< slide background-iframe="https://www.youtube.com/embed/Aq6XMWdb5mU?si=RokanbfYt80KMN0v" >}}
 
+{{% /section %}}
+
 ---
+
+{{% section %}}
 
 ## Example service
 
@@ -234,7 +227,10 @@ traceparent: 00-d4cda95b652f4a1592b449d5929fda1b-6e0c63257de34c92-01
 tracestate: mycompany=true
 ```
 
+{{% note %}}
 a list of key-value pairs that can carry vendor-specific trace information
+{{% /note %}}
+
 
 ---
 
@@ -288,23 +284,11 @@ trace flags: 01
 
 ---
 
-<img width="95%" height="auto" data-src="images/trace_all.png">
-
-
-- Think of spans as a directed acylic graph (DAG) to each other
+<img width="95%" height="auto" data-src="images/trace_spans.jpg">
 
 ---
 
-<img width="75%" height="auto" data-src="images/trace_detailed.png">
-
-
----
-
-<img width="95%" height="auto" data-src="images/trace_spans.png">
-
----
-
-<img width="95%" height="auto" data-src="images/trace_attributes.png">
+<img width="90%%" height="auto" data-src="images/trace_attributes.jpg">
 
 ---
 
@@ -379,14 +363,23 @@ func newTracerProvider(ctx context.Context)
 
 ---
 
-## Trace Context
+```bash
+OTEL_EXPORTER_OTLP_ENDPOINT="http://localhost:4318"
+```
 
-- W3C Trace Context
+---
+
+## Trace Context
 
 ```http
 traceparent: 00-d4cda95b652f4a1592b449d5929fda1b-6e0c63257de34c92-01
 tracestate: mycompany=true
 ```
+
+
+{{% note %}}
+- Third party HTTP APIs
+{{% /note %}}
 
 ---
 
@@ -456,7 +449,7 @@ func getUser(ctx context.Context, userID string)
 
 ## Trace JSON
 
-```json
+```json{|13-21}
 {
   "name": "hello",
   "context": {
@@ -510,6 +503,10 @@ func NewPool(ctx context.Context, uri string) (*pgxpool.Pool, error) {
 
 ---
 
+<img width="95%" height="auto" data-src="images/trace_attributes.jpg">
+
+---
+
 ## Redis
 
 ```bash
@@ -541,6 +538,10 @@ func NewRedisClient(address string, retries int) (Client, error) {
 
 ---
 
+<img width="95%" height="auto" data-src="images/trace_redis.png">
+
+---
+
 ## HTTP Client
 
 ```bash
@@ -551,7 +552,7 @@ otelhttp
 
 ---
 
-```go{2|4|5-6|7-9|21-27|30}
+```go{2|4|5-6|7-12|26-32|35}
 func NewHTTPClient() *http.Client {
     sanitizedPath := sanitizePath(r.URL.Path)
     transport := otelhttp.NewTransport(
@@ -653,28 +654,34 @@ func (s *Service) consumeMessages(ctx context.Context) {
 }
 ```
 
+---
+
+<img width="95%" height="auto" data-src="images/trace_produce.png">
 
 ---
+
+<img width="95%" height="auto" data-src="images/trace_consume.png">
+
+
+{{% /section %}}
+
+---
+
+{{% section %}}
 
 ## Metrics
 
 - Numerical Data
- - Low Context
- - Fast to query
-
----
-
-## Metrics (Cont...)
-
+  - Low Context
+  - Fast to query
 - Time series data
-- Analyze trends/changes
-
 
 {{% note %}}
 - visualise using Grafana
  - query using PromQL
 {{% /note %}}
 
+---
 
 ## Metric Types
 
@@ -927,13 +934,25 @@ attrs := []attribute.KeyValue{
 
 ---
 
-<img width="90%" height="auto" data-src="images/metric_one.png">
+<img width="90%" height="auto" data-src="images/histogram.png">
 
 ---
 
-<img width="90%" height="auto" data-src="images/metric_two.png">
+<img width="90%" height="auto" data-src="images/histogram_promql.jpg">
 
 ---
+
+<img width="90%" height="auto" data-src="images/metric_counter.png">
+
+---
+
+<img width="90%" height="auto" data-src="images/metric_counter_promql.png">
+
+{{% /section %}}
+
+---
+
+{{% section %}}
 
 <img width="55%" height="auto" data-src="images/log_meme.jpg">
 
@@ -1080,23 +1099,37 @@ func NewLogger() *slog.Logger {
 
 ---
 
-<img width="80%" height="auto" data-src="images/stdout_logs.png">
+<img width="90%" height="auto" data-src="images/stdout_logs.png">
 
 ---
 
-<img width="70%" height="auto" data-src="images/loki.png">
+<img width="80%" height="auto" data-src="images/loki.png">
+
+{{% /section %}}
 
 ---
 
-## Use Cases
+{{% section %}}
 
-| Question/Use Case                      | Signal   | Why?                                                                 |
+|                                        |          |                                                                      |
 |----------------------------------------|----------|----------------------------------------------------------------------|
 | **How many errors occurred?**          | Metrics  | Aggregate counts needed for alerting                                 |
 | **Why did request ID:123 fail?**       | Logs     | Requires detailed error context (stack trace, inputs)                |
 | **Is latency increasing system-wide?** | Metrics  | Track percentiles (P95/P99) across all requests                      |
+
+---
+
+|                                        |          |                                                                      |
+|----------------------------------------|----------|----------------------------------------------------------------------|
+| **Where is the bottleneck?**           | Traces   | Breakdown of time spent across services                              |
+| **Why did login for user@x fail?**     | Logs     | Authentication details (wrong password? locked account?)             |
 | **What happened to user X at 2:05 PM?**| Logs     | Audit trail with specific user context                               |
-| **Where is the distributed bottleneck?**| Traces   | Breakdown of time spent across services                              |
+
+---
+
+|                                        |          |                                                                  |
+|----------------------------------------|----------|----------------------------------------------------------------------|
+| **Where is the distributed bottleneck?**| Traces  | Breakdown of time spent across services                              |
 | **Why did login for user@x fail?**     | Logs     | Authentication details (wrong password? locked account?)             |
 | **Is checkout latency increasing?**    | Metrics  | Performance trends across all requests                               |
 | **Why was checkout slow for user Y?**  | Traces   | Distributed profiling across microservices                           |
@@ -1149,7 +1182,7 @@ res, err := resource.New(
 
 ---
 
-```go
+```go{3|8|15}
 loggerProvider := log.NewLoggerProvider(
     log.WithProcessor(processor),
     log.WithResource(res),
@@ -1190,22 +1223,15 @@ http.response_content_length
 
 ## Anti-Patterns
 
-Logs for high-volume data:
 - Emitting a log for every HTTP request (use metrics instead).
-
-Metrics for deep context:
 - Trying to capture a user ID in a metric (use logs/traces).
+- Logs without TraceId (use OTel context propagation).
 
-Ignoring correlation:
- - Logs without TraceId (use OTel context propagation).
-
----
-
-## Anti-Patterns (Cont...)
-
--
+{{% /section %}}
 
 ---
+
+{{% section %}}
 
 ## LGTM Stack
 
@@ -1294,11 +1320,11 @@ volumes:
 
 ---
 
-## OTel collector
+## OTel Collector
 
-- observability pipelines
-- convert between formats
-  - export prometheus metrics
+- Observability pipelines
+- Convert between formats
+  - Export prometheus metrics
 
 ---
 
@@ -1306,6 +1332,11 @@ volumes:
 
 - UI
 - Grafana stack
+
+{{% note %}}
+- Like a proxy
+- But can transform our data
+{{% /note %}}
 
 ---
 
@@ -1363,7 +1394,11 @@ datasources:
         datasourceUid: "prometheus"
 ```
 
+{{% /section %}}
+
 ---
+
+{{% section %}}
 
 ## Viewing an error
 
@@ -1415,7 +1450,7 @@ Otel context to a metric event -> connect to a trace signal
 
 ## OTLP Export
 
-```json
+```json{4-13|16}
 metrics {
   name: "http_request_duration_seconds"
   histogram {
@@ -1441,8 +1476,7 @@ metrics {
 
 ## Traces -> Logs
 
-![Trace to logs](images/trace_to_logs.png)
-
+<img width="90%" height="auto" data-src="images/trace_to_logs.png">
 
 ---
 
@@ -1476,6 +1510,12 @@ metrics {
 
 ---
 
+<img width="95%" height="auto" data-src="images/cat_watching_pizza.jpg">
+
+---
+
 <img width="50%" height="auto" data-src="images/qr.png">
 
 https://haseebmajid.dev/slides/gophercon-otel/
+
+{{% /section %}}
