@@ -1,5 +1,5 @@
 +++
-title = "Log, Metrics and Tracing with Otel & Go"
+title = "Log, Metrics and Tracing with OTel & Go"
 outputs = ["Reveal"]
 [logo]
 src = "images/logo.svg"
@@ -11,7 +11,7 @@ slide_number = true
 auto_play_media = true
 +++
 
-# Observability Made Painless: Go, Otel & LGTM Stack
+# Observability Made Painless: Go, OTel & LGTM Stack
 
 {{% note %}}
 - LGTM: Loki, Grafana, Tempo, Mimir
@@ -262,7 +262,6 @@ trace flags: 01
 ## Span Events
 
 - Denote single point of time
-
 - Tracking a page load
 - Denoting when a page becomes interactive
   - Span Event
@@ -308,7 +307,13 @@ go.opentelemetry.io/otel/semconv/v1.26.0
 
 ---
 
-```go{20-21|23-26|29-31|34-40|43}
+```bash
+OTEL_EXPORTER_OTLP_ENDPOINT="http://localhost:4318"
+```
+
+---
+
+```go{20-21|23-26|29-31|34-40|42}
 package main
 
 import (
@@ -363,12 +368,6 @@ func newTracerProvider(ctx context.Context)
 
 ---
 
-```bash
-OTEL_EXPORTER_OTLP_ENDPOINT="http://localhost:4318"
-```
-
----
-
 ## Trace Context
 
 ```http
@@ -383,10 +382,13 @@ tracestate: mycompany=true
 
 ---
 
-```go{3|4|9-13}
+```go{3|4-7|12}
 func main() {
     ctx := context.Background()
     tp, err := newTracerProvider(ctx)
+    if err != nil {
+        log.Fatalf("failed to setup tracer: %v", err)
+    }
     defer tp.Shutdown(ctx)
 
     // Previous code ...
@@ -413,7 +415,7 @@ baggage := baggage.FromContext(ctx)
 
 ## Custom Trace
 
-```go{3-4|7-9|12|14|16|18|22-26}
+```go{3-4|5|7-9|12|14|16|18|22-26}
 func getUser(ctx context.Context, userID string)
 (*User, error) {
 	ctx, span := otel.Tracer("user-service")
@@ -449,7 +451,7 @@ func getUser(ctx context.Context, userID string)
 
 ## Trace JSON
 
-```json{|13-21}
+```json{|3-6|7|10-12|13-21}
 {
   "name": "hello",
   "context": {
@@ -799,7 +801,7 @@ func main() {
 
 ## Middleware
 
-```go{28-32||82-86|89-93}
+```go{28-32|82-86|89-93}
 package middleware
 
 import (
@@ -909,28 +911,31 @@ func (m Middleware) Metrics(next http.Handler) http.Handler {
 
 ## High Cardinality
 
-```go
+```go{4-7|10|13-15|18}
 // DO NOT DO
 attrs := []attribute.KeyValue{
-    // 1. Raw URL path with IDs (e.g., /users/12345)
-    attribute.String("http.raw_path", r.URL.Path),
+// 1. Raw URL path with IDs (e.g., /users/12345)
+attribute.String("http.raw_path", r.URL.Path),
 
-    // 2. Full query string with parameters
-    attribute.String("http.query", r.URL.RawQuery),
+// 2. Full query string with parameters
+attribute.String("http.query", r.URL.RawQuery),
 
-    // 3. User-specific identifiers
-    attribute.String("user.id", extractUserID(r)),
+// 3. User-specific identifiers
+attribute.String("user.id", extractUserID(r)),
 
-    // 4. Client IP address
-    attribute.String("network.client.ip", strings.Split(r.RemoteAddr, ":")[0]),
+// 4. Request body hash
+attribute.String("request.body_hash",
+        hashRequestBody(r)
+),
 
-    // 5. Request body hash (extreme cardinality)
-    attribute.String("request.body_hash", hashRequestBody(r)),
-
-    // 6. Random value for "demonstration"
-    attribute.Int("demo.random_tag", rand.Intn(1000)),
+// 6. Random value for "demonstration"
+attribute.Int("demo.random_tag", rand.Intn(1000)),
 }
 ```
+
+---
+
+<img width="90%" height="auto" data-src="images/high_cardinality.png">
 
 ---
 
@@ -1244,7 +1249,7 @@ http.response_content_length
 
 ## docker-compose.yml
 
-```yaml{2-12||24-31|36-44|49-56|58-65|67-71}
+```yaml{2-12|13-23|24-34|36-47|49-56|58-65|67-71}
 services:
   alloy:
     image: grafana/alloy:v1.9.1
@@ -1400,20 +1405,6 @@ datasources:
 
 {{% section %}}
 
-## Viewing an error
-
-<img width="95%" height="auto" data-src="images/logs_errors.png">
-
----
-
-## Viewing an error
-
-<img width="95%" height="auto" data-src="images/log_line.png">
-
----
-
-<img width="70%" height="auto" data-src="images/trace.png">
-
 ---
 
 ## Logs -> Traces
@@ -1450,7 +1441,7 @@ Otel context to a metric event -> connect to a trace signal
 
 ## OTLP Export
 
-```json{4-13|16}
+```json{4-13|10-13|16}
 metrics {
   name: "http_request_duration_seconds"
   histogram {
@@ -1477,6 +1468,22 @@ metrics {
 ## Traces -> Logs
 
 <img width="90%" height="auto" data-src="images/trace_to_logs.png">
+
+---
+
+## Viewing an error
+
+---
+
+<img width="95%" height="auto" data-src="images/metric_exemplar.png">
+
+---
+
+<img width="95%" height="auto" data-src="images/trace_error.png">
+
+---
+
+<img width="70%" height="auto" data-src="images/log_error.png">
 
 ---
 
