@@ -1,6 +1,6 @@
 ---
 title: Voxicle Build Log 16
-date: 2025-07-21
+date: 2025-08-04
 canonicalURL: https://haseebmajid.dev/posts/2025-07-07-voxicle-build-log-15
 tags:
   - voxicle

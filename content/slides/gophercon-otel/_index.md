@@ -110,10 +110,6 @@ Traces:
 
 ---
 
-<img width="95%" height="auto" data-src="images/service.gif">
-
----
-
 ## What is OTel?
 
 - OpenTelemetry
@@ -134,6 +130,10 @@ Traces:
 
 ---
 
+> "Only half of programming is coding. The other 90% is debugging" - Anonymous
+
+---
+
 {{< slide background-iframe="https://www.youtube.com/embed/Aq6XMWdb5mU?si=RokanbfYt80KMN0v" >}}
 
 {{% /section %}}
@@ -141,6 +141,11 @@ Traces:
 ---
 
 {{% section %}}
+
+
+<img width="95%" height="auto" data-src="images/service.gif">
+
+---
 
 ## Example service
 
@@ -211,7 +216,7 @@ func (h *Handler) userHandler(
 
 ---
 
-## Span (Cont..)
+## Span (Cont...)
 
 - A set of events
 - Parent span ID
@@ -368,20 +373,6 @@ func newTracerProvider(ctx context.Context)
 
 ---
 
-## Trace Context
-
-```http
-traceparent: 00-d4cda95b652f4a1592b449d5929fda1b-6e0c63257de34c92-01
-tracestate: mycompany=true
-```
-
-
-{{% note %}}
-- Third party HTTP APIs
-{{% /note %}}
-
----
-
 ```go{3|4-7|12}
 func main() {
     ctx := context.Background()
@@ -401,6 +392,21 @@ func main() {
     // Rest of the code ...
 }
 ```
+
+---
+
+## Trace Context
+
+```http
+traceparent: 00-d4cda95b652f4a1592b449d5929fda1b-6e0c63257de34c92-01
+tracestate: mycompany=true
+```
+
+
+{{% note %}}
+- Third party HTTP APIs
+{{% /note %}}
+
 
 ---
 
@@ -688,7 +694,7 @@ func (s *Service) consumeMessages(ctx context.Context) {
 ## Metric Types
 
 - Counters: for tracking ever-increasing values
-- Gauges: for measuring fluctuating values
+- ObservableGauge: for measuring fluctuating values
 
 
 {{% note %}}
@@ -702,20 +708,19 @@ guages: cpu usauge
 ## Metric Types (Cont...)
 
 - Histograms: for observing the distribution of values within predefined buckets.
-- Summaries: for calculating quantiles (percentiles) of observed values.
+- UpDownCounter: for values that go up and down
 
 {{% note %}}
-counter: total number of requests
+histogram: distribution of values
 
-guages: cpu usauge
+up down counter: like queue size
 {{% /note %}}
 
 ---
 
 ## Metric Model
 
-- Name: A descriptive name like http_requests_total
-
+- Name: A descriptive name like http.server.request_count
 - Labels: Key-value pairs that provide context
 
 ---
@@ -723,7 +728,6 @@ guages: cpu usauge
 ## Metric Model (Cont...)
 
 - Timestamp: The time at which the data point was collected
-
 - Value: The actual numerical value of the metric at that timestamp
 
 ---
@@ -928,7 +932,7 @@ attribute.String("request.body_hash",
         hashRequestBody(r)
 ),
 
-// 6. Random value for "demonstration"
+// 5. Random value for "demonstration"
 attribute.Int("demo.random_tag", rand.Intn(1000)),
 }
 ```
@@ -943,7 +947,16 @@ attribute.Int("demo.random_tag", rand.Intn(1000)),
 
 ---
 
-<img width="90%" height="auto" data-src="images/histogram_promql.jpg">
+<img width="90%" height="auto" data-src="images/histogram_promql.png">
+
+
+{{% note %}}
+150 ms average is great:
+- 90% under 100ms
+- 5% over 500ms
+
+Visualise to see it
+{{% /note %}}
 
 ---
 
@@ -970,9 +983,6 @@ attribute.Int("demo.random_tag", rand.Intn(1000)),
 - What happened
 {{% /note %}}
 
----
-
-> "If you didn't log it, it didn't happen"
 
 ---
 
@@ -1104,11 +1114,36 @@ func NewLogger() *slog.Logger {
 
 ---
 
-<img width="90%" height="auto" data-src="images/stdout_logs.png">
+```go
+logger.InfoContext(
+    ctx,
+    "starting server",
+    slog.String("host", conf.Server.Host),
+    slog.Int("port", conf.Server.Port)
+)
+```
 
 ---
 
-<img width="80%" height="auto" data-src="images/loki.png">
+```json
+{
+  "time": "2023-10-05T12:34:56Z",
+  "level": "INFO",
+  "msg": "starting server",
+  "trace_id": "d4cda95b652f4a1592b449d5929fda1b",
+  "span_id": "6e0c63257de34c92",
+  "host": "localhost",
+  "port": 8080
+}
+```
+
+---
+
+<img width="100%" height="auto" data-src="images/stdout_logs.png">
+
+---
+
+<img width="100%" height="auto" data-src="images/loki.png">
 
 {{% /section %}}
 
@@ -1150,6 +1185,9 @@ func NewLogger() *slog.Logger {
 ## Resources
 
 - Attributes to include in all OTel data
+- Describe the "source" of the telemetry data
+  - service name
+  - instance id
 
 ---
 
@@ -1211,17 +1249,25 @@ traceProvider := trace.NewTracerProvider(
 ## semcov
 
 - Semantic Convention
-  - common attributes
-  - collecting, producing and consuming
+- Common attributes
+  - Across languages and tools
 
 ---
 
-## semcov
+```go
+attrs := []attribute.KeyValue{
+    semconv.HTTPRequestMethodKey.String(r.Method),
+    semconv.HTTPResponseStatusCode(statusCode),
+    semconv.HTTPRoute(r.URL.EscapedPath()),
+}
+```
 
-```bash
-http.user_agent
-http.request_content_length
-http.response_content_length
+---
+
+```go
+http.request.method
+http.response.status_code
+http.route
 ```
 
 ---
@@ -1243,7 +1289,11 @@ http.response_content_length
 - Loki: Logs
 - Grafana: Visualisation
 - Tempo: Traces
-- Mimir: Metrics backend
+- Mimir: Metrics
+
+---
+
+<img width="95%" height="auto" data-src="images/lgtm.png">
 
 ---
 
@@ -1322,6 +1372,10 @@ volumes:
   tempo-data:
   loki-data:
 ```
+
+---
+
+<img width="95%" height="auto" data-src="images/otel_collector.png">
 
 ---
 
@@ -1405,13 +1459,13 @@ datasources:
 
 {{% section %}}
 
----
-
 ## Logs -> Traces
 
 ![Derived Values](images/derived_values.png)
 
 ---
+
+## Metrics -> Traces
 
 ![Exemplar](images/exemplars.png)
 
@@ -1475,7 +1529,7 @@ metrics {
 
 ---
 
-<img width="95%" height="auto" data-src="images/metric_exemplar.png">
+<img width="80%" height="auto" data-src="images/metric_exemplar.png">
 
 ---
 
@@ -1483,7 +1537,7 @@ metrics {
 
 ---
 
-<img width="70%" height="auto" data-src="images/log_error.png">
+<img width="95%" height="auto" data-src="images/log_error.png">
 
 ---
 
