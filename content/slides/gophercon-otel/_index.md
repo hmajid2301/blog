@@ -351,7 +351,7 @@ func main() {
 func userHandler(w http.ResponseWriter, r *http.Request) {
     ctx, span := otel.Tracer("user-service").Start(r.Context(), "get-user")
     defer span.End()
-    
+
     userID := mux.Vars(r)["id"]
     span.SetAttributes(attribute.String("user.id", userID))
 
@@ -360,7 +360,7 @@ func userHandler(w http.ResponseWriter, r *http.Request) {
 
     // Simulate some work
     time.Sleep(50 * time.Millisecond)
-    
+
     response := map[string]string{"id": userID, "name": "John Doe"}
     json.NewEncoder(w).Encode(response)
 }

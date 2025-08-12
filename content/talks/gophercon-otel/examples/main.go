@@ -34,7 +34,7 @@ func main() {
 	// Setup HTTP router with OTEL middleware
 	r := mux.NewRouter()
 	r.Use(otelmux.Middleware("user-service"))
-	
+
 	// Routes
 	r.HandleFunc("/user/{id}", userHandler).Methods("GET")
 	r.HandleFunc("/health", healthHandler).Methods("GET")
@@ -65,7 +65,7 @@ func userHandler(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(response)
-	
+
 	logger.InfoContext(ctx, "user request completed", "user_id", userID)
 }
 
