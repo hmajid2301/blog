@@ -1,0 +1,96 @@
+services:
+  postgres:
+    image: postgres:17.4
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: userdb
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -h 127.0.0.1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    profiles:
+      - app
+      - monitoring
+
+  # (LGTM)
+  alloy:
+    image: grafana/alloy:v1.9.1
+    profiles:
+      - monitoring
+    command:
+      [
+        "run",
+        "--server.http.listen-addr=0.0.0.0:12345",
+        "--storage.path=/var/lib/alloy/data",
+        "--stability.level=public-preview",
+        "/etc/alloy/config.alloy",
+      ]
+    ports:
+      - 4317:4317  # OTLP gRPC
+      - 4318:4318  # OTLP HTTP
+      - 12345:12345 # Alloy UI
+    volumes:
+      - ./config/alloy.river:/etc/alloy/config.alloy
+    depends_on:
+      - tempo
+      - loki
+      - mimir
+
+  mimir:
+    image: grafana/mimir:2.11.0
+    profiles:
+      - monitoring
+    command:
+      - "-auth.multitenancy-enabled=false"
+      - "-auth.no-auth-tenant=anonymous"
+      - "-config.file=/etc/mimir/config.yaml"
+    volumes:
+      - ./config/mimir.yaml:/etc/mimir/config.yaml
+      - mimir-data:/data
+
+  grafana:
+    image: grafana/grafana:11.6.1
+    profiles:
+      - monitoring
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+      - GF_FEATURE_TOGGLES_ENABLE=traceqlEditor
+    volumes:
+      - ./config/grafana/datasources.yaml:/etc/grafana/provisioning/datasources/datasources.yml:ro
+      - ./config/grafana/dashboards.yaml:/etc/grafana/provisioning/dashboards/dashboards.yml:ro
+      - ./config/grafana/dashboards:/var/lib/grafana/dashboards:ro
+      - grafana-data:/var/lib/grafana
+
+  tempo:
+    image: grafana/tempo:2.7.2
+    profiles:
+      - monitoring
+    command: ["-config.file=/etc/tempo.yaml"]
+    volumes:
+      - ./config/tempo.yaml:/etc/tempo.yaml
+      - tempo-data:/var/tempo
+
+  loki:
+    image: grafana/loki:3.5.0
+    profiles:
+      - monitoring
+    command: ["-config.file=/etc/loki/loki-config.yaml"]
+    volumes:
+      - ./config/loki.yaml:/etc/loki/loki-config.yaml
+      - loki-data:/loki
+
+volumes:
+  postgres-data:
+  grafana-data:
+  mimir-data:
+  tempo-data:
+  loki-data:

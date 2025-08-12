@@ -169,6 +169,9 @@ home = ["HTML", "RSS", "JSON"]
 unsafe = true
 
 
+[frontmatter]
+lastmod = [":git", "lastmod", ":fileModTime", "date", "publishDate"]
+
 [sitemap]
 changefreq = "monthly"
 filename = "sitemap.xml"
