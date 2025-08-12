@@ -101,6 +101,7 @@ Traces:
 - Bottlenecks in the system
 
 {{% note %}}
+- How many have dealt with 3AM production issues with no visibility?
 - 53% of users abandon after 3s delay (Google)
 {{% /note %}}
 
@@ -142,6 +143,111 @@ Traces:
 
 {{% section %}}
 
+## What is Tracing?
+
+- Caused by a single action
+- Components:
+  - Services
+  - DBs
+  - Events
+
+---
+
+## Span
+
+- Operation name
+- Start and finish timestamp
+- Span context
+- Attributes
+
+{{% note %}}
+- Unit of work
+- building blocks of traces
+- never creating a trace
+- linking spans with a trace id
+{{% /note %}}
+
+---
+
+## Span (Cont...)
+
+- A set of events
+- Parent span ID
+- Links to other spans
+- Span Status
+
+---
+
+## Span Context
+
+```http
+traceparent: 00-d4cda95b652f4a1592b449d5929fda1b-6e0c63257de34c92-01
+tracestate: mycompany=true
+```
+
+{{% note %}}
+a list of key-value pairs that can carry vendor-specific trace information
+{{% /note %}}
+
+
+---
+
+```http
+traceparent:
+00-d4cda95b652f4a1592b449d5929fda1b-6e0c63257de34c92-01
+```
+
+```http
+trace-id: d4cda95b652f4a1592b449d5929fda1b
+span-id: 6e0c63257de34c92
+trace flags: 01
+```
+
+---
+
+## Span Links
+
+- Connect two spans
+    - event-driven systems
+
+
+{{% note %}}
+- who are related but don't have a direct parent-child relationship.
+- Cannot predict when subsequent operation will start
+{{% /note %}}
+
+---
+
+## Span Events
+
+- Denote point in time
+- Page becomes interactive
+
+
+{{% note %}}
+- Attribute vs Event (Timestamp)
+{{% /note %}}
+
+---
+
+## Span Kind
+
+- One of:
+  - Client, Server, Internal, Producer, or Consumer
+- Default is internal
+- Producer -> Consumer
+- Client -> Server
+
+---
+
+<img width="95%" height="auto" data-src="images/trace_spans.jpg">
+
+---
+
+<img width="60%" height="auto" data-src="images/trace_attributes.jpg">
+
+
+---
 
 <img width="95%" height="auto" data-src="images/service.gif">
 
@@ -190,124 +296,13 @@ func (h *Handler) userHandler(
 
 ---
 
-## What is Tracing?
-
-- Caused by a single action
-- Components:
-  - Services
-  - DBs
-  - Events
-
----
-
-## Span
-
-- Operation name
-- Start and finish timestamp
-- Attributes
-  - key-value pairs
-
-{{% note %}}
-- Unit of work
-- building blocks of traces
-- never creating a trace
-- linking spans with a trace id
-{{% /note %}}
-
----
-
-## Span (Cont...)
-
-- A set of events
-- Parent span ID
-- Links to other spans
-- Span context
-
----
-
-## Span Context
-
-```http
-traceparent: 00-d4cda95b652f4a1592b449d5929fda1b-6e0c63257de34c92-01
-tracestate: mycompany=true
-```
-
-{{% note %}}
-a list of key-value pairs that can carry vendor-specific trace information
-{{% /note %}}
-
-
----
-
-```http
-traceparent:
-00-d4cda95b652f4a1592b449d5929fda1b-6e0c63257de34c92-01
-```
-
-```http
-trace-id: d4cda95b652f4a1592b449d5929fda1b
-span-id: 6e0c63257de34c92
-trace flags: 01
-```
-
----
-
-## Span Links
-
-- Connect two spans who are related but don't have a direct parent-child relationship.
-- Useful in async/event-driven systems
-
-
-{{% note %}}
-- Cannot predict when subsequent operation will start
-{{% /note %}}
-
----
-
-## Span Events
-
-- Denote single point of time
-- Tracking a page load
-- Denoting when a page becomes interactive
-  - Span Event
-
-
-{{% note %}}
-- Attribute vs Event (Timestamp)
-{{% /note %}}
-
----
-
-## Span Kind
-
-- One of:
-  - Client, Server, Internal, Producer, or Consumer
-- Assumed to be internal
-- Parent of consumer is always a producer
-- Child of client is always server
-
----
-
-<img width="95%" height="auto" data-src="images/trace_spans.jpg">
-
----
-
-<img width="90%%" height="auto" data-src="images/trace_attributes.jpg">
-
----
-
-## Instrument traces
+## Install traces
 
 ```bash
-go get go.opentelemetry.io/otel \
-go.opentelemetry.io/otel/trace \
-go.opentelemetry.io/contrib/instrumentation/net/http/\
-otelhttp \
-go.opentelemetry.io/otel/exporters/otlp/otlptrace/\
-otlptracehttp \
-go.opentelemetry.io/otel/sdk/resource \
+go get go.opentelemetry.io/otel/trace \
 go.opentelemetry.io/otel/sdk/trace \
-go.opentelemetry.io/otel/semconv/v1.26.0
+go.opentelemetry.io/otel/exporters/otlp/ \
+otlptrace/otlptracehttp
 ```
 
 ---
@@ -373,7 +368,7 @@ func newTracerProvider(ctx context.Context)
 
 ---
 
-```go{3|4-7|12}
+```go{3|4-7|12-22}
 func main() {
     ctx := context.Background()
     tp, err := newTracerProvider(ctx)
@@ -385,7 +380,18 @@ func main() {
     // Previous code ...
 
     // Add OpenTelemetry middleware
-    r.Use(otelmux.Middleware("user-service"))
+    r.Use(
+		otelhttp.NewMiddleware("user-service",
+			otelhttp.WithSpanNameFormatter(
+            func(operation string, r *http.Request)
+            string {
+                return fmt.Sprintf("%s %s",
+                        r.Method,
+                        r.URL.Path,
+                )
+            }),
+		),
+    )
 
     r.HandleFunc("/user/{id}", h.userHandler)
      .Methods("GET")
@@ -421,34 +427,23 @@ baggage := baggage.FromContext(ctx)
 
 ## Custom Trace
 
-```go{3-4|5|7-9|12|14|16|18|22-26}
-func getUser(ctx context.Context, userID string)
-(*User, error) {
+```go{2-3|4|6|8-11|13-16}
+func getUser(ctx context.Context, userID string) (*User, error) {
 	ctx, span := otel.Tracer("user-service")
                      .Start(ctx, "getUser")
 	defer span.End()
-
-	span.SetAttributes(
-        attribute.String("user.id", userID)
-    )
+	span.SetAttributes(attribute.String("user.id", userID))
 
 	user, err := dbFetch(ctx, userID)
 	if err != nil {
-		if errors.Is(err, ErrNotFound) {
-			span.SetStatus(codes.Error, "user not found")
-		} else {
-			span.SetStatus(codes.Error, "database error")
-		}
+		span.SetStatus(codes.Error, "database error")
 		span.RecordError(err)
 		return nil, err
 	}
 
 	if user.Premium {
-		span.SetAttributes(
-            attribute.Bool("user.premium", true)
-        )
+		span.SetAttributes(attribute.Bool("user.premium", true))
 	}
-
 	return user, nil
 }
 ```
@@ -511,7 +506,7 @@ func NewPool(ctx context.Context, uri string) (*pgxpool.Pool, error) {
 
 ---
 
-<img width="95%" height="auto" data-src="images/trace_attributes.jpg">
+<img width="60%" height="auto" data-src="images/trace_attributes.jpg">
 
 ---
 
@@ -562,15 +557,14 @@ otelhttp
 
 ```go{2|4|5-6|7-12|26-32|35}
 func NewHTTPClient() *http.Client {
-    sanitizedPath := sanitizePath(r.URL.Path)
     transport := otelhttp.NewTransport(
         http.DefaultTransport,
         otelhttp.WithSpanNameFormatter(
         func(operation string, r *http.Request)
         string {
             return fmt.Sprintf("%s %s",
-                        r.Method,
-                        sanitizePath,
+                r.Method,
+                sanitizePath(r.URL.Path),
             )
         }),
     )
@@ -579,10 +573,6 @@ func NewHTTPClient() *http.Client {
         Transport: transport,
         Timeout:   5 * time.Second,
     }
-}
-
-func sanitizePath(path string) string {
-    return regexp.MustCompile(`/\d+`).ReplaceAllString(path, "/{id}")
 }
 
 func (s *Service) callExternalAPI(ctx context.Context) {
@@ -693,8 +683,8 @@ func (s *Service) consumeMessages(ctx context.Context) {
 
 ## Metric Types
 
-- Counters: for tracking ever-increasing values
-- ObservableGauge: for measuring fluctuating values
+- Counter: for tracking ever-increasing values
+- Gauge: for measuring fluctuating values
 
 
 {{% note %}}
@@ -707,13 +697,18 @@ guages: cpu usauge
 
 ## Metric Types (Cont...)
 
-- Histograms: for observing the distribution of values within predefined buckets.
+- Histogram: for observing the distribution of values within predefined buckets.
 - UpDownCounter: for values that go up and down
 
 {{% note %}}
 histogram: distribution of values
 
-up down counter: like queue size
+up down counter: like queue size (how much did it change)
+
+async versions of these:
+  - connection pools
+  - periodic sampling
+  - expensive to compute
 {{% /note %}}
 
 ---
@@ -736,9 +731,11 @@ up down counter: like queue size
 
 ```bash
 go get go.opentelemetry.io/otel/metric \
- go.opentelemetry.io/otel/sdk/metric \
- go.opentelemetry.io/otel/exporters/otlp/otlpmetric/\
- otlpmetrichttp
+go.opentelemetry.io/otel/sdk/metric \
+go.opentelemetry.io/otel/exporters/otlp/ \
+otlpmetric/otlpmetrichttp \
+go.opentelemetry.io/contrib/instrumentation/runtime \
+go.opentelemetry.io/contrib/instrumentation/host
 ```
 
 ---
@@ -780,9 +777,11 @@ func newMeterProvider(ctx context.Context)
 }
 ```
 
+
 ---
 
 ## Instrument metrics
+
 
 ```go{6-11}
 func main() {
@@ -800,6 +799,7 @@ func main() {
     // Rest of the code ...
 }
 ```
+
 
 ---
 
@@ -911,39 +911,52 @@ func (m Middleware) Metrics(next http.Handler) http.Handler {
 	})
 }
 ```
+
 ---
 
 ## High Cardinality
 
-```go{4-7|10|13-15|18}
-// DO NOT DO
-attrs := []attribute.KeyValue{
-// 1. Raw URL path with IDs (e.g., /users/12345)
-attribute.String("http.raw_path", r.URL.Path),
+```go{1-10|12-13}
+requestCounter.Add(ctx, 1, metric.WithAttributes(
+    // 1M possible values
+    attribute.String("user_id", "user_12345"),
+    // 100 endpoints
+    attribute.String("endpoint", "/api/users"),
+    // 5 methods
+    attribute.String("method", "GET"),
+    // 20 status codes
+    attribute.String("status", "200"),
+))
 
-// 2. Full query string with parameters
-attribute.String("http.query", r.URL.RawQuery),
-
-// 3. User-specific identifiers
-attribute.String("user.id", extractUserID(r)),
-
-// 4. Request body hash
-attribute.String("request.body_hash",
-        hashRequestBody(r)
-),
-
-// 5. Random value for "demonstration"
-attribute.Int("demo.random_tag", rand.Intn(1000)),
-}
+// Total time series = 1M × 100 × 5 × 20
+// = 10 BILLION time series! 💥
 ```
 
----
+{{% note %}}
+Each time series stores:
 
-<img width="90%" height="auto" data-src="images/high_cardinality.png">
+• Metadata: Label names and values
+• Data points: Timestamp + value pairs over time
+• Indexes: For fast querying
+
+1 time series ≈ 1-2KB metadata + data points over time
+10 billion time series ≈ 10-20TB just for metadata
+Plus historical data points = 100TB+ easily
+{{% /note %}}
 
 ---
 
 <img width="90%" height="auto" data-src="images/histogram.png">
+
+{{% note %}}
+100 requests sorted by response time:
+[10ms, 15ms, 20ms, ..., 180ms, 200ms, 250ms, 300ms, 500ms]
+                                    ↑
+                                  P95 ≈ 250ms
+
+• 95% of requests were faster than this value
+• 5% of requests were slower than this value
+{{% /note %}}
 
 ---
 
@@ -1017,6 +1030,23 @@ Visualise to see it
 
 ---
 
+## Install logs
+
+```bash
+# New packages for logs
+go get go.opentelemetry.io/otel/log \
+ go.opentelemetry.io/otel/log/global \
+ go.opentelemetry.io/otel/sdk/log \
+ go.opentelemetry.io/otel/exporters/otlp/ \
+ otlplog/otlploghttp \
+ go.opentelemetry.io/contrib/bridges/otelslog \
+ github.com/lmittmann/tint \
+ github.com/samber/slog-multi
+```
+
+---
+
+
 ## Instrument logs
 
 ```go{1-4|5-8|10-14|16-17}
@@ -1047,7 +1077,6 @@ func newLoggerProvider(
 ---
 
 ## Instrument logs
-
 
 ```go{6-11}
 func main() {
@@ -1162,23 +1191,8 @@ logger.InfoContext(
 |                                        |          |                                                                      |
 |----------------------------------------|----------|----------------------------------------------------------------------|
 | **Where is the bottleneck?**           | Traces   | Breakdown of time spent across services                              |
-| **Why did login for user@x fail?**     | Logs     | Authentication details (wrong password? locked account?)             |
-| **What happened to user X at 2:05 PM?**| Logs     | Audit trail with specific user context                               |
-
----
-
-|                                        |          |                                                                  |
-|----------------------------------------|----------|----------------------------------------------------------------------|
-| **Where is the distributed bottleneck?**| Traces  | Breakdown of time spent across services                              |
-| **Why did login for user@x fail?**     | Logs     | Authentication details (wrong password? locked account?)             |
-| **Is checkout latency increasing?**    | Metrics  | Performance trends across all requests                               |
-| **Why was checkout slow for user Y?**  | Traces   | Distributed profiling across microservices                           |
-| **What config changed at 2 AM?**       | Logs     | Discrete administrative events                                       |
-| **Which service calls Inventory?**     | Traces   | Service dependency mapping                                           |
-| **Database CPU spike correlation**     | Metrics  | Infrastructure resource trends                                       |
 | **Why did payment TX-456 timeout?**    | Traces   | Follow call path: Gateway → Auth → Payment → DB                      |
-| **How many 4xx errors on /checkout?**  | Metrics  | High-cardinality aggregation by route/status                         |
-| **What killed pod k8s-pod-123?**       | Logs     | Kernel OOM killer event details                                      |
+| **Why did login for user@x fail?**     | Logs     | Authentication details (wrong password? locked account?)             |
 
 ---
 
@@ -1459,13 +1473,13 @@ datasources:
 
 {{% section %}}
 
-## Logs -> Traces
+## Logs
 
 ![Derived Values](images/derived_values.png)
 
 ---
 
-## Metrics -> Traces
+## Metrics
 
 ![Exemplar](images/exemplars.png)
 
@@ -1479,16 +1493,15 @@ Otel context to a metric event -> connect to a trace signal
 
 ## Exemplar Modal
 
-- (optional) The trace associated with a recording (trace_id, span_id)
-
-- The time of the observation (time_unix_nano)
+- The trace context associated with a recording
+- The time of the observation
 
 ---
 
 ## Exemplar Modal (Cont...)
 
-- The recorded value (value)
-- A set of filtered attributes (filtered_attributes)
+- The recorded value
+- A set of filtered attributes
   - additional insight into the Context
 
 ---
@@ -1519,7 +1532,7 @@ metrics {
 
 ---
 
-## Traces -> Logs
+## Traces
 
 <img width="90%" height="auto" data-src="images/trace_to_logs.png">
 
@@ -1533,7 +1546,7 @@ metrics {
 
 ---
 
-<img width="95%" height="auto" data-src="images/trace_error.png">
+<img width="70%" height="auto" data-src="images/trace_error.png">
 
 ---
 
@@ -1548,7 +1561,7 @@ metrics {
 ## Logging
 
 - Storage
-- Logging PII
+- Avoid PII
   - PII: Personally Identifiable Information
 - Log levels
 - Indexing
@@ -1560,6 +1573,12 @@ metrics {
 - Avoid PII
 - Sampling
   - Head vs Tail
+
+{{% note %}}
+- Consider if most requests are successful, healhty with little variation
+- Tail sampling implementation
+  - must be stateful keep in memory
+{{% /note %}}
 
 ---
 
@@ -1578,5 +1597,18 @@ metrics {
 <img width="50%" height="auto" data-src="images/qr.png">
 
 https://haseebmajid.dev/slides/gophercon-otel/
+
+---
+
+## Useful Links
+
+- Observability vs Monitoring: https://www.youtube.com/watch?v=ytx6jr2TyxI
+- OpenTelemetry Collector - Explanation & Setup: https://www.youtube.com/watch?v=4ACQhkJBKyA
+- Sick of Digging Through Logs? Find Errors FAST with OpenTelemetry and Go!: https://www.youtube.com/watch?v=gOag7kWHJ5c
+
+---
+
+- OTel Metrics Spec: https://opentelemetry.io/docs/specs/otel/metrics/
+- Traces vs Spans: https://www.youtube.com/watch?v=A-nbuPugjxo
 
 {{% /section %}}

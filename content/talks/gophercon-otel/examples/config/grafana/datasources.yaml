@@ -13,7 +13,6 @@ datasources:
           datasourceUid: "tempo"
           url: '${__value.raw}'
 
-
   - name: Loki
     uid: "loki"
     type: loki
@@ -23,7 +22,7 @@ datasources:
     jsonData:
       derivedFields:
         - name: "🔍 View Trace"
-          matcherRegex: '"traceid":\s*"([0-9a-f]{32})"'
+          matcherRegex: '"trace_id":\s*"([0-9a-f]{32})"'
           url: '$${__value.raw}'
           datasourceUid: "tempo"
           matcherType: regex
@@ -42,5 +41,11 @@ datasources:
         spanStartTimeShift: '-5m'
         spanEndTimeShift: '5m'
         filterByTraceID: true
+        filterBySpanID: false
+        tags: ['service.name']
       tracesToMetrics:
         datasourceUid: "prometheus"
+        tags: [{ key: 'service.name', value: 'service' }, { key: 'operation' }]
+        queries:
+          - name: 'Sample query'
+            query: 'sum(rate(traces_spanmetrics_latency_bucket{$$__tags}[5m]))'
