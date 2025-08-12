@@ -299,10 +299,15 @@ func (h *Handler) userHandler(
 ## Install traces
 
 ```bash
-go get go.opentelemetry.io/otel/trace \
+go get go.opentelemetry.io/otel \
+go.opentelemetry.io/otel/trace \
+go.opentelemetry.io/contrib/instrumentation/net/http/\
+otelhttp \
+go.opentelemetry.io/otel/exporters/otlp/otlptrace/\
+otlptracehttp \
+go.opentelemetry.io/otel/sdk/resource \
 go.opentelemetry.io/otel/sdk/trace \
-go.opentelemetry.io/otel/exporters/otlp/ \
-otlptrace/otlptracehttp
+go.opentelemetry.io/otel/semconv/v1.26.0
 ```
 
 ---
@@ -313,49 +318,23 @@ OTEL_EXPORTER_OTLP_ENDPOINT="http://localhost:4318"
 
 ---
 
-```go{20-21|23-26|29-31|34-40|42}
-package main
+```go{1-5|7-10}
+func main() {
+	ctx := context.Background()
+	shutdown, err := telemetry.SetupOtel(ctx)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer shutdown(ctx)
 
-import (
-	// ... existing imports ...
-    "fmt"
-	"context"
-	"log"
-	"os"
-	"time"
+	logger := telemetry.NewLogger()
+	logger.InfoContext(ctx, "starting user service")
 
-	"go.opentelemetry.io/otel"
-	"go.opentelemetry.io/otel/attribute"
-	"go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp"
-	"go.opentelemetry.io/otel/sdk/resource"
-	sdktrace "go.opentelemetry.io/otel/sdk/trace"
-	semconv "go.opentelemetry.io/otel/semconv/v1.26.0"
-)
+	r := mux.NewRouter()
+	r.Use(otelmux.Middleware("user-service"))
+	r.HandleFunc("/user/{id}", userHandler).Methods("GET")
 
-
-func newTracerProvider(ctx context.Context)
-    (*trace.TracerProvider, error) {
-    // Create OTLP exporter
-    exporter, err := otlptracehttp.New(ctx)
-    if err != nil {
-        return nil, err
-    }
-
-    // Create trace provider
-    tp := sdktrace.NewTracerProvider(
-        sdktrace.WithBatcher(exporter),
-    )
-
-    // Set global tracer provider
-    otel.SetTracerProvider(tp)
-    otel.SetTextMapPropagator(
-        propagation.NewCompositeTextMapPropagator(
-            propagation.TraceContext{},
-        )
-    )
-
-    // Return shutdown function
-    return tp, nil
+	log.Fatal(http.ListenAndServe(":8080", r))
 }
 ```
 
@@ -368,34 +347,22 @@ func newTracerProvider(ctx context.Context)
 
 ---
 
-```go{3|4-7|12-22}
-func main() {
-    ctx := context.Background()
-    tp, err := newTracerProvider(ctx)
-    if err != nil {
-        log.Fatalf("failed to setup tracer: %v", err)
-    }
-    defer tp.Shutdown(ctx)
+```go{2-5|7-8}
+func userHandler(w http.ResponseWriter, r *http.Request) {
+    ctx, span := otel.Tracer("user-service").Start(r.Context(), "get-user")
+    defer span.End()
+    
+    userID := mux.Vars(r)["id"]
+    span.SetAttributes(attribute.String("user.id", userID))
 
-    // Previous code ...
+    logger := telemetry.NewLogger()
+    logger.InfoContext(ctx, "processing user request", "user_id", userID)
 
-    // Add OpenTelemetry middleware
-    r.Use(
-		otelhttp.NewMiddleware("user-service",
-			otelhttp.WithSpanNameFormatter(
-            func(operation string, r *http.Request)
-            string {
-                return fmt.Sprintf("%s %s",
-                        r.Method,
-                        r.URL.Path,
-                )
-            }),
-		),
-    )
-
-    r.HandleFunc("/user/{id}", h.userHandler)
-     .Methods("GET")
-    // Rest of the code ...
+    // Simulate some work
+    time.Sleep(50 * time.Millisecond)
+    
+    response := map[string]string{"id": userID, "name": "John Doe"}
+    json.NewEncoder(w).Encode(response)
 }
 ```
 
@@ -1033,7 +1000,6 @@ Visualise to see it
 ## Install logs
 
 ```bash
-# New packages for logs
 go get go.opentelemetry.io/otel/log \
  go.opentelemetry.io/otel/log/global \
  go.opentelemetry.io/otel/sdk/log \
@@ -1393,25 +1359,7 @@ volumes:
 
 ---
 
-## OTel Collector
-
-- Observability pipelines
-- Convert between formats
-  - Export prometheus metrics
-
----
-
 ## Alloy
-
-- UI
-- Grafana stack
-
-{{% note %}}
-- Like a proxy
-- But can transform our data
-{{% /note %}}
-
----
 
 <img width="95%" height="auto" data-src="images/alloy.png">
 
@@ -1493,7 +1441,7 @@ Otel context to a metric event -> connect to a trace signal
 
 ## Exemplar Modal
 
-- The trace context associated with a recording
+- The trace context
 - The time of the observation
 
 ---
@@ -1542,7 +1490,7 @@ metrics {
 
 ---
 
-<img width="80%" height="auto" data-src="images/metric_exemplar.png">
+<img width="70%" height="auto" data-src="images/metric_exemplar.png">
 
 ---
 
@@ -1596,7 +1544,9 @@ metrics {
 
 <img width="50%" height="auto" data-src="images/qr.png">
 
-https://haseebmajid.dev/slides/gophercon-otel/
+Slides: https://haseebmajid.dev/slides/gophercon-otel/
+
+Code: https://gitlab.com/hmajid2301/blog/-/tree/main/content/talks/gophercon-otel/examples
 
 ---
 

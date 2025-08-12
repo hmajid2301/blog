@@ -3,12 +3,19 @@ module github.com/hmajid2301/user-service
 go 1.24
 
 require (
+	github.com/IBM/sarama v1.43.3
 	github.com/exaring/otelpgx v0.6.2
+	github.com/gorilla/mux v1.8.1
 	github.com/jackc/pgx/v5 v5.7.1
 	github.com/lmittmann/tint v1.0.6
+	github.com/redis/go-redis/extra/redisotel/v9 v9.7.0
+	github.com/redis/go-redis/v9 v9.7.0
 	github.com/samber/slog-multi v1.2.4
 	go.opentelemetry.io/contrib/bridges/otelslog v0.8.0
+	go.opentelemetry.io/contrib/instrumentation/github.com/IBM/sarama/otelsarama v0.58.0
+	go.opentelemetry.io/contrib/instrumentation/github.com/gorilla/mux/otelmux v0.58.0
 	go.opentelemetry.io/contrib/instrumentation/host v0.58.0
+	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.58.0
 	go.opentelemetry.io/contrib/instrumentation/runtime v0.58.0
 	go.opentelemetry.io/otel v1.33.0
 	go.opentelemetry.io/otel/exporters/otlp/otlplog/otlploghttp v0.8.0
