@@ -120,6 +120,8 @@ Traces:
 {{% note %}}
 - datadog
 - jaeger
+- raise your hand if you say otel or ohhtel?
+
 {{% /note %}}
 
 ---
@@ -255,7 +257,7 @@ trace flags: 01
 
 ## Example service
 
-```go{16-18|20-21|28-35}
+```go{16-17|19-20|27-34}
 package main
 
 import (
@@ -271,12 +273,11 @@ func main() {
         // ...
     }
 
-    r := mux.NewRouter()
-    r.HandleFunc("/user/{id}", h.userHandler)
-    .Methods("GET")
+    mux := http.NewServeMux()
+    mux.HandleFunc("GET /user/{id}", h.userHandler)
 
     log.Println("Server starting on port 8080...")
-    log.Fatal(http.ListenAndServe(":8080", r))
+    log.Fatal(http.ListenAndServe(":8080", mux))
 }
 
 func (h *Handler) userHandler(
@@ -318,23 +319,49 @@ OTEL_EXPORTER_OTLP_ENDPOINT="http://localhost:4318"
 
 ---
 
-```go{1-5|7-10}
-func main() {
-	ctx := context.Background()
-	shutdown, err := telemetry.SetupOtel(ctx)
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer shutdown(ctx)
+```go{20-21|23-26|29-31|34|35-40|42}
+package main
 
-	logger := telemetry.NewLogger()
-	logger.InfoContext(ctx, "starting user service")
+import (
+	// ... existing imports ...
+    "fmt"
+	"context"
+	"log"
+	"os"
+	"time"
 
-	r := mux.NewRouter()
-	r.Use(otelmux.Middleware("user-service"))
-	r.HandleFunc("/user/{id}", userHandler).Methods("GET")
+	"go.opentelemetry.io/otel"
+	"go.opentelemetry.io/otel/attribute"
+	"go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp"
+	"go.opentelemetry.io/otel/sdk/resource"
+	sdktrace "go.opentelemetry.io/otel/sdk/trace"
+	semconv "go.opentelemetry.io/otel/semconv/v1.26.0"
+)
 
-	log.Fatal(http.ListenAndServe(":8080", r))
+
+func newTracerProvider(ctx context.Context)
+    (*trace.TracerProvider, error) {
+    // Create OTLP exporter
+    exporter, err := otlptracehttp.New(ctx)
+    if err != nil {
+        return nil, err
+    }
+
+    // Create trace provider
+    tp := sdktrace.NewTracerProvider(
+        sdktrace.WithBatcher(exporter),
+    )
+
+    // Set global tracer provider
+    otel.SetTracerProvider(tp)
+    otel.SetTextMapPropagator(
+        propagation.NewCompositeTextMapPropagator(
+            propagation.TraceContext{},
+        )
+    )
+
+    // Return shutdown function
+    return tp, nil
 }
 ```
 
@@ -345,24 +372,37 @@ func main() {
 - Baggage
 {{% /note %}}
 
+
 ---
 
-```go{2-5|7-8}
-func userHandler(w http.ResponseWriter, r *http.Request) {
-    ctx, span := otel.Tracer("user-service").Start(r.Context(), "get-user")
-    defer span.End()
+```go{3|4-7|12-22}
+func main() {
+    ctx := context.Background()
+    tp, err := newTracerProvider(ctx)
+    if err != nil {
+        log.Fatalf("failed to setup tracer: %v", err)
+    }
+    defer tp.Shutdown(ctx)
 
-    userID := mux.Vars(r)["id"]
-    span.SetAttributes(attribute.String("user.id", userID))
+    // Previous code ...
 
-    logger := telemetry.NewLogger()
-    logger.InfoContext(ctx, "processing user request", "user_id", userID)
+    // Add OpenTelemetry middleware
+    r.Use(
+		otelhttp.NewMiddleware("user-service",
+			otelhttp.WithSpanNameFormatter(
+            func(operation string, r *http.Request)
+            string {
+                return fmt.Sprintf("%s %s",
+                        r.Method,
+                        r.URL.Path,
+                )
+            }),
+		),
+    )
 
-    // Simulate some work
-    time.Sleep(50 * time.Millisecond)
-
-    response := map[string]string{"id": userID, "name": "John Doe"}
-    json.NewEncoder(w).Encode(response)
+    r.HandleFunc("/user/{id}", h.userHandler)
+     .Methods("GET")
+    // Rest of the code ...
 }
 ```
 
@@ -394,7 +434,7 @@ baggage := baggage.FromContext(ctx)
 
 ## Custom Trace
 
-```go{2-3|4|6|8-11|13-16}
+```go{2-3|5|8|9-11|14-16}
 func getUser(ctx context.Context, userID string) (*User, error) {
 	ctx, span := otel.Tracer("user-service")
                      .Start(ctx, "getUser")
@@ -522,7 +562,7 @@ otelhttp
 
 ---
 
-```go{2|4|5-6|7-12|26-32|35}
+```go{2|4|5-6|7-12|10-11|22|23-29|31}
 func NewHTTPClient() *http.Client {
     transport := otelhttp.NewTransport(
         http.DefaultTransport,
@@ -531,6 +571,7 @@ func NewHTTPClient() *http.Client {
         string {
             return fmt.Sprintf("%s %s",
                 r.Method,
+                // INFO: From /user/123 -> /user/id
                 sanitizePath(r.URL.Path),
             )
         }),
@@ -683,7 +724,7 @@ async versions of these:
 ## Metric Model
 
 - Name: A descriptive name like http.server.request_count
-- Labels: Key-value pairs that provide context
+- Attributes: Key-value pairs that provide context
 
 ---
 
@@ -1065,7 +1106,7 @@ func main() {
 
 ## Instrument logs
 
-```go{15|16-21|22-29|31-34|37-38}
+```go{15|16-21|22-25|26-29|31-34|37-38}
 package telemetry
 
 import (
@@ -1189,7 +1230,7 @@ OTEL_RESOURCE_ATTRIBUTES="service.namespace=
 
 ## Resources
 
-```go{|5-8}
+```go{|5-10}
 res, err := resource.New(
     ctx,
     resource.WithHost(),
@@ -1226,7 +1267,7 @@ traceProvider := trace.NewTracerProvider(
 
 ---
 
-## semcov
+## semconv
 
 - Semantic Convention
 - Common attributes
@@ -1363,6 +1404,11 @@ volumes:
 
 <img width="95%" height="auto" data-src="images/alloy.png">
 
+{{% note %}}
+- Easier to integrate with kubernetes (no controllers)
+-
+{{% /note %}}
+
 ---
 
 ## Setup Grafana
@@ -1488,6 +1534,8 @@ metrics {
 
 ## Viewing an error
 
+<img width="50%" height="auto" data-src="images/community_fire.jpg">
+
 ---
 
 <img width="70%" height="auto" data-src="images/metric_exemplar.png">
@@ -1542,11 +1590,11 @@ metrics {
 
 ---
 
-<img width="50%" height="auto" data-src="images/qr.png">
+<img width="40%" height="auto" data-src="images/qr.png">
 
 Slides: https://haseebmajid.dev/slides/gophercon-otel/
 
-Code: https://gitlab.com/hmajid2301/blog/-/tree/main/content/talks/gophercon-otel/examples
+Example Service: https://gitlab.com/hmajid2301/banterbus
 
 ---
 
