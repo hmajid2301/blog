@@ -72,7 +72,7 @@ Metrics:
 
 Traces:
  - See every element of an event
- - Hollistic view of the system
+ - Holistic view of the system
  - Sample
 {{% /note %}}
 
@@ -269,7 +269,7 @@ import (
 )
 
 func main() {
-    handler := &Handler{
+    h := &Handler{
         // ...
     }
 
@@ -311,6 +311,10 @@ go.opentelemetry.io/otel/sdk/trace \
 go.opentelemetry.io/otel/semconv/v1.26.0
 ```
 
+{{% note %}}
+- Download go modules
+{{% /note %}}
+
 ---
 
 ```bash
@@ -319,7 +323,7 @@ OTEL_EXPORTER_OTLP_ENDPOINT="http://localhost:4318"
 
 ---
 
-```go{20-21|23-26|29-31|34|35-40|42}
+```go{21-22|24-27|30-32|35|36-41|43}
 package main
 
 import (
@@ -333,6 +337,7 @@ import (
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp"
+	"go.opentelemetry.io/otel/propagation"
 	"go.opentelemetry.io/otel/sdk/resource"
 	sdktrace "go.opentelemetry.io/otel/sdk/trace"
 	semconv "go.opentelemetry.io/otel/semconv/v1.26.0"
@@ -340,7 +345,7 @@ import (
 
 
 func newTracerProvider(ctx context.Context)
-    (*trace.TracerProvider, error) {
+    (*sdktrace.TracerProvider, error) {
     // Create OTLP exporter
     exporter, err := otlptracehttp.New(ctx)
     if err != nil {
@@ -375,39 +380,6 @@ func newTracerProvider(ctx context.Context)
 
 ---
 
-```go{3|4-7|12-22}
-func main() {
-    ctx := context.Background()
-    tp, err := newTracerProvider(ctx)
-    if err != nil {
-        log.Fatalf("failed to setup tracer: %v", err)
-    }
-    defer tp.Shutdown(ctx)
-
-    // Previous code ...
-
-    // Add OpenTelemetry middleware
-    r.Use(
-		otelhttp.NewMiddleware("user-service",
-			otelhttp.WithSpanNameFormatter(
-            func(operation string, r *http.Request)
-            string {
-                return fmt.Sprintf("%s %s",
-                        r.Method,
-                        r.URL.Path,
-                )
-            }),
-		),
-    )
-
-    r.HandleFunc("/user/{id}", h.userHandler)
-     .Methods("GET")
-    // Rest of the code ...
-}
-```
-
----
-
 ## Trace Context
 
 ```http
@@ -423,11 +395,47 @@ tracestate: mycompany=true
 
 ---
 
+```go{3|4-7|12-20|22}
+func main() {
+    ctx := context.Background()
+    tp, err := newTracerProvider(ctx)
+    if err != nil {
+        log.Fatalf("failed to setup tracer: %v", err)
+    }
+    defer tp.Shutdown(ctx)
+
+    // Previous code ...
+
+    // Add OpenTelemetry middleware
+	m := otelhttp.NewMiddleware("user-service",
+        otelhttp.WithSpanNameFormatter(
+        func(operation string, r *http.Request) string {
+            return fmt.Sprintf("%s %s",
+                    r.Method,
+                    r.URL.Path,
+            )
+        }),
+    ),
+
+    log.Fatal(http.ListenAndServe(":8080", m(mux)))
+
+}
+```
+
+---
+
 ## ctx
 
-```go
-span := trace.SpanFromContext(ctx)
-baggage := baggage.FromContext(ctx)
+```go{1|6|7-8}
+func (h *Handler) userHandler(
+    w http.ResponseWriter,
+    r *http.Request,
+) {
+
+    ctx := r.Context()
+    span := trace.SpanFromContext(ctx)
+    baggage := baggage.FromContext(ctx)
+}
 ```
 
 ---
@@ -631,7 +639,7 @@ func NewKafkaClient(brokers []string, group string) (*kgo.Client, error) {
 
     opts = append(opts, kgo.WithProduceBatchInterceptor(
         kotel.NewProduceBatchInterceptor(tracer),
-    )
+    ))
 
     return kgo.NewClient(opts...)
 }
@@ -668,6 +676,20 @@ func (s *Service) consumeMessages(ctx context.Context) {
 
 <img width="95%" height="auto" data-src="images/trace_consume.png">
 
+---
+
+## Sampling
+
+- Head vs Tail
+
+{{% note %}}
+- Consider if most requests are successful, healthy with little variation
+- Tail sampling implementation
+  - must be stateful keep in memory
+{{% /note %}}
+
+
+
 
 {{% /section %}}
 
@@ -698,7 +720,7 @@ func (s *Service) consumeMessages(ctx context.Context) {
 {{% note %}}
 counter: total number of requests, will never decrease 1000 -> 999
 
-guages: cpu usauge
+gauges: cpu usauge
 {{% /note %}}
 
 ---
@@ -836,7 +858,7 @@ var (
 	responseSize metric.Int64Histogram
 )
 
-func (m Middleware) Metrics(next http.Handler) http.Handler {
+func Metrics(next http.Handler) http.Handler {
     metricsOnce.Do(func() {
         meter := otel.GetMeterProvider().Meter("http.metrics")
 
@@ -1481,7 +1503,8 @@ datasources:
 
 ## Exemplars
 
-Otel context to a metric event -> connect to a trace signal
+- OTel context to a metric
+  - Connect to a trace
 
 ---
 
@@ -1547,42 +1570,6 @@ metrics {
 ---
 
 <img width="95%" height="auto" data-src="images/log_error.png">
-
----
-
-## Lessons learnt
-
----
-
-## Logging
-
-- Storage
-- Avoid PII
-  - PII: Personally Identifiable Information
-- Log levels
-- Indexing
-
----
-
-## Tracing
-
-- Avoid PII
-- Sampling
-  - Head vs Tail
-
-{{% note %}}
-- Consider if most requests are successful, healhty with little variation
-- Tail sampling implementation
-  - must be stateful keep in memory
-{{% /note %}}
-
----
-
-## Metrics
-
-- High cardinality
-  - 1 unique label value = 1 new time series
-- Counter resets to 0
 
 ---
 
