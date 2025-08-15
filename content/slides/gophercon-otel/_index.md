@@ -200,9 +200,10 @@ traceparent:
 ```
 
 ```http
+version: 00
 trace-id: d4cda95b652f4a1592b449d5929fda1b
 span-id: 6e0c63257de34c92
-trace flags: 01
+trace-flags: 01 (sample this trace)
 ```
 
 ---
@@ -442,12 +443,14 @@ func (h *Handler) userHandler(
 
 ## Custom Trace
 
-```go{2-3|5|8|9-11|14-16}
+```go{2-3|5-7|10|11-13|16-20}
 func getUser(ctx context.Context, userID string) (*User, error) {
 	ctx, span := otel.Tracer("user-service")
                      .Start(ctx, "getUser")
 	defer span.End()
-	span.SetAttributes(attribute.String("user.id", userID))
+    span.SetAttributes(
+        attribute.String("user.id", userID),
+    )
 
 	user, err := dbFetch(ctx, userID)
 	if err != nil {
@@ -457,7 +460,9 @@ func getUser(ctx context.Context, userID string) (*User, error) {
 	}
 
 	if user.Premium {
-		span.SetAttributes(attribute.Bool("user.premium", true))
+        span.SetAttributes(
+            attribute.Bool("user.premium", true),
+        )
 	}
 	return user, nil
 }
@@ -570,7 +575,7 @@ otelhttp
 
 ---
 
-```go{2|4|5-6|7-12|10-11|22|23-29|31}
+```go{2|4|5-6|7-12|9-10|21|22|23-29|31}
 func NewHTTPClient() *http.Client {
     transport := otelhttp.NewTransport(
         http.DefaultTransport,
@@ -976,6 +981,10 @@ Plus historical data points = 100TB+ easily
 
 ---
 
+<img width="90%" height="auto" data-src="images/metric_counter.png">
+
+---
+
 <img width="90%" height="auto" data-src="images/histogram.png">
 
 {{% note %}}
@@ -990,8 +999,20 @@ Plus historical data points = 100TB+ easily
 
 ---
 
-<img width="90%" height="auto" data-src="images/histogram_promql.png">
+```
+# ≤ 100ms: 100 requests
+http_request_duration_bucket{le="0.1"} 100
+# ≤ 500ms: 250 requests
+http_request_duration_bucket{le="0.5"} 250
+# ≤ 800ms: 290 requests
+http_request_duration_bucket{le="0.8"} 290
+# ≤ 1000ms: 310 requests
+http_request_duration_bucket{le="1.0"} 310
+# All requests: 320 total
+http_request_duration_bucket{le="+Inf"} 320
 
+# ~ 0.94 seconds
+```
 
 {{% note %}}
 150 ms average is great:
@@ -1000,14 +1021,6 @@ Plus historical data points = 100TB+ easily
 
 Visualise to see it
 {{% /note %}}
-
----
-
-<img width="90%" height="auto" data-src="images/metric_counter.png">
-
----
-
-<img width="90%" height="auto" data-src="images/metric_counter_promql.png">
 
 {{% /section %}}
 
@@ -1527,7 +1540,7 @@ datasources:
 
 ```json{4-13|10-13|16}
 metrics {
-  name: "http_request_duration_seconds"
+  name: "http_server_duration_milliseconds_seconds"
   histogram {
     data_points {
       buckets {
