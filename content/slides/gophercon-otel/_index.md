@@ -1608,5 +1608,6 @@ Example Service: https://gitlab.com/hmajid2301/banterbus
 
 - OTel Metrics Spec: https://opentelemetry.io/docs/specs/otel/metrics/
 - Traces vs Spans: https://www.youtube.com/watch?v=A-nbuPugjxo
+- OTel Demo: https://www.youtube.com/shorts/zQ8OkrTLTyw
 
 {{% /section %}}
