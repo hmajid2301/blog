@@ -10,7 +10,7 @@ ShowWordCount: false
 hideMeta: false
 ---
 
-{{< youtube id="TBD" >}}
+{{< youtube id="t3Xz-IrxNwk" >}}
 
 - [Abstract](https://www.gophercon.com/agenda/session/1234567)
 - [Example Service](https://gitlab.com/hmajid2301/banterbus)
@@ -19,4 +19,7 @@ hideMeta: false
 
 ## Photo from conference
 
-![GopherCon OTEL Talk](images/talk.jpg)
+![First Image](images/1.jpg)
+![Second Image](images/2.jpg)
+![Third Image](images/3.jpg)
+![Fourth Image](images/4.jpg)

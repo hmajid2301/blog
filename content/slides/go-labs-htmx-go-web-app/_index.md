@@ -98,54 +98,6 @@ slide_number = true
 
 ---
 
-## How I Structure My Apps
-
----
-
-## Project Layout
-
-```
-internal/
-  config/             # Configuration
-  service/            # Business logic
-  store/              # Database layer (sqlc)
-  transport/          # HTTP handlers
-    http/
-      controllers/    # Request handlers
-      views/          # Templ templates
-  telemetry/          # Observability
-```
-
-{{% note %}}
-- Standard Go project layout
-- Clean architecture principles
-- Clear separation of concerns
-{{% /note %}}
-
-
----
-
-```
-transport/http/views/
-├── components/        # Reusable UI
-├── layouts/           # Base page layouts
-├── pages/             # Feature pages
-├── sections/          # Page sections (lobby, dashboard)
-└── langs/             # i18n translation files
-    ├── en-GB.yaml
-    ├── de-DE.yaml
-    └── pt-PT.yaml
-```
-
-{{% note %}}
-- Components for reusability (buttons, inputs, modals)
-- Sections for complex page parts
-- SVG icons as components
-- YAML for translations with fallback
-{{% /note %}}
-
----
-
 <img height="80%" width="auto" data-src="images/stack.webp">
 
 {{% /section %}}
@@ -371,6 +323,29 @@ src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.3/dist/cdn.min.js">
 
 
 <img width="100%" data-src="images/button.png">
+
+---
+
+```css{1-2|4-5|8-13|16-18}
+@import "tailwindcss";
+@source "./internal/transport/http/views/**/*.templ";
+
+@plugin "daisyui" {
+  themes: cupcake --default;
+}
+
+@plugin "daisyui/theme" {
+  name: "cupcake";
+  default: true;
+  --color-neutral: #291334;
+  --size-selector: 0.3125rem;
+  --size-field: 0.3125rem;
+}
+
+@utility btn-neutral {
+  @apply hover:border-none transition-colors hover:bg-secondary hover:text-neutral;
+}
+```
 
 ---
 
@@ -917,6 +892,18 @@ exclude_regex = ["_test.go"]
 
 ---
 
+```yaml
+watch:
+  desc: Watch for file changes
+  cmds:
+  - templ generate -watch --open-browser=true &
+  - tailwindcss --watch=always -i \
+                ./static/css/tailwind.css -o \
+                ./static/css/styles.css --minify &
+```
+
+---
+
 ## Nix
 
 ```bash
@@ -981,4 +968,4 @@ https://haseebmajid.dev/slides/go-lab-htmx-go-web-app/
 
 - Nix Dev Shell: https://www.youtube.com/watch?v=bdGfn_ihHOk
 - Playwright: https://www.youtube.com/watch?v=XdBhYt3-bbU
-- OTel & Go: GOPHERCON TALK
+- OTel & Go: https://www.youtube.com/watch?v=t3Xz-IrxNwk&list=PLSCmmmcxRB6DilKhSz09JL9F4CVl7Vyd3&index=5
