@@ -42,19 +42,11 @@ slide_number = true
 
 ---
 
-## Old
+## Story Time
 
 ---
 
 <img height="70%" width="auto" data-src="images/old_banterbus.png">
-
----
-
-## New
-
----
-
-<img width="80%" data-src="images/banterbus.png">
 
 ---
 
@@ -89,7 +81,6 @@ slide_number = true
 
 - HTMX
 - TailwindCSS
-  - DaisyUI
 - AlpineJS
 
 
@@ -109,17 +100,120 @@ slide_number = true
 ## What is HTMX?
 
 - A small library
+- Extends HTML with AJAX
+
+{{% note %}}
+ (~14kb minified)
 - Basic interaction via HTML attributes
+{{% /note %}}
 
 ---
-
-## HTMX in a Nutshell
 
 > javascript fatigue:
 longing for a hypertext
 already in hand
 
 — [htmx.org](https://htmx.org)
+
+---
+
+```
+┌─────────┐    ┌──────┐    ┌─────────┐
+│ Browser │    │ HTMX │    │ Server  │
+└─────────┘    └──────┘    └─────────┘
+     │            │            │
+     │ User Event │            │
+     ├───────────►│            │
+     │            │ HTTP Req   │
+     │            ├───────────►│
+     │            │ HTML Resp  │
+     │            │◄───────────┤
+     │ DOM Update │            │
+     │◄───────────┤            │
+```
+
+---
+
+<video data-autoplay src="images/network_requests.mp4">
+
+{{% note %}}
+1.  An event is triggered on an element with an `hx-*` attribute.
+2.  HTMX makes an AJAX request to the server.
+3.  The server sends back HTML.
+4.  HTMX swaps the response HTML into the target element.
+{{% /note %}}
+
+---
+
+| Attribute | Purpose | Example |
+|-----------|---------|---------|
+| `hx-get` | GET request | `hx-get="/users"` |
+| `hx-post` | POST request | `hx-post="/users"` |
+| `hx-trigger` | Event trigger | `hx-trigger="click"` |
+| `hx-target` | Target element | `hx-target="#result"` |
+| `hx-swap` | Swap strategy | `hx-swap="innerHTML"` |
+
+---
+
+## Swap Strategies
+
+```html
+<!-- Replace inner content -->
+<div hx-swap="innerHTML">...</div>
+
+<!-- Replace entire element -->
+<div hx-swap="outerHTML">...</div>
+
+<!-- Insert at beginning -->
+<div hx-swap="afterbegin">...</div>
+
+<!-- Insert at end -->
+<div hx-swap="beforeend">...</div>
+```
+
+---
+
+## Advanced Triggers
+
+```html{2|5|8-9|12-13}
+<!-- Trigger on page load -->
+<div hx-get="/data" hx-trigger="load">
+
+<!-- Trigger on intersection (lazy loading) -->
+<div hx-get="/more" hx-trigger="intersect once">
+
+<!-- Debounced input -->
+<input hx-get="/search"
+       hx-trigger="keyup changed delay:500ms">
+
+<!-- Multiple triggers -->
+<div hx-get="/refresh"
+     hx-trigger="click, every 30s">
+```
+
+---
+
+## Loading Indicators
+
+```html
+<!-- Basic indicator -->
+<button hx-post="/submit"
+        hx-indicator="#spinner">
+    Submit
+</button>
+<div id="spinner" class="htmx-indicator">
+    Loading...
+</div>
+
+<!-- Inline indicator -->
+<button hx-post="/submit"
+        hx-indicator=".loading">
+    <span class="htmx-show">Submit</span>
+    <span class="loading htmx-indicator">
+        Submitting...
+    </span>
+</button>
+```
 
 ---
 
@@ -237,16 +331,44 @@ type Waitlist struct {
 
 ---
 
-```html
-<div hx-trigger="intersect once" />
-<div hx-trigger="keyup changed delay:500ms" />
+```go
+w.Header().Set("HX-Retarget", "#error_modal_container")
+w.Header().Set("Content-Type", "text/html")
 ```
 
 ---
 
-```go
-w.Header().Set("HX-Retarget", "#error_modal_container")
-w.Header().Set("Content-Type", "text/html")
+## WebSockets
+
+```html{2-3|6-7|9}
+<div
+     hx-ext="ws"
+     ws-connect="/ws">
+
+    <form
+        hx-vals='{"message_type": "submit_vote" }'
+        ws-send
+    >
+        <input name="voted_player_nickname" />
+    </form>
+</div>
+```
+
+---
+
+## Caching Strategies
+
+```html
+<!-- Cache GET requests -->
+<div hx-get="/expensive-data"
+     hx-trigger="load"
+     hx-cache="true">
+</div>
+
+<!-- Conditional requests -->
+<div hx-get="/data"
+     hx-headers='{"If-None-Match": "etag123"}'>
+</div>
 ```
 
 ---
@@ -256,11 +378,13 @@ w.Header().Set("Content-Type", "text/html")
 - **200**: Swap content (success)
 - **204**: No content to swap
 
+{{% /section %}}
+
 ---
 
-## Interactivity
+{{% section %}}
 
-- Alpine
+## AlpineJS
 
 {{% note %}}
 - Stringify JS
@@ -293,59 +417,7 @@ src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.3/dist/cdn.min.js">
 
 ---
 
-
 <video data-autoplay src="images/modal_demo.mp4">
-
----
-
-## TailwindCSS
-
-- Lot of examples
-
-{{% note %}}
-- Bootstrap
-- Long names
-- Can be difficult to read
-{{% /note %}}
-
----
-
-```html{1-5}
-<button type="button" class="text-white bg-blue-700
-    hover:bg-blue-800 focus:ring-4 focus:ring-blue-300
-    font-medium rounded-lg text-sm px-5 py-2.5 me-2
-    mb-2 dark:bg-blue-600 dark:hover:bg-blue-700
-    focus:outline-none dark:focus:ring-blue-800"
->Default</button>
-```
-
----
-
-
-<img width="100%" data-src="images/button.png">
-
----
-
-```css{1-2|4-5|8-13|16-18}
-@import "tailwindcss";
-@source "./internal/transport/http/views/**/*.templ";
-
-@plugin "daisyui" {
-  themes: cupcake --default;
-}
-
-@plugin "daisyui/theme" {
-  name: "cupcake";
-  default: true;
-  --color-neutral: #291334;
-  --size-selector: 0.3125rem;
-  --size-field: 0.3125rem;
-}
-
-@utility btn-neutral {
-  @apply hover:border-none transition-colors hover:bg-secondary hover:text-neutral;
-}
-```
 
 ---
 
@@ -366,82 +438,6 @@ src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.3/dist/cdn.min.js">
 {{% section %}}
 
 ## Backend
-
-- Go stdlib HTTP server
-
----
-
-## Router
-
-```go{5-11|13-21}
-func main() {
-    mux := http.NewServeMux()
-    handler := &Handler{store: store}
-
-    // Static files
-    mux.Handle("/static/",
-        http.StripPrefix("/static/",
-            http.FileServer(http.Dir("./static"),
-            ),
-        ),
-    )
-
-    // API routes
-    mux.HandleFunc(
-        "POST /waitlist",
-        handler.AddToWaitlist,
-    )
-    mux.HandleFunc(
-        "GET /",
-        handler.HomePage,
-    )
-
-    log.Fatal(http.ListenAndServe(":8080", mux))
-}
-```
-
----
-
-## Groups
-
-```go{2-3|5-8|10-21}
-r := NewRouter()
-// Global middleware
-r.Use(recoverPanic, metrics, tracing)
-
-r.Group(func(r *Router) {
-    // Public group middleware
-    r.Use(requestID, logRequest)
-    r.HandleFunc("GET /", home)
-
-    // Admin group
-    r.Group(func(r *Router) {
-        r.Use(authenticateUser, requireAdmin)
-        r.HandleFunc(
-            "GET /admin/dashboard",
-            adminDashboard,
-        )
-        r.HandleFunc(
-            "POST /admin/users",
-            createUser,
-        )
-    })
-
-    // API group
-    r.Group(func(r *Router) {
-        r.Use(corsHandler, jsonContentType)
-        r.HandleFunc("POST /api/feedback", submitFeedback)
-        r.HandleFunc("GET /api/health", healthCheck)
-    })
-
-    // WebSocket group
-    r.Group(func(r *Router) {
-        // Only authenticated users
-        r.Use(auth)
-        r.HandleFunc("GET /chat/room/{room_id}", handleWebSocket)
-    })
-})
-```
 
 ---
 
@@ -637,6 +633,10 @@ en-GB:
 </button>
 ```
 
+---
+
+<video data-autoplay src="images/i18n_demo.mp4">
+
 {{% /section %}}
 
 ---
@@ -809,29 +809,6 @@ type Storer interface {
 
 {{% section %}}
 
-## WebSockets
-
-```html{2-3|6-7|9-10}
-<div
-     hx-ext="ws"
-     ws-connect="/ws">
-
-    <form
-        hx-vals='{"message_type": "submit_vote" }'
-        ws-send
-    >
-        <input name="voted_player_nickname"
-            value={ player.Nickname }/>
-    </form>
-</div>
-```
-
-{{% /section %}}
-
----
-
-{{% section %}}
-
 ## DevEx
 
 ---
@@ -928,14 +905,13 @@ example on main via 🐹 v1.22.8 ❄️ impure (nix-shell-env)
 
 - Lots of frontend reactivity
 - Separate frontend/backend teams
-- Design System?
+- Design System
 
 ---
 
 ## Other Issues?
 
 - Alpine: Stringified JS
-- TailwindCSS: Complicated CSS
 - Templ: Another tool
 - SQLC: Dynamic queries
 
@@ -955,16 +931,12 @@ example on main via 🐹 v1.22.8 ❄️ impure (nix-shell-env)
 
 <img width="50%" height="auto" data-src="images/qr.png">
 
-https://haseebmajid.dev/slides/go-lab-htmx-go-web-app/
+- https://haseebmajid.dev/slides/go-lab-htmx-go-web-app/
+- Banterbus: https://gitlab.com/hmajid2301/banterbus
 
 ---
 
 ## References & Thanks
-
-- **alexedwards.net** - [Middleware organization patterns](https://www.alexedwards.net/blog/organize-your-go-middleware-without-dependencies)
-- **Example:** Banterbus (Game): https://gitlab.com/hmajid2301/banterbus
-
----
 
 - Nix Dev Shell: https://www.youtube.com/watch?v=bdGfn_ihHOk
 - Playwright: https://www.youtube.com/watch?v=XdBhYt3-bbU
