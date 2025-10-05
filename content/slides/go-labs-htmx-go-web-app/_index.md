@@ -67,7 +67,6 @@ slide_number = true
 
 - Go
 - Postgres
-  - sqlc
 - Templ
 
 {{% note %}}
@@ -97,21 +96,22 @@ slide_number = true
 
 {{% section %}}
 
-## What is HTMX?
-
-- A small library
-- Extends HTML with AJAX
+## HTMX
 
 {{% note %}}
+- A small library
+- Extends HTML with AJAX
  (~14kb minified)
 - Basic interaction via HTML attributes
 {{% /note %}}
 
 ---
 
-> javascript fatigue:
+```
+javascript fatigue:
 longing for a hypertext
 already in hand
+```
 
 — [htmx.org](https://htmx.org)
 
@@ -195,17 +195,7 @@ already in hand
 
 ## Loading Indicators
 
-```html
-<!-- Basic indicator -->
-<button hx-post="/submit"
-        hx-indicator="#spinner">
-    Submit
-</button>
-<div id="spinner" class="htmx-indicator">
-    Loading...
-</div>
-
-<!-- Inline indicator -->
+```html{2|4-6}
 <button hx-post="/submit"
         hx-indicator=".loading">
     <span class="htmx-show">Submit</span>
@@ -300,7 +290,7 @@ type Waitlist struct {
 
 ---
 
-<video data-autoplay src="images/waitlist_demo.mp4">
+<video data-autoplay src="images/waitlist.mp4">
 
 ---
 
@@ -356,6 +346,15 @@ w.Header().Set("Content-Type", "text/html")
 
 ---
 
+```json
+{
+    "message_type": "submit_vote",
+    "voted_player_nickname": "majiy"
+}
+```
+
+---
+
 ## Caching Strategies
 
 ```html
@@ -371,12 +370,19 @@ w.Header().Set("Content-Type", "text/html")
 </div>
 ```
 
+{{% note %}}
+- Use cache data for subsequent request
+- Only send response if different from this header
+{{% /note %}}
+
 ---
 
 ## HTMX Response Codes
 
-- **200**: Swap content (success)
-- **204**: No content to swap
+• 204 - No Content
+• 304 - Not Modified
+• 4xx - Client errors
+• 5xx - Server errors
 
 {{% /section %}}
 
@@ -397,7 +403,7 @@ w.Header().Set("Content-Type", "text/html")
 
 ```html
 <script
-src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.3/dist/cdn.min.js">
+src="https://cdn./.../alpinejs@3.14.3/dist/cdn.min.js">
 </script>
 ```
 
@@ -417,7 +423,7 @@ src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.3/dist/cdn.min.js">
 
 ---
 
-<video data-autoplay src="images/modal_demo.mp4">
+<video data-autoplay src="images/modal.mp4">
 
 ---
 
@@ -443,7 +449,7 @@ src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.3/dist/cdn.min.js">
 
 ## Handler
 
-```go{1-3|5-8|9-22|24-25}
+```go{1-3|5-8|13-16|25-26}
 type Waitlist struct {
 	Email string `json:"email"`
 }
@@ -453,9 +459,10 @@ func (h *Handler) AddToWaitlist(
     r *http.Request,
 ) {
     var req Waitlist
-    json.NewDecoder(r.Body).Decode(&req)
+    body, _ := io.ReadAll(r.Body)
+    json.Unmarshal(body, &req)
 
-    waitlist, err := h.store.AddToWaitlist(
+    waitlist, err := h.service.AddToWaitlist(
         r.Context(),
         req.Email,
     )
@@ -467,16 +474,13 @@ func (h *Handler) AddToWaitlist(
         return
     }
 
-    components.SuccessWaitlist(waitlist.Email).
+    components.Waitlist(waitlist.Email).
         Render(r.Context(), w)
 }
 ```
 
-{{% /section %}}
-
 ---
 
-{{% section %}}
 
 ## Templ
 
@@ -492,12 +496,16 @@ func (h *Handler) AddToWaitlist(
 
 ---
 
+<video data-autoplay src="images/lsp.mp4">
+
+---
+
 ```go{1|3-6|8|9-12|14-15|17-20}
 package sections
 
 import (
 	"gitlab.com/hmajid2301/banterbus/internal/service"
-	"gitlab.com/hmajid2301/banterbus/internal/views/components"
+	"gitlab.com/.../internal/views/blocks"
 )
 
 templ Winner(state service.WinnerState, maxScore int) {
@@ -507,9 +515,9 @@ templ Winner(state service.WinnerState, maxScore int) {
             <div class="grid>
                 <div>
                     The winner is
-                    { state.Players[0].Nickname }
+                    { state.WinnerPlayer.Nickname }
                 </div>
-                @components.Scoreboard(
+                @blocks.Scoreboard(
                     state.Players,
                     maxScore,
                 )
@@ -554,20 +562,18 @@ script sentryLoad(environment string) {
 
 ## layout.templ
 
-```go{1|3|5|9|12|13}
+```go{1|10-12|11}
 package layouts
 
-import "gitlab.com/hmajid2301/voxicle/internal/transport/http/views/components"
+import "gitlab.com/.../http/views/components"
 
 templ Base(title string, environment string) {
 	<!DOCTYPE html>
 	<html lang="en">
 		<head>
-			@components.Head(title)
 		</head>
 		<body class="bg-base-200 text-neutral">
 			{ children... }
-			@components.Scripts(environment)
 		</body>
 	</html>
 }
@@ -583,6 +589,10 @@ templ Dashboard(title string, environment string) {
     }
 }
 ```
+
+---
+
+<video data-autoplay src="images/base_template.mp4">
 
 {{% /section %}}
 
@@ -609,6 +619,16 @@ http.Handler {
 
 ---
 
+```go{2}
+component := sections.Winner(winnerState, maxScore)
+err := component.Render(r.Context(), &buf)
+if err != nil {
+    return err
+}
+```
+
+---
+
 ```yaml
 en-GB:
   common:
@@ -620,17 +640,17 @@ en-GB:
 ---
 
 ```go
-@components.Button() {
+<div>
     { i18n.T(ctx, "common.ready_button") }
-}
+</div>
 ```
 
 ---
 
 ```html
-<button class="...">
+<div class="...">
     Ready
-</button>
+</div>
 ```
 
 ---
@@ -644,8 +664,6 @@ en-GB:
 {{% section %}}
 
 ## Postgres
-
-- sqlc
 
 ---
 
@@ -756,7 +774,7 @@ DROP TABLE IF EXISTS feedback;
 
 ```go{2-3|4-8|13-18}
 func (s *DB) StartGame(ctx context.Context, arg StartGameArgs) error {
-return s.TransactionWithRetry(ctx, func(q *Queries)
+return s.Transaction(ctx, func(q *Queries)
 error {
 // Update room state
 _, err := q.UpdateRoomState(ctx, UpdateParams{
@@ -813,6 +831,8 @@ type Storer interface {
 
 ---
 
+## docker-compose.yml
+
 ```yaml
 services:
   postgres:
@@ -824,14 +844,14 @@ services:
       POSTGRES_PASSWORD: postgres
     volumes:
       - postgres-data:/var/lib/postgresql/data
-      - ./docker/postgres-init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 ```
 
 ---
 
 ## Taskfile.yml
 
-```yaml{|14-16|16}
+```yaml{|9-12|14-16|16}
 version: "3"
 
 tasks:
@@ -845,7 +865,7 @@ tasks:
     dotenv:
       - .env.local
     cmds:
-      - podman-compose up -d
+      - docker compose up -d
       - task: watch
       - air
 ```
@@ -854,7 +874,7 @@ tasks:
 
 ## .air.toml
 
-```toml
+```toml{3|5}
 [build]
 bin = "./tmp/main"
 cmd = "task build"
@@ -862,10 +882,6 @@ exclude_dir = ["assets", "tmp", "vendor", "testdata"]
 include_ext = ["go", "css", "templ"]
 exclude_regex = ["_test.go"]
 ```
-
----
-
-<img width="100%" height="auto" data-src="images/logs.gif">
 
 ---
 
@@ -895,6 +911,11 @@ example on main via 🐹 v1.22.8 ❄️ impure (nix-shell-env)
 /nix/store/kcd...golangci-lint-1.56.2/bin/golangci-lint
 ```
 
+---
+
+<video data-autoplay src="images/air.mp4">
+
+
 {{% /section %}}
 
 ---
@@ -923,7 +944,6 @@ example on main via 🐹 v1.22.8 ❄️ impure (nix-shell-env)
   - OTel
 - Playwright
   - Go
-- OpenAPI Specification
 
 {{% /section %}}
 
@@ -931,13 +951,14 @@ example on main via 🐹 v1.22.8 ❄️ impure (nix-shell-env)
 
 <img width="50%" height="auto" data-src="images/qr.png">
 
-- https://haseebmajid.dev/slides/go-lab-htmx-go-web-app/
-- Banterbus: https://gitlab.com/hmajid2301/banterbus
+- https://haseebmajid.dev/slides/go-labs-htmx-go-web-app/
+- Banter Bus: https://gitlab.com/hmajid2301/banterbus
 
 ---
 
-## References & Thanks
+## Useful Links
 
+- Banter Bus: https://gitlab.com/hmajid2301/banterbus
 - Nix Dev Shell: https://www.youtube.com/watch?v=bdGfn_ihHOk
 - Playwright: https://www.youtube.com/watch?v=XdBhYt3-bbU
 - OTel & Go: https://www.youtube.com/watch?v=t3Xz-IrxNwk&list=PLSCmmmcxRB6DilKhSz09JL9F4CVl7Vyd3&index=5
