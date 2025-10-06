@@ -353,23 +353,6 @@ w.Header().Set("Content-Type", "text/html")
 }
 ```
 
----
-
-## Caching Strategies
-
-```html
-<!-- Cache GET requests -->
-<div hx-get="/expensive-data"
-     hx-trigger="load"
-     hx-cache="true">
-</div>
-
-<!-- Conditional requests -->
-<div hx-get="/data"
-     hx-headers='{"If-None-Match": "etag123"}'>
-</div>
-```
-
 {{% note %}}
 - Use cache data for subsequent request
 - Only send response if different from this header
@@ -377,12 +360,12 @@ w.Header().Set("Content-Type", "text/html")
 
 ---
 
-## HTMX Response Codes
+## Response Codes
 
-• 204 - No Content
-• 304 - Not Modified
-• 4xx - Client errors
-• 5xx - Server errors
+- 204 - No Content
+- 304 - Not Modified
+- 4xx - Client errors
+- 5xx - Server errors
 
 {{% /section %}}
 
@@ -885,31 +868,8 @@ exclude_regex = ["_test.go"]
 
 ---
 
-```yaml
-watch:
-  desc: Watch for file changes
-  cmds:
-  - templ generate -watch --open-browser=true &
-  - tailwindcss --watch=always -i \
-                ./static/css/tailwind.css -o \
-                ./static/css/styles.css --minify &
-```
+<video data-autoplay src="images/air.mp4">
 
----
-
-## Nix
-
-```bash
-example on main via 🐹 v1.22.8
-❯ which golangci-lint
-
-example on main via 🐹 v1.22.8
-❯ nix develop
-
-example on main via 🐹 v1.22.8 ❄️ impure (nix-shell-env)
-❯ which golangci-lint
-/nix/store/kcd...golangci-lint-1.56.2/bin/golangci-lint
-```
 
 ---
 
@@ -949,7 +909,7 @@ example on main via 🐹 v1.22.8 ❄️ impure (nix-shell-env)
 
 ---
 
-<img width="50%" height="auto" data-src="images/qr.png">
+<img width="40%" height="auto" data-src="images/qr.png">
 
 - https://haseebmajid.dev/slides/go-labs-htmx-go-web-app/
 - Banter Bus: https://gitlab.com/hmajid2301/banterbus
