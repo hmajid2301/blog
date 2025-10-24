@@ -1,12 +1,12 @@
 {{- $.Scratch.Add "index" slice -}}
 {{- range site.RegularPages -}}
     {{- if and (not .Params.searchHidden) (ne .Layout `archives`) }}
-    {{- $.Scratch.Add "index" (dict 
+    {{- $.Scratch.Add "index" (dict
         "title" .Title
         "content" .Plain
         "permalink" .Permalink
         "summary" .Summary
-        "date" (.Date | time.Format (.Site.Language.Params.dateFormat | default ":date_long"))
+        "date" (.Lastmod | time.Format (.Site.Language.Params.dateFormat | default ":date_long"))
     ) -}}
     {{- end }}
 {{- end -}}
