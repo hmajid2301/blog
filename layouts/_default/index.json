@@ -6,7 +6,6 @@
         "content" .Plain
         "permalink" .Permalink
         "summary" .Summary
-        "date" (.Lastmod | time.Format (.Site.Language.Params.dateFormat | default ":date_long"))
     ) -}}
     {{- end }}
 {{- end -}}

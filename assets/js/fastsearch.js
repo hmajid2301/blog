@@ -138,7 +138,7 @@ function buildIndex() {
           threshold: params.fuseOpts.threshold ?? 0.4,
           distance: params.fuseOpts.distance ?? 100,
           ignoreLocation: params.fuseOpts.ignorelocation ?? true,
-          keys: params.fuseOpts.keys ?? 
+          keys: params.fuseOpts.keys ??
           [
             { name: "title", weight: 0.8 },
             { name: "section", weight: 0.2 },
@@ -164,7 +164,6 @@ function executeQuery(term) {
           <a class="search-item-link" href="${value.item.permalink}" tabindex="0">
             <div class="search-item">
               <div class="search-title">${value.item.title}</div>
-              <div class="search-date">${value.item.date}</div>
               <div class="search-summary">${value.item.summary}</div>
             </div>
           </a>
