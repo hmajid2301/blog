@@ -131,8 +131,9 @@
   transition: background-color 0.05s ease;
 
   &:hover {
-    background: var(--code-bg);
-    border-color: var(--tertiary);
+    background: rgba(var(--theme-rgb), 0.1);
+    border-color: var(--theme);
+    transform: translateX(4px);
   }
 }
 
