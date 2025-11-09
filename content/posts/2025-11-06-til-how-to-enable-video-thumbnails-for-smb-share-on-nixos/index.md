@@ -26,18 +26,9 @@ If u need it to do same for a remote server, select "All files"
 
 Or since we are managing this via NixOS and want to do things declaratively we can do do the following in our Nix config [^2].
 
-```nix{12-14}
+```nix
 {
 dconf.settings = {
-  "org/gnome/desktop/thumbnailers" = {
-    disable-all = false;
-  };
-
-  "org/gnome/desktop/thumbnail-cache" = {
-    maximum-age = -1;
-    maximum-size = -1;
-  };
-
   "org/gnome/nautilus/preferences" = {
     show-image-thumbnails = "always";
   };
