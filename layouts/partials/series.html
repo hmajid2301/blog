@@ -9,7 +9,7 @@
     </summary>
     <div class="inner">
       <ul>
-        {{ range $post := sort (index .Site.Taxonomies.series (index .Params.series 0 | urlize)) "Params.series_order" }}
+        {{ range $post := sort (index .Site.Taxonomies.series (index .Params.series 0 | lower)) "Params.series_order" }}
           {{ if eq $post.Permalink $.Page.Permalink }}
             <li class="post">
               {{ .Date.Format "Jan 02, 2006" }} -
