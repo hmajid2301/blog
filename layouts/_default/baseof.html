@@ -15,6 +15,7 @@
     {{- end }} type-{{ .Type }} kind-{{ .Kind }} layout-{{ .Layout -}}
 " id="top">
     {{- partialCached "header.html" . .Page -}}
+    <div class="reading-progress-bar"></div>
     <main class="main {{- if (eq .Kind `page`) -}}{{- print " post" -}}{{- end -}}">
         {{- block "main" . }}{{ end }}
 

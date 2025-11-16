@@ -136,6 +136,16 @@
 <script src="{{ $imagezoom.RelPermalink }}" data-no-instant {{- if site.Params.assets.disableFingerprinting }}
     integrity="{{ $imagezoom.Data.Integrity }}" {{- end }}></script>
 
+{{/* Load reading progress bar script */}}
+{{- $progressbar := resources.Get "js/progress-bar.js" }}
+{{- if not site.Params.assets.disableFingerprinting }}
+{{- $progressbar = $progressbar | fingerprint }}
+<script defer crossorigin="anonymous" src="{{ $progressbar.RelPermalink }}"
+    integrity="{{ $progressbar.Data.Integrity }}"></script>
+{{- else }}
+<script defer crossorigin="anonymous" src="{{ $progressbar.RelPermalink }}"></script>
+{{- end }}
+
 {{- if .IsPage }}
 {{- partial "page_footer.html" . }}
 {{- end }}
