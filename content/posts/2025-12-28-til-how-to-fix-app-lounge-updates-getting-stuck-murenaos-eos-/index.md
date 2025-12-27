@@ -1,11 +1,10 @@
 ---
-title: Til How to Fix App Lounge Updates Getting Stuck (MurenaOS/eOS)
+title: TIL - How to Fix App Lounge Updates Getting Stuck (MurenaOS/eOS)
 date: "2025-12-28"
 canonicalURL: https://haseebmajid.dev/posts/2025-12-28-til-how-to-fix-app-lounge-updates-getting-stuck-murenaos-eos-
 tags:
   - eos
   - murenaos
-  - til
 series:
   - til
 cover:
