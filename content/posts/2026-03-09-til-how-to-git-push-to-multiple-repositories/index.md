@@ -19,6 +19,21 @@ You can do this but adding another remote i.e. [^1]:
 git remote set-url --add --push origin git@gitlab.com:hmajid2301/go-routinely.git
 ```
 
+> Make sure to add both repositories with this command
+
 Then when you go git push it will push to all repositories.
+
+You can double check with:
+
+```bash
+goroutinely on  fix/ci [$] via 🐹 v1.25.5 via ❄  impure (nix-shell-env)
+❯ git remote show origin
+Welcome to this knot!
+* remote origin
+  Fetch URL: git@git.haseebmajid.dev:majiy00.tngl.sh/go-routinely
+  Push  URL: git@git.haseebmajid.dev:majiy00.tngl.sh/go-routinely
+  Push  URL: git@gitlab.com:hmajid2301/go-routinely.git
+  HEAD branch: main
+```
 
 [^1]: https://stackoverflow.com/questions/14290113/git-pushing-code-to-two-remotes
