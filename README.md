@@ -19,6 +19,14 @@ task start_server
 task start_slides
 ```
 
+## Deployment
+
+This site is deployed with GitLab Pages via `.gitlab-ci.yml`.
+
+- Default branch deployments publish the Hugo `public/` directory as a Pages artifact.
+- The deploy job uses `HUGO_BASEURL` if it is set in CI/CD variables.
+- Otherwise it falls back to `https://haseebmajid.dev/`.
+
 ### New Content
 
 To create a new post:

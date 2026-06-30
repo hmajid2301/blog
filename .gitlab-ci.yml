@@ -1,25 +1,18 @@
 stages:
-  - pre
   - test
   - deploy
+
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
 
 .task:
   stage: test
   image: nixos/nix
   tags: []
-  only:
-    - merge_request
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
   before_script:
     - echo "experimental-features = nix-command flakes" >>/etc/nix/nix.conf
-    - nix develop
-
-# install:deps:
-#   stage: pre
-#   extends: .nix
-#   only:
-#     - merge_request
-#   script:
-#     - nix develop
 
 check:og:
   extends:
@@ -28,13 +21,14 @@ check:og:
     - nix develop -c task generate:og
     - git diff --exit-code
 
-deploy_site:
+pages:
   stage: deploy
-  image: curlimages/curl
-  variables:
-    GIT_STRATEGY: none
+  image: registry.gitlab.com/pages/hugo/hugo_extended:latest
   script:
-    - curl -X POST -d '{}' $CLOUDFLARE_DEPLOY_HOOK
-  only:
-    - schedules
+    - hugo
+    - hugo --config hugo-slides.toml
+  pages:
+    publish: public
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
 
