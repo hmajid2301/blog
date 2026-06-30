@@ -23,10 +23,11 @@ check:og:
 
 pages:
   stage: deploy
-  image: registry.gitlab.com/pages/hugo/hugo_extended:latest
+  image: nixos/nix
+  before_script:
+    - echo "experimental-features = nix-command flakes" >>/etc/nix/nix.conf
   script:
-    - hugo
-    - hugo --config hugo-slides.toml
+    - nix develop -c sh -lc 'hugo && hugo --config hugo-slides.toml'
   pages:
     publish: public
   rules:
