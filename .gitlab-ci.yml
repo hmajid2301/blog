@@ -23,13 +23,11 @@ check:og:
 
 pages:
   stage: deploy
-  image: nixos/nix
-  before_script:
-    - echo "experimental-features = nix-command flakes" >>/etc/nix/nix.conf
+  image: ghcr.io/gohugoio/hugo:v0.163.3
   script:
-    - nix develop -c sh -lc 'hugo && hugo --config hugo-slides.toml'
+    - hugo
+    - hugo --config hugo-slides.toml
   pages:
     publish: public
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-
