@@ -27,6 +27,7 @@ pages:
     name: ghcr.io/gohugoio/hugo:v0.163.3
     entrypoint: [""]
   script:
+    - git config --global --add safe.directory /builds/hmajid2301/blog
     - hugo
     - hugo --config hugo-slides.toml
   pages:
