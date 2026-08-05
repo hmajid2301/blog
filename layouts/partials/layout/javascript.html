@@ -1,0 +1,283 @@
+<!-- polyfill needed for IE11 and below -->
+<script type="text/javascript" src={{ "reveal-hugo/object-assign.js" | relURL }}></script>
+<!-- Printing and PDF exports -->
+<!-- use Hugo to create the right path for the print stylesheet, then conditionally include it -->
+{{- $reveal_location := $.Param "reveal_hugo.reveal_cdn" | default "reveal-js" -}}
+
+<!-- load Reveal.js javascripts -->
+<script src="{{ printf "%s/dist/reveal.js" $reveal_location | relURL }}"></script>
+
+<!-- load default and user plugins -->
+{{- $plugins := partial "internal/plugins" . -}}
+{{ $pluginNames := slice }}
+{{- range $plugins }}
+  <script type="text/javascript" src="{{ .source | relURL }}"></script>
+  {{ $pluginNames = $pluginNames | append .name }}
+{{- end -}}
+
+<!-- initialize Reveal.js -->
+<script type="text/javascript">
+  // Hugo lowercases all params and Reveal.js needs camelcase
+  // So params in Hugo must be stored in snakecase and we camelize them here
+  function camelize(map) {
+    if (map) {
+      Object.keys(map).forEach(function(k) {
+        newK = k.replace(/(\_\w)/g, function(m) { return m[1].toUpperCase() });
+        if (newK != k) {
+          map[newK] = map[k];
+          delete map[k];
+        }
+      });
+    }
+    return map;
+  }
+
+  var revealHugoDefaults = { center: true, controls: true, history: true, progress: true, transition: "slide" };
+  var revealHugoSiteParams = {{ jsonify (partial "internal/func/cleanParams" .Site.Params.reveal_hugo) | safeJS }};
+  var revealHugoPageParams = {{ jsonify (partial "internal/func/cleanParams" .Page.Params.reveal_hugo) | safeJS }};
+
+  var revealHugoPlugins = {
+    // generate an array of javascript objects
+    plugins: {{ (printf "%s" (replace ( jsonify ( $pluginNames ) ) "\"" "")) | safeJS }}
+  };
+
+  // See all options - https://github.com/hakimel/reveal.js#configuration
+  var options = Object.assign({},
+    camelize(revealHugoDefaults),
+    camelize(revealHugoSiteParams),
+    camelize(revealHugoPageParams),
+    camelize(revealHugoPlugins));
+
+  Reveal.initialize(options);
+
+  function loadAndPlaySlideVideos(slide) {
+    if (!slide) return;
+
+    slide.querySelectorAll('video').forEach(function(video) {
+      if (!video.getAttribute('src') && video.getAttribute('data-src')) {
+        video.setAttribute('src', video.getAttribute('data-src'));
+      }
+
+      if (video.getAttribute('src') && video.readyState === 0 && typeof video.load === 'function') {
+        video.load();
+      }
+
+      if (video.hasAttribute('data-autoplay')) {
+        var playPromise = video.play();
+        if (playPromise && typeof playPromise.catch === 'function') {
+          playPromise.catch(function() {});
+        }
+      }
+    });
+  }
+
+  function pauseInactiveSlideVideos() {
+    document.querySelectorAll('.reveal .slides section video').forEach(function(video) {
+      var slide = video.closest('section.present');
+      if (!slide && typeof video.pause === 'function') {
+        video.pause();
+      }
+    });
+  }
+
+  function syncSlideVideos() {
+    loadAndPlaySlideVideos(Reveal.getCurrentSlide());
+    pauseInactiveSlideVideos();
+  }
+
+  Reveal.on('ready', function() {
+    syncSlideVideos();
+    setTimeout(syncSlideVideos, 150);
+    setTimeout(syncSlideVideos, 500);
+  });
+
+  Reveal.on('slidechanged', function() {
+    syncSlideVideos();
+    setTimeout(syncSlideVideos, 150);
+  });
+
+  window.addEventListener('hashchange', function() {
+    setTimeout(syncSlideVideos, 0);
+    setTimeout(syncSlideVideos, 150);
+  });
+</script>
+
+{{/*  check if we need to load mermaid and its render trick.
+      mermaid is not rendered correctly in reveal if we don't hook
+      to the slidechanged event. (mermaid viewBox element has wrong sizes).
+      manage hot-reload by using the reveal ready event.
+*/}}
+{{ $hasMermaid := false }}
+{{ $hasMath := false }}
+{{ range .Site.Pages }}
+  {{ if .Store.Get "hasMermaid" }}
+    {{ $hasMermaid = true }}
+  {{ end }}
+  {{ if or .Params.math (.Store.Get "hasMath")  }}
+    {{ $hasMath = true }}
+  {{ end }}
+{{ end }}
+
+{{ if $hasMermaid }}
+  {{ $mermaidSrc := resources.GetRemote "https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js" }}
+  <style>
+    .reveal pre.mermaid {
+      width: auto;
+      margin: 0 auto;
+      padding: 0;
+      background: transparent;
+      box-shadow: none;
+      border: 0;
+      text-align: center;
+    }
+
+    .reveal pre.mermaid svg {
+      display: block;
+      margin: 0 auto;
+      max-width: 100%;
+      height: auto;
+      background: transparent;
+    }
+
+    .reveal .mermaid .node rect,
+    .reveal .mermaid .node circle,
+    .reveal .mermaid .node ellipse,
+    .reveal .mermaid .node polygon,
+    .reveal .mermaid .node path,
+    .reveal .mermaid .actor,
+    .reveal .mermaid .labelBox,
+    .reveal .mermaid .cluster rect,
+    .reveal .mermaid .note {
+      fill: #313244 !important;
+      stroke: #89b4fa !important;
+    }
+
+    .reveal .mermaid .cluster rect {
+      fill: #181825 !important;
+      stroke: #6c7086 !important;
+    }
+
+    .reveal .mermaid .note {
+      fill: #45475a !important;
+      stroke: #f9e2af !important;
+    }
+
+    .reveal .mermaid text,
+    .reveal .mermaid tspan,
+    .reveal .mermaid .label,
+    .reveal .mermaid .nodeLabel,
+    .reveal .mermaid .edgeLabel,
+    .reveal .mermaid .messageText,
+    .reveal .mermaid .loopText,
+    .reveal .mermaid .actor > text,
+    .reveal .mermaid .noteText {
+      fill: #cdd6f4 !important;
+      color: #cdd6f4 !important;
+    }
+
+    .reveal .mermaid .edgeLabel rect,
+    .reveal .mermaid .labelBkg {
+      fill: #11111b !important;
+      opacity: 1 !important;
+    }
+
+    .reveal .mermaid line,
+    .reveal .mermaid path,
+    .reveal .mermaid .messageLine0,
+    .reveal .mermaid .messageLine1 {
+      stroke: #89dceb !important;
+    }
+  </style>
+  <script type="text/javascript" src="{{ $mermaidSrc.RelPermalink }}"></script>
+  <script type="text/javascript">
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: 'base',
+      themeVariables: {
+        darkMode: true,
+        fontFamily: 'Poppins, sans-serif',
+        background: '#11111b',
+        primaryColor: '#313244',
+        primaryTextColor: '#cdd6f4',
+        primaryBorderColor: '#89b4fa',
+        secondaryColor: '#45475a',
+        secondaryTextColor: '#cdd6f4',
+        secondaryBorderColor: '#89dceb',
+        tertiaryColor: '#181825',
+        tertiaryTextColor: '#bac2de',
+        tertiaryBorderColor: '#6c7086',
+        lineColor: '#89dceb',
+        textColor: '#cdd6f4',
+        mainBkg: '#313244',
+        secondBkg: '#45475a',
+        tertiaryBkg: '#181825',
+        nodeBorder: '#89b4fa',
+        nodeTextColor: '#cdd6f4',
+        clusterBkg: '#181825',
+        clusterBorder: '#6c7086',
+        defaultLinkColor: '#89dceb',
+        edgeLabelBackground: '#11111b',
+        titleColor: '#bac2de',
+        labelColor: '#cdd6f4',
+        labelTextColor: '#cdd6f4',
+        labelBoxBkgColor: '#313244',
+        labelBoxBorderColor: '#89b4fa',
+        actorBorder: '#89b4fa',
+        actorBkg: '#313244',
+        actorTextColor: '#cdd6f4',
+        actorLineColor: '#89dceb',
+        signalColor: '#89dceb',
+        signalTextColor: '#cdd6f4',
+        loopTextColor: '#cdd6f4',
+        noteBkgColor: '#45475a',
+        noteBorderColor: '#f9e2af',
+        noteTextColor: '#cdd6f4',
+        activationBorderColor: '#a6e3a1',
+        activationBkgColor: '#45475a',
+        sequenceNumberColor: '#11111b',
+        classText: '#cdd6f4',
+        errorBkgColor: '#f38ba8',
+        errorTextColor: '#11111b'
+      }
+    });
+    let render = (event) => {
+      let mermaidElems = event.currentSlide.querySelectorAll('.mermaid');
+      if (!mermaidElems.length){
+          return
+      }
+      mermaidElems.forEach(mermaidElem => {
+          let processed = mermaidElem.getAttribute('data-processed');
+          if (!processed){
+              // https://github.com/mermaid-js/mermaid/issues/311#issuecomment-332557344
+              mermaid.init(undefined, mermaidElem);
+          }
+      });
+    };
+    // support current page reload with possible mermaid element
+    render({currentSlide: Reveal.getCurrentSlide()});
+
+    Reveal.on('slidechanged', render);
+    Reveal.on('ready', render);
+  </script>
+{{ end }}
+
+{{ if $hasMath }}
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']]
+    },
+    svg: {
+      fontCache: 'global'
+    }
+  };
+</script>
+
+{{ $mathjaxSrc := resources.GetRemote "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" }}
+<script type="text/javascript" id="MathJax-script" async src="{{ $mathjaxSrc.RelPermalink }}"></script>
+{{ end }}
+
+{{- $custom_js := $.Param "reveal_hugo.custom_js" -}}
+{{- if $custom_js -}}
+<script type="text/javascript" src="{{ $custom_js | relURL }}"></script>
+{{- end -}}

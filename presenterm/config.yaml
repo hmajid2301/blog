@@ -1,0 +1,17 @@
+# presenterm configuration shared by all decks in presentations/
+# Docs: https://mfontanini.github.io/presenterm/configuration/settings.html
+defaults:
+  # Matches the catppuccin theme used by the reveal.js slides
+  theme: catppuccin-mocha
+
+# Fixed export size so the generated HTML looks the same everywhere,
+# including headless CI (patched presenterm falls back to this when
+# there is no sized terminal). 128 cols x 36 rows = 2560x1440 (16:9).
+export:
+  dimensions:
+    columns: 128
+    rows: 36
+
+mermaid:
+  # chromium needs --no-sandbox when running as root (e.g. in CI containers)
+  puppeteer_config_path: presenterm/puppeteer-config.json

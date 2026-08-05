@@ -23,7 +23,9 @@ check:og:
 
 pages:
   stage: deploy
-  image: ghcr.io/gohugoio/hugo:v0.163.3
+  image:
+    name: ghcr.io/gohugoio/hugo:v0.163.3
+    entrypoint: [""]
   script:
     - hugo
     - hugo --config hugo-slides.toml

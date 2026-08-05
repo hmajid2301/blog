@@ -5,6 +5,10 @@ contentDir = "content/slides"
 publishDir = "public/slides"
 staticDir = "static/slides"
 
+[params.reveal_hugo]
+custom_theme = "stylesheets/reveal/catppuccin.css"
+highlight_theme = "catppuccin"
+
 [markup.highlight]
 codeFences = false
 

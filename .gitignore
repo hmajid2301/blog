@@ -58,3 +58,4 @@ hugo.linux
 .direnv
 .pre-commit-config.yaml
 .task/
+.codegraph

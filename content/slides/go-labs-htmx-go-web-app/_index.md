@@ -30,6 +30,8 @@ slide_number = true
 ## Who is this for?
 
 - Backend Developers
+  - No JS
+- Manage state in one place
 
 {{% note %}}
 - side projects struggled with frontend

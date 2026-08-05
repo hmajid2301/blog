@@ -7,7 +7,11 @@ buildFuture = false
 buildExpired = false
 enableEmoji = true
 enableGitInfo = true
-ignorefiles = ["content/slides"]
+ignorefiles = [
+  "content/slides",
+  ".*/source_code(/|$)",
+  ".*/example(/|$)",
+]
 
 [markup.highlight]
 noclasses = false
