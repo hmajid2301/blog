@@ -1,0 +1,15 @@
+{{- define "main" }}
+  <header class="page-header">
+    <h1>{{ .Title }}</h1>
+  </header>
+  <div class="post-content">
+    {{- .Content }}
+    <ul class="slides-index">
+      {{- range .Sections.ByTitle }}
+        <li>
+          <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+        </li>
+      {{- end }}
+    </ul>
+  </div>
+{{- end }}

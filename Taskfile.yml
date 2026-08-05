@@ -1,6 +1,11 @@
 version: "3"
 
 tasks:
+  build:
+    cmds:
+      - hugo
+      - hugo --config hugo-slides.toml
+
   start_server:
     # watch: true
     # sources:
