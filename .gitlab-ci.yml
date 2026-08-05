@@ -21,16 +21,13 @@ check:og:
     - nix develop -c task generate:og
     - git diff --exit-code
 
-pages:
+deploy_site:
   stage: deploy
-  image:
-    name: ghcr.io/gohugoio/hugo:v0.163.3
-    entrypoint: [""]
+  image: curlimages/curl
+  variables:
+    GIT_STRATEGY: none
   script:
-    - git config --global --add safe.directory /builds/hmajid2301/blog
-    - hugo
-    - hugo --config hugo-slides.toml
-  pages:
-    publish: public
+    - curl -X POST -d '{}' $CLOUDFLARE_DEPLOY_HOOK
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: $CI_PIPELINE_SOURCE == "schedule"
