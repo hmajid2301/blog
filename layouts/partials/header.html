@@ -104,11 +104,11 @@
       <div class="logo-switches">
         {{- if (not site.Params.disableThemeToggle) }}
         <button class="icon-hover" id="theme-toggle" accesskey="t" title="(Alt + T)">
-          {{ safeHTML (index $.Site.Data.svg "moon") }}
-          {{ safeHTML (index $.Site.Data.svg "sun") }}
+          {{ safeHTML (index hugo.Data.svg "moon") }}
+          {{ safeHTML (index hugo.Data.svg "sun") }}
         </button>
         <button id="search-button" class="icon-hover" title="{{ i18n " search.open_button_title" }}">
-          {{ safeHTML (index $.Site.Data.svg "search") }}
+          {{ safeHTML (index hugo.Data.svg "search") }}
         </button>
         {{- end }}
         <!-- </span> -->
@@ -133,7 +133,7 @@
           {{ .Post -}}
           {{- if .Params.External }}
           <span class="external-link">
-            {{ safeHTML (index $.Site.Data.svg "external-link") }}
+            {{ safeHTML (index hugo.Data.svg "external-link") }}
           </span>
           {{- end }}
         </a>

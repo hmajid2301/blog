@@ -25,13 +25,30 @@
           src = ./.;
           hooks = {
             check-merge-conflicts.enable = true;
-            check-added-large-files.enable = true;
+            check-added-large-files = {
+              enable = true;
+              # generated slide HTML is intentionally committed and can exceed 500 KiB
+              excludes = [ "static/slides/.*" ];
+            };
 
-            end-of-file-fixer.enable = true;
+            end-of-file-fixer = {
+              enable = true;
+              # keep exported slide HTML byte-identical to presenterm's output so
+              # check:slides (re-export + git diff --exit-code) stays deterministic
+              excludes = [ "static/slides/.*" ];
+            };
             check-toml.enable = true;
-            markdownlint.enable = true;
+            markdownlint = {
+              enable = true;
+              # presenterm decks use HTML comments as commands (end_slide, pause, ...)
+              # which trip markdownlint rules like MD025/MD033
+              excludes = [ "presentations/.*" ];
+            };
 
-            trim-trailing-whitespace.enable = true;
+            trim-trailing-whitespace = {
+              enable = true;
+              excludes = [ "static/slides/.*" ];
+            };
             cspell = {
               enable = true;
             };
@@ -40,6 +57,8 @@
               enable = true;
               name = "Generate Open Graph images";
               entry = "task generate:og";
+              # pass_filenames appends files to `task generate:og`, which breaks task parsing
+              pass_filenames = false;
             };
           };
         };
@@ -73,12 +92,15 @@
             parallel
             tcardgen.packages.${system}.default
             new_post
-            go_1_22
+            go
             hugo
             python3
             go-task
             gum
             vhs
+            mermaid-cli
+
+            presenterm
           ];
         };
       }
