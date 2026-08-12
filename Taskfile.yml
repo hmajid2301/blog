@@ -36,3 +36,57 @@ tasks:
     cmds:
       - ./scripts/export-slides.sh
 
+  slidev:dev:
+    cmds:
+      - |
+        deck=$(find presentations -maxdepth 1 -mindepth 1 -type d -name '*-slidev' -printf '%f\n' | sort | gum choose)
+        cd "presentations/$deck"
+        pnpm dev
+
+  slidev:publish:
+    cmds:
+      - |
+        deck=$(find presentations -maxdepth 1 -mindepth 1 -type d -name '*-slidev' -printf '%f\n' | sort | gum choose)
+        cd "presentations/$deck"
+        if jq -e '.scripts["build:hugo"]' package.json >/dev/null 2>&1; then
+          pnpm build:hugo
+        else
+          echo "No build:hugo script for $deck" >&2
+          exit 1
+        fi
+
+  slidev:export:
+    cmds:
+      - |
+        deck=$(find presentations -maxdepth 1 -mindepth 1 -type d -name '*-slidev' -printf '%f\n' | sort | gum choose)
+        cd "presentations/$deck"
+        if jq -e '.scripts.export' package.json >/dev/null 2>&1; then
+          pnpm export
+        else
+          echo "No export script for $deck" >&2
+          exit 1
+        fi
+
+  reveal:dev:
+    cmds:
+      - |
+        deck=$(find presentations -maxdepth 1 -mindepth 1 -type d -name '*-reveal' -printf '%f\n' | sort | gum choose)
+        cd "presentations/$deck"
+        if jq -e '.scripts.dev' package.json >/dev/null 2>&1; then
+          pnpm dev
+        else
+          python3 -m http.server 3031
+        fi
+
+  reveal:publish:
+    cmds:
+      - |
+        deck=$(find presentations -maxdepth 1 -mindepth 1 -type d -name '*-reveal' -printf '%f\n' | sort | gum choose)
+        cd "presentations/$deck"
+        if jq -e '.scripts["build:hugo"]' package.json >/dev/null 2>&1; then
+          pnpm build:hugo
+        else
+          echo "No build:hugo script for $deck" >&2
+          exit 1
+        fi
+

@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Roboto:wght@400;700&display=swap');
+
+:root {
+  --ctp-bg: #11111b;
+  --ctp-surface0: #313244;
+  --ctp-surface1: #45475a;
+  --ctp-text: #cdd6f4;
+  --ctp-subtext0: #a6adc8;
+  --ctp-subtext1: #bac2de;
+  --ctp-link: #89dceb;
+  --ctp-link-hover: #f2cdcd;
+  --ctp-selection: #b4befe;
+  --ctp-blue: #89b4fa;
+  --ctp-lavender: #b4befe;
+  --ctp-peach: #fab387;
+  --ctp-code-bg: #1e1e2e;
+}
+html, body, #app, .slidev-layout { background: var(--ctp-bg); }
+::selection { color: #fff; background: var(--ctp-selection); }
+body { font-family: 'Poppins', sans-serif; color: var(--ctp-text); text-rendering: geometricPrecision; }
+.slidev-layout {
+  position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center;
+  text-align: center; font-family: 'Poppins', sans-serif; font-size: 42px; font-weight: 400; color: var(--ctp-text);
+  line-height: 1.3; padding: 1.75rem 2.5rem;
+}
+.slidev-layout > * { position: relative; z-index: 1; }
+.slidev-layout > h1, .slidev-layout > h2, .slidev-layout > h3, .slidev-layout > h4, .slidev-layout > h5, .slidev-layout > h6, .slidev-layout > p, .slidev-layout > div, .slidev-layout > ul, .slidev-layout > ol, .slidev-layout > dl, .slidev-layout > pre, .slidev-layout > table, .slidev-layout > blockquote { width: min(100%, 1100px); margin-left: auto; margin-right: auto; }
+.slidev-layout h1, .slidev-layout h2, .slidev-layout h3, .slidev-layout h4, .slidev-layout h5, .slidev-layout h6 { margin: 0 0 20px 0; color: var(--ctp-text); font-family: 'Roboto', sans-serif; font-weight: 700; line-height: 1.2; }
+.slidev-layout h1 { font-size: 2.35em; }
+.slidev-layout h2 { font-size: 2.05em; }
+.slidev-layout h3 { font-size: 1.55em; }
+.slidev-layout p { margin: 20px 0; line-height: 1.3; }
+.slidev-layout ul, .slidev-layout ol, .slidev-layout dl { display: inline-block; text-align: left; margin: 0 0 0 1em; }
+.slidev-layout ul ul, .slidev-layout ul ol, .slidev-layout ol ol, .slidev-layout ol ul { display: block; margin-left: 40px; }
+.slidev-layout li::marker { color: var(--ctp-blue); }
+.slidev-layout a { color: var(--ctp-link); text-decoration: none; transition: color 0.15s ease; }
+.slidev-layout a:hover { color: var(--ctp-link-hover); }
+.slidev-layout blockquote { display: block; width: min(78%, 920px); margin: 20px auto; padding: 0.75rem 1rem; font-style: italic; color: var(--ctp-text); background: rgba(49, 50, 68, 0.55); border: 1px solid rgba(88, 91, 112, 0.55); border-radius: 0.75rem; }
+.slidev-layout table { margin: auto; border-collapse: collapse; border-spacing: 0; }
+.slidev-layout table th { font-weight: 700; color: var(--ctp-lavender); background: rgba(49,50,68,.45); }
+.slidev-layout table th, .slidev-layout table td { text-align: left; padding: 0.28em 0.6em; border-bottom: 1px solid var(--ctp-surface1); }
+.slidev-layout :not(pre) > code { font-family: 'MonoLisa', 'Noto Sans Mono', 'Liberation Mono', monospace; color: var(--ctp-peach); background: rgba(49,50,68,.72); border: 1px solid rgba(88,91,112,.45); padding: .1rem .35rem; border-radius: .35rem; }
+.slidev-layout code, .slidev-layout pre, .shiki { font-family: 'MonoLisa', 'Noto Sans Mono', 'Liberation Mono', monospace !important; }
+.slidev-layout pre, .shiki { width: 100%; margin: 20px auto; text-align: left; font-size: 0.7em; line-height: 1.2em; background: var(--ctp-code-bg) !important; border: 1px solid rgba(88,91,112,.5); box-shadow: 0 8px 24px rgba(0,0,0,.22); border-radius: .75rem; }
+.slidev-layout pre code, .shiki code { display: block; padding: 5px; overflow: auto; max-height: 430px; white-space: pre; }
+.slidev-layout img, .slidev-layout video, .slidev-layout iframe { display: block; width: auto; height: auto; max-width: 95%; max-height: 95%; object-fit: contain; margin: 20px auto; border-radius: .35rem; box-shadow: 0 10px 28px rgba(0,0,0,.22); }
+.slidev-page-1 h1 { font-size: 2.55em; line-height: 1.02; margin-bottom: 0; letter-spacing: -0.02em; }
+.slidev-page-1 h2 { font-size: 1.4em; margin-top: .35rem; color: var(--ctp-subtext1); }
+.slidev-page-1 .text-lg { color: var(--ctp-subtext0); }
+.section-slide h1, .section-slide h2 { color: var(--ctp-blue); letter-spacing: -0.02em; }
+.slidev-layout .slidev-code-line-highlighted, .slidev-layout .highlighted { background: rgba(255,255,255,.04); border-left: 3px solid var(--ctp-blue); border-radius: 0; }

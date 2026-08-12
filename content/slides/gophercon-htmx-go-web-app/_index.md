@@ -33,10 +33,10 @@ slide_number = true
 
 ## Who Is This For?
 
+- Backend engineers
+- Simple Stack
 
 {{% note %}}
-- Backend engineers
-- People who want to ship full-stack apps
 - Best fit when backend already owns most of the flow
 {{% /note %}}
 
@@ -49,14 +49,14 @@ slide_number = true
 
 ---
 
-<img height="70%" width="auto" data-src="images/side_projects.jpg">
+<img height="100%" width="auto" data-src="images/side_projects.jpg">
 
 {{% note %}}
 {{% /note %}}
 
 ---
 
-<img width="65%" data-src="images/banterbus_lobby.png">
+<img width="60%" data-src="images/banterbus_lobby.png">
 
 {{% note %}}
 {{% /note %}}
@@ -84,11 +84,12 @@ slide_number = true
 
 ## What is HTMX?
 
+- Small library
+- Interact with backend
+  - Using HTML attributes
+
 {{% note %}}
-- Small library.
-- Add behaviour with HTML attributes.
-- Server sends HTML back, not JSON for a client app to rebuild.
-- Browser swaps it in.
+- Raise your hands
 {{% /note %}}
 
 ---
@@ -111,7 +112,7 @@ sequenceDiagram
 ---
 
 ```html{1-3|5-9|11}
-<form hx-post="/plants/events"
+<form hx-post="/plants/timeline"
       hx-target="#timeline"
 >
    <div class="flex flex-col gap-4">
@@ -143,10 +144,12 @@ sequenceDiagram
 
 ## Why HTMX?
 
-{{% note %}}
-
 - State on backend
 - Simpler tooling
+
+{{% note %}}
+
+- LLMs generating react?
 
 {{% /note %}}
 
@@ -192,11 +195,6 @@ sequenceDiagram
 
 ```html{1|2-5}
 <input bind:value={q} placeholder="Search plants" />
-<select bind:value={location}>
-  <option value="">All locations</option>
-  <option value="indoors">Indoors</option>
-  <option value="outdoors">Outdoors</option>
-</select>
 ```
 
 {{% note %}}
@@ -204,18 +202,16 @@ sequenceDiagram
 
 ---
 
-```ts{2-4|6}
+```ts{2-3|5}
 <script lang="ts">
   let q = ''
-  let location = ''
   let plants = []
 
-  $: params = new URLSearchParams({ q, location })
+  $: params = new URLSearchParams({ q })
 </script>
 ```
 
 {{% note %}}
-- Need local state.
 - Need query params too.
 {{% /note %}}
 
@@ -240,6 +236,28 @@ sequenceDiagram
 
 ---
 
+```html{|7-9}
+{#if loading}
+  <p>Loading...</p>
+{:else if error}
+  <p>{error}</p>
+{:else}
+  <ul>
+    {#each plants as plant}
+      <li>{plant.name}</li>
+    {/each}
+  </ul>
+{/if}
+```
+
+{{% note %}}
+- `plants` change => Svelte re-renders list.
+- Handle loading and error states in template.
+- Svelte has its use cases as well
+{{% /note %}}
+
+---
+
 ```html{2|3|5}
 <div
     hx-get="/plants/plant_1_id/timeline"
@@ -256,38 +274,28 @@ sequenceDiagram
 
 ---
 
-```go{1-3|5-7|9-12|13-15}
-response.SuccessWithToast(
-    w, r, "Health recorded!",
-)
 
-_ = healthviews.HealthDotOOB(
-    plantID, entry.Rating,
-).Render(r.Context(), w)
+{{< mermaid >}}
+flowchart LR
+    A[POST health entry]
+    B[record health]
+    C[toast]
+    D[health dot]
+    E[timeline]
+    F[last event]
+    G[history]
 
-timeline, _ := h.timeline.GetPlantTimeline(
-    r.Context(), plantID,
-    defaultHealthTimelineLimit, 0,
-)
-_ = plants.TimelineOOB(
-    plantID, timeline,
-).Render(r.Context(), w)
-
-
-// ...
-```
-
-{{% note %}}
-- This is the big one.
-- One POST.
-- Many HTML updates.
-- No client cache sync.
-- No reducer glue.
-{{% /note %}}
+    A --> B
+    B --> C
+    B --> D
+    B --> E
+    B --> F
+    B --> G
+{{< /mermaid >}}
 
 ---
 
-```html{|1}
+```html{|1|5|9}
 <div id="toast-container" hx-swap-oob="true">
   Health recorded!
 </div>
@@ -314,27 +322,6 @@ _ = plants.TimelineOOB(
 
 ---
 
-
-{{< mermaid >}}
-flowchart LR
-    A[POST health entry]
-    B[record health]
-    C[toast]
-    D[health dot]
-    E[timeline]
-    F[last event]
-    G[history]
-
-    A --> B
-    B --> C
-    B --> D
-    B --> E
-    B --> F
-    B --> G
-{{< /mermaid >}}
-
----
-
 <video data-autoplay loop muted playsinline preload="none" data-src="images/lettucego_oob_health.mp4"></video>
 
 {{% note %}}
@@ -342,6 +329,29 @@ flowchart LR
 - Top summary changes.
 - Health history changes.
 - Timeline changes.
+{{% /note %}}
+
+---
+
+## AlpineJS
+
+```html{1|2|4|6-8|9}
+<div x-data="{ open: false }">
+  <button @click="open = true">Delete plant</button>
+
+  <dialog x-show="open">
+    <p>Are you sure?</p>
+    <button hx-delete="/plants/123"
+            hx-target="#plants-list">Yes
+    </button>
+    <button @click="open = false">Cancel</button>
+  </dialog>
+</div>
+```
+
+{{% note %}}
+- Alpine handles tiny UI state.
+- Modal open and close does not need server round trip.
 {{% /note %}}
 
 ---
@@ -371,15 +381,48 @@ func ErrorWithToast(
 
 ---
 
-## What About JSON?
+##  Redirects
 
-- Separate API
-- Mobile app
-- More glue code
+```go{2|3-5|8}
+func authRedirect(w http.ResponseWriter, r *http.Request) {
+    if r.Header.Get("HX-Request") == "true" {
+        w.Header().Set("HX-Redirect", "/login")
+        w.WriteHeader(http.StatusOK)
+        return
+    }
+
+    http.Redirect(w, r, "/login", http.StatusFound)
+}
+```
 
 {{% note %}}
-- Sometimes you still want JSON.
-- Just more coordination.
+- HTMX is still just HTTP.
+- Browser redirect and HTMX redirect are not the same thing.
+- Common case: token or session expires during an HTMX form/button request.
+- Normal browser navigation can use 302.
+- HTMX request should use HX-Redirect or login page may get swapped into part of current page.
+- Good example that complexity moves, it does not disappear.
+{{% /note %}}
+
+---
+
+## What About JSON?
+
+- Separate Data API
+  - Generic
+      - N+1 query problem
+- Mobile vs Web App
+
+{{% note %}}
+- Split data API from app API.
+- Data API: stable, public, generic.
+- App API: changes fast, page-specific.
+- Why HTML for app API?
+  - Client just renders it, no rebuild.
+  - One request per page, no N+1.
+  - New endpoints = new HTML, no client update.
+  - Reuse server cache, SQL, templating.
+  - Less glue: no DTO, no fetch.
 {{% /note %}}
 
 ---
@@ -389,6 +432,10 @@ func ErrorWithToast(
 - Lots of frontend reactivity
 - Separate frontend/backend teams
 - Design System
+
+---
+
+<img height="100%" width="auto" data-src="images/shooting_htmx.png">
 
 {{% /section %}}
 
@@ -498,7 +545,7 @@ package components
 
 import "gitlab.com/.../service"
 
- templ HealthHistory(entries []service.HealthEntry) {
+templ HealthHistory(entries []service.HealthEntry) {
     for _, entry := range entries {
         <div class="flex gap-3 items-center py-2">
             @Health(entry.Rating)
@@ -576,25 +623,22 @@ templ Base(title string, environment string) {
 ```go{2|3-5}
 templ PlantPage(title string, environment string) {
 	@Base(title, environment) {
-        <div class="drawer lg:drawer-open">
+          <div>plant1</div>
           // ...
-        </div>
     }
 }
 ```
 
 ---
 
-```html{1-6|7-9}
+```html{1-6|7}
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <title>Basil</title>
   </head>
   <body class="bg-base-200 text-neutral">
-    <div class="drawer lg:drawer-open">
-      <!-- page content -->
-    </div>
+      <div>plant1</div>
   </body>
 </html>
 ```
@@ -631,11 +675,42 @@ sqlc generate
 
 ---
 
-```go{1-4|6-10|11-17|18-31}
+## sqlc.yaml
+
+```yaml{4-5}
+version: "2"
+sql:
+  - engine: "postgresql"
+    queries: "internal/store/db/sqlc/queries"
+    schema: "internal/store/db/sqlc/migrations"
+    gen:
+      go:
+        package: "db"
+        out: "internal/store/db"
+        sql_package: "pgx/v5"
+```
+
+{{% note %}}
+{{% /note %}}
+
+---
+
+```go{1-10|12-15|18-21|22-25|31-42}
+type HealthEntry struct {
+    ID         uuid.UUID
+    PlantID    uuid.UUID
+    UserID     uuid.UUID
+    Rating     int32
+    Notes      *string
+    RecordedAt pgtype.Timestamptz
+    CreatedAt  pgtype.Timestamptz
+    UpdatedAt  pgtype.Timestamptz
+}
+
 type ListHealthByPlantParams struct {
-    PlantID uuid.UUID `json:"plant_id"`
-    Limit   int32     `json:"limit"`
-    Offset  int32     `json:"offset"`
+    PlantID uuid.UUID
+    Limit   int32
+    Offset  int32
 }
 
 func (q *Queries) ListHealthByPlant(
@@ -655,18 +730,25 @@ func (q *Queries) ListHealthByPlant(
     for rows.Next() {
         var i HealthEntry
         if err := rows.Scan(
-            &i.ID, &i.PlantID, &i.UserID,
-            &i.Rating, &i.Notes,
-            &i.RecordedAt, &i.CreatedAt,
+            &i.ID, &i.PlantID, &i.UserID, &i.Rating,
+            &i.Notes, &i.RecordedAt, &i.CreatedAt,
             &i.UpdatedAt,
         ); err != nil {
             return nil, err
         }
         items = append(items, i)
     }
-    return items, rows.Err()
+    if err := rows.Err(); err != nil {
+        return nil, err
+    }
+    return items, nil
 }
 ```
+
+{{% note %}}
+- sqlc dynamic queries
+  - query builders
+{{% /note %}}
 
 {{% /section %}}
 
@@ -795,6 +877,12 @@ func TestTimelineRefreshesAfterAddEvent(t *testing.T) {
 
 ---
 
+{{% section %}}
+
+<img width="60%" height="auto" data-src="images/fullstack.png">
+
+---
+
 ## Takeaways
 
 - HTMX
@@ -802,8 +890,6 @@ func TestTimelineRefreshesAfterAddEvent(t *testing.T) {
 - sqlc
 
 ---
-
-{{% section %}}
 
 <img width="40%" height="auto" data-src="images/qr.png">
 

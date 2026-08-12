@@ -101,6 +101,9 @@
             mermaid-cli
 
             presenterm
+
+            nodejs_24
+            pnpm
           ];
         };
       }

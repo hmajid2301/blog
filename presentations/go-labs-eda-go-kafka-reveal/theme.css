@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Roboto:wght@400;700&display=swap');
+:root {
+  --r-background-color:#11111b;
+  --r-main-font:'Poppins',sans-serif;
+  --r-main-font-size:40px;
+  --r-main-color:#cdd6f4;
+  --r-heading-font:'Roboto',sans-serif;
+  --r-heading-color:#cdd6f4;
+  --r-link-color:#89dceb;
+  --r-link-color-hover:#f2cdcd;
+  --r-progress-bar-color:#89b4fa;
+}
+.reveal-viewport{background:var(--r-background-color)}
+.reveal pre code{max-height:500px}
+.cols{display:grid;grid-template-columns:3fr 2fr;gap:2rem;align-items:start;text-align:left}
+.cols.cols-2{grid-template-columns:1fr 1fr}
+.reveal blockquote{background:rgba(255,255,255,.05);padding:.4em .8em;border-radius:.5rem}
