@@ -1,0 +1,9 @@
+{
+  "name": "go-labs-eda-go-kafka-reveal",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "python3 -m http.server 3031",
+    "build:hugo": "rm -rf ../../static/slides/go-labs-eda-go-kafka-reveal && mkdir -p ../../static/slides/go-labs-eda-go-kafka-reveal && cp index.html slides.md theme.css ../../static/slides/go-labs-eda-go-kafka-reveal/"
+  }
+}

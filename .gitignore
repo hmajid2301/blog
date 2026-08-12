@@ -59,3 +59,10 @@ hugo.linux
 .pre-commit-config.yaml
 .task/
 .codegraph
+
+presentations/gophercon-otel-slidev/node_modules/
+presentations/gophercon-otel-slidev/dist/
+presentations/gophercon-otel-slidev/.slidev/
+presentations/gophercon-htmx-go-web-app-slidev/node_modules/
+presentations/gophercon-htmx-go-web-app-slidev/dist/
+presentations/gophercon-htmx-go-web-app-slidev/.slidev/
