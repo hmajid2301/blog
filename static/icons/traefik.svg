@@ -1,9 +1,0 @@
-<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' shape-rendering='crispEdges'>
-  <rect width='32' height='32' fill='rgb(24,24,37)'/>
-  <rect x='6' y='18' width='20' height='4' fill='rgb(137,180,250)'/>
-<rect x='9' y='10' width='4' height='8' fill='rgb(245,194,231)'/>
-<rect x='15' y='7' width='4' height='11' fill='rgb(245,194,231)'/>
-<rect x='21' y='13' width='4' height='5' fill='rgb(245,194,231)'/>
-<rect x='13' y='6' width='2' height='2' fill='rgb(249,226,175)'/>
-
-</svg>
