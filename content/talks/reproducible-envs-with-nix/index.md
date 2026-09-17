@@ -2,12 +2,14 @@
 title: "Reproducible & Ephemeral Development Environments with Nix"
 canonicalURL: https://haseebmajid.dev/talks/reproducible-envs-with-nix/
 date: 2024-04-25
+conference: "Conf42 Golang"
 cover:
   image: images/cover.png
 ShowToc: false
 ShowReadingTime: false
 ShowWordCount: false
 hideMeta: false
+hideSummary: true
 ---
 
 {{< youtube id="HcNXlC1bjvI" >}}

@@ -1,11 +1,11 @@
 {
-  "name": "go-labs-eda-go-kafka-slidev",
+  "name": "go-labs-eda-go-kafka",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "slidev slides.md --open",
-    "build": "slidev build slides.md --base /slides/go-labs-eda-go-kafka-slidev/ --out dist",
-    "build:hugo": "slidev build slides.md --base /slides/go-labs-eda-go-kafka-slidev/ --out ../../static/slides/go-labs-eda-go-kafka-slidev"
+    "build": "slidev build slides.md --base /slides/go-labs-eda-go-kafka/ --out dist",
+    "build:hugo": "slidev build slides.md --base /slides/go-labs-eda-go-kafka/ --out ../../../static/slides/go-labs-eda-go-kafka"
   },
   "devDependencies": {
     "@slidev/cli": "^52.19.0",

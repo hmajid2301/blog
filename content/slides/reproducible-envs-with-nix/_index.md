@@ -1,6 +1,9 @@
 +++
 title = "Reproducible & Ephemeral Development Environments with Nix"
 outputs = ["Reveal"]
+date = 2024-04-25
+conference = "Conf42 Golang"
+hideSummary = true
 [logo]
 src = "images/logo.png"
 diag = "90%"
@@ -8,6 +11,7 @@ width = "3%"
 [reveal_hugo]
 custom_theme = "stylesheets/reveal/catppuccin.css"
 slide_number = true
+
 +++
 
 # Reproducible & Ephemeral Development Environments with Nix
@@ -998,4 +1002,3 @@ Don't forget to thank the audience.
 {{% /note %}}
 
 {{% /section %}}
-

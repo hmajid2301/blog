@@ -1,10 +1,14 @@
 +++
 title = "Gitlab Runners Docker-in-Docker Explained"
 outputs = ["Reveal"]
+date = 2023-11-15
+conference = "London Gophers"
+hideSummary = true
 
 [reveal_hugo]
 custom_theme = "stylesheets/reveal/zoe.css"
 slide_number = true
+
 +++
 
 # GitLab Runners: Docker-in-Docker Explained
@@ -150,7 +154,7 @@ notes:
 
 ----
 
-### What is the privileged flag? 
+### What is the privileged flag?
 
 - Privileged mode gives a Docker container more permissions
    - Including running a Docker daemon inside of it
@@ -165,12 +169,12 @@ notes:
 - Uses `docker+machine` executor
   - Adds auto-scaling support to runner
 - For each job
-  - A new VM is provisioned 
+  - A new VM is provisioned
   - VM only exists for duration of the job and is deleted after wards
   - Job has sudo access without a password
 ---
 
-## GitLab CI Services 
+## GitLab CI Services
 
 ```yaml [5|8]
 services-example:
@@ -301,7 +305,7 @@ docker network inspect ci-dind-docker-compose_default
 
 ---
 
-## Solutions? 
+## Solutions?
 
 - Attach to docker-compose network [^4]
 - Use `docker` instead of `localhost` or hostname

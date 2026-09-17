@@ -1,6 +1,9 @@
 +++
 title = "Using Nix to create reproducible Go development environments"
 outputs = ["Reveal"]
+date = 2024-11-20
+conference = "London Gophers"
+hideSummary = true
 [logo]
 src = "images/logo.png"
 diag = "85%"
@@ -8,6 +11,7 @@ width = "8%"
 [reveal_hugo]
 custom_theme = "stylesheets/reveal/catppuccin.css"
 slide_number = true
+
 +++
 
 # Using Nix to Create Reproducible Go Development Environments

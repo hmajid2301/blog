@@ -4,11 +4,7 @@
     {{- if site.Copyright }}
     <span>{{ site.Copyright | markdownify }}</span>
     {{- else }}
-    <span></span>
-    &copy;
-    {{ now.Year }}
-    <a href="{{ "" | absURL }}">{{ site.Title }}</a>
-    </span>
+    <span>&copy; {{ now.Year }} <a href="{{ "" | absURL }}">{{ site.Title }}</a></span>
     {{- end -}}
     <span style="display: inline-block; margin-left: 1em;">
         <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA</a>
@@ -133,7 +129,10 @@
 {{/* Load mediumZoom script */}}
 {{/* It has to be loaded here because of the data-no-instant attribute */}}
 {{- $imagezoom := resources.Get "js/medium-zoom.min.js" }}
-<script src="{{ $imagezoom.RelPermalink }}" data-no-instant {{- if site.Params.assets.disableFingerprinting }}
+{{- if not site.Params.assets.disableFingerprinting }}
+{{- $imagezoom = $imagezoom | fingerprint }}
+{{- end }}
+<script src="{{ $imagezoom.RelPermalink }}" data-no-instant {{- if not site.Params.assets.disableFingerprinting }}
     integrity="{{ $imagezoom.Data.Integrity }}" {{- end }}></script>
 
 {{/* Load reading progress bar script */}}
@@ -152,14 +151,15 @@
 
 {{- /* Search */}}
 {{ if .Site.Params.enableSearch | default true }}
-<link crossorigin="anonymous" rel="preload" as="fetch" href="../index.json" />
+<link crossorigin="anonymous" rel="preload" as="fetch" href="{{ "" | absLangURL }}index.json" />
 {{- $fusejs := resources.Get "js/fuse.basic.min.js" }}
 {{- $fastsearch := resources.Get "js/fastsearch.js" | js.Build (dict "params" (dict "fuseOpts" site.Params.fuseOpts)) }}
+{{- $search := (slice $fusejs $fastsearch ) | resources.Concat "assets/js/search.js" | minify }}
 {{- if not site.Params.assets.disableFingerprinting }}
-{{- $search := (slice $fusejs $fastsearch ) | resources.Concat "assets/js/search.js" | minify | fingerprint }}
-<script defer crossorigin="anonymous" src="{{ $search.RelPermalink }}"
-    integrity="{{ $search.Data.Integrity }}"></script>
+{{- $search = $search | fingerprint }}
 {{- end }}
+<script defer crossorigin="anonymous" src="{{ $search.RelPermalink }}" {{- if not site.Params.assets.disableFingerprinting }}
+    integrity="{{ $search.Data.Integrity }}" {{- end }}></script>
 
 {{- else }}
 {{- /* InstantClick.js */}}
@@ -168,7 +168,10 @@
 {{- if hugo.IsProduction }}
 {{- $instantclick = minify $instantclick }}
 {{- end }}
-<script src="{{ $instantclick.RelPermalink }}" data-no-instant {{- if site.Params.assets.disableFingerprinting }}
+{{- if not site.Params.assets.disableFingerprinting }}
+{{- $instantclick = $instantclick | fingerprint }}
+{{- end }}
+<script src="{{ $instantclick.RelPermalink }}" data-no-instant {{- if not site.Params.assets.disableFingerprinting }}
     integrity="{{ $instantclick.Data.Integrity }}" {{- end }}></script>
 <script data-no-instant>
     // http://instantclick.io/scripts

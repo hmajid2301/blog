@@ -1,8 +1,14 @@
 <script
-  id="partials/analytics.html"
+  id="goatcounter-analytics"
   data-goatcounter="https://{{ .Site.Params.goatcounter }}.goatcounter.com/count"
   async
   src="//gc.zgo.at/count.js"
 ></script>
-<script id="partials/analytics.html"
-defer data-domain="haseebmajid.dev" src="https://plausible.haseebmajid.dev/js/script.js"></script>
+{{- if .Site.Params.plausibleDomain }}
+<script
+  id="plausible-analytics"
+  defer
+  data-domain="{{ .Site.Params.plausibleDomain }}"
+  src="{{ .Site.Params.plausibleScript | default "https://plausible.io/js/script.js" }}"
+></script>
+{{- end }}

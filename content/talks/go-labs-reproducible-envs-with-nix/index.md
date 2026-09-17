@@ -2,12 +2,14 @@
 title: "Using Nix to create reproducible Go development environments"
 canonicalURL: https://haseebmajid.dev/talks/go-labs-reproducible-envs-with-nix/
 date: 2024-11-13
+conference: "GoLab"
 cover:
   image: images/cover.png
 ShowToc: false
 ShowReadingTime: false
 ShowWordCount: false
 hideMeta: false
+hideSummary: true
 ---
 
 {{< youtube id="bdGfn_ihHOk" >}}

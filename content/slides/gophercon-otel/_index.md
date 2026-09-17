@@ -1,6 +1,9 @@
 +++
 title = "Log, Metrics and Tracing with OTel & Go"
 outputs = ["Reveal"]
+date = 2025-07-15
+conference = "GopherCon UK"
+hideSummary = true
 [logo]
 src = "images/logo.svg"
 diag = "90%"
@@ -9,6 +12,7 @@ width = "5%"
 custom_theme = "stylesheets/reveal/catppuccin.css"
 slide_number = true
 auto_play_media = true
+
 +++
 
 # Observability Made Painless: Go, OTel & LGTM Stack
