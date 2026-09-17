@@ -9,17 +9,21 @@ This site also has all of my talks and the slides for them! You can find them on
 
 ## Slides
 
-Slides are written in [presenterm](https://github.com/mfontanini/presenterm) markdown under
-`presentations/<name>/slides.md` and exported to a self-contained HTML file that hugo serves
-at `/slides/<name>/`.
+Most decks are written in [presenterm](https://github.com/mfontanini/presenterm) markdown under
+`content/slides/<name>/slides.md` and exported to a self-contained HTML file that Hugo serves
+at `/slides/<name>/`. The new Go+Kafka deck is a [Slidev](https://sli.dev) project under
+`content/slides/go-labs-eda-go-kafka/` and is built to the same `static/slides/` output path.
 
 ```bash
-# Export all decks to static/slides/<name>/index.html
-task export:slides
+# Export all presenterm decks to static/slides/<name>/index.html
+task slides:export
+
+# Build all slide decks (Slidev and reveal.js)
+task slides:publish
 ```
 
-Commit the generated HTML alongside the deck. CI (`check:slides`) re-runs the export and fails
-if the committed HTML is out of date. Mermaid diagrams are rendered at export time via
+Commit the generated HTML alongside the deck. CI re-runs the export/build and fails
+if the committed output is out of date. Mermaid diagrams are rendered at export time via
 `mermaid-cli`; the presenterm config lives in `presenterm/config.yaml`.
 
 ## Usage

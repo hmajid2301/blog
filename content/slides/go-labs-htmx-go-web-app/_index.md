@@ -1,6 +1,9 @@
 +++
 title = "What I learnt building a web app with Go and HTMX"
 outputs = ["Reveal"]
+date = 2026-08-12
+conference = "GopherCon UK"
+hideSummary = true
 [logo]
 src = "images/logo.png"
 diag = "90%"
@@ -8,6 +11,7 @@ width = "5%"
 [reveal_hugo]
 custom_theme = "stylesheets/reveal/catppuccin.css"
 slide_number = true
+
 +++
 
 # What I learnt building a web app with Go and HTMX

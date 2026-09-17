@@ -1,6 +1,9 @@
 {{- $url := urls.Parse .Destination -}}
 {{- if $url.Scheme -}}
   {{/* third party image */}}
+  {{- if not (in (slice "http" "https") $url.Scheme) -}}
+    {{- errorf "Unsupported image URL scheme %q in %s" $url.Scheme .Page.File -}}
+  {{- end -}}
   <img
     loading="lazy"
     src="{{ .Destination | safeURL }}"
@@ -9,9 +12,10 @@
   />
 {{- else -}}
   {{/* internal image */}}
-  {{- $img := .Page.Resources.GetMatch .Destination -}}
+  {{- $dest := strings.TrimPrefix "./" .Destination -}}
+  {{- $img := .Page.Resources.GetMatch $dest -}}
   {{- if not $img -}}
-    {{- $img = resources.Get .Destination -}}
+    {{- $img = resources.Get $dest -}}
   {{- end -}}
 
   {{- if $img -}}

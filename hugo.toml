@@ -1,4 +1,5 @@
 baseURL = "https://haseebmajid.dev/"
+relativeURLs = true
 title = "Haseeb Majid"
 pagination.pagerSize = 25
 enableRobotsTXT = true
@@ -7,7 +8,7 @@ buildFuture = false
 buildExpired = false
 enableEmoji = true
 enableGitInfo = true
-ignorefiles = [
+ignoreFiles = [
   "content/slides",
   ".*/source_code(/|$)",
   ".*/example(/|$)",
@@ -17,6 +18,8 @@ ignorefiles = [
 noclasses = false
 
 [module]
+[[module.imports]]
+path = "github.com/joshed-io/reveal-hugo"
 
 [minify]
 disableXML = true
@@ -52,17 +55,21 @@ showtoc = true
 tocopen = false
 SeriesOpen = false
 goatcounter = "haseebmajid"
+plausibleDomain = "haseebmajid.dev"
+plausibleScript = "https://plausible.haseebmajid.dev/js/script.js"
+favicon = "/favicon-32x32.png"
+appleTouchIcon = "/favicon-32x32.png"
 
 [params.assets]
-favicon = "/favicon.ico"
+favicon = "/favicon-32x32.png"
 favicon16x16 = "/favicon-16x16.png"
 favicon32x32 = "/favicon-32x32.png"
-apple_touch_icon = "/apple-touch-icon.png"
+apple_touch_icon = "/favicon-32x32.png"
 safari_pinned_tab = "/safari-pinned-tab.svg"
 disableHLJS = true
 [params.label]
 text = "Haseeb Majid"
-icon = "/apple-touch-icon.png"
+icon = "/favicon-32x32.png"
 iconHeight = 35
 [params.profileMode]
 enabled = true
@@ -76,6 +83,10 @@ imageTitle = "A photo of Haseeb Majid"
 [[params.profileMode.buttons]]
 name = "Posts"
 url = "posts"
+
+[[params.profileMode.buttons]]
+name = "Slides"
+url = "slides"
 
 [[params.profileMode.buttons]]
 name = "Series"
@@ -151,6 +162,12 @@ identifier = "posts"
 name = "Posts"
 url = "/posts/"
 weight = 10
+
+[[menu.main]]
+identifier = "slides"
+name = "Slides"
+url = "/slides/"
+weight = 15
 
 [[menu.main]]
 identifier = "talks"

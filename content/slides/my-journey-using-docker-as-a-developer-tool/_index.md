@@ -1,6 +1,9 @@
 +++
 title = "My Journey Using Docker as a Development Tool"
 outputs = ["Reveal"]
+date = 2022-07-13
+conference = "EuroPython"
+hideSummary = true
 [logo]
 src = "images/logo.png"
 diag = "90%"
@@ -9,6 +12,7 @@ width = "3%"
 custom_theme = "stylesheets/reveal/zoe.css"
 highlight_theme = "solarized-light"
 slide_number = true
+
 +++
 
 {{< slide background="#fac828" >}}
@@ -415,7 +419,7 @@ services:
 # CI Pipeline
 
 - Docker running locally
-- Can we use Docker in CI? 
+- Can we use Docker in CI?
 
 {{% note %}}
 - Next thing I looked at doing was now using Docker in CI

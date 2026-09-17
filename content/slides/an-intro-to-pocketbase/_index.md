@@ -1,6 +1,9 @@
 +++
 title = "An Introduction to PocketBase: A Go-Based Backend as a Service"
 outputs = ["Reveal"]
+date = 2023-05-31
+conference = "London Gophers"
+hideSummary = true
 [logo]
 src = "images/logo.png"
 diag = "90%"
@@ -8,6 +11,7 @@ width = "3%"
 [reveal_hugo]
 custom_theme = "stylesheets/reveal/dracula.css"
 slide_number = true
+
 +++
 
 # An Introduction to PocketBase:

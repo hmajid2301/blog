@@ -31,6 +31,7 @@
       "original": {
         "owner": "numtide",
         "repo": "flake-utils",
+        "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
         "type": "github"
       }
     },
@@ -88,8 +89,8 @@
       },
       "original": {
         "owner": "NixOS",
-        "ref": "nixos-unstable",
         "repo": "nixpkgs",
+        "rev": "e72e4f299401a3689d4b3d5fc6496b11db7064eb",
         "type": "github"
       }
     },
@@ -141,6 +142,7 @@
       "original": {
         "owner": "cachix",
         "repo": "pre-commit-hooks.nix",
+        "rev": "43b3c1ab9d40fb1dbb008f451988a91e375825e9",
         "type": "github"
       }
     },
@@ -199,6 +201,7 @@
       "original": {
         "owner": "hmajid2301",
         "repo": "tcardgen",
+        "rev": "66b3e4690162558aa0890f3ffcda9f49d507dd96",
         "type": "github"
       }
     }

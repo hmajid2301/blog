@@ -4,8 +4,8 @@
 
 <script type="text/javascript">
   var disqus_config = function () {
-    this.page.url = '{{ .page.Permalink }}';  // Replace PAGE_URL with your page's canonical URL variable
-    this.page.identifier = '{{ .page.Permalink | path.Base }}'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    this.page.url = {{ .page.Permalink | jsonify }};  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = {{ .page.Permalink | path.Base | jsonify }}; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
   };
 
   (function () {
@@ -19,10 +19,10 @@
       });
     } else {
       var d = document, s = d.createElement('script');
-      s.src = '//' + '{{ .ctx.shortname }}' + '.disqus.com/embed.js';
+      s.src = '//' + {{ .ctx.shortname | jsonify }} + '.disqus.com/embed.js';
       s.defer = true;
       s.setAttribute('data-timestamp', +new Date());
-      // prevent the <script> from loading mutiple times by InstantClick
+      // prevent the <script> from loading multiple times by InstantClick
       s.setAttribute('data-no-instant', '')
       d.head.appendChild(s);
     }

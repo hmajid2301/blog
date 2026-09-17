@@ -3,20 +3,15 @@ version: "3"
 tasks:
   build:
     cmds:
+      - task slides:publish
       - hugo
       - hugo --config hugo-slides.toml
 
   start_server:
-    # watch: true
-    # sources:
-    #   - 'content/**/*.md'
     cmds:
       - hugo server -D --buildFuture
 
   start_slides:
-    # watch: true
-    # sources:
-    #   - 'content/**/*.md'
     cmds:
       - hugo server -D --buildFuture --config hugo-slides.toml
 
@@ -24,69 +19,59 @@ tasks:
     cmds:
       - new_post "{{.CLI_ARGS}}"
 
-  # new_talk:
-  #   cmds:
-  #     - hugo new --kind talk-bundle talks/{{.TALK_NAME}}
-
   generate:og:
     cmds:
       - ls content/posts/ | parallel 'mkdir -p content/posts/{}/images && tcardgen -c scripts/og/config.yaml --template=scripts/og/template.png -f scripts/og/fonts/ content/posts/{}/index.md -o content/posts/{}/images/cover.png'
 
-  export:slides:
+  slides:export:
     cmds:
       - ./scripts/export-slides.sh
 
-  slidev:dev:
+  slides:publish:
+    cmds:
+      - task slides:export
+      - task slides:publish:slidev
+
+  slides:publish:slidev:
     cmds:
       - |
-        deck=$(find presentations -maxdepth 1 -mindepth 1 -type d -name '*-slidev' -printf '%f\n' | sort | gum choose)
-        cd "presentations/$deck"
+        set -euo pipefail
+        for deck in content/slides/*/package.json; do
+          [ -f "$deck" ] || continue
+          dir=$(dirname "$deck")
+          name=$(basename "$dir")
+          if ! jq -e '.scripts["build:hugo"]' "$deck" >/dev/null 2>&1; then
+            continue
+          fi
+          echo "Publishing Slidev deck: $name"
+          (
+            cd "$dir"
+            pnpm install --frozen-lockfile
+            pnpm build:hugo
+          )
+        done
+
+  slides:dev:slidev:
+    cmds:
+      - |
+        deck=$(find content/slides -maxdepth 1 -mindepth 1 -type f -name package.json -exec sh -c 'jq -e \'.scripts["build:hugo"]\' "$1" >/dev/null 2>&1 && dirname "$1"' _ {} \; | sort | gum choose)
+        cd "$deck"
         pnpm dev
 
-  slidev:publish:
+  slides:export:slidev:
     cmds:
       - |
-        deck=$(find presentations -maxdepth 1 -mindepth 1 -type d -name '*-slidev' -printf '%f\n' | sort | gum choose)
-        cd "presentations/$deck"
-        if jq -e '.scripts["build:hugo"]' package.json >/dev/null 2>&1; then
-          pnpm build:hugo
-        else
-          echo "No build:hugo script for $deck" >&2
-          exit 1
-        fi
+        deck=$(find content/slides -maxdepth 1 -mindepth 1 -type f -name package.json -exec sh -c 'jq -e \'.scripts.export\' "$1" >/dev/null 2>&1 && dirname "$1"' _ {} \; | sort | gum choose)
+        cd "$deck"
+        pnpm export
 
-  slidev:export:
+  slides:dev:reveal:
     cmds:
       - |
-        deck=$(find presentations -maxdepth 1 -mindepth 1 -type d -name '*-slidev' -printf '%f\n' | sort | gum choose)
-        cd "presentations/$deck"
-        if jq -e '.scripts.export' package.json >/dev/null 2>&1; then
-          pnpm export
-        else
-          echo "No export script for $deck" >&2
-          exit 1
-        fi
-
-  reveal:dev:
-    cmds:
-      - |
-        deck=$(find presentations -maxdepth 1 -mindepth 1 -type d -name '*-reveal' -printf '%f\n' | sort | gum choose)
-        cd "presentations/$deck"
+        deck=$(find content/slides -maxdepth 1 -mindepth 1 -type d -name '*-reveal' -printf '%f\n' | sort | gum choose)
+        cd "content/slides/$deck"
         if jq -e '.scripts.dev' package.json >/dev/null 2>&1; then
           pnpm dev
         else
           python3 -m http.server 3031
         fi
-
-  reveal:publish:
-    cmds:
-      - |
-        deck=$(find presentations -maxdepth 1 -mindepth 1 -type d -name '*-reveal' -printf '%f\n' | sort | gum choose)
-        cd "presentations/$deck"
-        if jq -e '.scripts["build:hugo"]' package.json >/dev/null 2>&1; then
-          pnpm build:hugo
-        else
-          echo "No build:hugo script for $deck" >&2
-          exit 1
-        fi
-

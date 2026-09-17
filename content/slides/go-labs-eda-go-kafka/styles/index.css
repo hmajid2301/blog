@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Roboto:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Poppins:wght@400;700&family=Roboto:wght@400;700&display=swap');
 
 :root {
   --ctp-bg: #11111b;
@@ -43,9 +43,38 @@ body { font-family: 'Poppins', sans-serif; color: var(--ctp-text); text-renderin
 .slidev-layout code, .slidev-layout pre, .shiki { font-family: 'MonoLisa', 'Noto Sans Mono', 'Liberation Mono', monospace !important; }
 .slidev-layout pre, .shiki { width: 100%; margin: 20px auto; text-align: left; font-size: 0.7em; line-height: 1.2em; background: var(--ctp-code-bg) !important; border: 1px solid rgba(88,91,112,.5); box-shadow: 0 8px 24px rgba(0,0,0,.22); border-radius: .75rem; }
 .slidev-layout pre code, .shiki code { display: block; padding: 5px; overflow: auto; max-height: 430px; white-space: pre; }
+.slidev-layout.code-lg .shiki { font-size: 22px !important; line-height: 1.28 !important; width: min(100%, 1160px); }
+.slidev-layout.code-lg .shiki code { font-size: inherit !important; line-height: inherit !important; padding: 0.9rem 1.1rem; max-height: 560px; }
+.slidev-layout.code-lg h2 { font-size: 1.65em; margin-bottom: 1rem; }
+.slidev-layout.code-fit .shiki { font-size: 17px !important; line-height: 1.18 !important; width: min(100%, 1160px); }
+.slidev-layout.code-fit .shiki code { font-size: inherit !important; line-height: inherit !important; padding: 0.65rem 0.9rem; max-height: 520px; overflow: hidden; }
+.slidev-layout.code-fit h2 { font-size: 2.6rem; margin-bottom: 0.65rem; }
+.slidev-layout.diagram-compact h2 { font-size: 3.4rem; margin-bottom: 0.8rem; }
 .slidev-layout img, .slidev-layout video, .slidev-layout iframe { display: block; width: auto; height: auto; max-width: 95%; max-height: 95%; object-fit: contain; margin: 20px auto; border-radius: .35rem; box-shadow: 0 10px 28px rgba(0,0,0,.22); }
 .slidev-page-1 h1 { font-size: 2.55em; line-height: 1.02; margin-bottom: 0; letter-spacing: -0.02em; }
 .slidev-page-1 h2 { font-size: 1.4em; margin-top: .35rem; color: var(--ctp-subtext1); }
 .slidev-page-1 .text-lg { color: var(--ctp-subtext0); }
 .section-slide h1, .section-slide h2 { color: var(--ctp-blue); letter-spacing: -0.02em; }
-.slidev-layout .slidev-code-line-highlighted, .slidev-layout .highlighted { background: rgba(255,255,255,.04); border-left: 3px solid var(--ctp-blue); border-radius: 0; }
+.slidev-layout .slidev-code .slidev-code-dishonored,
+.slidev-layout .slidev-code .dishonored { opacity: 0.36; }
+.slidev-layout .slidev-code .line.slidev-code-highlighted,
+.slidev-layout .slidev-code .line.highlighted {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.slidev-layout .slidev-code .line.highlighted span,
+.slidev-layout .slidev-code .line.slidev-code-highlighted span {
+  background: transparent !important;
+}
+.slidev-vclick-target { transition: opacity 220ms ease, transform 220ms ease, filter 220ms ease; }
+.slidev-vclick-hidden { transform: translateY(8px) scale(0.985); filter: blur(1px); }
+.slidev-layout .mermaid svg { max-width: 100%; height: auto; }
+.slidev-layout .mermaid .node rect, .slidev-layout .mermaid .node circle, .slidev-layout .mermaid .node ellipse, .slidev-layout .mermaid .node polygon { filter: drop-shadow(0 6px 18px rgba(0,0,0,.25)); }
+.slidev-layout .mermaid .label { color: var(--ctp-text); }
+.slidev-layout .mermaid .edgeLabel { background: transparent !important; color: var(--ctp-text) !important; }
+.slidev-layout .mermaid .cluster rect { fill: rgba(30,30,46,.9); stroke: var(--ctp-surface1); }
+.slidev-layout .mermaid .cluster.topic rect { fill: #f9e2af !important; stroke: #fab387 !important; }
+.slidev-layout .mermaid .cluster.group rect { fill: #cba6f7 !important; stroke: #b4befe !important; }
+.slidev-layout .mermaid .cluster.producer rect { fill: #89b4fa !important; stroke: #74c7ec !important; }
+.slidev-layout .mermaid .cluster.broker rect { fill: #9399b2 !important; stroke: #cdd6f4 !important; }
+.slidev-layout .mermaid .flowchart-link { stroke-width: 3.2px; stroke-linecap: round; stroke-linejoin: round; }

@@ -154,28 +154,40 @@ function buildIndex() {
 
 function executeQuery(term) {
   let results = fuse.search(term);
-  let resultsHTML = "";
+
+  output.innerHTML = "";
+  hasResults = false;
 
   if (results.length > 0) {
     results.forEach(function (value, key) {
-      resultsHTML =
-        resultsHTML +
-        `<li class="mb-2">
-          <a class="search-item-link" href="${value.item.permalink}" tabindex="0">
-            <div class="search-item">
-              <div class="search-title">${value.item.title}</div>
-              <div class="search-summary">${value.item.summary}</div>
-            </div>
-          </a>
-        </li>`;
+      const li = document.createElement("li");
+      li.className = "mb-2";
+
+      const link = document.createElement("a");
+      link.className = "search-item-link";
+      link.href = value.item.permalink;
+      link.setAttribute("tabindex", "0");
+
+      const itemDiv = document.createElement("div");
+      itemDiv.className = "search-item";
+
+      const titleDiv = document.createElement("div");
+      titleDiv.className = "search-title";
+      titleDiv.textContent = value.item.title;
+
+      const summaryDiv = document.createElement("div");
+      summaryDiv.className = "search-summary";
+      summaryDiv.textContent = value.item.summary;
+
+      itemDiv.appendChild(titleDiv);
+      itemDiv.appendChild(summaryDiv);
+      link.appendChild(itemDiv);
+      li.appendChild(link);
+      output.appendChild(li);
     });
     hasResults = true;
-  } else {
-    resultsHTML = "";
-    hasResults = false;
   }
 
-  output.innerHTML = resultsHTML;
   if (results.length > 0) {
     first = output.firstChild.firstElementChild;
     last = output.lastChild.firstElementChild;

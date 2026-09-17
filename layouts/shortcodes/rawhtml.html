@@ -1,2 +1,9 @@
 <!-- raw html -->
+{{- /*
+  rawhtml shortcode: emits the inner markdown content verbatim as HTML.
+  This is intentional for advanced authoring, but it bypasses Hugo's default
+  sanitization. Only use it for trusted, author-generated markup; never for
+  untrusted/user input. Combine with safe search rendering (no innerHTML of
+  untrusted JSON) to avoid stored XSS.
+*/ -}}
 {{- .Inner -}}

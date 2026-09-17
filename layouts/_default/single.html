@@ -18,7 +18,7 @@
       {{- partial "post_meta.html" . -}}
       {{/* TODO move to footer */}}
       {{- if .Params.ShowLikes | default site.Params.ShowLikes | default false}}
-      {{- partial "likes.html" . }} 
+      {{- partial "likes.html" . }}
       {{- end }}
       {{ if and (.Params.ShowPageViews | default (.Site.Params.ShowPageViews | default true)) }}
         {{- partial "page_views.html" . -}}
@@ -32,7 +32,7 @@
 
   {{ if .Params.series }}
   {{- partial "series.html" . }}
-  {{end}} 
+  {{end}}
 
   {{- $isHidden := .Params.cover.hidden | default site.Params.cover.hiddenInSingle | default site.Params.cover.hidden }}
   {{- partial "cover.html" (dict "cxt" . "IsHome" false "isHidden" $isHidden) }}
@@ -68,7 +68,9 @@
 </article>
 
 {{ if .Page.Store.Get "hasMermaid" }}
-  <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"
+          integrity="sha384-WmdflGW9aGfoBdHc4rRyWzYuAjEmDwMdGdiPNacbwfGKxBW/SO6guzuQ76qjnSlr"
+          crossorigin="anonymous"></script>
   <script>
     mermaid.initialize({ startOnLoad: true });
   </script>

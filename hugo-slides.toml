@@ -1,9 +1,16 @@
-baseURL = "https://haseebmajid.dev/slides"
+baseURL = "https://haseebmajid.dev/slides/"
+relativeURLs = false
 title = "Haseeb Majid"
 theme = ["github.com/joshed-io/reveal-hugo"]
 contentDir = "content/slides"
 publishDir = "public/slides"
 staticDir = "static/slides"
+ignoreFiles = [ "go-labs-eda-go-kafka/.*" ]
+
+
+[params]
+favicon = "/slides/favicon-32x32.png"
+appleTouchIcon = "/slides/favicon-32x32.png"
 
 [params.reveal_hugo]
 custom_theme = "stylesheets/reveal/catppuccin.css"

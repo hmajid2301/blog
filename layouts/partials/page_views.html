@@ -25,6 +25,6 @@
     r.addEventListener('load', function() {
         document.getElementById('{{ .File.UniqueID }}').innerText = JSON.parse(this.responseText).count_unique + ' ' + {{ i18n "article.page_views" }}
     })
-    r.open('GET', "https://{{ .Site.Params.goatcounter }}.goatcounter.com/counter/" + encodeURIComponent({{ .RelPermalink }}.replace(/(\/)?$/, '')) + '.json')
+    r.open('GET', "https://{{ .Site.Params.goatcounter }}.goatcounter.com/counter/" + encodeURIComponent({{ .RelPermalink | jsonify }}.replace(/(\/)?$/, '')) + '.json')
     r.send()
 </script> {{- /* Trim EOF */ -}}

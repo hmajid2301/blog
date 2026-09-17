@@ -51,8 +51,8 @@ hugo.linux
 .ionide
 
 
-# Ignore code-workspaces
-*.code-workspace
+# Android debug keystores embedded in tutorial source_code bundles
+content/posts/**/source_code/**/android/app/debug.keystore
 
 # End of https://www.toptal.com/developers/gitignore/api/hugo,linux,visualstudiocode
 .direnv
@@ -60,9 +60,11 @@ hugo.linux
 .task/
 .codegraph
 
-presentations/gophercon-otel-slidev/node_modules/
-presentations/gophercon-otel-slidev/dist/
-presentations/gophercon-otel-slidev/.slidev/
-presentations/gophercon-htmx-go-web-app-slidev/node_modules/
-presentations/gophercon-htmx-go-web-app-slidev/dist/
-presentations/gophercon-htmx-go-web-app-slidev/.slidev/
+content/slides/*/node_modules/
+content/slides/*/dist/
+content/slides/*/.slidev/
+# Generated Slidev build output (matches source directory name)
+static/slides/go-labs-eda-go-kafka/
+# Old generated Slidev output path (kept during transition)
+static/slides/*-slidev/
+/.glciconfig.toml

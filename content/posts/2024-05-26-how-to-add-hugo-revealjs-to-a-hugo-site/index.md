@@ -9,14 +9,14 @@ cover:
   image: images/cover.png
 ---
 
-What we are trying to achieve hosting RevealJS slides on our Hugo blog like
-[so](https://haseebmajid.dev/slides/reproducible-envs-with-nix/#/). The markdown that the slides are built from
-It can be found [here](https://gitlab.com/hmajid2301/blog/-/blob/main/content/slides/reproducible-envs-with-nix/_index.md)
+What we are trying to achieve is hosting RevealJS slides on our Hugo blog like
+[this example slide deck](https://haseebmajid.dev/slides/reproducible-envs-with-nix/#/).
+The markdown the slides are built from is in
+[the slide source](https://gitlab.com/hmajid2301/blog/-/blob/main/content/slides/reproducible-envs-with-nix/_index.md).
 
 ## Background
 
-
-Recently, I did a talk at the Conf42 conference [shameless plug here](/content/talks/reproducible-envs-with-nix). At
+Recently, I did a talk at the Conf42 conference [shameless plug here](/talks/reproducible-envs-with-nix). At
 the time I was working on the slides using [Reveal.js](https://revealjs.com/), as I did for all of my slides
 as I can create a slideshow using just plain markdown. I hosted all of my talks in a separate
 [repository](https://gitlab.com/hmajid2301/talks). Which published to a simple [site](https://talks.haseebmajid.dev/).
@@ -31,14 +31,13 @@ Let's assume you already have a Hugo site, and we will add reveal-hugo to it. If
 [getting started guide](https://gohugo.io/getting-started/quick-start/#explanation-of-commands). To set up a basic
 Hugo site.
 
-
 ### Issues
 
 So one problem I found with adding reveal-hugo was to get code highlighting using highlight-js, we need to turn off
 code fences on our Hugo site. Which means we need to use the Hugo short code to add code blocks to our blog posts.
 Which means instead of doing:
 
-```
+```text
 ```md
 ```
 
@@ -58,7 +57,6 @@ site is available in `public` folder.
 Let me know if you know a better way to solve this problem, but it works well enough for now if a bit "hacky".
 
 ## Add reveal-hugo
-
 
 ```bash
 hugo mod init example
@@ -124,8 +122,9 @@ ignorefiles = ["content/slides"]
 So when building the main site it will not build for our slides.
 
 ### New Slides
+
 Add new slides, assuming we are at the root of our hugo project (where `hugo.toml` and `hugo-slides.toml` are).
-Notice the `contentDir` above, hence we put into the `slides` folder.
+Notice the `contentDir` above, hence we put into the `content/slides` folder.
 
 ```bash
 mkdir -p content/slides/first-talk
@@ -169,6 +168,6 @@ in two separate files to make them easier to share between slides.
 That's it! We added reveal-hugo to our existing Hugo blog whilst keeping existing syntax highlighting working.
 It wasn't the most elegant solution, but as I said earlier it works well enough for me!
 
-
 ## Appendix
+
 - [My Hugo Blog](https://gitlab.com/hmajid2301/blog)
