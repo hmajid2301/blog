@@ -94,6 +94,9 @@ The config I have set up looks something like this:
 }
 ```
 
+A few things worth calling out: `UI_CONFIG_DISABLED = true` means I can't change settings from the web UI. Everything
+has to go through the nix config, which is exactly what I want for this setup.
+
 ### Sops
 
 To manage secrets I use SOPs, the secrets are encrypted and kept in git. It's just simpler in this case and everything
@@ -123,7 +126,6 @@ credentials = {
   STATIC_API_KEY = config.sops.secrets.pocketid_static_api_key.path;
 };
 ```
-
 
 ### Nix
 
@@ -441,6 +443,16 @@ nativeBuildInputs = [
   go-task
 ];
 ```
+
+## What I lost and what I gained
+
+The main thing I gave up is Authentik's flows, i.e. the ability to build custom login, recovery and enrolment flows
+in the UI. I never actually used those, so I don't miss them. Pocket ID also doesn't do groups-based access control to
+the same degree, but TinyAuth's `Remote-Groups` header lets me do the simple version in Traefik if I ever need it.
+
+What I gained is a much smaller footprint on the VPS, no more clicking in an admin UI to register clients, and the
+whole identity setup (provider, forward auth, client provisioning, secret distribution) is now declared in nix and
+applied with OpenTofu.
 
 ## Data Migration
 
