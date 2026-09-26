@@ -1,5 +1,5 @@
 {{- define "main" }}
-  {{- if (and site.Params.profileMode.enabled .IsHome) }}
+  {{- if (and site.Params.profilemode.enabled .IsHome) }}
     {{- partial "index_profile.html" . }}
   {{- else }}
     {{/* if not profileMode */}}
