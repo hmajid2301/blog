@@ -23,37 +23,48 @@
         pkgs = nixpkgs.legacyPackages.${system};
         pre-commit-check = pre-commit-hooks.lib.${system}.run {
           src = ./.;
+          package = pkgs.prek;
           hooks = {
             check-merge-conflicts.enable = true;
             check-added-large-files = {
               enable = true;
-              # generated slide HTML and source PDFs are intentionally committed
-              # and can exceed 500 KiB
-              excludes = [ "static/slides/.*" "content/slides/.*" ];
+              excludes = [
+                "static/slides/.*"
+                "content/slides/.*"
+              ];
             };
 
             end-of-file-fixer = {
               enable = true;
-              # keep exported slide HTML and slide source byte-identical so
-              # re-export checks stay deterministic
-              excludes = [ "static/slides/.*" "content/slides/.*" ];
+              excludes = [
+                "static/slides/.*"
+                "content/slides/.*"
+              ];
             };
             check-toml.enable = true;
             markdownlint = {
               enable = true;
-              # presenterm/slidev decks use HTML comments as commands which trip
-              # markdownlint rules like MD025/MD033
               excludes = [ "content/slides/.*" ];
-              args = [ "-c" ".markdownlint.yaml" ];
+              args = [
+                "-c"
+                ".markdownlint.yaml"
+              ];
             };
 
             trim-trailing-whitespace = {
               enable = true;
-              excludes = [ "static/slides/.*" "content/slides/.*" ];
+              excludes = [
+                "static/slides/.*"
+                "content/slides/.*"
+              ];
             };
             cspell = {
               enable = true;
-              excludes = [ "content/slides/.*" ".*-lock.yaml" "pnpm-lock.yaml" ];
+              excludes = [
+                "content/slides/.*"
+                ".*-lock.yaml"
+                "pnpm-lock.yaml"
+              ];
             };
 
             # OG generation is checked in CI (check:og); don't regenerate all images on every commit.

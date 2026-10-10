@@ -1,8 +1,8 @@
 +++
 title = "What I learnt building a web app with Go and HTMX"
 outputs = ["Reveal"]
-date = 2025-10-06
-conference = "GoLab"
+date = 2026-08-12
+conference = "GopherCon UK"
 hideSummary = true
 [logo]
 src = "images/logo.png"
