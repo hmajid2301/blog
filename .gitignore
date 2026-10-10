@@ -68,3 +68,6 @@ static/slides/go-labs-eda-go-kafka/
 # Old generated Slidev output path (kept during transition)
 static/slides/*-slidev/
 /.glciconfig.toml
+
+# Agent planning notes (not part of the published site)
+.planning/

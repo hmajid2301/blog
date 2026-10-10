@@ -48,12 +48,28 @@ export default async function () {
     themeCSS: `
       /* handDrawn fill hatching: tint it by node class */
       .rough-node path:first-child {
-        stroke-width: 5.5px;
-        opacity: 0.34;
+        stroke-width: 1.5px !important;
+        opacity: 0.22;
       }
 
       .rough-node path:last-child {
-        stroke-width: 5px;
+        stroke-width: 2.5px !important;
+      }
+
+      /* infrastructure and outbox relay */
+      .rough-node.infrastructure path:first-child,
+      .rough-node.infrastructure path:last-child {
+        stroke: #9399b2 !important;
+      }
+      .rough-node.outboxDb path:first-child,
+      .rough-node.outboxDb path:last-child {
+        stroke: #a6e3a1 !important;
+      }
+      .rough-node.outboxPublisher path:first-child {
+        stroke: #94e2d5 !important;
+      }
+      .rough-node.outboxPublisher path:last-child {
+        stroke: #74c7ec !important;
       }
 
       /* service / source nodes */
@@ -77,6 +93,11 @@ export default async function () {
       .rough-node.svcB path:last-child,
       .rough-node.storage path:last-child {
         stroke: #fab387 !important;
+      }
+
+      .rough-node.bank path:first-child,
+      .rough-node.bank path:last-child {
+        stroke: #f38ba8 !important;
       }
 
       /* database / cylinder storage nodes: same yellow body as topics */
@@ -130,10 +151,24 @@ export default async function () {
         stroke-width: 2.6px;
       }
 
+      .rough-node.kafkaBroker path:first-child,
+      .rough-node.kafkaBroker path:last-child {
+        stroke: #89b4fa !important;
+      }
+
+      .rough-node.retry path:first-child,
+      .rough-node.retry path:last-child {
+        stroke: #f9e2af !important;
+      }
+
+      .rough-node.dlq path:first-child,
+      .rough-node.dlq path:last-child {
+        stroke: #f38ba8 !important;
+      }
+
       /* hide the ugly hand-drawn bottom base arc on cylinder nodes */
       .rough-node.log .label-container path:nth-child(2),
-      .rough-node.kafka .label-container path:nth-child(2),
-      .rough-node.db .label-container path:nth-child(2) {
+      .rough-node.kafka .label-container path:nth-child(2) {
         clip-path: inset(0 0 6px 0);
       }
 
@@ -155,15 +190,18 @@ export default async function () {
 
       .rough-node.consumer2 path:first-child,
       .rough-node.c2 path:first-child,
-      .rough-node.email path:first-child,
       .rough-node.groupB path:first-child {
         stroke: #cba6f7 !important;
       }
       .rough-node.consumer2 path:last-child,
       .rough-node.c2 path:last-child,
-      .rough-node.email path:last-child,
       .rough-node.groupB path:last-child {
         stroke: #b4befe !important;
+      }
+
+      .rough-node.email path:first-child,
+      .rough-node.email path:last-child {
+        stroke: #a6e3a1 !important;
       }
 
       .rough-node.c3 path:first-child {
@@ -285,11 +323,12 @@ export default async function () {
         line-height: 1.1;
         text-align: center;
         color: #e6e9f7 !important;
-        text-shadow: 0 1px 1px rgba(17, 17, 27, 0.8);
+        text-shadow: none;
         background: transparent;
       }
 
       .rough-node.topic .nodeLabel p {
+        color: #cdd6f4 !important;
         width: 10rem;
         min-height: 2.6rem;
         padding: 0.18em 0.55em;
@@ -301,6 +340,10 @@ export default async function () {
         min-height: 0;
         background: rgba(17, 17, 27, 0.7);
         color: #e6e9f7 !important;
+      }
+
+      .cluster.topic .nodeLabel p {
+        color: #cdd6f4 !important;
       }
 
       .edgeLabel .labelBkg {
@@ -322,7 +365,7 @@ export default async function () {
 
       .flowchart-link {
         stroke: #bac2de;
-        stroke-width: 3.2px;
+        stroke-width: 2px;
         stroke-linecap: round;
         stroke-linejoin: round;
       }
@@ -330,6 +373,14 @@ export default async function () {
       .arrowMarkerPath {
         fill: #bac2de !important;
         stroke: #bac2de !important;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .edge-animation-slow,
+        .edge-animation-fast {
+          animation: none !important;
+          stroke-dashoffset: 0 !important;
+        }
       }
     `,
     flowchart: {
