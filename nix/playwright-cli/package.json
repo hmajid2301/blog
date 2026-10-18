@@ -1,0 +1,8 @@
+{
+  "name": "gothreads-playwright-cli",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@playwright/cli": "0.1.13"
+  }
+}

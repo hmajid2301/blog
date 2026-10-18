@@ -6,6 +6,7 @@
     flake-utils.url = "github:numtide/flake-utils/11707dc2f618dd54ca8739b309ec4fc024de578b";
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix/43b3c1ab9d40fb1dbb008f451988a91e375825e9";
     tcardgen.url = "github:hmajid2301/tcardgen/66b3e4690162558aa0890f3ffcda9f49d507dd96";
+    playwright.url = "github:pietdevries94/playwright-web-flake/1.61.1";
   };
 
   outputs =
@@ -15,12 +16,15 @@
       flake-utils,
       pre-commit-hooks,
       tcardgen,
+      playwright,
       ...
     }:
     (flake-utils.lib.eachDefaultSystem (
       system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
+        inherit (playwright.packages.${system}) playwright-driver;
+        playwright-cli = pkgs.callPackage ./nix/playwright-cli.nix { inherit playwright-driver; };
         pre-commit-check = pre-commit-hooks.lib.${system}.run {
           src = ./.;
           package = pkgs.prek;
@@ -102,7 +106,42 @@
       in
       {
         devShells.default = pkgs.mkShell {
-          inherit (pre-commit-check) shellHook;
+          shellHook = pre-commit-check.shellHook + ''
+            export SSL_CERT_FILE="${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"
+            export GIT_SSL_CAINFO="$SSL_CERT_FILE"
+
+            export PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
+            export PLAYWRIGHT_NODEJS_PATH="${pkgs.nodejs}/bin/node"
+            export PLAYWRIGHT_DRIVER_PATH="${playwright-driver}"
+            export PLAYWRIGHT_CLI_PATH="${playwright-driver}/cli.js"
+
+            export PLAYWRIGHT_NIX_BROWSERS_PATH="${playwright-driver.browsers}"
+            export PLAYWRIGHT_BROWSERS_PATH="$PWD/.playwright-browsers"
+            mkdir -p "$PLAYWRIGHT_BROWSERS_PATH"
+            for browser_path in "$PLAYWRIGHT_NIX_BROWSERS_PATH"/*; do
+              browser_name="$(basename "$browser_path")"
+              ln -sfn "$browser_path" "$PLAYWRIGHT_BROWSERS_PATH/$browser_name"
+              case "$browser_name" in
+                chromium-*)
+                  ln -sfn "$browser_path" "$PLAYWRIGHT_BROWSERS_PATH/''${browser_name/chromium/chrome-for-testing}"
+                  ;;
+              esac
+            done
+
+            chromium_executable="$(find -L "$PLAYWRIGHT_NIX_BROWSERS_PATH" -path '*/chrome-linux64/chrome' | head -n 1)"
+            mkdir -p "$PWD/.playwright"
+            if [ -n "$chromium_executable" ]; then
+              printf '%s\n' \
+                '{' \
+                '  "browser": {' \
+                '    "browserName": "chromium",' \
+                '    "launchOptions": {' \
+                "      \"executablePath\": \"$chromium_executable\"" \
+                '    }' \
+                '  }' \
+                '}' > "$PWD/.playwright/cli.config.json"
+            fi
+          '';
           packages = with pkgs; [
             parallel
             tcardgen.packages.${system}.default
@@ -115,6 +154,8 @@
             gum
             vhs
             mermaid-cli
+            playwright-driver
+            playwright-cli
 
             presenterm
 
