@@ -8,6 +8,10 @@ staticDir = "static/slides"
 ignoreFiles = [ "go-labs-eda-go-kafka/.*" ]
 
 
+[security.exec]
+# Preserve Hugo's default environment allowlist and pass Nix's CA bundle to Go/Git.
+osEnv = ['(?i)^((HTTPS?|NO)_PROXY|PATH(EXT)?|APPDATA|TE?MP|TERM|GO\w+|(XDG_CONFIG_)?HOME|USERPROFILE|SSH_AUTH_SOCK|DISPLAY|LANG|SYSTEMDRIVE|PROGRAMDATA)$', '^SSL_CERT_FILE$', '^GIT_SSL_CAINFO$']
+
 [params]
 favicon = "/slides/favicon-32x32.png"
 appleTouchIcon = "/slides/favicon-32x32.png"
