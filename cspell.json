@@ -6,6 +6,10 @@
         "patches/**"
     ],
     "words": [
+        "CAINFO",
+        "PROGRAMDATA",
+        "SYSTEMDRIVE",
+        "USERPROFILE",
         "ionide",
         "codegraph",
         "glciconfig",
