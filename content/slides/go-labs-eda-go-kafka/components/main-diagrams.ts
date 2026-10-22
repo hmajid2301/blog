@@ -1,14 +1,12 @@
 import { previews, type Diagram, type DiagramNode } from './diagram-previews.ts'
 
 // Main-talk layouts retain room for the existing explanatory captions.
-// The appendix is only a comparison gallery; no slide content is imported here.
 const shapes: Record<string, Record<string, 'database' | 'queue'>> = {
   'event-flow': { 'collections-topic': 'queue', 'disbursements-topic': 'queue' },
-  replication: { leader: 'queue', follower2: 'queue', follower3: 'queue' },
-  'worker-failure': { topic: 'queue' },
+  'consumer-failure': { topic: 'queue' },
   retry: { topic: 'queue', retry: 'queue' }, dlq: { retry: 'queue', dlq: 'queue' },
   'dual-write': { db: 'database', kafka: 'queue' }, outbox: { db: 'database', topic: 'queue' },
-  'relay-shapes': { db: 'database', topic: 'queue' }, cdc: { outbox: 'database', kafka: 'queue' },
+  'relay-shapes': { db: 'database', topic: 'queue' },
 }
 
 function place(diagram: Diagram, positions: Record<string, [number, number]>, width: number, height: number) {
@@ -29,7 +27,42 @@ function arc(diagram: Diagram, index: number, side: 'top' | 'bottom', y: number)
   })
 }
 
-function logOverview(step: number): Diagram {
+function partitionLog(step: number): Diagram {
+  const count = Math.max(0, Math.min(6, step))
+  const tones = ['teal', 'green', 'pink'] as const
+  const samples = [['a', 'c', 'a', 'd'], ['n', 'f', 'n', 'g'], ['e', 'j', 'i', 'h']]
+  const destination = count ? (count - 1) % 3 : -1
+  return {
+    title: 'Three independent partition logs; offsets increase within each partition', width: 1100, height: 620,
+    groups: [
+      { id: 'topic', label: 'Topic: collections', x: 10, y: 0, w: 1080, h: 610, tone: 'orange' },
+      ...samples.map((_, index): DiagramNode => ({
+        id: `partition-${index}`, label: `Partition ${index}`, x: 30 + index * 355, y: 60, w: 330, h: 535,
+        tone: destination === index ? 'orange' : tones[index],
+      })),
+    ],
+    nodes: [
+      { id: 'producer', label: 'Incoming events', x: 385, y: 5, w: 340, h: 45, tone: 'orange' },
+      ...samples.flatMap((keys, partition) => keys.map((key, offset): DiagramNode => ({
+        id: `p${partition}-${offset}`, label: `transfer-${key}`, offset,
+        x: 60 + partition * 355, y: 105 + offset * 80, w: 270, h: 65, tone: tones[partition],
+      }))),
+      ...Array.from({ length: count }, (_, index): DiagramNode => {
+        const partition = index % 3
+        const x = 60 + partition * 355
+        return {
+          id: `append-${index}`, label: `transfer-${['o', 'k', 'p', 'q', 'r', 'l'][index]}`,
+          offset: 4 + Math.floor(index / 3), x, y: 425 + Math.floor(index / 3) * 80,
+          w: 270, h: 65, tone: tones[partition],
+          arrival: index === count - 1 ? { from: [410, 5], via: [x, 80] } : undefined,
+        }
+      }),
+    ],
+    edges: [],
+  }
+}
+
+function logSegments(step: number): Diagram {
   const samples = [
     ['transfer-a collections.created.v1\ntransfer-c collections.completed.v1\ntransfer-a collections.updated.v1', 'transfer-d collections.created.v1'],
     ['transfer-n collections.created.v1\ntransfer-f collections.updated.v1\ntransfer-n collections.completed.v1', 'transfer-g collections.created.v1'],
@@ -46,7 +79,6 @@ function logOverview(step: number): Diagram {
       ...group(`append-${index}`, `transfer-${['o', 'k', 'p', 'q', 'r', 'l'][index]}`, x, 405 + Math.floor(index / 3) * 90, 270, 85, tones[partition]),
       detail: 'collections.created.v1', small: true,
       offset: 4 + Math.floor(index / 3),
-      arrival: index === count - 1 ? { from: [410, 5], via: [x, 270] } : undefined,
     }
   })
   return {
@@ -63,21 +95,53 @@ function logOverview(step: number): Diagram {
   }
 }
 
-function redirectOverview(step: number): Diagram {
-  const redirected = step >= 1
+function bankResponseLost(step: number): Diagram {
+  const phase = Math.max(0, Math.min(4, step))
   return {
-    title: 'Redirect prevents later events overtaking a failed event', width: 1000, height: 470,
-    groups: [{ id: 'kafka', label: 'Kafka', x: 0, y: 0, w: 310, h: 450, tone: 'orange' }],
+    title: 'The bank pays once, loses its response, then returns the original result for the same payment key',
+    width: 1100, height: 560,
+    groups: [
+      { id: 'service', label: 'Disbursements', x: 0, y: 10, w: 320, h: 440, tone: 'purple' },
+      { id: 'bank-service', label: 'Bank', x: 780, y: 10, w: 320, h: 440, tone: 'blue' },
+    ],
     nodes: [
-      { id: 'topic', label: 'collections', x: 30, y: 50, w: 240, h: 110, shape: 'queue', tone: 'orange' },
-      { id: 'consumer', label: 'Disbursements', detail: step >= 3 ? 'transfer-b handled ✓' : step === 2 ? 'transfer-a must wait' : step === 1 ? 'transfer-a failed' : 'handle events', x: 650, y: 170, w: 270, h: 110, tone: step >= 3 ? 'green' : step === 1 ? 'red' : 'purple' },
-      { id: 'redirect', label: 'redirect', detail: redirected ? 'transfer-a must queue' : 'empty', x: 30, y: 180, w: 240, h: 110, shape: 'queue', tone: redirected ? 'yellow' : 'muted' },
-      { id: 'retry', label: 'retry', detail: step >= 2 ? 'transfer-a: first → next' : step === 1 ? 'transfer-a: first event' : 'empty', x: 30, y: 310, w: 240, h: 130, shape: 'queue', tone: 'yellow' },
+      { id: 'caller', label: phase >= 3 ? 'Retry payout' : 'Request payout', x: 25, y: 90, w: 270, h: 100, tone: 'purple' },
+      { id: 'bank', label: 'Payment API', x: 805, y: 90, w: 270, h: 100, tone: 'blue' },
+      { id: 'known', label: phase >= 4 ? 'Paid ✓' : phase >= 2 ? 'Result unknown' : 'Waiting', x: 25, y: 310, w: 270, h: 100, tone: phase >= 4 ? 'green' : phase >= 2 ? 'yellow' : 'muted' },
+      { id: 'payment', label: 'Paid once ✓', detail: 'key: transfer-a\npayment-7', x: 805, y: 295, w: 270, h: 130, tone: 'green', hidden: phase < 1, small: true, enter: phase === 1 },
+      { id: 'request', label: 'transfer-a', detail: phase === 2 ? 'timeout' : phase >= 4 ? 'payment-7' : 'same payment key',
+        x: [35, 815, 35, 815, 35][phase], y: 480, w: 250, h: 75, tone: phase === 2 ? 'red' : phase >= 4 ? 'green' : 'yellow', motion: true, small: true },
     ],
     edges: [
-      { from: 'topic', to: 'consumer', label: step >= 3 ? 'transfer-b' : step === 2 ? 'later transfer-a event' : 'events', tone: step >= 3 ? 'green' : 'orange', active: true, fromPort: 'right', toPort: 'top', via: [[785, 105]], labelAt: [480, 80] },
-      { from: 'consumer', to: 'redirect', label: 'redirect this key', tone: redirected ? 'yellow' : 'muted', active: step === 1 || step === 2, dashed: true, fromPort: 'left', toPort: 'right', labelAt: [460, 200] },
-      { from: 'consumer', to: 'retry', label: 'transfer-a → retry', tone: 'yellow', active: step === 1 || step === 2, fromPort: 'bottom', toPort: 'right', via: [[785, 375]], labelAt: [480, 350] },
+      { from: 'caller', to: 'bank', label: 'key: transfer-a', tone: 'purple', active: phase === 1 || phase === 3, fromPort: 'right', toPort: 'left', labelAt: [550, 115] },
+      ...(phase >= 2 ? [{ from: 'bank', to: 'caller', label: phase >= 4 ? 'Original result' : 'Response lost', tone: phase >= 4 ? 'green' as const : 'red' as const,
+        active: phase === 4, dashed: phase < 4, crash: phase === 2, fromPort: 'bottom' as const, toPort: 'bottom' as const,
+        via: [[940, 245], [160, 245]], labelAt: [550, 245] as [number, number] }] : []),
+    ],
+  }
+}
+
+function retryHandoff(step: number): Diagram {
+  const phase = Math.max(0, Math.min(5, step))
+  return {
+    title: 'Retry publish succeeds but a crash before source commit allows a duplicate retry copy', width: 1100, height: 540,
+    nodes: [
+      { id: 'source', label: 'collections', x: 10, y: 100, w: 230, h: 130, shape: 'queue', tone: 'orange' },
+      { id: 'consumer', label: 'Disbursements', x: 425, y: 115, w: 250, h: 100, tone: phase === 3 ? 'red' : 'purple', crossAt: phase === 3 ? 3 : undefined },
+      { id: 'retry', label: 'disbursements\n.retry.5m', x: 850, y: 100, w: 240, h: 130, shape: 'queue', tone: 'yellow' },
+      { id: 'source-record', label: 'transfer-a', detail: 'event ID: evt-a', offset: 42, x: 20, y: 280, w: 220, h: 100, tone: 'orange', hidden: phase === 0, small: true },
+      { id: 'bookmark', label: 'Committed next: 42', x: 10, y: 445, w: 290, h: 65, tone: 'blue' },
+      { id: 'first-copy', label: 'transfer-a', detail: 'event ID: evt-a', x: 850, y: 280, w: 240, h: 100, tone: 'yellow', hidden: phase < 4, small: true },
+      { id: 'event', label: 'transfer-a', detail: 'event ID: evt-a', x: phase === 0 ? 20 : phase === 4 ? 440 : 850,
+        y: phase >= 5 ? 410 : 280, w: phase === 0 ? 220 : 240, h: 100, tone: 'yellow', motion: true, small: true, offset: phase === 0 || phase === 4 ? 42 : undefined },
+    ],
+    edges: [
+      { from: 'source', to: 'consumer', label: phase >= 4 ? 'Replay 42' : 'Consume 42', tone: 'orange', active: phase === 4, fromPort: 'right', toPort: 'left' },
+      ...(phase >= 1 ? [{ from: 'consumer', to: 'retry', label: phase >= 5 ? 'Publish again' : 'Publish retry', tone: 'yellow' as const, active: phase === 1 || phase === 5, fromPort: 'right' as const, toPort: 'left' as const }] : []),
+      ...(phase >= 2 ? [{ from: 'retry', to: 'consumer', label: 'ACK ✓', tone: 'green' as const, active: phase === 2, fromPort: 'top' as const, toPort: 'top' as const,
+        via: [[970, 35], [550, 35]], labelAt: [760, 35] as [number, number] }] : []),
+      ...(phase === 3 ? [{ from: 'consumer', to: 'bookmark', label: 'Crash before commit', tone: 'red' as const, crash: true, dashed: true,
+        fromPort: 'bottom' as const, toPort: 'right' as const, via: [[550, 477.5]], labelAt: [550, 420] as [number, number] }] : []),
     ],
   }
 }
@@ -136,59 +200,252 @@ function metricOverview(step: number): Diagram {
   }
 }
 
-function shutdownContexts(step: number): Diagram {
-  const signaled = step >= 1
-  const finished = step >= 2
+function pollBatch(step: number): Diagram {
+  const phase = Math.max(0, Math.min(4, step))
+  const records = ['transfer-a', 'transfer-b', 'transfer-c']
   return {
-    title: 'SIGTERM stops polling; independent work context finishes the current record', width: 1100, height: 530,
+    title: 'One PollFetches call can return multiple records; this loop handles them one at a time',
+    width: 1100, height: 580,
+    groups: [
+      { id: 'topic', label: 'Kafka · collections', x: 10, y: 40, w: 300, h: 520, tone: 'orange' },
+      { id: 'consumer', label: 'Consumer', x: 380, y: 40, w: 710, h: 520, tone: 'purple' },
+      ...(phase >= 1 ? [{ id: 'batch', label: 'Returned records', x: 410, y: 225, w: 650, h: 110, tone: 'yellow' } as DiagramNode] : []),
+      ...(phase >= 2 ? [{ id: 'handler', label: 'Handle one at a time', x: 410, y: 400, w: 650, h: 140, tone: 'green' } as DiagramNode] : []),
+    ],
     nodes: [
-      { id: 'signal', label: 'SIGTERM', detail: signaled ? 'received' : 'not received', x: 30, y: 40, w: 220, h: 100, tone: signaled ? 'red' : 'muted' },
-      { id: 'poll-context', label: 'pollCtx', detail: signaled ? 'canceled' : 'active', x: 350, y: 40, w: 230, h: 100, tone: signaled ? 'red' : 'blue', markBox: [1, '#f38ba8'] },
-      { id: 'poll', label: 'PollRecords', detail: signaled ? 'no more polling' : 'fetch next record', x: 740, y: 40, w: 320, h: 100, tone: signaled ? 'muted' : 'blue' },
-      { id: 'root', label: 'Background()', detail: 'separate root', x: 30, y: 230, w: 220, h: 110, tone: 'purple' },
-      { id: 'work-context', label: 'workCtx', detail: '10s deadline', x: 350, y: 230, w: 230, h: 110, tone: finished ? 'muted' : 'green', markBox: [1, '#a6e3a1'] },
-      { id: 'record', label: 'transfer-a', detail: finished ? 'handled ✓' : 'already processing', offset: 42, x: 740, y: 230, w: 320, h: 110, tone: finished ? 'green' : 'yellow' },
-      { id: 'commit', label: 'Commit next: 43', detail: finished ? 'acknowledged ✓' : 'only after success', x: 740, y: 410, w: 320, h: 90, tone: finished ? 'green' : 'muted' },
-      { id: 'close', label: 'client.Close()', detail: finished ? 'leave group' : 'after loop exits', x: 350, y: 410, w: 230, h: 90, tone: finished ? 'green' : 'muted' },
+      { id: 'poll', label: 'PollFetches(ctx)', x: 430, y: 110, w: 610, h: 65, tone: 'blue' },
+      ...records.map((label, index): DiagramNode => ({
+        id: `stored-${index}`, label, x: 65, y: 150 + index * 120, w: 180, h: 65,
+        tone: 'orange', hidden: phase === 0,
+      })),
+      ...records.map((label, index): DiagramNode => {
+        const handled = phase >= index + 2
+        return {
+          id: `record-${index}`, label: handled ? `${label} ✓` : label,
+          x: phase === 0 ? 65 : 450 + index * 195,
+          y: phase === 0 ? 150 + index * 120 : handled ? 460 : 265,
+          w: 180, h: 65, tone: handled ? 'green' : phase >= 1 ? 'yellow' : 'orange', motion: true,
+        }
+      }),
+    ],
+    edges: phase === 1 ? [{ from: 'poll', to: 'record-1', tone: 'blue', active: true, fromPort: 'bottom', toPort: 'top' }] : [],
+  }
+}
+
+function shutdownService(step: number): Diagram {
+  const phase = Math.max(0, Math.min(5, step))
+  const stopped = phase >= 2
+  return {
+    title: 'Disbursements stops fetching but completes its current payout before closing', width: 1100, height: 620,
+    groups: [
+      { id: 'service', label: 'Disbursements', x: 290, y: 20, w: 790, h: 590, tone: phase >= 5 ? 'muted' : 'purple' },
+      ...(phase >= 1 ? [{ id: 'pending', label: 'Fetched · uncommitted', x: 700, y: 225, w: 350, h: 135, tone: phase >= 5 ? 'orange' : 'yellow' } as DiagramNode] : []),
+    ],
+    nodes: [
+      { id: 'kafka', label: 'collections', x: 10, y: 100, w: 210, h: 130, shape: 'queue', tone: 'orange' },
+      { id: 'poll', label: stopped ? 'Stop fetching' : 'Fetch events', detail: 'pollCtx', x: 330, y: 115, w: 240, h: 100, tone: stopped ? 'red' : 'blue', crossAt: stopped ? 2 : undefined },
+      { id: 'signal', label: 'SIGTERM', x: 800, y: 130, w: 240, h: 65, tone: 'red', hidden: !stopped, enter: phase === 2 },
+      { id: 'payout', label: phase >= 3 ? 'Payout ✓' : 'Pay Transfer A', detail: 'workCtx', x: 330, y: 330, w: 240, h: 110, tone: phase >= 3 ? 'green' : 'yellow', hidden: phase < 1, enter: phase === 1 },
+      { id: 'commit', label: 'Commit next: 43 ✓', x: 720, y: 385, w: 310, h: 65, tone: 'green', hidden: phase < 4, enter: phase === 4 },
+      ...['transfer-b', 'transfer-c'].map((label, index): DiagramNode => ({
+        id: `pending-${index}`, label, offset: 43 + index, x: 720 + index * 165, y: 275, w: 150, h: 65,
+        tone: phase >= 5 ? 'orange' : 'yellow', hidden: phase < 1, enter: phase === 1,
+      })),
+      { id: 'close', label: 'Close ✓', x: 800, y: 490, w: 230, h: 65, tone: 'muted', hidden: phase < 5, enter: phase === 5 },
+      { id: 'event', label: 'transfer-a', x: phase === 0 ? 20 : phase >= 4 ? 570 : 350, y: phase === 0 ? 260 : 500, w: 200, h: 55, tone: phase >= 3 ? 'green' : 'yellow', motion: true },
     ],
     edges: [
-      { from: 'signal', to: 'poll-context', tone: signaled ? 'red' : 'muted', active: step === 1, fromPort: 'right', toPort: 'left' },
-      { from: 'poll-context', to: 'poll', tone: signaled ? 'red' : 'blue', dashed: signaled, active: !signaled, fromPort: 'right', toPort: 'left' },
-      { from: 'root', to: 'work-context', tone: 'purple', fromPort: 'right', toPort: 'left' },
-      { from: 'work-context', to: 'record', tone: 'green', active: !finished, fromPort: 'right', toPort: 'left' },
-      { from: 'record', to: 'commit', tone: finished ? 'green' : 'muted', active: finished, fromPort: 'bottom', toPort: 'top' },
-      { from: 'commit', to: 'close', tone: finished ? 'green' : 'muted', active: finished, fromPort: 'left', toPort: 'right' },
+      { from: 'kafka', to: 'poll', tone: stopped ? 'muted' : 'blue', dashed: stopped, active: phase <= 1 },
+      ...(phase >= 1 ? [{ from: 'poll', to: 'payout', tone: stopped ? 'muted' as const : 'blue' as const, active: phase === 1, dashed: stopped, fromPort: 'bottom' as const, toPort: 'top' as const }] : []),
+      ...(stopped ? [{ from: 'signal', to: 'poll', tone: 'red' as const, active: phase === 2 }] : []),
+      ...(phase >= 3 ? [{ from: 'payout', to: 'event', tone: 'green' as const, active: phase === 3, fromPort: 'bottom' as const, toPort: 'top' as const }] : []),
+      ...(phase >= 4 ? [{ from: 'payout', to: 'commit', tone: 'green' as const, active: phase === 4, fromPort: 'right' as const, toPort: 'left' as const }] : []),
+      ...(phase >= 5 ? [{ from: 'commit', to: 'close', tone: 'green' as const, active: phase === 5, fromPort: 'bottom' as const, toPort: 'top' as const }] : []),
     ],
   }
 }
 
-function dlqReplay(step: number): Diagram {
-  const copied = step >= 1
-  const handled = step >= 2
+function delayedRetry(step: number): Diagram {
+  const due = step >= 2
+  const released = step >= 3
   return {
-    title: 'Deliberate DLQ replay copies the record; the original remains retained', width: 1100, height: 440,
-    groups: [
-      { id: 'dlq-topic', label: 'disbursements.dlq', x: 15, y: 30, w: 350, h: 360, tone: 'red' },
-      { id: 'retry-topic', label: 'disbursements.retry.5m', x: 425, y: 30, w: 350, h: 360, tone: 'yellow' },
-    ],
+    title: 'Go code in the Disbursements service enforces the retry due time', width: 1100, height: 390,
     nodes: [
-      { id: 'original', label: 'transfer-a', detail: 'original retained', offset: 7, x: 45, y: 185, w: 290, h: 135, tone: 'red' },
-      { id: 'copy', label: 'transfer-a', detail: 'same identity', offset: 18, x: 455, y: 185, w: 290, h: 135, tone: handled ? 'green' : 'yellow', hidden: !copied, enter: true },
-      { id: 'handler', label: 'Retry worker', detail: handled ? 'transfer-a handled ✓' : 'waiting', x: 840, y: 185, w: 245, h: 135, tone: handled ? 'green' : 'muted' },
+      { id: 'clock', label: `Now: ${step === 0 ? '10:00' : step === 1 ? '10:02' : '10:05'}`, x: 420, y: 10, w: 260, h: 65, tone: due ? 'green' : 'blue' },
+      { id: 'failure', label: 'Failure', detail: '10:00', x: 10, y: 140, w: 190, h: 130, tone: 'red' },
+      { id: 'retry', label: 'disbursements\n.retry.5m', detail: 'due at 10:05', x: 290, y: 140, w: 230, h: 130, shape: 'queue', tone: step >= 1 ? 'orange' : 'muted' },
+      { id: 'scheduler', label: 'Disbursements', detail: due ? 'Due — invoke handler' : 'Sleep until 10:05', x: 610, y: 140, w: 220, h: 130, tone: due ? 'green' : 'blue' },
+      { id: 'handler', label: 'Handler', detail: released ? 'retry Transfer A' : 'not invoked yet', x: 910, y: 140, w: 190, h: 130, tone: released ? 'green' : 'muted' },
+      { id: 'event', label: 'transfer-a', x: [10, 625, 625, 910][Math.min(step, 3)], y: 310, w: 190, h: 65, tone: released ? 'green' : 'yellow', motion: true },
     ],
     edges: [
-      ...(copied ? [{ from: 'original', to: 'copy', label: 'copy', tone: 'yellow' as const, active: step === 1, fromPort: 'top' as const, toPort: 'top' as const, via: [[190, 115], [600, 115]] as [number, number][], labelAt: [395, 95] as [number, number] }] : []),
-      ...(handled ? [{ from: 'copy', to: 'handler', tone: 'green' as const, active: true, fromPort: 'right' as const, toPort: 'left' as const }] : []),
+      { from: 'failure', to: 'retry', label: 'publish', tone: step >= 1 ? 'orange' : 'muted', active: step === 1, fromPort: 'right', toPort: 'left' },
+      { from: 'retry', to: 'scheduler', label: 'read', tone: step >= 1 ? 'orange' : 'muted', active: step === 1, fromPort: 'right', toPort: 'left' },
+      { from: 'scheduler', to: 'handler', label: released ? 'invoke' : 'wait', tone: released ? 'green' : 'muted', active: released, dashed: !released, fromPort: 'right', toPort: 'left' },
     ],
+  }
+}
+
+function dlqRecovery(step: number): Diagram {
+  const phase = Math.max(0, Math.min(4, step))
+  const position = Math.max(0, phase - 2)
+  const stages = [
+    { id: 'dlq', label: 'disbursements\n.dlq', tone: 'red' },
+    { id: 'replay', label: 'disbursements\n.retry.5m', tone: 'yellow' },
+    { id: 'handler', label: 'Disbursements', tone: 'green' },
+  ] as const
+  return {
+    title: 'We investigate and fix; the event moves from DLQ to Retry topic to Disbursements', width: 1100, height: 510,
+    nodes: [
+      { id: 'investigate', label: 'We investigate', detail: 'inspect error + trace', x: 220, y: 0, w: 280, h: 95, tone: phase >= 1 ? 'blue' : 'muted' },
+      { id: 'fix', label: 'We fix', detail: 'deploy handler fix', x: 600, y: 0, w: 280, h: 95, tone: phase >= 2 ? 'purple' : 'muted' },
+      ...stages.map((stage, index): DiagramNode => ({
+        ...stage, x: 20 + index * 410, y: 190, w: 240, h: 130,
+        shape: index < 2 ? 'queue' : undefined,
+        tone: index <= position ? stage.tone : 'muted',
+      })),
+      { id: 'event', label: 'transfer-a', detail: 'event ID: evt-a\nbank key: transfer-a', x: 40 + position * 410, y: 365, w: 200, h: 130, tone: phase === 4 ? 'green' : 'yellow', small: true, motion: true },
+    ],
+    edges: stages.slice(1).map((stage, index) => ({
+      from: stages[index].id, to: stage.id, tone: index < position ? stage.tone : 'muted',
+      label: index === 0 ? 'replay' : 'consume', active: phase === index + 3,
+      dashed: index >= position, fromPort: 'right', toPort: 'left',
+    })),
+  }
+}
+
+function isrOverview(step: number): Diagram {
+  const phase = Math.max(0, Math.min(3, step))
+  const replicated = phase >= 1
+  const blocked = phase === 3
+  const members = phase < 2 ? '1, 2, 3' : phase === 2 ? '1, 2' : '1'
+  return {
+    title: 'All current ISR acknowledge; min ISR is a write threshold, not an acknowledgement count',
+    width: 1100, height: 580,
+    groups: [
+      { id: 'broker-1', label: 'Broker 1', x: 310, y: 15, w: 350, h: 210, tone: 'blue' },
+      { id: 'broker-2', label: 'Broker 2', x: 310, y: 265, w: 350, h: 210, tone: 'blue' },
+      { id: 'broker-3', label: 'Broker 3', x: 730, y: 265, w: 350, h: 210, tone: 'blue' },
+    ],
+    nodes: [
+      { id: 'producer', label: 'Producer', detail: blocked ? 'next write' : 'write event', x: 5, y: 85, w: 230, h: 120, tone: blocked ? 'red' : 'teal' },
+      { id: 'leader', label: 'collections · P0', detail: 'Leader', x: 345, y: 85, w: 280, h: 120, tone: 'green', small: true },
+      ...[2, 3].map((broker, index): DiagramNode => {
+        const inSync = broker === 2 ? !blocked : phase < 2
+        return {
+          id: `follower-${broker}`, label: 'collections · P0',
+          detail: 'Follower',
+          x: 345 + index * 420, y: 335, w: 280, h: 120,
+          tone: !inSync ? 'muted' : replicated ? 'green' : 'yellow', small: true,
+        }
+      }),
+      { id: 'result', label: `ISR: {${members}} · min ISR=2`,
+        detail: blocked ? 'Write rejected · not enough replicas' : replicated ? `ACK ✓ · all ${phase === 2 ? '2' : '3'} current ISR` : 'Waiting for replication',
+        x: 300, y: 495, w: 790, h: 80, tone: blocked ? 'red' : replicated ? 'green' : 'yellow', small: true },
+    ],
+    edges: [
+      { from: 'producer', to: 'leader', label: 'acks=all', tone: blocked ? 'red' : 'teal', active: phase === 0, fromPort: 'right', toPort: 'left' },
+      { from: 'leader', to: 'follower-2', label: blocked ? 'outside ISR' : replicated ? 'replicate' : 'awaiting record', tone: blocked ? 'muted' : replicated ? 'green' : 'yellow', dashed: blocked, active: phase === 1, fromPort: 'bottom', toPort: 'top', labelAt: [485, 250] },
+      { from: 'leader', to: 'follower-3', label: phase >= 2 ? 'outside ISR' : replicated ? 'replicate' : 'awaiting record', tone: phase >= 2 ? 'muted' : replicated ? 'green' : 'yellow', dashed: phase >= 2, active: phase === 1, fromPort: 'right', toPort: 'top', via: [[905, 145]], labelAt: [815, 115] },
+    ],
+  }
+}
+
+function topicOverview(): Diagram {
+  return {
+    title: 'Events are organized into the collections topic', width: 1100, height: 390,
+    groups: [{ id: 'topic', label: 'Topic: collections', x: 10, y: 160, w: 1080, h: 210, tone: 'orange' }],
+    nodes: ['created', 'updated', 'completed'].map((type, index): DiagramNode => ({
+      id: `event-${index}`, label: 'transfer-a', detail: `collections.${type}.v1`,
+      x: 45 + index * 350, y: 235, w: 310, h: 100,
+      tone: 'orange', small: true,
+    })),
+    edges: [],
+  }
+}
+
+function producerConsumer(step: number): Diagram {
+  const phase = Math.max(0, Math.min(2, step))
+  return {
+    title: 'Collections produces an event to the collections topic; Disbursements consumes it', width: 1100, height: 370,
+    groups: [
+      ...(phase >= 1 ? [{ id: 'producer-role', label: 'Producer', x: 0, y: 35, w: 280, h: 195, tone: 'teal' } as DiagramNode] : []),
+      ...(phase >= 2 ? [{ id: 'consumer-role', label: 'Consumer', x: 820, y: 35, w: 280, h: 195, tone: 'purple' } as DiagramNode] : []),
+    ],
+    nodes: [
+      { id: 'producer', label: 'Collections', x: 20, y: 100, w: 240, h: 100, tone: 'teal' },
+      { id: 'topic', label: 'collections', detail: 'Topic', x: 430, y: 85, w: 240, h: 130, shape: 'queue', tone: 'orange' },
+      { id: 'consumer', label: 'Disbursements', x: 840, y: 100, w: 240, h: 100, tone: 'purple' },
+      { id: 'event', label: 'transfer-a', x: [40, 450, 860][phase], y: 280, w: 200, h: 65, tone: 'yellow', motion: true },
+      { id: 'stored-event', label: 'transfer-a', x: 450, y: 280, w: 200, h: 65, tone: 'orange', hidden: phase < 2 },
+    ],
+    edges: [
+      { from: 'producer', to: 'topic', label: 'publishes', tone: 'teal', active: phase === 1, fromPort: 'right', toPort: 'left' },
+      { from: 'topic', to: 'consumer', label: 'receives', tone: 'purple', active: phase === 2, fromPort: 'right', toPort: 'left' },
+    ],
+  }
+}
+
+function tracePropagation(step: number): Diagram {
+  const phase = Math.max(0, Math.min(3, step))
+  return {
+    title: 'Kafka carries the producer context; consumers and bank calls create child spans in the same trace', width: 1100, height: 560,
+    groups: [{ id: 'trace', label: 'Trace T1', x: 10, y: 350, w: 1080, h: 195, tone: 'blue' }],
+    nodes: [
+      { id: 'collections', label: 'Collections', x: 10, y: 50, w: 200, h: 110, tone: 'teal' },
+      { id: 'kafka', label: 'collections', x: 290, y: 40, w: 220, h: 130, shape: 'queue', tone: phase >= 1 ? 'orange' : 'muted' },
+      { id: 'disbursements', label: 'Disbursements', x: 590, y: 50, w: 220, h: 110, tone: phase >= 2 ? 'purple' : 'muted' },
+      { id: 'bank', label: 'Bank request', x: 890, y: 50, w: 200, h: 110, tone: phase >= 3 ? 'blue' : 'muted' },
+      { id: 'context', label: phase === 3 ? 'HTTP request' : 'transfer-a', detail: `traceparent\nT1 / ${phase === 3 ? 'B1' : 'P1'}`, x: [10, 290, 590, 890][phase], y: 200, w: 200, h: 110, tone: 'yellow', motion: true },
+      { id: 'producer-span', label: 'P1', detail: 'publish', x: 50, y: 410, w: 220, h: 95, tone: 'teal' },
+      { id: 'consumer-span', label: 'C1', detail: 'consume', x: 435, y: 410, w: 220, h: 95, tone: 'purple', hidden: phase < 2 },
+      { id: 'bank-span', label: 'B1', detail: 'bank call', x: 820, y: 410, w: 220, h: 95, tone: 'blue', hidden: phase < 3 },
+    ],
+    edges: [
+      { from: 'collections', to: 'kafka', label: 'inject', tone: phase >= 1 ? 'teal' : 'muted', active: phase === 1, fromPort: 'right', toPort: 'left' },
+      { from: 'kafka', to: 'disbursements', label: 'extract', tone: phase >= 2 ? 'purple' : 'muted', active: phase === 2, fromPort: 'right', toPort: 'left' },
+      { from: 'disbursements', to: 'bank', label: 'ctx', tone: phase >= 3 ? 'blue' : 'muted', active: phase === 3, fromPort: 'right', toPort: 'left' },
+      ...(phase >= 2 ? [{ from: 'producer-span', to: 'consumer-span', label: 'parent', tone: 'purple' as const, fromPort: 'right' as const, toPort: 'left' as const }] : []),
+      ...(phase >= 3 ? [{ from: 'consumer-span', to: 'bank-span', label: 'parent', tone: 'blue' as const, fromPort: 'right' as const, toPort: 'left' as const }] : []),
+    ],
+  }
+}
+
+function traceWaterfall(step: number): Diagram {
+  const phase = Math.max(0, Math.min(4, step))
+  return {
+    title: 'A bank timeout ends the attempt; five minutes later a linked retry succeeds', width: 1100, height: 560,
+    groups: [
+      { id: 'original', label: 'Trace T1 · 10:00', x: 10, y: 15, w: 590, h: 310, tone: 'blue' },
+      ...(phase >= 3 ? [{ id: 'later', label: 'Trace T2 · 10:05', x: 720, y: 335, w: 370, h: 210, tone: phase >= 4 ? 'green' : 'purple' } as DiagramNode] : []),
+    ],
+    nodes: [
+      { id: 'publish', label: 'publish · P1', x: 40, y: 75, w: 220, h: 50, tone: 'teal' },
+      { id: 'consume', label: 'consume · C1', x: 230, y: 155, w: 340, h: 50, tone: phase >= 1 ? 'red' : 'muted', hidden: phase < 1 },
+      { id: 'bank', label: 'bank · B1', detail: 'timeout · 3s', x: 290, y: 230, w: 250, h: 75, tone: phase >= 1 ? 'red' : 'muted', hidden: phase < 1 },
+      { id: 'gap', label: '… 5 minutes …', x: 680, y: 85, w: 400, h: 65, tone: 'muted', hidden: phase < 2 },
+      { id: 'retry', label: 'retry · R1', x: 755, y: 395, w: 300, h: 50, tone: phase >= 4 ? 'green' : 'purple', hidden: phase < 3 },
+      { id: 'retry-bank', label: 'bank ✓', x: 835, y: 475, w: 200, h: 50, tone: 'green', hidden: phase < 4 },
+    ],
+    edges: phase >= 3 ? [{ from: 'consume', to: 'retry', label: 'span link', tone: 'purple', dashed: true, fromPort: 'right', toPort: 'left', via: [[650, 180], [650, 420]], labelAt: [650, 300] }] : [],
   }
 }
 
 export function talkDiagram(key: string, step: number): Diagram {
-  if (key === 'dlq-replay') return dlqReplay(step)
-  if (key === 'shutdown-contexts') return shutdownContexts(step)
+  if (key === 'isr-overview') return isrOverview(step)
+  if (key === 'topic-overview') return topicOverview()
+  if (key === 'producer-consumer') return producerConsumer(step)
+  if (key === 'trace-propagation') return tracePropagation(step)
+  if (key === 'trace-waterfall') return traceWaterfall(step)
+  if (key === 'dlq-recovery') return dlqRecovery(step)
+  if (key === 'delayed-retry') return delayedRetry(step)
+  if (key === 'poll-batch') return pollBatch(step)
+  if (key === 'shutdown-service') return shutdownService(step)
   if (key === 'metric-overview') return metricOverview(step)
-  if (key === 'redirect-intro') return redirectOverview(step)
-  if (key === 'partition-log') return logOverview(step)
+  if (key === 'partition-log') return partitionLog(step)
+  if (key === 'partition-segments') return logSegments(step)
+  if (key === 'bank-response-lost') return bankResponseLost(step)
+  if (key === 'retry-handoff') return retryHandoff(step)
   const previewStep = key === 'rebalance' ? [0, 1, 3, 4][Math.max(0, Math.min(3, step))]
     : key === 'dlq' ? Math.max(0, step - 1) : step
   const source = previews[key](previewStep)
@@ -320,41 +577,23 @@ export function talkDiagram(key: string, step: number): Diagram {
       const stage = index === 0 ? 1 : index === 3 ? 4 : 3
       Object.assign(edge, { active: step === stage, tone: step >= stage ? 'green' : 'muted' })
     }
-  } else if (key === 'cdc') {
-    place(diagram, { outbox: [20, 60], wal: [350, 60], cdc: [350, 350], kafka: [20, 350] }, 610, 520)
-    for (const node of diagram.nodes) node.h = 130
-  } else if (key === 'replication') {
-    for (const node of diagram.nodes.filter(node => node.shape === 'queue')) {
-      node.x -= 30
-      node.w += 60
-    }
-  } else if (key === 'worker-failure') {
-    diagram.title = 'Worker failure: reassign and replay'
-    diagram.caption = [
-      'P0: transfer-a is in flight. Committed next offset: 42.',
-      'Worker 1 dies. P0 waits; P1 and P2 keep their owners.',
-      'P0 is reassigned to Worker 2.',
-      'Worker 2 resumes P0 from offset 42: transfer-a is replayed.',
-    ][Math.max(0, Math.min(3, step))]
+  } else if (key === 'consumer-failure') {
+    diagram.title = 'Consumer failure: reassign and replay'
+    diagram.caption = undefined
     diagram.height = 580
     for (const node of diagram.nodes) node.y += 50
     for (const group of diagram.groups ?? []) { group.y += 50; group.h = 190 }
-    diagram.nodes[1].detail = 'P0: next offset 42'
-    Object.assign(diagram.nodes[2], { h: 130, small: true, tone: step >= 1 ? 'red' : 'green', detail: step >= 1 ? 'down · P0 unassigned' : 'P0 · transfer-a in flight', offset: step === 0 ? 42 : undefined })
-    Object.assign(diagram.nodes[3], { h: 130, small: true, tone: 'green', detail: step >= 3 ? 'P1 + P0\ntransfer-a replayed' : step >= 2 ? 'P1 + P0 assigned' : 'P1 · running', offset: step >= 3 ? 42 : undefined })
-    Object.assign(diagram.nodes[4], { h: 130, small: true, tone: 'green', detail: 'P2 · running' })
+    diagram.nodes[1].detail = undefined
+    Object.assign(diagram.nodes[2], { h: 130, small: true, tone: step >= 1 ? 'red' : 'green', detail: step >= 1 ? 'down' : 'P0', offset: undefined })
+    Object.assign(diagram.nodes[3], { h: 130, small: true, tone: 'green', detail: step >= 2 ? 'P1 + P0' : 'P1', offset: undefined })
+    Object.assign(diagram.nodes[4], { h: 130, small: true, tone: 'green', detail: 'P2' })
     Object.assign(diagram.edges[0], { active: true })
-    Object.assign(diagram.edges[1], { label: 'P0', active: step === 0, tone: step === 0 ? 'green' : 'muted', dashed: step >= 1 })
-    Object.assign(diagram.edges[2], { label: step >= 2 ? 'P1 + P0' : 'P1', active: true, tone: 'green', dashed: false })
+    Object.assign(diagram.edges[1], { label: step < 2 ? 'P0 · offset 42' : '', active: step === 0, tone: step === 0 ? 'green' : 'muted', dashed: step >= 1, labelAt: [305, 350] })
+    Object.assign(diagram.edges[2], { label: step >= 3 ? 'P1 + P0 · replay 42' : step >= 2 ? 'P1 + P0 · offset 42' : 'P1', active: true, tone: 'green', dashed: false })
     Object.assign(diagram.edges[3], { label: 'P2', active: true, tone: 'green', dashed: false })
   } else if (key === 'rebalance') {
     diagram.height = 490
-    diagram.caption = [
-      'Two workers share three partitions.',
-      'Worker 3 joins.',
-      'P2 pauses; P0 and P1 keep consuming.',
-      'P2 resumes on Worker 3.',
-    ][Math.max(0, Math.min(3, step))]
+    diagram.caption = undefined
     diagram.groups = diagram.groups?.filter(group => group.id !== 'handoff')
     for (const node of diagram.nodes) {
       node.motion = false

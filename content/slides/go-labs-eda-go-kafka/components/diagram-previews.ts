@@ -1,4 +1,4 @@
-import { orderedRetryState, partitionState, unorderedRetryState } from './demo-states.ts'
+import { orderedRetryState, unorderedRetryState } from './demo-states.ts'
 
 export type Tone = 'teal' | 'blue' | 'purple' | 'orange' | 'yellow' | 'green' | 'red' | 'pink' | 'muted'
 export type Port = 'top' | 'bottom' | 'left' | 'right'
@@ -83,17 +83,17 @@ export const previews: Record<string, (step: number) => Diagram> = {
       e('disbursements-topic', 'notifications', { label: 'consumes', active: step >= 3 }),
     ],
   }),
-  'worker-scaling': step => ({
-    title: 'Worker scaling', height: 520,
+  'consumer-scaling': step => ({
+    title: 'Consumer scaling', height: 520,
     groups: [g('topic', 'Topic: collections', 20, 0, 350, 505, 'orange'), g('group', 'Consumer group: disbursements', 710, 0, 370, 505, 'purple')],
     nodes: [
       n('p0', 'Partition 0', 100, 65, 'teal', { h: 75 }),
       n('p1', 'Partition 1', 100, 180, 'blue', { h: 75 }),
       n('p2', 'Partition 2', 100, 295, 'purple', { h: 75 }),
-      n('w1', 'Worker 1', 800, 65, 'purple', { h: 75 }),
-      n('w2', step === 1 ? 'Worker 2 · new' : 'Worker 2', 800, 180, step === 1 ? 'orange' : 'purple', { h: 75, hidden: step < 1 }),
-      n('w3', step === 2 ? 'Worker 3 · new' : 'Worker 3', 800, 295, step === 2 ? 'blue' : 'purple', { h: 75, hidden: step < 2 }),
-      n('w4', 'Worker 4 · new', 800, 410, 'muted', { h: 75, detail: 'idle · no partition', hidden: step < 3 }),
+      n('w1', 'Consumer 1', 800, 65, 'purple', { h: 75 }),
+      n('w2', step === 1 ? 'Consumer 2 · new' : 'Consumer 2', 800, 180, step === 1 ? 'orange' : 'purple', { h: 75, hidden: step < 1 }),
+      n('w3', step === 2 ? 'Consumer 3 · new' : 'Consumer 3', 800, 295, step === 2 ? 'blue' : 'purple', { h: 75, hidden: step < 2 }),
+      n('w4', 'Consumer 4 · new', 800, 410, 'muted', { h: 75, detail: 'idle · no partition', hidden: step < 3 }),
     ],
     edges: [
       e('p0', 'w1', { label: 'assigned' }),
@@ -101,81 +101,6 @@ export const previews: Record<string, (step: number) => Diagram> = {
       e('p2', step >= 2 ? 'w3' : 'w1', { label: step === 2 ? 'reassigned' : 'assigned', tone: step === 2 ? 'blue' : 'muted', active: step === 2, labelAt: step === 1 ? [430, 269] : undefined }),
     ],
   }),
-  'partition-log': step => {
-    const phase = Math.max(0, Math.min(step, 5))
-    const captions = [
-      'Partition 1: offsets 0–1 are already in the active segment.',
-      'New event: transfer-a · collections.completed.v1',
-      'Broker append: offset 2 joins 000.log.',
-      'Demo segment limit: close 000.log, open 001.log.',
-      'Next event: transfer-n · collections.created.v1',
-      'Offset 3 appends to 001.log; old records stay in 000.log.',
-    ]
-    return {
-      title: 'One event → partition → log segment', height: 500, caption: captions[phase],
-      groups: [
-        g('partition', 'Broker 1 · Partition 1 · local log', 340, 75, 750, 420, 'orange'),
-        g('segment-0', phase >= 3 ? '000.log · closed' : '000.log · active', 360, 130, 330, 350, 'teal'),
-        { ...g('segment-1', '001.log · active', 720, 130, 350, 350, 'blue'), hidden: phase < 3 },
-      ],
-      nodes: [
-        n('producer', 'Collections', 20, 100, 'teal', { w: 280, detail: 'producer · key chooses P1', small: true }),
-        n('record-0', 'offset 0 · transfer-a', 385, 175, 'teal', { w: 280, h: 82, detail: 'collections.created.v1', small: true }),
-        n('record-1', 'offset 1 · transfer-a', 385, 270, 'teal', { w: 280, h: 82, detail: 'collections.updated.v1', small: true }),
-        n('record-2', phase < 2 ? 'transfer-a · incoming' : 'offset 2 · transfer-a', phase < 2 ? 20 : 385, phase < 2 ? 260 : 365, phase < 2 ? 'orange' : 'teal', { w: 280, h: 82, detail: 'collections.completed.v1', small: true, hidden: phase < 1, motion: true }),
-        n('record-3', phase < 5 ? 'transfer-n · incoming' : 'offset 3 · transfer-n', phase < 5 ? 20 : 750, phase < 5 ? 260 : 175, phase < 5 ? 'orange' : 'blue', { w: 280, h: 82, detail: 'collections.created.v1', small: true, hidden: phase < 4, motion: true }),
-      ],
-      edges: phase === 1 || phase === 4
-        ? [e('producer', phase === 1 ? 'record-2' : 'record-3', { active: true, tone: 'orange', fromPort: 'bottom', toPort: 'top' })]
-        : phase === 2
-          ? [e('producer', 'record-2', { active: true, tone: 'teal', fromPort: 'right', toPort: 'left', via: [[320, 145], [320, 406]] })]
-          : phase === 5
-            ? [e('producer', 'record-3', { active: true, tone: 'blue', fromPort: 'right', toPort: 'left', via: [[320, 145], [320, 120], [735, 120], [735, 216]] })]
-            : [],
-    }
-  },
-  'partition-storage': step => {
-    const state = partitionState(step)
-    const selected = state.current?.partition ?? 1
-    const events = state.partitions[selected].events
-    const rolled = events.length > 2
-    const tones: Tone[] = ['teal', 'blue', 'purple']
-    const tone = tones[selected]
-    const partitionY = 100 + selected * 135
-    const producer = n('producer', 'Producer · latest', 10, 215, 'teal', { w: 230, h: 110, small: true, detail: state.current ? `${state.current.type}\nkey = ${state.current.key}` : 'Ready for one event' })
-    const partitions = state.partitions.map(partition => n(`partition-${partition.id}`, `Partition ${partition.id}`, 300, 100 + partition.id * 135,
-      state.current?.partition === partition.id ? 'green' : 'muted',
-      { w: 210, small: true, detail: `${state.current?.partition === partition.id ? 'selected · ' : ''}${partition.events.length} record${partition.events.length === 1 ? '' : 's'}` }))
-    const selectedPartition = partitions[selected]
-    const recordWidth = 195, recordHeight = 100
-    const records = events.map(event => n(event.id, event.key,
-      610 + (event.offset % 2) * 230, event.offset < 2 ? 180 : 355,
-      event.id === state.current?.id ? 'green' : tone,
-      { w: recordWidth, h: recordHeight, detail: event.type, small: true, offset: event.offset,
-        arrival: event.id === state.current?.id ? {
-          from: [producer.x + (producer.w - recordWidth) / 2, producer.y + (producer.h - recordHeight) / 2],
-          via: [selectedPartition.x + (selectedPartition.w - recordWidth) / 2, selectedPartition.y + (selectedPartition.h - recordHeight) / 2],
-        } : undefined },
-    ))
-    const latest = records.find(record => record.id === state.current?.id)
-    return {
-      title: 'Follow one event: key → partition → log', height: 500,
-      caption: !state.current ? 'One event per click: its key routes it; the broker appends it.'
-        : rolled ? `Partition ${selected} rolls to 001.log; 000.log keeps the older records.`
-          : `${state.current.key} → Partition ${selected} → 000.log`,
-      groups: [
-        g('selected-log', `Partition ${selected} · enlarged local log`, 575, 85, 515, 410, tone),
-        g('segment-0', rolled ? '000.log · closed' : '000.log · active', 595, 140, 475, 150, tone),
-        { ...g('segment-1', '001.log · active', 595, 320, 475, 155, tone), hidden: !rolled },
-      ],
-      nodes: [producer, ...partitions, ...records],
-      edges: latest ? [
-        e('producer', `partition-${selected}`, { active: true, tone: 'green', fromPort: 'right', toPort: 'left', via: [[270, 270], [270, partitionY + 45]] }),
-        e(`partition-${selected}`, latest.id, { active: true, tone: 'green', fromPort: 'right', toPort: 'left',
-          via: latest.offset === 1 ? [[545, partitionY + 45], [545, 125], [825, 125], [825, latest.y + 50]] : [[545, partitionY + 45], [545, latest.y + 50]] }),
-      ] : [],
-    }
-  },
   'ordered-retry': step => {
     const state = orderedRetryState(step)
     const keyTones: Record<string, Tone> = { 'transfer-a': 'blue', 'transfer-b': 'teal' }
@@ -256,44 +181,34 @@ export const previews: Record<string, (step: number) => Diagram> = {
       edges: s >= 3 ? [e('r1', 'consumer', { label: 'rebuild', tone: 'blue', active: true, fromPort: 'bottom', toPort: 'top' })] : [],
     }
   },
-  replication: () => ({
-    title: 'Replicate the partition log', height: 510,
-    nodes: [
-      n('collections', 'Collections', 455, 0, 'teal'),
-      n('leader', 'collections · P0', 455, 185, 'teal', { detail: 'Leader · Broker 1' }),
-      n('follower2', 'collections · P0', 155, 390, 'blue', { detail: 'Follower · Broker 2' }),
-      n('follower3', 'collections · P0', 755, 390, 'purple', { detail: 'Follower · Broker 3' }),
-    ],
-    edges: [e('collections', 'leader', { label: 'produce', tone: 'teal' }), e('leader', 'follower2', { label: 'replicate P0 log', tone: 'blue', active: true }), e('leader', 'follower3', { label: 'replicate P0 log', tone: 'purple', active: true })],
-  }),
-  'worker-failure': () => ({
-    title: 'Worker failure pauses the group', height: 510,
+  'consumer-failure': () => ({
+    title: 'Consumer failure pauses the group', height: 510,
     groups: [g('group', 'Consumer group: disbursements', 20, 330, 1060, 165, 'purple')],
     nodes: [
       n('collections', 'Collections', 455, 0, 'teal'),
       n('topic', 'collections topic', 455, 175, 'orange', { detail: 'backlog 📈' }),
-      n('w1', 'Worker 1', 100, 385, 'red', { detail: 'down 💥' }),
-      n('w2', 'Worker 2', 455, 385, 'muted', { detail: 'paused ⏸' }),
-      n('w3', 'Worker 3', 810, 385, 'muted', { detail: 'paused ⏸' }),
+      n('w1', 'Consumer 1', 100, 385, 'red', { detail: 'down 💥' }),
+      n('w2', 'Consumer 2', 455, 385, 'muted', { detail: 'paused ⏸' }),
+      n('w3', 'Consumer 3', 810, 385, 'muted', { detail: 'paused ⏸' }),
     ],
     edges: [e('collections', 'topic', { label: 'produce', tone: 'teal' }), e('topic', 'w1', { tone: 'red', active: true }), e('topic', 'w2', { dashed: true }), e('topic', 'w3', { dashed: true })],
   }),
   rebalance: step => {
     const phase = Math.max(0, Math.min(step, 4))
     const captions = [
-      'Initial ownership: Worker 1 has P0 + P2; Worker 2 has P1.',
-      'Worker 3 joins. Sticky assignment keeps P0 and P1 where they are.',
-      'Round 1: revoke only P2 from Worker 1.',
-      'Round 1 complete: P2 is released. No worker owns it.',
-      'Round 2: Worker 3 receives P2; P0 and P1 stay put.',
+      'Initial ownership: Consumer 1 has P0 + P2; Consumer 2 has P1.',
+      'Consumer 3 joins. Sticky assignment keeps P0 and P1 where they are.',
+      'Round 1: revoke only P2 from Consumer 1.',
+      'Round 1 complete: P2 is released. No consumer owns it.',
+      'Round 2: Consumer 3 receives P2; P0 and P1 stay put.',
     ]
     return {
-      // Adapted from kafka-improvements' cooperative-sticky worker/pause lanes.
+      // Adapted from kafka-improvements' cooperative-sticky consumer/pause lanes.
       title: 'Cooperative-sticky: move only P2', height: 540, caption: captions[phase],
       groups: [
-        g('worker-1', 'Worker 1', 20, 150, 320, 190, 'purple'),
-        g('worker-2', 'Worker 2', 390, 150, 320, 190, 'purple'),
-        { ...g('worker-3', phase < 4 ? 'Worker 3 · joining' : 'Worker 3', 760, 150, 320, 190, phase < 4 ? 'muted' : 'teal'), hidden: phase < 1 },
+        g('consumer-1', 'Consumer 1', 20, 150, 320, 190, 'purple'),
+        g('consumer-2', 'Consumer 2', 390, 150, 320, 190, 'purple'),
+        { ...g('consumer-3', phase < 4 ? 'Consumer 3 · joining' : 'Consumer 3', 760, 150, 320, 190, phase < 4 ? 'muted' : 'teal'), hidden: phase < 1 },
         g('handoff', phase === 3 ? 'Revoked: P2 · P0 and P1 keep consuming'
           : phase === 2 ? 'Revoking P2 · P0 and P1 keep consuming'
             : 'Only revoked partitions pause; the rest keep consuming', 20, 370, 1060, 165, phase === 3 ? 'orange' : 'muted'),
@@ -359,20 +274,5 @@ export const previews: Record<string, (step: number) => Diagram> = {
       e('publisher', 'topic', { label: 'publish', tone: 'orange', active: step === 1 || step === 4 }),
       e('publisher', 'db', { label: 'mark published', tone: 'green', active: step === 2, fromPort: 'bottom', toPort: 'bottom', via: [[550, 410], [185, 410]], labelAt: [367, 410] }),
     ],
-  }),
-  cdc: step => ({
-    title: 'CDC relays committed outbox rows',
-    nodes: [n('outbox', 'Postgres\noutbox', 0, 200, 'yellow'), n('wal', 'Postgres WAL', 300, 200, 'yellow'), n('cdc', 'Debezium\nCDC', 600, 200, 'muted'), n('kafka', 'Kafka', 900, 200, 'blue')],
-    edges: [e('outbox', 'wal', { label: 'logged', tone: 'green', active: step === 1 }), e('wal', 'cdc', { label: 'decode', tone: 'yellow', active: step === 2 }), e('cdc', 'kafka', { label: 'publish', tone: 'blue', active: step === 3 })],
-  }),
-  'comparison-sync': () => ({
-    title: 'Same slow bank: synchronous callers wait',
-    nodes: [n('customer', 'Customer', 0, 200, 'red', { detail: 'waiting' }), n('collections', 'Collections', 300, 200, 'red', { detail: 'waiting' }), n('disbursements', 'Disbursements', 600, 200, 'red', { detail: 'waiting' }), n('bank', 'Partner Bank', 900, 200, 'red', { detail: 'slow / unavailable' })],
-    edges: [e('customer', 'collections', { label: 'response', tone: 'red' }), e('collections', 'disbursements', { label: 'payout', tone: 'red' }), e('disbursements', 'bank', { label: 'bank call', tone: 'red' })],
-  }),
-  'comparison-async': () => ({
-    title: 'Same slow bank: independent consumers',
-    nodes: [n('collections', 'Collections', 0, 190, 'teal', { h: 120, detail: 'continues accepting work' }), n('topic', 'collections\ntopic', 300, 190, 'orange', { h: 120 }), n('disbursements', 'Disbursements', 600, 40, 'purple', { h: 120, detail: 'payouts delayed' }), n('reconciliation', 'Reconciliation', 600, 350, 'teal', { h: 120, detail: 'continues processing' }), n('bank', 'Partner Bank', 900, 40, 'red', { h: 120, detail: 'slow / unavailable' })],
-    edges: [e('collections', 'topic', { label: 'publishes', tone: 'teal' }), e('topic', 'disbursements', { label: 'disbursements group', tone: 'purple', labelAt: [545, 175] }), e('topic', 'reconciliation', { label: 'reconciliation group', tone: 'teal', labelAt: [545, 330] }), e('disbursements', 'bank', { label: 'bank call', tone: 'red' })],
   }),
 }
