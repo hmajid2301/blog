@@ -1,44 +1,4 @@
 // Click-indexed snapshots: navigating backwards restores the entire demo.
-const partitionEvents = [
-  { id: 'evt-1', key: 'transfer-a', type: 'collections.created.v1' },
-  { id: 'evt-2', key: 'transfer-c', type: 'collections.created.v1' },
-  { id: 'evt-3', key: 'transfer-a', type: 'collections.updated.v1' },
-  { id: 'evt-4', key: 'transfer-d', type: 'collections.created.v1' },
-  { id: 'evt-5', key: 'transfer-a', type: 'collections.completed.v1' },
-]
-// Illustrative assignments, not a Kafka client hash implementation.
-const partitionForKey: Record<string, number> = { 'transfer-a': 1, 'transfer-c': 0, 'transfer-d': 2 }
-
-export function partitionState(step: number) {
-  const offsets = [0, 0, 0]
-  const events = partitionEvents.slice(0, Math.max(0, Math.min(step, partitionEvents.length))).map(event => {
-    const partition = partitionForKey[event.key]
-    return { ...event, partition, offset: offsets[partition]++ }
-  })
-  const current = events.at(-1)
-  return {
-    current, count: events.length, total: partitionEvents.length,
-    caption: current ? `${current.key} → Partition ${current.partition} · appended at offset ${current.offset}` : 'Send one event at a time. Watch its key choose a partition.',
-    partitions: [0, 1, 2].map(id => ({ id, events: events.filter(event => event.partition === id) })),
-  }
-}
-
-export function offsetState(step: number) {
-  const captions = [
-    'Consume offset 42. The committed next offset is still 42.',
-    'Bank accepts the payout with the stable key payout:transfer-a.',
-    'Process crashes before committing offset 43. The payment already happened.',
-    'Restart from committed offset 42: Kafka delivers the same record again.',
-    'Call the bank with the SAME key. Bank returns the original result; no second payout.',
-    'Commit next offset 43 only after handling the replay successfully.',
-  ]
-  return {
-    caption: captions[Math.min(step, 5)], key: 'payout:transfer-a',
-    committed: step >= 5 ? 43 : 42, payments: step >= 1 ? 1 : 0,
-    bankCalls: step >= 4 ? 2 : step >= 1 ? 1 : 0,
-    crashed: step === 2, replay: step >= 3, deduplicated: step >= 4,
-  }
-}
 
 const orderedRetryRecords = [
   { id: 'or-0', key: 'transfer-a', type: 'created', offset: 0 },
