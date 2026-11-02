@@ -43,10 +43,32 @@ defaults:
 <div class="mt-6 text-lg opacity-80">Haseeb Majid · 30 minutes · Python experience, Go curiosity</div>
 
 <!--
-00:00–00:45 · 45 seconds
+00:00–00:30 · 30 seconds
 Promise: by the end you can explain who starts work, who owns data, and how every goroutine stops.
 This is not a Python-versus-Go benchmark. We are translating concurrency habits, not ranking languages.
 Use a URL status checker throughout. No live internet or audience Go setup required.
+-->
+
+---
+
+## Agenda
+
+<div class="toc">
+
+<div class="toc-item"><span class="toc-num">01</span>Mental model — goroutines &amp; the GIL</div>
+<div class="toc-item"><span class="toc-num">02</span>Channels &amp; ownership</div>
+<div class="toc-item"><span class="toc-num">03</span>A safe worker pool — context, cancellation, demo</div>
+<div class="toc-item"><span class="toc-num">04</span>Under load — backpressure, locks, shared state</div>
+<div class="toc-item"><span class="toc-num">05</span>Pitfalls &amp; a take-home checklist</div>
+
+</div>
+
+<div class="small toc-tail">Then 90 seconds of questions · four appendices to browse later.</div>
+
+<!--
+00:30–01:00 · 30 seconds
+Timed. Point, don't read: five stops — mental model, channels + ownership, the safe pool with its live demo, load + shared state, then pitfalls and a recap.
+Minute boundaries stay in the roadmap cue: model to 9:00, channels to 15:30, pool to 24:30, load to 25:30, recap to 28:30.
 -->
 
 ---
@@ -66,7 +88,7 @@ Check a batch of service URLs.
 <div class="small mt-6">Sequential → concurrent → bounded → cancellable</div>
 
 <!--
-00:45–01:30 · 45 seconds
+01:00–01:30 · 30 seconds
 Say: your Python health-check script now needs to check hundreds of internal URLs.
 Success is a report with individual failures, not an all-or-nothing transaction.
 Reveal the three constraints. They are our acceptance criteria, not optional polish.
