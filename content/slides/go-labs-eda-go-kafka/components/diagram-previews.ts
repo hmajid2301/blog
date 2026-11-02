@@ -1,4 +1,5 @@
 import { orderedRetryState, unorderedRetryState } from './demo-states.ts'
+import { dualWrite } from './dual-write.ts'
 
 export type Tone = 'teal' | 'blue' | 'purple' | 'orange' | 'yellow' | 'green' | 'red' | 'pink' | 'muted'
 export type Port = 'top' | 'bottom' | 'left' | 'right'
@@ -103,47 +104,47 @@ export const previews: Record<string, (step: number) => Diagram> = {
   }),
   'ordered-retry': step => {
     const state = orderedRetryState(step)
-    const keyTones: Record<string, Tone> = { 'transfer-a': 'blue', 'transfer-b': 'teal' }
-    const slots = { partition: [40, 105, 0, 95], consumer: [480, 105, 0, 0], line: [290, 390, 185, 0], done: [900, 105, 0, 95] } as const
+    const keyTones: Record<string, Tone> = { 'collection-a': 'blue', 'collection-b': 'teal' }
+    const slots = { partition: [40, 105, 0, 95], consumer: [480, 105, 0, 0], line: [290, 395, 185, 0], done: [900, 105, 0, 95] } as const
     const records = state.records.map(record => {
       const [x, y, dx, dy] = slots[record.where]
       const tone = record.where === 'consumer' ? 'red' : record.where === 'done' ? 'green' : keyTones[record.key]
       return n(record.id, record.key, x + record.position * dx, y + record.position * dy, tone, {
-        w: 170, h: 85, small: true, offset: record.offset, motion: true,
-        detail: record.where === 'consumer' ? `${record.type} · failed` : record.type,
+        w: 170, h: 90, small: true, offset: record.offset, motion: true,
+        detail: record.type,
       })
     })
     return {
       title: 'Redirect: one waiting line per key', height: 500, caption: `Redirect · ${state.caption}`,
       groups: [
-        g('partition', 'Partition 1 · unread', 20, 60, 210, 430, 'orange'),
-        g('consumer', 'Disbursements', 270, 60, 590, 150, 'purple'),
-        g('redirect', 'disbursements.redirect · entry per event', 270, 222, 590, 100, 'yellow'),
-        g('line', 'disbursements.retry.* · waiting events', 270, 335, 590, 155, 'yellow'),
+        g('partition', 'Partition 1', 20, 60, 210, 430, 'orange'),
+        g('consumer', 'Disbursements', 270, 60, 590, 140, 'purple'),
+        g('redirect', 'Redirect', 270, 215, 590, 125, 'yellow'),
+        g('line', 'Retry · 5m', 270, 355, 590, 135, 'yellow'),
         g('done', 'Handled', 880, 60, 210, 430, 'green'),
       ],
-      nodes: [...records, ...state.redirect.map((entry, i) => n(`rd-${entry.offset}`, `${entry.tombstone ? '∅ ' : ''}${entry.type}`, 285 + i * 192, 262, entry.tombstone ? 'muted' : 'yellow', { w: 185, h: 56, small: true, motion: true, detail: entry.tombstone ? 'transfer-a · tombstone' : 'transfer-a' }))],
+      nodes: [...records, ...state.redirect.map((entry, i) => n(`rd-${entry.offset}`, `${entry.tombstone ? '∅ ' : ''}${entry.type}`, 285 + i * 192, 255, entry.tombstone ? 'muted' : 'yellow', { w: 185, h: 80, small: true, motion: true, detail: 'collection-a' }))],
       edges: [],
     }
   },
   'unordered-retry': step => {
     const state = unorderedRetryState(step)
-    const keyTones: Record<string, Tone> = { 'transfer-a': 'blue', 'transfer-b': 'teal', 'transfer-c': 'purple', 'transfer-d': 'pink' }
-    const slots = { partition: [40, 105, 0, 95], consumer: [480, 105, 0, 0], line: [290, 390, 185, 0], done: [900, 105, 0, 95] } as const
+    const keyTones: Record<string, Tone> = { 'collection-a': 'blue', 'collection-b': 'teal', 'collection-c': 'purple', 'collection-d': 'pink' }
+    const slots = { partition: [40, 105, 0, 95], consumer: [480, 105, 0, 0], line: [290, 395, 185, 0], done: [900, 105, 0, 95] } as const
     const records = state.records.map(record => {
       const [x, y, dx, dy] = slots[record.where]
       const tone = record.where === 'consumer' ? 'red' : record.where === 'done' ? 'green' : keyTones[record.key]
       return n(record.id, record.key, x + record.position * dx, y + record.position * dy, tone, {
-        w: 170, h: 85, small: true, offset: record.offset, motion: true,
-        detail: record.where === 'consumer' ? `${record.type} · failed` : record.type,
+        w: 170, h: 90, small: true, offset: record.offset, motion: true,
+        detail: record.type,
       })
     })
     return {
-      title: 'Other transfers keep going', height: 500, caption: step === 0 ? 'Other transfers keep going' : `Retry · ${state.caption}`,
+      title: 'Other collections keep going', height: 500, caption: step === 0 ? 'Other collections keep going' : `Retry · ${state.caption}`,
       groups: [
-        g('partition', 'Partition 1 · unread', 20, 60, 210, 430, 'orange'),
-        g('consumer', 'Disbursements', 270, 60, 590, 150, 'purple'),
-        g('line', 'disbursements.retry.5m', 270, 335, 590, 155, 'yellow'),
+        g('partition', 'Partition 1', 20, 60, 210, 430, 'orange'),
+        g('consumer', 'Disbursements', 270, 60, 590, 140, 'purple'),
+        g('line', 'Retry · 5m', 270, 355, 590, 135, 'yellow'),
         g('done', 'Handled', 880, 60, 210, 430, 'green'),
       ],
       nodes: records,
@@ -151,34 +152,44 @@ export const previews: Record<string, (step: number) => Diagram> = {
     }
   },
   'redirect-compaction': step => {
-    const s = Math.max(0, Math.min(step, 3))
-    const records: [string, string, string, string?][] = [
-      ['r1', 'transfer-a', 'ev 1 · waiting'],
-      ['r2', 'transfer-b', 'ev 2 · waiting', '#74c7ec'],
-      ['r3', 'transfer-c', 'ev 3 · waiting', '#f5c2e7'],
-      ['r4', 'transfer-b', 'ev 2 · ∅', '#74c7ec'],
-      ['r5', 'transfer-c', 'ev 3 · ∅', '#f5c2e7'],
-    ]
+    const s = Math.max(0, Math.min(step, 4))
+    const events = ['created', 'updated', 'completed']
+    const clearedX = 655 + (s - 2) * 175
     return {
-      title: 'Why .redirect is compacted', height: 520,
+      title: 'Replay redirect entries into a local pending-event set', height: 500,
       caption: [
-        'Waiting → record · handled → tombstone',
-        'Match each event to its tombstone',
-        'Only transfer-a is still waiting',
-        'Replay .redirect to rebuild waiting keys',
+        'Restart → replay before routing.',
+        'Three pending events → collection-a stays parked.',
+        'Created clears. Two remain.',
+        'Updated clears. Completed remains.',
+        'Completed clears → release collection-a.',
       ][s],
-      groups: [g('log', '.redirect · compacted', 20, 80, 1060, 190, 'yellow')],
+      groups: [g('log', '.redirect · collection-a + event ID', 20, 65, 1060, 220, 'yellow')],
       nodes: [
-        ...records.map(([id, key, detail, mark], i) => {
-          const gone = s >= 2 && mark !== undefined
-          return n(id, key, 50 + i * 205, 140, detail.includes('∅') || gone ? 'muted' : 'yellow', {
-            w: 180, h: 90, detail: gone ? detail.split(' · ')[0] + ' · gone' : detail,
-            markBox: mark ? [1, mark] : undefined, crossAt: mark ? 2 : undefined,
-          })
+        ...events.map((event, i) => n(`pending-${event}`, event, 35 + i * 175, 130, 'yellow', {
+          w: 160, h: 120, detail: 'pending', offset: i, small: true,
+        })),
+        ...events.map((event, i) => n(`done-${event}`, event, 560 + i * 175, 130, 'muted', {
+          w: 160, h: 120, detail: 'null', offset: i + 3, small: true, hidden: s < i + 2, enter: s === i + 2,
+        })),
+        n('memory', 'In-memory pending IDs', 100, 380, s === 4 ? 'green' : 'purple', {
+          w: 900, h: 110,
+          detail: [
+            'empty · pause routing',
+            'collection-a → { created, updated, completed }',
+            'collection-a → { updated, completed }',
+            'collection-a → { completed }',
+            'collection-a → { } · main path allowed',
+          ][s],
         }),
-        n('consumer', 'consumer', 20, 390, 'blue', { w: 240, h: 100, detail: 'parked: { transfer-a }', hidden: s < 3, enter: true }),
+        n('replay-start', '', 550, 285, 'blue', { w: 0, h: 0, hidden: true }),
       ],
-      edges: s >= 3 ? [e('r1', 'consumer', { label: 'rebuild', tone: 'blue', active: true, fromPort: 'bottom', toPort: 'top' })] : [],
+      edges: s >= 1 ? [e(s === 1 ? 'replay-start' : `done-${events[s - 2]}`, 'memory', {
+        label: s === 1 ? 'replay' : 'apply null', tone: 'blue', active: true,
+        fromPort: 'bottom', toPort: 'top',
+        via: s === 1 ? undefined : [[clearedX, 315], [550, 315]],
+        labelAt: [s === 1 ? 630 : 750, 325],
+      })] : [],
     }
   },
   'consumer-failure': () => ({
@@ -239,23 +250,14 @@ export const previews: Record<string, (step: number) => Diagram> = {
   }),
   dlq: step => ({
     title: 'Exhausted retries go to the DLQ',
-    nodes: [n('retry', 'disbursements\n.retry.5m', 90, 200, 'yellow'), n('consumer', 'Disbursements', 455, 200, 'purple'), n('dlq', 'disbursements\n.dlq', 820, 200, 'red')],
+    nodes: [n('retry', 'disbursements\n.retry.1h', 90, 200, 'yellow'), n('consumer', 'Disbursements', 455, 200, 'purple'), n('dlq', 'disbursements\n.dlq', 820, 200, 'red')],
     edges: [
       e('retry', 'consumer', { label: 'consume retry', tone: step === 1 ? 'red' : 'muted', active: step === 1 }),
       e('consumer', 'dlq', { label: 'publish DLQ', tone: step === 2 ? 'red' : 'muted', active: step === 2 }),
       e('consumer', 'retry', { label: 'commit retry offset', tone: step === 3 ? 'green' : 'muted', active: step === 3, fromPort: 'bottom', toPort: 'bottom', via: [[550, 410], [185, 410]], labelAt: [367, 410] }),
     ],
   }),
-  'dual-write': step => ({
-    title: 'DB committed. Event publication failed.',
-    nodes: [n('db', 'Collections DB', 90, 200, 'green', { detail: step >= 1 ? 'Committed' : 'Pending' }), n('collections', 'Collections', 455, 200, 'teal'), n('kafka', 'Kafka', 820, 200, step >= 2 ? 'red' : 'blue', { detail: step >= 2 ? 'event not published' : 'Pending', markDetail: 3 })],
-    edges: [
-      e('collections', 'db', { label: 'save state', tone: step === 1 ? 'green' : 'muted', active: step === 1, fromPort: 'top', toPort: 'top', via: [[550, 75], [185, 75]], labelAt: [367, 75] }),
-      e('db', 'collections', { label: 'committed', tone: step === 1 ? 'green' : 'muted', active: step === 1, fromPort: 'bottom', toPort: 'bottom', via: [[185, 410], [550, 410]], labelAt: [367, 410] }),
-      e('collections', 'kafka', { label: 'publish event', tone: step >= 2 ? 'red' : 'muted', active: step >= 2, fromPort: 'top', toPort: 'top', via: [[550, 75], [915, 75]], labelAt: [732, 75] }),
-      e('kafka', 'collections', { label: 'failed', tone: step >= 2 ? 'red' : 'muted', active: step >= 2, fromPort: 'bottom', toPort: 'bottom', via: [[915, 410], [550, 410]], labelAt: [732, 410] }),
-    ],
-  }),
+  'dual-write': dualWrite,
   outbox: step => ({
     title: 'Save state and the outbox event together',
     nodes: [n('collections', 'Collections', 0, 175, 'teal', { h: 130 }), n('db', 'Collections DB', 225, 175, 'green', { h: 130, detail: 'state + outbox event', markDetail: 2 }), n('publisher', 'Outbox\npublisher', 450, 175, 'muted', { h: 130 }), n('topic', 'collections\ntopic', 675, 175, 'orange', { h: 130 }), n('consumer', 'Disbursements', 900, 175, 'purple', { h: 130 })],

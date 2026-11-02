@@ -11,7 +11,7 @@ const diagram = computed(() => props.talk
 const drawing = computed(() => roughDrawing(diagram.value))
 
 function transferLabel(text: string) {
-  return text.replace(/\btransfer-[a-z]\b/g, match => `Transfer ${match.slice(-1).toUpperCase()}`)
+  return text.replace(/\bcollection-[a-z]\b/g, match => `Collection ${match.slice(-1).toUpperCase()}`)
 }
 
 function arrivalStyle(node: DiagramNode) {
