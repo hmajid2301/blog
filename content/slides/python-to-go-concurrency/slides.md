@@ -738,10 +738,12 @@ log.Fatal(srv.ListenAndServe())
 
 - No Flask/FastAPI decision — `net/http` is the framework
 - `go mod init` — go.mod replaces venv + requirements
-- `go build` ships one self-contained binary
+- `go build` ships one statically-compiled binary, deps included
 - `slog.Info("served", "id", id)` — structured logs, stdlib
 
 </v-clicks>
+
+<div class="small mt-4">hello-world binary: C ≈ 16 KB, borrows the system libc · Go ≈ 2.4 MB — runtime inside</div>
 
 <div class="small mt-4">Beyond stdlib: <strong>sqlc</strong> — SQL in, type-safe Go out · <strong>mockery</strong> — mocks from interfaces</div>
 
@@ -750,7 +752,9 @@ Untimed appendix. The first service most teams build; everything here is standar
 No framework decision: net/http routes and serves; patterns take methods and wildcards since Go 1.22 — r.PathValue("id") reads them. Handler shape if asked: func(w http.ResponseWriter, r *http.Request).
 Production hardening: set ReadHeaderTimeout; pair Ctrl+C with srv.Shutdown(ctx) — the same signal context as this talk's demo. ListenAndServe returns ErrServerClosed after Shutdown.
 go mod init + go mod tidy replace requirements.txt and venv; the module path is the import prefix. Packages are directories.
-go build ships one self-contained binary — no interpreter or venv on the target.
+go build ships a statically-compiled binary — all dependencies included; no interpreter or venv on the target.
+CGO_ENABLED=0 keeps it fully static (cgo can force dynamic linking).
+Hello-world binary: ~16 KB in C (dynamically linked — libc ships with the OS) vs ~2.4 MB in Go — that's what self-contained costs.
 log/slog (Go 1.21+): key-value logs; JSON via slog.NewJSONHandler. gofmt, vet, go test ship with the toolchain.
 SQL: database/sql is stdlib; sqlc generates type-safe Go from plain SQL.
 Mocks: small interface, tiny hand-rolled fake — or testify-style mocks via mockery.
