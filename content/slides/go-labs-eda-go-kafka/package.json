@@ -6,7 +6,7 @@
     "dev": "slidev slides.md --open",
     "test": "node --test tests/*.test.ts",
     "build": "slidev build slides.md --base /slides/go-labs-eda-go-kafka/ --out dist",
-    "build:hugo": "slidev build slides.md --base /slides/go-labs-eda-go-kafka/ --out ../../../static/slides/go-labs-eda-go-kafka"
+    "build:hugo": "rm -rf ../../../static/slides/go-labs-eda-go-kafka && slidev build slides.md --base /slides/go-labs-eda-go-kafka/ --out ../../../static/slides/go-labs-eda-go-kafka"
   },
   "devDependencies": {
     "@slidev/cli": "^52.19.0",
