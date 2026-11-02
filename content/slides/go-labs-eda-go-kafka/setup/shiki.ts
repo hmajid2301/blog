@@ -1,8 +1,2 @@
-export default function () {
-  return {
-    themes: {
-      dark: 'catppuccin-mocha',
-      light: 'catppuccin-latte',
-    },
-  }
-}
+// Shared syntax theme; the implementation lives in slidev-shared/setup/shiki.ts.
+export { default } from '../../slidev-shared/setup/shiki'
