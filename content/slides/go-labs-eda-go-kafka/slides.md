@@ -56,6 +56,15 @@ defaults:
 
 ---
 
+<AgendaPreview variant="route" />
+
+<!--
+- One payout, four chapters
+- Why events → Kafka + Go → failures → recovery
+-->
+
+---
+
 <div style="display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); align-items: center; gap: 32px;">
 
 <RoughDiagram diagram="happy-path" :step="$clicks" talk />
@@ -102,10 +111,6 @@ Same synchronous chain.
 
 ---
 
-<img src="./images/failure.jpg" style="height: 65vh; width: auto; max-width: 100%; object-fit: contain; display: block; margin: 0 auto;" class="rounded shadow-lg" />
-
----
-
 <v-switch>
 <template #0>
 
@@ -115,7 +120,7 @@ Same synchronous chain.
 
 <div class="transfer-captions" style="text-align: left; font-size: 24px; line-height: 1.4;">
   <div class="transfer-step" style="font-size: 32px; font-weight: 700; color: #89b4fa;">Synchronous chain</div>
-  <div class="transfer-detail" style="margin-top: 8px;">More holiday transfers. Every caller still waits on downstream work.</div>
+  <div class="transfer-detail" style="margin-top: 8px;">More holiday payments. Every caller still waits on downstream work.</div>
 </div>
 
 </div>
@@ -165,20 +170,25 @@ Same synchronous chain.
 </template>
 </v-switch>
 
-<p v-show="$clicks > 0" style="text-align: center; font-size: 18px; color: #a6adc8;">Illustrative waiting-request counts</p>
-
 <!--
-- Counts illustrative; overlapping, not additive
+- Illustrative counts
+- Overlapping, not additive
 
 [click]
-- Bank timeout → unknown outcome; receipts wait
+- Timeout: outcome unknown
+- Receipts wait
 
 [click]
 - Timeouts spread upstream
 
 [click]
-- Retries amplify load; duplicate-payment risk
+- Retry storm
+- Duplicate-payment risk
 -->
+
+---
+
+<img src="./images/failure.jpg" style="height: 65vh; width: auto; max-width: 100%; object-fit: contain; display: block; margin: 0 auto;" class="rounded shadow-lg" />
 
 ---
 
@@ -221,8 +231,24 @@ zoom: 0.8
 - Payout confirmed → receipt
 
 [click]
-- Bank down: collections continues
-- Payout backlog grows; receipts wait
+- Bank down
+- Collections continues
+- Payout backlog
+- Receipts wait
+-->
+
+---
+class: go-audience
+---
+
+<img src="https://media.giphy.com/media/hFC2MWZVFTI5FQviEo/giphy.gif" alt="Cat raising its paw" style="height: 480px; width: auto;" />
+
+<style>
+.go-audience h2 { font-size: 48px; text-align: center; }
+</style>
+
+<!--
+- Quick show of hands: who knows Kafka?
 -->
 
 ---
@@ -237,28 +263,29 @@ zoom: 0.8
 <p v-click="1"><strong style="color: #f9e2af;">Event</strong>: a <span style="display: inline-block; white-space: nowrap;" v-mark="{ at: 1, type: 'underline', color: '#f9e2af', padding: 2 }">fact</span> that happened in the past.</p>
 
 <!--
-[click] A fact that happened
+[click]
+- A fact that happened
 -->
 
 ---
 class: code-fit
 ---
 
-<div class="code-focus code-reserve-tall focus-lines-3" :class="$clicks >= 4 ? 'focus-start-10' : 'focus-start-6'">
+<div class="code-focus code-reserve-tall" :style="{ '--focus-start': $clicks < 2 ? 1 : $clicks === 2 ? 2 : 6, '--focus-lines': $clicks < 3 ? 1 : 3 }">
 
 ````md magic-move {at:1, duration:500}
-```go
+```go {2}
 type Event struct {
     Payload       json.RawMessage `json:"payload"`
 }
 ```
-```go
+```go {2}
 type Event struct {
     ID            uuid.UUID       `json:"id"`
     Payload       json.RawMessage `json:"payload"`
 }
 ```
-```go {7-9}
+```go {3|7-9}
 type Event struct {
     ID            uuid.UUID       `json:"id"`
     Type          string          `json:"type"`
@@ -274,7 +301,7 @@ const (
 </div>
 
 <div v-click.fade-in="4" class="event-name-breakdown mt-4 text-center">
-  <span class="inline-block" v-mark="{ at: 3, type: 'box', color: '#94e2d5', padding: 3 }">collections</span>.<span class="inline-block" v-mark="{ at: 4, type: 'underline', color: '#a6e3a1', padding: 2 }">completed</span>.<span class="inline-block" v-mark="{ at: 4, type: 'circle', color: '#b4befe', padding: 3 }">v1</span>
+  <span class="inline-block" v-mark="{ at: 4, type: 'box', color: '#94e2d5', padding: 3 }">collections</span>.<span class="inline-block" v-mark="{ at: 4, type: 'underline', color: '#a6e3a1', padding: 2 }">completed</span>.<span class="inline-block" v-mark="{ at: 4, type: 'circle', color: '#b4befe', padding: 3 }">v1</span>
 </div>
 
 <style>
@@ -298,7 +325,7 @@ const (
 - Type ≠ topic
 
 [click]
-- Metadata; correlation = workflow
+- Named event type constant
 
 [click]
 - Domain · fact · version
@@ -313,7 +340,7 @@ class: code-fit
   "id": "92bf4e5a-3a1e-4d6f-8db8-1f7d865bd46a",
   "type": "collections.completed.v1",
   "source": "collections",
-  "correlation_id": "transfer-a",
+  "correlation_id": "collection-a",
   "time": "2026-06-01T10:30:00Z",
   "schema_version": 1,
   "payload": {
@@ -327,6 +354,32 @@ class: code-fit
 <!--
 - GBP 100; minor units
 - Collection complete ≠ payout complete
+-->
+
+---
+
+<p v-click="1"><strong style="color: #fab387;">Topics</strong>: How <span style="display: inline-block; white-space: nowrap;" v-mark="{ at: 1, type: 'circle', color: '#fab387', padding: 3 }">events</span> are organised</p>
+
+<style>
+.slidev-vclick-target { transition: opacity 220ms ease; }
+.slidev-vclick-hidden { transform: none; filter: none; }
+</style>
+
+<!--
+[click]
+- collections topic
+- Type ≠ topic
+-->
+
+---
+class: diagram-preview-slide
+---
+
+<RoughDiagram diagram="topic-overview" :step="$clicks" talk />
+
+<!--
+- Same topic
+- Different event types
 -->
 
 ---
@@ -346,8 +399,11 @@ class: code-fit
 </style>
 
 <!--
-[click] Collections publishes
-[click] Disbursements consumes
+[click]
+- Collections publishes
+
+[click]
+- Disbursements consumes
 -->
 
 ---
@@ -358,36 +414,99 @@ clicks: 2
 <RoughDiagram diagram="producer-consumer" :step="$clicks" talk />
 
 <!--
-- Collections produces; Disbursements consumes
+- Collections produces
+- Disbursements consumes
 
 [click]
 - Publish to collections
 
 [click]
-- Consume; Kafka keeps the record
+- Consume
+- Kafka keeps record
 -->
 
 ---
 
-<p v-click="1"><strong style="color: #fab387;">Topics</strong>: How <span style="display: inline-block; white-space: nowrap;" v-mark="{ at: 1, type: 'circle', color: '#fab387', padding: 3 }">events</span> are organised</p>
+<div class="franz-intro">
+<div class="franz-install">
+
+```sh
+go get github.com/twmb/franz-go
+```
+
+</div>
+
+<img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" alt="Cat furiously typing on a laptop" style="height: 220px; width: auto;" />
+</div>
 
 <style>
-.slidev-vclick-target { transition: opacity 220ms ease; }
-.slidev-vclick-hidden { transform: none; filter: none; }
+.franz-intro { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 3fr); align-items: center; gap: 40px; }
+.franz-install .shiki { font-size: 30px !important; }
 </style>
 
 <!--
-[click] collections topic; type ≠ topic
+- Kafka: broker
+- franz-go: client
+- kgo: Go package
 -->
 
 ---
-class: diagram-preview-slide
+class: franz-reasons
+clicks: 4
 ---
 
-<RoughDiagram diagram="topic-overview" :step="$clicks" talk />
+## Why franz-go?
+
+<ul class="franz-main-reasons">
+  <li v-click="1"><strong style="color: #94e2d5;">Pure Go</strong> no CGO</li>
+  <li v-click="2"><strong style="color: #cba6f7;">Idiomatic API</strong> contexts and errors</li>
+  <li v-click="3"><strong style="color: #89b4fa;">Well Supported</strong> KIP supported</li>
+</ul>
+
+<div v-click="4" class="franz-extras">
+  <strong style="display: block; color: #f9e2af;">Also useful</strong>
+  <ul style="display: block;">
+    <li>Manual commits</li>
+    <li>Idempotent producer by default</li>
+    <li>Prometheus / OpenTelemetry hooks</li>
+  </ul>
+</div>
+
+<style>
+.franz-reasons h2 { font-size: 56px; }
+.franz-reasons .franz-main-reasons { font-size: 32px; line-height: 1.6; }
+.franz-reasons .franz-extras {
+  width: fit-content;
+  margin-top: 28px;
+  padding: 16px 28px;
+  border: 1px solid #45475a;
+  border-radius: 12px;
+  background: #181825;
+  text-align: left;
+  font-size: 22px;
+  line-height: 1.5;
+}
+.franz-reasons .slidev-vclick-hidden { transform: none; filter: none; }
+</style>
 
 <!--
-Same topic, different event types
+- Why franz-go?
+
+[click]
+- Pure Go
+- No C dependency
+
+[click]
+- Contexts
+- Go errors
+
+[click]
+- Broad Kafka support
+
+[click]
+- Manual commits: opt in
+- Idempotent producer ≠ bank deduplication
+- Metrics: hooks/plugins
 -->
 
 ---
@@ -395,7 +514,7 @@ class: code-lg
 ---
 
 
-<div class="code-focus" :style="{ '--focus-start': $clicks < 2 ? 2 : 1, '--focus-lines': $clicks < 2 ? 1 : 3 }">
+<div class="code-focus" :style="{ '--focus-start': $clicks < 2 ? 2 : 1, '--focus-lines': $clicks < 2 ? 1 : 4 }">
 
 ````md magic-move {at:1, duration:500}
 ```go {all|3}
@@ -406,7 +525,7 @@ client, err := kgo.NewClient(
 if err != nil { return err }
 defer client.Close()
 ```
-```go {all|2-4}
+```go {all|2-4|5}
 err := client.ProduceSync(ctx, &kgo.Record{
     Topic: "collections",
     Key:   []byte(collection.ID.String()),
@@ -427,7 +546,9 @@ err := client.ProduceSync(ctx, &kgo.Record{
 - Publish
 
 [click]
-- Key; event; ack/error
+- Key
+- Event
+- ACK/error
 -->
 
 ---
@@ -472,13 +593,39 @@ for _, r := range fetches.Records() {
     }
 }
 ```
+```go {7-11}
+func handleCollectionCompleted(
+    ctx context.Context, r *kgo.Record,
+) error {
+    collection, err := decodeCollection(r.Value)
+    if err != nil { return err }
+
+    _, err = bank.CreatePayment(ctx, PaymentRequest{
+        CollectionID: collection.ID,
+        Amount:       collection.Amount,
+    })
+    return err
+}
+```
 ````
 
 <!--
-- Subscribe; no group yet
-[click] Poll for records
-[click] Decode each Event
-[click] Zoom into loop; route by type; commits + bank safety later
+- Subscribe
+- No group yet
+
+[click]
+- Poll
+
+[click]
+- Decode event
+
+[click]
+- Route by type
+
+[click]
+- Decode payload → request bank payout
+- Return bank error to caller
+- Happy path; idempotency and commits later
 -->
 
 ---
@@ -489,11 +636,21 @@ clicks: 4
 <RoughDiagram diagram="poll-batch" :step="$clicks" talk />
 
 <!--
-- Poll can return multiple records; not always three
-[click] Returned together; Kafka retains originals
-[click] Handle A
-[click] Handle B
-[click] Handle C; sequential in this loop, not global topic order
+- Batch size varies
+
+[click]
+- Fetched together
+- Originals stay
+
+[click]
+- Handle A
+
+[click]
+- Handle B
+
+[click]
+- Handle C
+- Sequential loop ≠ global order
 -->
 
 ---
@@ -506,20 +663,21 @@ clicks: 4
 </style>
 
 <!--
-[click] Ordered within each partition
+[click]
+- Partition-local order
 -->
 
 ---
 class: diagram-compact
-clicks: 6
+clicks: 7
 ---
 
 <RoughDiagram diagram="partition-log" :step="$clicks" talk />
 
 
 <!--
-- Independent logs; illustrative partition assignment
-- Segment-file detail on next slide
+- Independent logs
+- Illustrative assignment
 
 [click]
 - P0: offset 4
@@ -538,7 +696,12 @@ clicks: 6
 
 [click]
 - P2: offset 5
-- Same key → same partition; replay within retention
+
+[click]
+- Collection A: offsets 0, 2
+- Same key → same partition
+- Replay within retention
+- Partition order, not topic-wide order.
 -->
 
 ---
@@ -548,13 +711,32 @@ class: diagram-compact
 <RoughDiagram diagram="partition-segments" :step="6" talk />
 
 <!--
-- Partition logs split into segment files
-- Closed 000.log → active 001.log; earlier records stay
+- Segment files
+- 000.log closed → 001.log active
+- Earlier records stay
 -->
 
 ---
 
 <img src="./images/always_has_been.jpg" alt="Two astronauts: Wait, Kafka is just logs? It always has been." style="height: 65vh; width: auto; max-width: 100%; object-fit: contain; display: block; margin: 0 auto;" />
+
+---
+class: diagram-preview-slide
+clicks: 1
+---
+
+<RoughDiagram diagram="broker-scaling" :step="$clicks" talk />
+
+<!--
+- Three partitions
+- One broker’s resources
+
+[click]
+- Three brokers → parallel work
+- Leaders shown; replicas omitted
+- Reassign existing partitions
+- Scaling ≠ linear
+-->
 
 ---
 
@@ -565,7 +747,9 @@ class: diagram-compact
 </v-clicks>
 
 <!--
-[click] Leader included; lagging followers leave ISR
+[click]
+- ISR includes leader
+- Lagging followers leave
 -->
 
 ---
@@ -576,11 +760,19 @@ clicks: 3
 <RoughDiagram diagram="isr-overview" :step="$clicks" talk />
 
 <!--
-- One partition; three replicas; acks=all
+- Three replicas
+- acks=all
 
-[click] All ISR store record → ACK
-[click] B3 falls behind, leaves ISR; writes continue
-[click] B2 leaves; ISR < 2 → reject writes
+[click]
+- All ISR store → ACK
+
+[click]
+- B3 leaves ISR
+- Writes continue
+
+[click]
+- B2 leaves ISR
+- Below min ISR → reject
 -->
 
 ---
@@ -588,6 +780,26 @@ class: code-fit
 ---
 
 ````md magic-move {at:1, duration:500}
+```go {4-5}
+client, err := kgo.NewClient(
+    kgo.SeedBrokers("localhost:9092"),
+    kgo.DefaultProduceTopic("collections"),
+    kgo.RequiredAcks(kgo.NoAck()), // acks=0
+    kgo.DisableIdempotentWrite(),
+)
+if err != nil { return err }
+defer client.Close()
+```
+```go {4}
+client, err := kgo.NewClient(
+    kgo.SeedBrokers("localhost:9092"),
+    kgo.DefaultProduceTopic("collections"),
+    kgo.RequiredAcks(kgo.LeaderAck()), // acks=1
+    kgo.DisableIdempotentWrite(),
+)
+if err != nil { return err }
+defer client.Close()
+```
 ```go {4}
 client, err := kgo.NewClient(
     kgo.SeedBrokers("localhost:9092"),
@@ -597,9 +809,10 @@ client, err := kgo.NewClient(
 if err != nil { return err }
 defer client.Close()
 ```
-```go
+```go {1|2|5|6|7|8}
 admin := kadm.NewClient(client)
 minISR := "2"
+
 _, err = admin.CreateTopic(ctx,
     3, // partitions
     3, // replication factor
@@ -611,12 +824,23 @@ if err != nil { return err }
 ````
 
 <!--
-- All current ISR must acknowledge
+- NoAck: sent on wire; no broker reply
+- NoAck and LeaderAck require disabling producer idempotency
 
 [click]
-- franz-go/pkg/kadm; needs three brokers
-- RF=3; min ISR=2; below two → write errors
-- Kafka durability ≠ exactly-once bank payment
+- LeaderAck: leader writes; no wait for followers
+- Leader failure before replication can lose acknowledged records
+
+[click]
+- All current ISR must acknowledge
+- Remove DisableIdempotentWrite: restore default producer idempotency
+
+[click]
+- kadm admin client
+- Three brokers
+- RF=3; min ISR=2
+- Below two → write errors
+- Durability ≠ payment deduplication
 -->
 
 ---
@@ -629,7 +853,8 @@ if err != nil { return err }
 </style>
 
 <!--
-[click] One consumer per partition within a group
+[click]
+- One owner per partition/group
 -->
 
 ---
@@ -733,7 +958,8 @@ clicks: 2
 - Independent group checkpoints
 
 [click]
-- Reconciliation → 4; Disbursements stuck
+- Reconciliation at 4
+- Disbursements stuck
 - Fetched ≠ committed
 
 [click]
@@ -767,14 +993,32 @@ for _, r := range fetches.Records() {
 ````
 
 <!--
-- Handle first; failure → stop
-[click] Commit r.Offset + 1; auto-commit off; group configured
-- Commit failure → stop; replay possible
+- Handle first
+- Failure → stop
+
+[click]
+- Commit next offset
+- Auto-commit off
+- Commit failure → replay
 -->
 
 ---
 
-# What if a consumer dies?
+<div class="consumer-death-slide">
+  <h1>What if a<br>consumer <span>dies?</span></h1>
+  <img src="https://media1.tenor.com/m/pLHw4_TunCEAAAAd/playing-dead-pew.gif" alt="Cat dramatically flopping over and playing dead" />
+</div>
+
+<style>
+.consumer-death-slide { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 64px; height: 100%; max-width: 1100px; margin: 0 auto; }
+.consumer-death-slide h1 { margin: 0; font-size: 64px; line-height: 1.2; letter-spacing: -0.03em; }
+.consumer-death-slide h1 span { color: #f38ba8; }
+.consumer-death-slide img { display: block; height: 540px; width: auto; border-radius: 16px; box-shadow: 0 18px 48px rgba(0,0,0,.3); }
+</style>
+
+<!--
+- GIF: ViralHog via Tenor https://tenor.com/view/playing-dead-pew-dramatic-finger-gun-cat-gif-13568033
+-->
 
 ---
 clicks: 3
@@ -783,18 +1027,76 @@ clicks: 3
 <RoughDiagram diagram="consumer-failure" :step="$clicks" talk />
 
 <!--
-- One group; one partition each
-- Transfer A in flight; committed next = 42
+- One partition each
+- A in flight
+- Committed next: 42
 
 [click]
 - Consumer 1 dies; P0 waits
 
 [click]
-- P0 → Consumer 2; P1/P2 stay put
+- P0 → Consumer 2
+- P1/P2 unchanged
 
 [click]
-- Resume at 42 → Transfer A replayed
-- Side effect may already exist: idempotency
+- Resume at 42
+- A replayed
+- Payment may exist
+- Idempotency
+-->
+
+---
+clicks: 3
+---
+
+<RoughDiagram diagram="bank-crash" :step="$clicks" talk />
+
+<div class="transfer-captions" style="text-align: left; font-size: 24px; line-height: 1.4;">
+  <div class="transfer-step" style="font-size: 32px; font-weight: 700;" :style="{ color: ['#a6e3a1', '#f38ba8', '#f38ba8', '#a6e3a1'][Math.min($clicks, 3)] }">{{ ['Bank paid', '1. Crash before commit', '2. Replay without a key', '3. With a stable key'][Math.min($clicks, 3)] }}</div>
+  <div class="transfer-detail" style="margin-top: 8px;">{{ ['Payment succeeded. The offset is not committed yet.', 'Disbursements crashes. Kafka still has offset 42 as the next record to read.', 'After restart, Kafka delivers Collection A again. The bank pays twice.', 'Use the same key on the original call and replay. The bank returns the original result; then commit.'][Math.min($clicks, 3)] }}</div>
+</div>
+
+<!--
+- Bank paid; commit pending
+
+[click]
+- Crash
+- Restart at 42
+- Replay A
+
+[click]
+- No bank-enforced key → paid twice
+
+[click]
+- Same bank key
+- Original result returned
+- Commit
+- Prevent, not undo
+-->
+
+---
+class: diagram-compact
+clicks: 3
+---
+
+<RoughDiagram diagram="rebalance-eager" :step="$clicks" talk />
+
+<!--
+- Round robin
+- Two consumers
+- Three partitions
+
+[click]
+- Consumer 3 joins
+
+[click]
+- Revoke all partitions; P0/P1/P2 pause
+
+[click]
+- P0 → Consumer 1
+- P1 → Consumer 2
+- P2 → Consumer 3
+- Everyone paused first
 -->
 
 ---
@@ -810,24 +1112,27 @@ clicks: 3
 </style>
 
 <!--
-- Two consumers; three partitions
-- Slow handlers still risk ownership loss/replay
-- Coordinate revocation; blocked polling: work < RebalanceTimeout
+- Same join
+- Cooperative-sticky assignor
+- Slow handlers can lose ownership
 
 [click]
 - Consumer 3 joins; assignments initially stay
 
 [click]
-- Release P2; P0/P1 continue
+- Release P2
+- P0/P1 continue
 
 [click]
 - P2 → Consumer 3
-- Cooperative-sticky: fewer moves, not slow-handler safety
+- Fewer moves ≠ handler safety
 -->
 
 ---
 class: code-lg
 ---
+
+<h2>{{ $clicks < 1 ? 'Eager · round robin' : 'Cooperative · sticky' }}</h2>
 
 <div class="group-balancer-example code-focus focus-start-5 focus-lines-1">
 
@@ -870,151 +1175,64 @@ clicks: 5
 <RoughDiagram diagram="shutdown-service" :step="$clicks" talk />
 
 <!--
-- Independent contexts; manual commits; coordinated ownership
-[click] Batch fetched: A processing; B/C waiting
-[click] SIGTERM cancels pollCtx, not workCtx
-[click] A payout succeeds
-[click] Commit next 43; B/C remain uncommitted
-[click] Close; B/C replay on restart
-- Work + commit fit 10s/grace period; failure → replay
--->
-
----
-class: code-lg
----
-
-````md magic-move {at:1, duration:500}
-```go {1-3}
-// Poll with this context.
-pollCtx, stop := signal.NotifyContext(context.Background(),
-    os.Interrupt, syscall.SIGTERM)
-defer stop()
-defer client.Close()
-```
-```go {1-3|5-7|all}
-// Finish the already-polled record independently.
-workCtx, cancel := context.WithTimeout(
-    context.Background(), 10*time.Second)
-err := handleCollectionCompleted(workCtx, r)
-if err == nil {
-    err = client.CommitRecords(workCtx, r)
-}
-cancel()
-if err != nil { return err }
-```
-````
-
-<!--
-- Excerpts: signal setup once; current record inside loop
-- Cancellation → no new poll
+- Separate poll/work contexts
+- Manual commits
 
 [click]
-- workCtx: independent root; survives SIGTERM
+- A processing; one record per poll
+- B/C buffered inside client
 
 [click]
-- Handle succeeds → commit; auto-commit off
+- SIGTERM stops new work
+- Current work keeps its own deadline
 
 [click]
-- 10s illustrative; fit shutdown grace; replay still possible
-- Ownership: OnPartitionsRevoked OR BlockRebalanceOnPoll + AllowRebalance
-- If blocking: work < RebalanceTimeout; exit via CloseAllowingRebalance
--->
-
----
-clicks: 3
----
-
-<RoughDiagram diagram="bank-crash" :step="$clicks" talk />
-
-<div class="transfer-captions" style="text-align: left; font-size: 24px; line-height: 1.4;">
-  <div class="transfer-step" style="font-size: 32px; font-weight: 700;" :style="{ color: ['#a6e3a1', '#f38ba8', '#f38ba8', '#a6e3a1'][Math.min($clicks, 3)] }">{{ ['Bank paid', '1. Crash before commit', '2. Replay without a key', '3. With a stable key'][Math.min($clicks, 3)] }}</div>
-  <div class="transfer-detail" style="margin-top: 8px;">{{ ['Payment succeeded. The offset is not committed yet.', 'Disbursements crashes. Kafka still has offset 42 as the next record to read.', 'After restart, Kafka delivers Transfer A again. The bank pays twice.', 'Use the same key on the original call and replay. The bank returns the original result; then commit.'][Math.min($clicks, 3)] }}</div>
-</div>
-
-<!--
-- Bank paid; commit pending
+- A paid
 
 [click]
-- Crash → restart at 42 → replay A
+- Commit next: 43
+- B/C uncommitted
 
 [click]
-- No bank-enforced key → paid twice
-
-[click]
-- Original + replay: same Transfer A key
-- Bank returns original result → commit
-- Prevents duplicates; cannot undo one
--->
-
----
-class: diagram-preview-slide
-clicks: 4
----
-
-<RoughDiagram diagram="bank-response-lost" :step="$clicks" talk />
-
-<!--
-- Separate scenario; stable bank key from first request
-[click] Bank pays once
-[click] Response lost; timeout ≠ unpaid
-[click] Retry same key
-[click] Bank returns original result; no second payout
-- Requires bank-enforced idempotency, not just a status check
+- Allow rebalance + close
+- B/C remain uncommitted
+- Work + commit + close within shutdown grace
 -->
 
 ---
 class: code-fit
 ---
 
-<div class="code-focus" :class="$clicks < 2 ? 'focus-start-2 focus-lines-1' : 'focus-start-1 focus-lines-1'">
-
-````md magic-move {at:1, duration:500}
-```go {all|2}
-// Stable bank payment reference, not the Kafka event ID.
-status, err := bank.PaymentStatus(ctx, transferID)
-if err != nil {
-    return err
-}
+```go {5-7,10}
+client, err := kgo.NewClient(
+    kgo.SeedBrokers("localhost:9092"),
+    kgo.ConsumerGroup("disbursements"),
+    kgo.ConsumeTopics("collections"),
+    kgo.DisableAutoCommit(),
+    kgo.BlockRebalanceOnPoll(),
+    kgo.RebalanceTimeout(30*time.Second),
+)
+if err != nil { return err }
+defer client.CloseAllowingRebalance()
 ```
-```go {all|2}
-if status == "paid" {
-    return nil // already paid — skip another payout
-}
-```
-````
-
-</div>
-
 
 <!--
-- Bank API example; payment reference
-
-[click]
-- Check bank; error → stop
-
-[click]
-- Paid?
-
-[click]
-- Paid → skip, commit
-- Unknown → reconcile
-- Check ≠ atomic; same bank key
+- Auto-commit off; block rebalance during work
+- 10s processing budget < 30s rebalance timeout
+- Close only after processing returns
 -->
 
 ---
 
 ## What if the bank stays down?
 
-<!--
-- Transient → retry; permanent → DLQ
-- Timeout: unknown outcome; same bank key
--->
-
----
-
-<img src="./images/this-is-fine.webp" alt="This is fine: a dog sitting in a burning room" class="retry-meme" />
+<img src="https://media1.tenor.com/m/_D2wmMUMRH4AAAAd/buffering-loading.gif" alt="Cat with a buffering spinner over its head" style="height: 380px; width: auto;" />
 
 <!--
+- Transient → retry
+- Permanent → DLQ
+- Timeout: outcome unknown
+- Same bank key
 - Buffering ≠ recovery
 -->
 
@@ -1028,7 +1246,7 @@ class: diagram-compact
 
 <div class="retry-captions">
   <div v-click.fade-in="1" class="retry-step retry-failure">
-    <strong>1. Handling fails</strong>
+    <strong>1. Bank call fails</strong>
     <p>Payment unfinished.</p>
   </div>
   <div v-click.fade-in="2" class="retry-step retry-publish">
@@ -1048,11 +1266,12 @@ class: diagram-compact
 </div>
 
 <!--
-- Backoff + randomized due times; tiers alone ≠ jitter
-- Retention > delay + outage + catch-up + margin
+- Minimum delay: 5m
+- Jitter: randomized due times
+- Retention covers outage + catch-up
 
 [click]
-- Handler fails
+- Bank unavailable → handler fails
 
 [click]
 - Publish retry; wait for ack
@@ -1061,8 +1280,9 @@ class: diagram-compact
 - Ack → commit original
 
 [click]
-- Scheduler releases due records; same handler/IDs
-- Retries can reorder; dependent steps wait
+- Worker waits until due
+- Same handler/IDs
+- Retries can reorder
 -->
 
 ---
@@ -1070,19 +1290,21 @@ class: diagram-preview-slide
 clicks: 3
 ---
 
-<RoughDiagram diagram="delayed-retry" :step="$clicks" style="flex-shrink: 0;" talk />
+<AnimationSuggestion example="timeline" :step="$clicks" talk />
 
 <!--
-- Fail 10:00; due 10:05
+- Fail 10:00:00; due 10:05:00
 
 [click]
-- 10:02: Go retry worker sleeps; not Kafka
+- 10:02:30: worker waits
+- Not Kafka
 
 [click]
-- 10:05: eligible
+- 10:05:00: eligible
 
 [click]
-- Same handler/IDs; main consumer unaffected
+- Same handler/IDs
+- Main consumer continues
 -->
 
 ---
@@ -1093,14 +1315,27 @@ clicks: 6
 <RoughDiagram diagram="unordered-retry" :step="$clicks" />
 
 <!--
-- Independent transfers; completed events, not same-key ordering
-[click] A fails
-[click] Publish A to retry → ack → commit; move on
-[click] B handled
-[click] C handled
-[click] D handled
-[click] A succeeds on retry
-- Next: same-key ordering needs redirect
+- Independent collections
+
+[click]
+- A fails
+
+[click]
+- Retry publish
+- ACK → commit
+
+[click]
+- B handled
+
+[click]
+- C handled
+
+[click]
+- D handled
+
+[click]
+- A retry succeeds
+- Same-key order next
 -->
 
 ---
@@ -1110,65 +1345,81 @@ class: code-lg
 ## What travels with a retry?
 
 ```yaml {all|4|5-6|7-8|9|all}
-topic: disbursements.retry.30m
-key:   transfer-a
+topic: disbursements.retry.5m
+key:   collection-a
 headers:
   retry-count:     "2"
-  original-topic:  disbursements
+  original-topic:  collections
   original-offset: "1842"
   error:           "bank timeout after 30s"
-  retry-at:        "2026-12-18T09:44:03Z"
+  retry-at:        "2026-12-18T10:05:00Z"
   traceparent:     "00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01"
 ```
 
 <!--
-- Same key/value; headers change
-- Full envelope; code below only updates retry-count/copies headers
-- Set origin once; populate error/retry-at/trace explicitly
-[click] Count → next tier / attempt cap
-[click] Original topic + offset → provenance
-[click] Error → investigation; retry-at → due time
-[click] Trace → connect retry hops
+- Same key/value
+- Headers change
+
+[click]
+- Retry count
+- Attempt cap
+
+[click]
+- Original topic/offset
+- Set once
+
+[click]
+- Error context
+- Due time
+
+[click]
+- Trace across retries
+-->
+
+---
+class: diagram-compact
+clicks: 3
+---
+
+<RoughDiagram diagram="dlq" :step="$clicks" talk />
+
+<!--
+- Final retry: disbursements.retry.1h
+- Earlier attempts exhausted
+
+[click]
+- Consume the one-hour retry; bank call still fails
+
+[click]
+- Publish to DLQ; wait for acknowledgement
+
+[click]
+- ACK → commit retry offset
+- No more automatic retries
 -->
 
 ---
 class: diagram-preview-slide
-clicks: 5
+clicks: 2
 ---
 
-<RoughDiagram diagram="retry-handoff" :step="$clicks" talk />
+<DlqBackoffice :step="$clicks" />
 
 <!--
-- Source next offset stays 42
-[click] Publish retry copy
-[click] Kafka acknowledges
-[click] Crash before source commit
-[click] Restart; source replays 42
-[click] Republish; two copies, same event ID/payment key
-- Publish ACK → source commit is not atomic here
+- Inspect failure + original payload
+
+[click]
+- Fix first; bank recovered
+- Confirm replay → retry.5m
+- Same event ID + bank key
+- Fresh retry budget
+
+[click]
+- Publish acknowledged + audit recorded
+- Queued ≠ resolved
+- Success → resolve
+- Respect parked-key order
 -->
-
----
-class: code-fit
----
-
-````md magic-move {at:1, duration:500}
-```go
-kgo.ConsumerGroup("disbursements"),
-kgo.ConsumeTopics(
-    "disbursements.retry.5m",
-    "disbursements.retry.30m",
-),
-kgo.DisableAutoCommit(),
-```
-````
-
-<!--
-- Separate retry group
-- Due-time → same handler
-- Success → commit; failure → route
--->
-
 
 ---
 
@@ -1182,30 +1433,93 @@ clicks: 8
 <RoughDiagram diagram="ordered-retry" :step="$clicks" />
 
 <!--
-- Failed key queues; other keys flow
-[click] A created fails
-[click] Park: retry + `.redirect` entry per event
-[click] A updated queues
-[click] B handled immediately
-[click] A completed queues
-[click] Retry: created succeeds
-[click] updated handled
-[click] completed handled → last tombstone → unpark A
+- Failed key waits
+- Other keys flow
+
+[click]
+- A created fails
+
+[click]
+- Park in retry
+- Add redirect
+
+[click]
+- A updated queues
+
+[click]
+- B handled
+
+[click]
+- A completed queues
+
+[click]
+- Created succeeds
+- Clear redirect
+
+[click]
+- Updated succeeds
+- Clear redirect
+
+[click]
+- Completed succeeds
+- Last null → release A
 -->
 
 ---
+class: diagram-preview-slide
 clicks: 3
 ---
+
+<h2 style="font-size: 42px; line-height: 1.15;">Compaction & tombstones</h2>
+
+<CompactionLog :step="$clicks" />
+
+<!--
+- Redirect topic · Collection A
+- Key: collection + event ID; types stand for event IDs
+
+[click]
+- Created succeeds → append matching null (tombstone)
+
+[click]
+- Compaction removes old created entry; null stays
+- Latest per event ID, not per collection
+- Updated and completed still pending; offsets stay
+
+[click]
+- Created tombstone eventually expires
+- Updated and completed still pending
+- Rebuild state before tombstones expire
+
+[Reference](https://docs.confluent.io/kafka/design/log_compaction.html)
+-->
+
+---
+class: diagram-preview-slide
+clicks: 4
+---
+
+<h2 style="font-size: 42px; line-height: 1.15;">Redirect state</h2>
 
 <RoughDiagram diagram="redirect-compaction" :step="$clicks" />
 
 <!--
-- Parked-key state: all consumers need it
-- Time-based deletion loses state; keep-all grows forever
-[click] Record key = transfer + event; tombstone each entry
-[click] Compaction keeps latest; tombstones eventually expire
-[click] Restart/rebalance → rebuild from topic
-- State ≈ currently waiting events
+- Restart loses local map
+
+[click]
+- Replay three pending IDs
+
+[click]
+- Created clears
+- Two remain
+
+[click]
+- Updated clears
+- Completed still pending
+
+[click]
+- Completed clears
+- Release A
 -->
 
 ---
@@ -1215,197 +1529,6 @@ layout: statement
 # Need per-key order?
 
 Redirect. Otherwise, plain retry.
-
----
-class: diagram-preview-slide
-clicks: 3
----
-
-<RoughDiagram diagram="trace-propagation" :step="$clicks" talk />
-
-<!--
-- One trace; different spans; IDs illustrative
-
-[click]
-- Inject traceparent into Kafka headers
-
-[click]
-- Extract → consumer child span
-
-[click]
-- Pass ctx → bank client span
-- No bank-side instrumentation assumed
--->
-
----
-class: diagram-preview-slide
-clicks: 4
----
-
-<RoughDiagram diagram="trace-waterfall" :step="$clicks" talk />
-
-<!--
-- Illustrative timing
-
-[click]
-- Bank timeout; attempt ends
-
-[click]
-- Five minutes; no open span
-
-[click]
-- New trace links failed attempt
-
-[click]
-- Bank succeeds; same payment key
-- Links need backend support
--->
-
----
-class: code-fit
----
-
-````md magic-move {at:1, duration:500}
-```go
-// Producer
-headers := propagation.MapCarrier{}
-propagation.TraceContext{}.Inject(ctx, headers)
-for key, value := range headers {
-    r.Headers = setHeader(r.Headers, key, value)
-}
-```
-```go
-// Consumer
-headers := propagation.MapCarrier{}
-for _, h := range r.Headers {
-    headers[h.Key] = string(h.Value)
-}
-ctx = propagation.TraceContext{}.Extract(ctx, headers)
-```
-````
-
-<!--
-- Active span; inject → headers
-
-[click]
-- Headers → extract; use ctx for consumer span
--->
-
----
-class: diagram-compact
----
-
-<div class="retry-overview dlq-flow">
-
-<RoughDiagram diagram="dlq" :step="$clicks" talk />
-
-<div class="retry-captions" style="grid-template-columns: repeat(4, minmax(0, 1fr));">
-  <div v-click.fade-in="1" class="retry-step retry-publish">
-    <strong>1. Next retry tier</strong>
-    <p>5m fails → count 2 → 30m.</p>
-  </div>
-  <div v-click.fade-in="2" class="retry-step retry-failure">
-    <strong>2. Retries exhausted</strong>
-    <p>30m fails → count 3. Stop retrying.</p>
-  </div>
-  <div v-click.fade-in="3" class="retry-step retry-failure">
-    <strong>3. Publish to DLQ</strong>
-    <p>Keep Transfer A for investigation.</p>
-  </div>
-  <div v-click.fade-in="4" class="retry-step retry-commit">
-    <strong>4. Commit retry offset</strong>
-    <p>After DLQ acknowledgement.</p>
-  </div>
-</div>
-
-</div>
-
-<!--
-- A: .retry.5m, count 1; budget 3
-
-[click]
-- 5m fails → count 2 → .retry.30m
-- Ack → commit 5m source
-
-[click]
-- 30m fails → count 3; budget exhausted
-
-[click]
-- Publish DLQ; preserve key/context
-
-[click]
-- DLQ ack → commit 30m source
-- Inspect → fix → replay
--->
-
----
-class: diagram-preview-slide
-clicks: 4
----
-
-<RoughDiagram diagram="dlq-recovery" :step="$clicks" style="flex-shrink: 0;" talk />
-
-<!--
-- DLQ ≠ resolved
-
-[click]
-- Investigate; event stays parked
-
-[click]
-- Fix + deploy
-
-[click]
-- Approve + audit replay; same IDs
-
-[click]
-- Same handler/bank key
-- Success → resolve; respect parked-key order
--->
-
----
-class: code-fit
----
-
-````md magic-move {at:1, duration:500}
-```go
-if isPermanent(handleErr) {
-    return publishDLQAndCommit(ctx, client, r, handleErr)
-}
-
-attempt := retryCount(r) + 1
-if attempt >= maxAttempts {
-    return publishDLQAndCommit(ctx, client, r, handleErr)
-}
-```
-```go
-// Replace the retry-count header.
-headers := setHeader(r.Headers, "retry-count", strconv.Itoa(attempt))
-```
-```go
-// In reality this isn't hardcoded
-topic := "disbursements.retry.5m"
-err := client.ProduceSync(ctx, &kgo.Record{
-    Topic:   topic,
-    Key:     r.Key,
-    Value:   r.Value,
-    Headers: headers,
-}).FirstErr()
-```
-```go
-// do not commit if retry publish failed
-if err != nil { return err }
-return client.CommitRecords(ctx, r)
-```
-````
-
-<!--
-- Permanent/exhausted → DLQ; transient → retry
-- Bad JSON: permanent; wrapped errors: errors.As
-- Timeout: unknown outcome; same bank key
-- Poison-pill panic: replay loop; capture stack + alert
-- DLQ by explicit policy, not every panic
-- Count → tier; publish ack → commit; preserve IDs
--->
 
 ---
 
@@ -1420,11 +1543,11 @@ return client.CommitRecords(ctx, r)
 clicks: 3
 ---
 
-<div class="diagram-explanation">
+<div class="retry-overview">
 
 <RoughDiagram diagram="dual-write" :step="$clicks" talk />
 
-<div class="retry-captions">
+<div class="retry-captions" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
   <div v-click.fade-in="1" v-show="$clicks < 3" class="retry-step retry-commit">
     <strong>1. DB committed</strong>
     <p>Collection completion is saved.</p>
@@ -1433,7 +1556,7 @@ clicks: 3
     <strong>2. Publication fails</strong>
     <p>Event not published.</p>
   </div>
-  <div v-show="$clicks >= 3" class="retry-step retry-failure">
+  <div v-show="$clicks >= 3" class="retry-step retry-failure" style="grid-column: 1 / -1;">
     <strong>3. Publish first?</strong>
     <p>DB write fails → ghost event.</p>
     <p>Either order breaks.</p>
@@ -1452,59 +1575,46 @@ clicks: 3
 - Kafka fails → missing event
 
 [click]
-- Publish first + DB fails → ghost event
-- Neither order safe → outbox
+- Publish first: ghost event
+- Neither order safe
+- Outbox
 -->
+
 ---
 class: diagram-compact
-clicks: 4
+clicks: 6
 ---
-
-<div class="diagram-explanation">
 
 <RoughDiagram diagram="outbox" :step="$clicks" talk />
 
-<div class="retry-captions">
-  <div v-if="$clicks === 0" class="retry-step retry-commit">
-    <strong>Save state + event together</strong>
-    <p>One DB transaction, then relay to Kafka.</p>
-  </div>
-  <div v-else-if="$clicks === 1" class="retry-step retry-commit">
-    <strong>1. Commit together</strong>
-    <p>State and the Transfer A outbox row are saved atomically.</p>
-  </div>
-  <div v-else-if="$clicks === 2" class="retry-step retry-failure">
-    <strong>2. Relay crashes</strong>
-    <p>Nothing published yet. The outbox row is still there.</p>
-  </div>
-  <div v-else-if="$clicks === 3" class="retry-step retry-commit">
-    <strong>3. Restart and publish</strong>
-    <p>The relay reads the saved row and publishes Transfer A.</p>
-  </div>
-  <div v-else class="retry-step retry-commit">
-    <strong>4. Handle the event</strong>
-    <p>Disbursements handles Transfer A. The event survived the crash.</p>
-  </div>
-</div>
-
-</div>
+<p v-show="$clicks >= 5" style="font-size: 24px; margin: 0;">Alternative: crash after Kafka ACK, before delete commits.</p>
 
 <!--
-- DB: state + event atomic; Kafka publish separate
+- DB transaction
+- Kafka outside it
 
 [click]
-- Both commit, or neither
+- Update + outbox insert
+- Both or neither
 
 [click]
-- Relay crashes; outbox row survives
+- Relay polls committed rows
 
 [click]
-- Restart → publish saved event
-- Crash after publish can duplicate
+- Publish → ACK
 
 [click]
-- Disbursements handles A
-- No lost-event gap; still need idempotency
+- Delete → DB commit
+- Publish failure: keep row
+
+[click]
+- Crash after ACK
+- Row still pending
+
+[click]
+- Republish same IDs
+- Duplicates possible
+- Idempotent consumer
 -->
 
 ---
@@ -1512,7 +1622,7 @@ class: code-fit
 ---
 
 ````md magic-move {at:1, duration:500}
-```go
+```go {1,3-4,8-9,14|5,10-12}
 err := pgx.BeginFunc(ctx, db, func(tx pgx.Tx) error {
     tag, err := tx.Exec(ctx,
         `UPDATE collections SET status='completed'
@@ -1531,51 +1641,12 @@ err := pgx.BeginFunc(ctx, db, func(tx pgx.Tx) error {
 ````
 
 <!--
-- Charge already confirmed
-- Update + insert: commit/rollback together
--->
-
----
-
-<div class="retry-overview">
-
-<RoughDiagram diagram="relay-shapes" :step="$clicks" talk />
-
-<div class="retry-captions">
-  <div v-click.fade-in="1" class="retry-step retry-publish">
-    <strong>1. Publish</strong>
-    <p>Poll durable outbox rows.</p>
-  </div>
-  <div v-click.fade-in="2" class="retry-step retry-commit">
-    <strong>2. Delete + commit</strong>
-    <p>After Kafka acknowledgement.</p>
-  </div>
-  <div v-click.fade-in="3" class="retry-step retry-failure">
-    <strong>3. Keep + retry</strong>
-    <p>Publish fails: keep the row.</p>
-  </div>
-  <div v-click.fade-in="4" class="retry-step retry-failure">
-    <strong>4. Duplicate risk</strong>
-    <p>Crash before commit: may publish twice.</p>
-  </div>
-</div>
-
-</div>
-
-<!--
-- Outbox relay
+- Charge confirmed
+- Update + insert together
 
 [click]
-- Lock → publish
-
-[click]
-- Delete → commit
-
-[click]
-- Failure → rollback/retry
-
-[click]
-- Crash after publish → duplicate
+- Update argument: collection ID
+- Outbox arguments: topic, key, serialized event
 -->
 
 ---
@@ -1585,13 +1656,12 @@ class: code-lg
 <div class="code-focus" :style="{ '--focus-start': [5, 1, 1, 2, 8][Math.min($clicks, 4)], '--focus-lines': 1 }">
 
 ````md magic-move {at:1, duration:500}
-```go {6}
+```go
 const pollOutbox = `
 SELECT id, topic, key, value, headers
 FROM outbox
 ORDER BY created_at
-LIMIT $1
-FOR UPDATE SKIP LOCKED`
+LIMIT $1`
 ```
 ```go {2}
 // Inside pgx.BeginFunc: errors roll back the transaction.
@@ -1640,23 +1710,25 @@ for {
 </div>
 
 <!--
-- Excerpts: batch inside pgx.BeginFunc
-- SKIP LOCKED: relays claim different rows
+- Batch inside transaction
+- SKIP LOCKED: separate rows
 
 [click]
-- Transaction: lock + read; error → rollback
+- Lock + read
+- Error → rollback
 
 [click]
-- Each row: publish → wait for ack
-- Publish fails → keep row
+- Publish → ACK
+- Failure: keep row
 
 [click]
-- Delete after ack; nil → DB commit
-- Crash before DB commit → duplicate risk
+- Delete → DB commit
+- Crash gap → duplicate
 
 [click]
-- Poll delay; cancellation exits
-- Concurrent relays can reorder
+- Poll delay
+- Cancellation exits
+- Relays can reorder
 -->
 
 ---
@@ -1677,20 +1749,73 @@ clicks: 3
 
 <!--
 - Illustrative metrics
-- Lag: exclusive log end 47 − committed next 42 = 5
-- Includes in-flight / commit-pending work
+- Lag: 47 − 42 = 5
+- Includes in-flight work
 
 [click]
-- Oldest unpublished: 09:00 → 09:05 = 5m
-- Rising age → relay trouble
+- Outbox age: 5m
+- Rising → relay trouble
 
 [click]
-- Backlog 12 ≠ retry-count header
-- Due times; arrival/drain + routing rates
+- Backlog ≠ attempt count
+- Watch due times/drain rate
 
 [click]
-- DLQ: unresolved work, not retained topic size
-- Inspect → fix → deliberate replay
+- DLQ: unresolved work
+- Inspect → fix → replay
+-->
+
+---
+clicks: 4
+---
+
+<figure class="tempo-recovery">
+  <div class="tempo-waterfall">
+    <div class="tempo-pan" :style="{ transform: $clicks > 0 ? `translateY(${50 - 1.6 * [15, 69, 80.8125, 92.625][Math.min($clicks, 4) - 1]}%) scale(1.6)` : 'none' }">
+    <img src="/tempo-recovery/tempo-recovery.png" alt="One Grafana Tempo trace with all 28 recovery spans: initial bank timeout, 5m/15m/30m/1h retries, DLQ publication, audited manual replay, successful payment, offset commit and DLQ resolution" />
+    <div
+      v-if="$clicks > 0"
+      class="tempo-spotlight"
+      aria-hidden="true"
+      :style="{ top: ['8.25%', '62.25%', '75.75%', '85.875%'][Math.min($clicks, 4) - 1], height: ['13.5%', '13.5%', '10.125%', '13.5%'][Math.min($clicks, 4) - 1] }"
+    ></div>
+    </div>
+    <div v-if="$clicks > 0" class="tempo-time-window" aria-hidden="true">
+      <div class="tempo-pan" :style="{ transform: `translate(${[-768, -1340, -1488, -1488][Math.min($clicks, 4) - 1]}px, ${(50 - 1.6 * [15, 69, 80.8125, 92.625][Math.min($clicks, 4) - 1]) * 6.3}px) scale(1.6)` }">
+        <img src="/tempo-recovery/tempo-recovery.png" alt="" />
+        <div class="tempo-spotlight" :style="{ top: ['8.25%', '62.25%', '75.75%', '85.875%'][Math.min($clicks, 4) - 1], height: ['13.5%', '13.5%', '10.125%', '13.5%'][Math.min($clicks, 4) - 1] }"></div>
+      </div>
+    </div>
+  </div>
+</figure>
+
+<style>
+.tempo-recovery { width: 1200px; margin: 0; text-align: left; }
+.tempo-recovery img { display: block; width: 1200px; height: 630px; max-width: 100%; max-height: none; margin: 0; object-fit: contain; box-shadow: none; }
+.tempo-waterfall { position: relative; height: 630px; overflow: hidden; }
+.tempo-pan { position: relative; width: 1200px; transform-origin: left top; transition: transform 400ms ease; }
+/* Pan the time pane independently, keeping span names and their bars in view. */
+.tempo-time-window { position: absolute; top: 0; bottom: 0; left: 64%; right: 0; overflow: hidden; background: #11111b; }
+/* Bands and zoom centers match the rows in the fixed Tempo capture. */
+.tempo-spotlight { position: absolute; left: 0; right: 0; border: 2px solid #89b4fa; box-shadow: 0 0 0 2000px rgba(17,17,27,.72); pointer-events: none; transition: top 250ms ease, height 250ms ease; }
+@media (prefers-reduced-motion: reduce) { .tempo-pan, .tempo-spotlight { transition: none; } }
+</style>
+
+<!--
+- One trace; same event ID + bank key
+- Synthetic example; waits compressed
+
+[click]
+- Timeout → retry publish ACK → commit
+
+[click]
+- Final 1h retry → DLQ → commit
+
+[click]
+- Fix → approve replay → retry.5m
+
+[click]
+- Payment succeeds → commit → resolve
 -->
 
 ---
@@ -1722,6 +1847,8 @@ clicks: 3
 
 ## Appendix
 
-* <https://www.gentlydownthe.stream/> — Kafka, illustrated
-
-
+* [Gently Down the Stream](https://www.gentlydownthe.stream/) — Kafka, illustrated
+* [Error Handling Patterns in Kafka](https://www.confluent.io/blog/error-handling-patterns-in-kafka/)
+* [Several Event Types in One Kafka Topic](https://www.confluent.io/blog/put-several-event-types-kafka-topic/)
+* [Video & playlist](https://www.youtube.com/watch?v=j4bqyAMMb7o&list=PLa7VYi0yPIH0KbnJQcMv5N9iW8HkZHztH)
+* [franz-go](https://github.com/twmb/franz-go) — Go Kafka client

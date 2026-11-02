@@ -1,21 +1,39 @@
 // Click-indexed snapshots: navigating backwards restores the entire demo.
 
+export const retryDelays = ['5m', '15m', '30m', '1h']
+export const retryMinutes = [0, 5, 20, 50, 110]
+export function retryClock(minutes: number) {
+  const seconds = 10 * 3600 + minutes * 60
+  return [Math.floor(seconds / 3600), Math.floor(seconds / 60) % 60, seconds % 60]
+    .map(value => String(value).padStart(2, '0')).join(':')
+}
+export function retryProgressState(step: number) {
+  const finalStep = retryDelays.length * 3 + 1
+  const s = Math.max(0, Math.min(step, finalStep))
+  const index = Math.min(Math.floor((Math.max(1, s) - 1) / 3), retryDelays.length - 1)
+  const beat = s === 0 ? 'fail' : s >= finalStep ? 'dlq' : ['publish', 'consume', 'fail'][(s - 1) % 3]
+  const fraction = beat === 'publish' ? 0 : 1
+  const progress = s === 0 ? 0 : s >= finalStep ? retryDelays.length : index + fraction
+  const minutes = s === 0 ? 0 : retryMinutes[index] + (retryMinutes[index + 1] - retryMinutes[index]) * fraction
+  return { index, beat, progress, now: retryClock(minutes), due: retryClock(retryMinutes[index + 1]), dlq: s >= finalStep }
+}
+
 const orderedRetryRecords = [
-  { id: 'or-0', key: 'transfer-a', type: 'created', offset: 0 },
-  { id: 'or-1', key: 'transfer-a', type: 'updated', offset: 1 },
-  { id: 'or-2', key: 'transfer-b', type: 'created', offset: 2 },
-  { id: 'or-3', key: 'transfer-a', type: 'completed', offset: 3 },
+  { id: 'or-0', key: 'collection-a', type: 'created', offset: 0 },
+  { id: 'or-1', key: 'collection-a', type: 'updated', offset: 1 },
+  { id: 'or-2', key: 'collection-b', type: 'created', offset: 2 },
+  { id: 'or-3', key: 'collection-a', type: 'completed', offset: 3 },
 ]
 const orderedRetryCaptions = [
   'One partition · two keys',
-  'transfer-a created fails',
+  'collection-a created fails',
   'Park created · add redirect',
   'updated queues behind created',
-  'transfer-b runs normally',
+  'collection-b runs normally',
   'completed joins the line',
   'created handled · tombstone',
   'updated handled · tombstone',
-  'transfer-a keeps order: 0 → 1 → 3',
+  'collection-a keeps order: 0 → 1 → 3',
 ]
 
 export function orderedRetryState(step: number) {
@@ -49,19 +67,19 @@ export function orderedRetryState(step: number) {
 }
 
 const unorderedRetryRecords = [
-  { id: 'or-0', key: 'transfer-a', type: 'completed', offset: 0 },
-  { id: 'or-1', key: 'transfer-b', type: 'completed', offset: 1 },
-  { id: 'or-2', key: 'transfer-c', type: 'completed', offset: 2 },
-  { id: 'or-3', key: 'transfer-d', type: 'completed', offset: 3 },
+  { id: 'or-0', key: 'collection-a', type: 'completed', offset: 0 },
+  { id: 'or-1', key: 'collection-b', type: 'completed', offset: 1 },
+  { id: 'or-2', key: 'collection-c', type: 'completed', offset: 2 },
+  { id: 'or-3', key: 'collection-d', type: 'completed', offset: 3 },
 ]
 const unorderedRetryCaptions = [
-  'One partition · four transfers',
-  'transfer-a handling fails',
+  'One partition · four collections',
+  'collection-a handling fails',
   '.retry.5m · commit and continue',
-  'transfer-b handled',
-  'transfer-c handled',
-  'transfer-d handled',
-  'transfer-a retried · all handled',
+  'collection-b handled',
+  'collection-c handled',
+  'collection-d handled',
+  'collection-a retried · all handled',
 ]
 
 export function unorderedRetryState(step: number) {
