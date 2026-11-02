@@ -63,7 +63,7 @@ Use a URL status checker throughout. No live internet or audience Go setup requi
 
 </div>
 
-<div class="small toc-tail">Then 90 seconds of questions · four appendices to browse later.</div>
+<div class="small toc-tail">Then 90 seconds of questions · six appendices to browse later.</div>
 
 <!--
 00:30–01:00 · 30 seconds
@@ -780,6 +780,66 @@ Hello-world binary: ~16 KB in C (dynamically linked — libc ships with the OS) 
 log/slog (Go 1.21+): key-value logs; JSON via slog.NewJSONHandler. gofmt, vet, go test ship with the toolchain.
 SQL: database/sql is stdlib; sqlc generates type-safe Go from plain SQL.
 Mocks: small interface, tiny hand-rolled fake — or testify-style mocks via mockery.
+-->
+
+---
+
+## Appendix · defer: your `with` block
+
+```go
+defer resp.Body.Close()  // cleanup attaches to function exit
+defer cancel()           // LIFO unwind — nested with blocks, reversed
+```
+
+<v-clicks>
+
+- Like `with` — but attached to the function, not a block
+- Arguments evaluated now; runs at return
+- Panic still runs your defers — like `finally`
+- The pool's lifecycle hooks: `wg.Done()`, `close(jobs)`
+
+</v-clicks>
+
+<!--
+Untimed appendix.
+Python bridge: with / try-finally — but scoped to the whole function, not a block; arguments are evaluated immediately, the call runs at return.
+LIFO unwind = nested with blocks in reverse.
+The pool leans on it everywhere: defer cancel(), defer wg.Done(), defer close(jobs), defer resp.Body.Close() — one line of lifecycle each.
+Classic trap: defer inside a loop piles up until the function ends — the producer closes its channels after the loop, not per iteration.
+-->
+
+---
+
+## Appendix · interfaces: static duck typing
+
+```go
+type Stringer interface {
+    String() string
+}
+
+// match the method set — that satisfies it, no implements keyword
+func (u URL) String() string { return u.name }
+```
+
+<v-clicks>
+
+- Duck typing, but checked at compile time
+- Python's `typing.Protocol` — but idiomatic
+- Accept interfaces, return concrete types
+- `error` is an interface — hence `errors.Is`
+
+</v-clicks>
+
+<div class="small mt-4"><code>fmt.Println(u)</code> calls it — Python's <code>__str__</code>, statically</div>
+
+<!--
+Untimed appendix.
+The bridge: Python ducks at runtime, typing.Protocol types statically — Go is Protocol-everywhere; satisfaction is implicit and compile-checked.
+Method-set rules: a pointer receiver satisfies only through the pointer — the classic tripwire.
+Small stdlib interfaces compose: io.Reader, io.Writer, http.Handler — the middleware seam.
+Idiom: accept interfaces, return concrete types; define interfaces at the consumer, one or two methods.
+error is an interface — the machinery under errors.Is/As from the error slide.
+Fakes: small interface + hand-rolled fake, or mockery generates mocks.
 -->
 
 ---

@@ -3,7 +3,7 @@
 A 30-minute talk for Python developers with little Go experience. One finite URL
 status-checking batch grows from sequential Python into a bounded, cancellable
 Go worker pool. Speaker notes contain contiguous time windows: 28 minutes
-30 seconds of prepared material and 90 seconds of Q&A. The final four slides
+30 seconds of prepared material and 90 seconds of Q&A. The final six slides
 are untimed appendices.
 
 ## Preview
