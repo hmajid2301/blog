@@ -65,6 +65,7 @@ content/slides/*/dist/
 content/slides/*/.slidev/
 # Generated Slidev build output (matches source directory name)
 static/slides/go-labs-eda-go-kafka/
+static/slides/python-to-go-concurrency/
 # Old generated Slidev output path (kept during transition)
 static/slides/*-slidev/
 /.glciconfig.toml
