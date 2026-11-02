@@ -62,6 +62,9 @@ presented pool is the code being tested. Early snippets are deliberately scoped
 teaching stages, not independent programs. `Run` requires a non-nil context and
 HTTP client; the standard transport observes cancellation.
 
+Content slides carry a chapter footer — the five agenda stops, filling in
+as the talk progresses — driven by `layouts/default.vue`.
+
 The runnable demo takes its parent context from `os/signal.NotifyContext`: the
 first Ctrl+C (or SIGTERM) cancels the batch gracefully and prints partial
 results; a second Ctrl+C is absorbed until the run finishes.

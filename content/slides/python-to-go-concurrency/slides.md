@@ -68,7 +68,7 @@ Use a URL status checker throughout. No live internet or audience Go setup requi
 <!--
 00:30–01:00 · 30 seconds
 Timed. Point, don't read: five stops — mental model, channels + ownership, the safe pool with its live demo, load + shared state, then pitfalls and a recap.
-Minute boundaries stay in the roadmap cue: model to 9:00, channels to 15:30, pool to 24:30, load to 25:30, recap to 28:30.
+Minute boundaries stay in the roadmap cue: model to 9:00, channels to 15:30, pool to 24:30, load to 26:30, recap to 28:30.
 -->
 
 ---
@@ -92,7 +92,7 @@ Check a batch of service URLs.
 Say: your Python health-check script now needs to check hundreds of internal URLs.
 Success is a report with individual failures, not an all-or-nothing transaction.
 Reveal the three constraints. They are our acceptance criteria, not optional polish.
-Roadmap: mental model to minute 9; channels and ownership to 15:30; a safe pool to 24:30; what happens under load to 25:30; pitfalls and recap to 28:30; 90 seconds for questions.
+Roadmap: mental model to minute 9; channels and ownership to 15:30; a safe pool to 24:30; what happens under load to 26:30; pitfalls and recap to 28:30; 90 seconds for questions.
 -->
 
 ---

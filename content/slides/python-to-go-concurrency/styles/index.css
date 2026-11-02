@@ -21,3 +21,8 @@
 .slidev-layout .toc-item { font-size: 34px; line-height: 1.2; }
 .slidev-layout .toc-num { font-family: 'MonoLisa', 'Noto Sans Mono', 'Liberation Mono', monospace; font-size: 28px; color: var(--ctp-blue); margin-right: 24px; }
 .slidev-layout .toc-tail { margin-top: 32px; }
+/* Chapter story footer: the five agenda stops, on content slides only. */
+.slidev-layout .chapter-footer { position: absolute; left: 48px; bottom: 12px; display: flex; align-items: center; gap: 14px; opacity: 0.55; }
+.slidev-layout .chapter-footer .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--ctp-surface1); }
+.slidev-layout .chapter-footer .dot.on { background: var(--ctp-blue); }
+.slidev-layout .chapter-footer .chapter-label { font-family: 'MonoLisa', 'Noto Sans Mono', 'Liberation Mono', monospace; font-size: 16px; color: var(--ctp-subtext0); }
