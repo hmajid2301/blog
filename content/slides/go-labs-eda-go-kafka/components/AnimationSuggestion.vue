@@ -281,7 +281,7 @@ function partitionPosition(index: number, cooperative: boolean) {
         <g v-for="(async, row) in [false, true]" :key="row" :transform="`translate(0, ${row * 190})`">
           <text x="25" y="30" :class="async ? 'success' : 'muted'">{{ async ? 'Event-driven · failure is contained' : 'Synchronous · failure travels upstream' }}</text>
           <ReviewSketch d="M 220 115 H 880" class="lifeline" />
-          <g v-for="(label, i) in (async ? ['Collections', 'Kafka', 'Disbursements', 'Bank'] : ['Customer', 'Collections', 'Disbursements', 'Bank'])" :key="label">
+          <g v-for="(label, i) in (async ? ['Collections', 'Kafka', 'Disbursements', 'Bank'] : ['App', 'Collections', 'Disbursements', 'Bank'])" :key="label">
             <ReviewSketch :x="25 + i * 285" y="70" width="195" height="90" :queue="async && i === 1" :class="i === 3 && phase >= 1 || !async && i === 2 && phase >= 2 || !async && i === 1 && phase >= 3 ? 'box danger' : (async && i > 0 && i < 3 && phase >= 2) || (!async && i === 0 && phase >= 3) ? 'box pending' : 'box success'" />
             <text :x="122 + i * 285" y="108" text-anchor="middle">{{ label }}</text>
             <text :x="122 + i * 285" y="140" text-anchor="middle" class="small">{{ i === 3 && phase >= 1 ? 'unavailable' : i === 2 && phase >= 2 ? (async ? 'payouts wait' : 'blocked') : i === 1 && phase >= 3 ? (async ? 'work retained' : 'timeouts') : async && i === 0 ? 'keeps charging' : !async && i === 0 && phase >= 3 ? 'waiting' : 'healthy' }}</text>

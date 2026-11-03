@@ -102,11 +102,10 @@ layout: statement
 
 Imagine 1,000 payouts waiting.
 
-Same synchronous chain.
+<!-- Source: https://giphy.com/gifs/cat-cute-Yvx5ejoI6JqzC -->
+<img src="/christmas-cat.gif" alt="Grumpy orange cat wearing a Santa hat" style="height: 270px; width: auto; display: block; margin: 28px auto 0; border-radius: 12px;" />
 
 <!--
-- Holiday rush
-- Bank down?
 -->
 
 ---
@@ -408,10 +407,17 @@ class: diagram-preview-slide
 
 ---
 class: diagram-preview-slide
-clicks: 2
+clicks: 3
 ---
 
-<RoughDiagram diagram="producer-consumer" :step="$clicks" talk />
+<RoughDiagram diagram="producer-consumer" :step="Math.min($clicks, 2)" talk />
+
+<!-- Source: https://giphy.com/gifs/cat-food-pizza-mZWAgG8U4sXzW -->
+<img v-click="3" v-show="$clicks >= 3" class="consumer-cat" src="/consumer-cat.gif" alt="A hungry cat consuming pizza" />
+
+<style>
+.slidev-layout .consumer-cat { position: absolute; right: 90px; bottom: 24px; width: 220px; height: 140px; max-height: none; margin: 0; }
+</style>
 
 <!--
 - Collections produces
@@ -423,6 +429,9 @@ clicks: 2
 [click]
 - Consume
 - Kafka keeps record
+
+[click]
+- Hungry consumer
 -->
 
 ---
@@ -458,9 +467,9 @@ clicks: 4
 ## Why franz-go?
 
 <ul class="franz-main-reasons">
-  <li v-click="1"><strong style="color: #94e2d5;">Pure Go</strong> no CGO</li>
-  <li v-click="2"><strong style="color: #cba6f7;">Idiomatic API</strong> contexts and errors</li>
-  <li v-click="3"><strong style="color: #89b4fa;">Well Supported</strong> KIP supported</li>
+  <li v-click="1"><strong style="color: #94e2d5;">Pure Go</strong>: No CGO</li>
+  <li v-click="2"><strong style="color: #cba6f7;">Idiomatic API</strong>: contexts and errors</li>
+  <li v-click="3"><strong style="color: #89b4fa;">Well Supported</strong>: KIPs Implemented</li>
 </ul>
 
 <div v-click="4" class="franz-extras">
@@ -514,7 +523,7 @@ class: code-lg
 ---
 
 
-<div class="code-focus" :style="{ '--focus-start': $clicks < 2 ? 2 : 1, '--focus-lines': $clicks < 2 ? 1 : 4 }">
+<div class="code-focus" :style="{ '--focus-start': $clicks < 2 ? 2 : $clicks < 4 ? 1 : 4, '--focus-lines': $clicks < 2 || $clicks >= 4 ? 1 : 3 }">
 
 ````md magic-move {at:1, duration:500}
 ```go {all|3}
@@ -555,6 +564,8 @@ err := client.ProduceSync(ctx, &kgo.Record{
 class: code-fit
 ---
 
+<div class="code-focus" :style="{ '--focus-start': [2, 1, 6, 6, 0, 3, 6][Math.min($clicks, 6)], '--focus-lines': [1, 1, 4, 5, 1, 2, 5][Math.min($clicks, 6)] }">
+
 ````md magic-move {at:1, duration:500}
 ```go {3}
 client, err := kgo.NewClient(
@@ -593,7 +604,7 @@ for _, r := range fetches.Records() {
     }
 }
 ```
-```go {7-11}
+```go {1|4-5|7-11}
 func handleCollectionCompleted(
     ctx context.Context, r *kgo.Record,
 ) error {
@@ -608,6 +619,8 @@ func handleCollectionCompleted(
 }
 ```
 ````
+
+</div>
 
 <!--
 - Subscribe
@@ -779,6 +792,8 @@ clicks: 3
 class: code-fit
 ---
 
+<div class="code-focus" :style="{ '--focus-start': [3, 3, 3, 0, 1, 4, 5, 6, 7][Math.min($clicks, 8)], '--focus-lines': $clicks === 0 ? 2 : 1 }">
+
 ````md magic-move {at:1, duration:500}
 ```go {4-5}
 client, err := kgo.NewClient(
@@ -823,6 +838,8 @@ if err != nil { return err }
 ```
 ````
 
+</div>
+
 <!--
 - NoAck: sent on wire; no broker reply
 - NoAck and LeaderAck require disabling producer idempotency
@@ -859,10 +876,22 @@ if err != nil { return err }
 
 ---
 class: diagram-compact
-clicks: 3
+clicks: 4
 ---
 
 <RoughDiagram diagram="consumer-scaling" :step="$clicks" talk />
+
+<!-- Source: https://giphy.com/gifs/cat-sad-TZBED1pP5m8N2 -->
+<figure v-click="4" v-show="$clicks >= 4" class="idle-cat">
+  <img src="/idle-cat.gif" alt="Sad cat waiting with no work, like idle Consumer 4" />
+  <figcaption>No work for me…</figcaption>
+</figure>
+
+<style>
+.slidev-layout .idle-cat { position: absolute; left: 47%; top: 70%; width: 180px; margin: 0; }
+.slidev-layout .idle-cat img { width: 180px; height: 110px; margin: 0; }
+.idle-cat figcaption { margin-top: 8px; font-family: 'Patrick Hand', cursive; font-size: 22px; color: #a6adc8; }
+</style>
 
 <!--
 - One owner per partition/group
@@ -876,6 +905,9 @@ clicks: 3
 
 [click]
 - Consumer 4 idle; partition limit
+
+[click]
+- No work for Consumer 4
 -->
 
 ---
@@ -971,6 +1003,8 @@ clicks: 2
 class: code-fit
 ---
 
+<div class="code-focus" :style="{ '--focus-start': $clicks === 0 ? 1 : 5, '--focus-lines': 3 }">
+
 ````md magic-move {at:1, duration:500}
 ```go {2-4}
 for _, r := range fetches.Records() {
@@ -991,6 +1025,8 @@ for _, r := range fetches.Records() {
 }
 ```
 ````
+
+</div>
 
 <!--
 - Handle first
@@ -1072,6 +1108,16 @@ clicks: 3
 - Original result returned
 - Commit
 - Prevent, not undo
+-->
+
+---
+
+<img src="/idempotency-meme.jpg" alt="Robin: I got the same platform event twice, so I processed it twice! Batman: Implement idempotency!" style="height: 580px; width: auto; max-width: 100%; object-fit: contain;" />
+
+<!--
+- Duplicate delivery is expected; duplicate side effects are not.
+- Reuse the same bank idempotency key on the first attempt and every replay.
+- Source: https://media.beehiiv.com/cdn-cgi/image/fit=scale-down,format=auto,onerror=redirect,quality=80/uploads/asset/file/a34ee0f8-2e26-4d34-a7bd-69effda29cd7/0123xcnkaljdfioquoer.jpg?t=1749255663
 -->
 
 ---
@@ -1217,9 +1263,17 @@ defer client.CloseAllowingRebalance()
 ```
 
 <!--
-- Auto-commit off; block rebalance during work
-- 10s processing budget < 30s rebalance timeout
-- Close only after processing returns
+- Finish work and commit before partitions move
+- DisableAutoCommit: commit manually after successful handling
+- BlockRebalanceOnPoll: delay reassignment until AllowRebalance
+- RebalanceTimeout: 30s rebalance budget, not a bank-call timeout
+- Keep processing + commit comfortably below 30s; aim for 10s
+- Blocking too long can get this consumer removed
+- Poll → process → commit → AllowRebalance → repeat
+- CloseAllowingRebalance: unblock rebalancing and close on exit
+- Finish processing and manual commits before closing
+- This slide configures the client; the loop is elsewhere
+- Still need idempotency: bank paid + crash before commit → replay
 -->
 
 ---
@@ -1427,6 +1481,49 @@ clicks: 2
 
 ---
 class: diagram-preview-slide
+clicks: 4
+---
+
+<h2 style="font-size: 42px; line-height: 1.15;">Compaction & tombstones</h2>
+
+<CompactionLog :step="$clicks" />
+
+<!-- Source: https://tenor.com/view/squeezed-into-a-bowl-viralhog-get-inside-the-bowl-if-i-fit-i-sit-flexible-gif-25084225 -->
+<img v-click="4" v-show="$clicks >= 4" class="compaction-cat" src="/compaction-cat.gif" alt="A cat squeezing itself into a small glass bowl" />
+
+<style>
+.slidev-layout .compaction-cat { position: absolute; right: 80px; top: 220px; width: 180px; height: 280px; max-height: none; margin: 0; }
+</style>
+
+<!--
+- Latest value per key
+- Redirect topic · Collection A
+- Key: collection + event ID
+
+[click]
+- Created succeeds → append matching null (tombstone)
+- Same key: collection-a:evt-1
+- Null clears live state; no need to wait for compaction
+
+[click]
+- Background cleanup; not immediate
+- Compaction removes old created entry; null stays
+- Latest per event ID, not per collection
+- Updated and completed still pending; offsets stay
+
+[click]
+- Created tombstone eventually expires
+- Updated and completed still pending
+- Rebuild state before tombstones expire
+
+[click]
+- Cat compaction
+
+[Reference](https://docs.confluent.io/kafka/design/log_compaction.html)
+-->
+
+---
+class: diagram-preview-slide
 clicks: 8
 ---
 
@@ -1463,35 +1560,6 @@ clicks: 8
 [click]
 - Completed succeeds
 - Last null → release A
--->
-
----
-class: diagram-preview-slide
-clicks: 3
----
-
-<h2 style="font-size: 42px; line-height: 1.15;">Compaction & tombstones</h2>
-
-<CompactionLog :step="$clicks" />
-
-<!--
-- Redirect topic · Collection A
-- Key: collection + event ID; types stand for event IDs
-
-[click]
-- Created succeeds → append matching null (tombstone)
-
-[click]
-- Compaction removes old created entry; null stays
-- Latest per event ID, not per collection
-- Updated and completed still pending; offsets stay
-
-[click]
-- Created tombstone eventually expires
-- Updated and completed still pending
-- Rebuild state before tombstones expire
-
-[Reference](https://docs.confluent.io/kafka/design/log_compaction.html)
 -->
 
 ---
@@ -1582,12 +1650,24 @@ clicks: 3
 
 ---
 class: diagram-compact
-clicks: 6
+clicks: 7
 ---
+
+<div class="outbox-heading">
+  <h2>Transactional Outbox Pattern</h2>
+  <!-- Source: https://giphy.com/gifs/maru-cat-jumping-wQI5H4jtqZEPK -->
+  <img v-click="7" v-show="$clicks >= 7" src="/outbox-cat-jump.gif" alt="Maru the cat jumping into a cardboard box" />
+</div>
 
 <RoughDiagram diagram="outbox" :step="$clicks" talk />
 
 <p v-show="$clicks >= 5" style="font-size: 24px; margin: 0;">Alternative: crash after Kafka ACK, before delete commits.</p>
+
+<style>
+.slidev-layout .outbox-heading { display: flex; justify-content: space-between; align-items: center; height: 120px; flex-shrink: 0; }
+.outbox-heading h2 { font-size: 40px; margin: 0; }
+.outbox-heading img { width: 250px; height: 170px; max-height: none; margin: 0; }
+</style>
 
 <!--
 - DB transaction
@@ -1615,11 +1695,16 @@ clicks: 6
 - Republish same IDs
 - Duplicates possible
 - Idempotent consumer
+
+[click]
+- Cat in a box
 -->
 
 ---
 class: code-fit
 ---
+
+<div class="code-focus" :style="{ '--focus-start': 0, '--focus-lines': 14, '--focus-mask': $clicks === 0 ? 'linear-gradient(to bottom, #000 0 1lh, transparent 1lh 2lh, #000 2lh 4lh, transparent 4lh 7lh, #000 7lh 9lh, transparent 9lh 13lh, #000 13lh 14lh)' : 'linear-gradient(to bottom, transparent 0 4lh, #000 4lh 5lh, transparent 5lh 9lh, #000 9lh 12lh, transparent 12lh)' }">
 
 ````md magic-move {at:1, duration:500}
 ```go {1,3-4,8-9,14|5,10-12}
@@ -1639,6 +1724,8 @@ err := pgx.BeginFunc(ctx, db, func(tx pgx.Tx) error {
 }
 ```
 ````
+
+</div>
 
 <!--
 - Charge confirmed
@@ -1819,13 +1906,95 @@ clicks: 4
 -->
 
 ---
+class: code-fit kaf-inspection
+---
+
+## Inspect Kafka with `kaf`
+
+<div class="code-focus" :style="{ '--focus-start': 0, '--focus-lines': $clicks === 2 ? 11 : 4, '--focus-mask': $clicks < 2 ? 'linear-gradient(to bottom, #000 0 1lh, transparent 1lh 2lh, #000 2lh 3lh, transparent 3lh)' : $clicks === 2 ? 'linear-gradient(to bottom, #000 0 1lh, transparent 1lh 9lh, #000 9lh 11lh)' : 'linear-gradient(#000, #000)' }">
+
+````md magic-move {at:1, duration:500}
+```console {1,3}
+$ kaf topics
+NAME            PARTITIONS   REPLICAS
+collections     3            3
+disbursements   3            3
+```
+```console {1,3}
+$ kaf groups
+NAME             STATE    CONSUMERS
+disbursements    Stable   3
+reconciliation   Stable   1
+```
+```console {1,10-11}
+$ kaf group describe disbursements --no-members
+Group ID:        disbursements
+State:           Stable
+Protocol:        cooperative-sticky
+Protocol Type:   consumer
+Offsets:
+  collections:
+    Partition  Group Offset  High Watermark  Lag  Metadata
+    ---------  ------------  --------------  ---  --------
+    0          42            47              5
+    Total      42                            5
+```
+```console {1-4}
+$ kaf consume collections -p 0 --offset 42 -l 1
+Key:         collection-a
+Partition:   0
+Offset:      42
+Timestamp:   2026-12-18 10:05:00 +0000 UTC
+{
+  "collection_id": "collection-a"
+}
+```
+````
+
+</div>
+
+<style>
+.kaf-inspection h2 { font-size: 36px; margin-bottom: 12px; }
+</style>
+
+<!--
+- List topics
+- Partitions and replicas
+- Example output; shortened
+
+[click]
+- List consumer groups
+
+[click]
+- Inspect disbursements
+- Partition 0: 47 − 42 = 5 behind
+
+[click]
+- Read one collections record
+- Partition 0, offset 42
+- No group offsets changed
+-->
+
+---
 
 ## Takeaways
+
+<div class="takeaway-content">
 
 - Idempotent consumers
 - Retries and DLQ
 - Order in partitions
 - Monitor key metrics
+
+<!-- Source: https://giphy.com/gifs/pizza-gif-cat-iESc3Uc5tqGRy -->
+<img src="/takeaway-cat.gif" alt="Pusheen the cat enjoying a takeaway pizza" />
+
+</div>
+
+<style>
+.slidev-layout .takeaway-content { display: grid; grid-template-columns: 1.6fr 1fr; gap: 40px; align-items: center; }
+.takeaway-content img { width: 360px; height: 360px; margin: 0 auto; box-shadow: none; }
+</style>
 
 ---
 
@@ -1850,5 +2019,6 @@ clicks: 4
 * [Gently Down the Stream](https://www.gentlydownthe.stream/) — Kafka, illustrated
 * [Error Handling Patterns in Kafka](https://www.confluent.io/blog/error-handling-patterns-in-kafka/)
 * [Several Event Types in One Kafka Topic](https://www.confluent.io/blog/put-several-event-types-kafka-topic/)
-* [Video & playlist](https://www.youtube.com/watch?v=j4bqyAMMb7o&list=PLa7VYi0yPIH0KbnJQcMv5N9iW8HkZHztH)
+* [Kafka 101 — Confluent](https://www.youtube.com/watch?v=j4bqyAMMb7o&list=PLa7VYi0yPIH0KbnJQcMv5N9iW8HkZHztH)
 * [franz-go](https://github.com/twmb/franz-go) — Go Kafka client
+* [kaf](https://github.com/birdayz/kaf) — Kafka CLI

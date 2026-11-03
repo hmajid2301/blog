@@ -4,8 +4,8 @@ defineProps<{ variant: 'route' | 'editorial' | 'log' | 'questions' | 'reality' |
 const chapters = [
   { title: 'Why events?', detail: 'A payout. A slow bank. A queue.', color: '#94e2d5', tag: 'The story' },
   { title: 'Kafka + Go', detail: 'Topics, partitions, consumers.', color: '#89b4fa', tag: 'The foundations' },
-  { title: 'When things fail', detail: 'Crashes, duplicates, retries.', color: '#fab387', tag: 'The hard part' },
-  { title: 'Recover for real', detail: 'Dead letters, replay, visibility.', color: '#cba6f7', tag: 'The way back' },
+  { title: 'When things fail', detail: 'Crashes, duplicates, retries.', color: '#fab387', tag: 'Handling failure' },
+  { title: 'How we can recover', detail: 'Dead letters, replay, visibility.', color: '#cba6f7', tag: 'Recovery' },
 ]
 
 const questions = ['Why events?', 'How does Kafka work?', 'What breaks?', 'How do we recover?']
