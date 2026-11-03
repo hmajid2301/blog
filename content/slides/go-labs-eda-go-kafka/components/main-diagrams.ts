@@ -643,9 +643,9 @@ export function talkDiagram(key: string, step: number): Diagram {
   } else if (key === 'consumer-failure') {
     diagram.title = 'Consumer failure: reassign and replay'
     diagram.caption = undefined
-    diagram.height = 580
+    diagram.height = 610
     for (const node of diagram.nodes) node.y += 50
-    for (const group of diagram.groups ?? []) { group.y += 50; group.h = 190 }
+    for (const group of diagram.groups ?? []) { group.y += 50; group.h = 220 }
     diagram.nodes[1].detail = undefined
     Object.assign(diagram.nodes[2], { h: 130, small: true, tone: step >= 1 ? 'red' : 'green', detail: step >= 1 ? 'down' : 'P0', offset: undefined })
     Object.assign(diagram.nodes[3], { h: 130, small: true, tone: 'green', detail: step >= 2 ? 'P1 + P0' : 'P1', offset: undefined })

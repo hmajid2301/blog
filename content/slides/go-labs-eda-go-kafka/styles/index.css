@@ -166,6 +166,7 @@ body { font-family: 'Poppins', sans-serif; color: var(--ctp-text); text-renderin
   right: 24px;
   top: calc(20px + var(--focus-start) * 1lh);
   height: calc(var(--focus-lines) * 1lh);
+  mask-image: var(--focus-mask, linear-gradient(#000, #000));
   background: var(--ctp-surface0);
   box-shadow: inset 3px 0 var(--ctp-blue);
   z-index: -1;

@@ -40,7 +40,7 @@ function g(id: string, label: string, x: number, y: number, w: number, h: number
 }
 
 const syncNodes = [
-  n('customer', 'Customer', 0, 100, 'blue'),
+  n('customer', 'App', 0, 100, 'blue'),
   n('collections', 'Collections', 300, 100, 'teal'),
   n('disbursements', 'Disbursements', 600, 100, 'purple'),
   n('bank', 'Partner Bank', 900, 100, 'red'),

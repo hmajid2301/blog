@@ -4,12 +4,11 @@ import ReviewSketch from './ReviewSketch.vue'
 
 const props = defineProps<{ step: number }>()
 const phase = computed(() => Math.max(0, Math.min(3, props.step)))
-// Event types label the three distinct event IDs from the ordered-retry example.
 const records = [
-  { event: 'created', value: 'pending' },
-  { event: 'updated', value: 'pending' },
-  { event: 'completed', value: 'pending' },
-  { event: 'created', value: 'null' },
+  { event: 'created', key: 'collection-a:evt-1', value: 'pending' },
+  { event: 'updated', key: 'collection-a:evt-2', value: 'pending' },
+  { event: 'completed', key: 'collection-a:evt-3', value: 'pending' },
+  { event: 'created', key: 'collection-a:evt-1', value: 'null' },
 ]
 const captions = [
   'Collection A · three pending events.',
@@ -33,6 +32,7 @@ function opacity(index: number) {
       <text x="550" y="75" text-anchor="middle" class="small">Collection A</text>
       <g v-if="phase === 1" class="annotation blue">
         <ReviewSketch d="M 115 165 V 120 H 760 V 165 M 750 155 L 760 165 L 770 155" />
+        <text x="437" y="150" text-anchor="middle" class="small">same key</text>
       </g>
       <g v-for="(record, index) in records" :key="index" :transform="`translate(${20 + index * 215}, 170)`">
         <g
@@ -40,8 +40,12 @@ function opacity(index: number) {
           :style="{ opacity: opacity(index), color: record.value === 'null' ? '#f38ba8' : '#89b4fa', transform: visible(index) ? 'translateY(0)' : 'translateY(-20px)' }"
         >
           <ReviewSketch width="190" height="115" />
-          <text x="95" y="48" text-anchor="middle">{{ record.event }}</text>
-          <text x="95" y="87" text-anchor="middle" class="small">{{ record.value }}</text>
+          <text x="95" y="25" text-anchor="middle">{{ record.event }}</text>
+          <text x="95" y="50" text-anchor="middle" class="record-key">
+            <tspan>collection-a:</tspan>
+            <tspan x="95" dy="26" class="event-id">{{ record.key.split(':')[1] }}</tspan>
+          </text>
+          <text v-if="record.value === 'null'" x="95" y="106" text-anchor="middle" class="small">null</text>
         </g>
         <g v-if="visible(index) && phase >= 2" class="keep annotation">
           <ReviewSketch d="M 78 134 L 89 146 L 112 122" />
@@ -63,6 +67,8 @@ function opacity(index: number) {
 svg { display: block; width: 1100px; height: 470px; overflow: hidden; font: 32px 'Patrick Hand', 'Poppins', sans-serif; }
 text { fill: currentColor; }
 .small { font-size: 28px; }
+.record-key { font: 18px 'MonoLisa', monospace; }
+.event-id { font-size: 26px; font-weight: 700; }
 .record { transition: opacity 650ms ease, transform 650ms ease; }
 .blue { color: #89b4fa; }
 .keep { color: #a6e3a1; }
