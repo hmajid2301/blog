@@ -21,6 +21,37 @@ and the timed speaker notes. On a remote VPS, forward the chosen port over SSH;
 there is no need to expose a public development server or restart an existing one.
 For example, from your laptop: `ssh -L 3030:localhost:3030 haseeb@vps`.
 
+## Compare themes and animations
+
+```sh
+pnpm dev:themes
+```
+
+Open <http://localhost:3051/?themes=1#/1>. The preview imports the entire
+current talk, then adds four animation-lab slides: click reveals and annotations,
+Shiki Magic Move with line highlighting, staged diagrams, and a moving checkpoint.
+These extra slides are not added to the normal `slides.md` presentation.
+
+The top toolbar offers the original style plus 20 themes. Switching preserves
+both the slide and its click step; the URL retains your selected theme on reload.
+Use **Replay slide** to restart the current sequence, or **Animation lab** to jump
+to the four motion examples. Arrow keys navigate after focus leaves the toolbar.
+Without `?themes=1`, preview controls and theme overrides remain inactive.
+
+The palette registry and opt-in CSS live in `../slidev-shared/`. Code syntax
+uses the existing Catppuccin light/dark Shiki pair; the full-deck preview adapts
+palette, fonts, panels, diagrams, and selected heading treatments rather than
+installing 20 independent Slidev packages. Display fonts need a network request
+unless cached; local fallbacks remain available.
+
+Browser regression check, with the preview server running and `playwright-cli`
+installed (from this deck's directory):
+
+```sh
+playwright-cli -s=python-go-themes open http://localhost:3051/
+playwright-cli -s=python-go-themes run-code --filename=tests/theme-preview.js
+```
+
 ## Validate and build
 
 ```sh

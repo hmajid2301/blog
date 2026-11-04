@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "slidev slides.md --open",
+    "dev:themes": "slidev theme-preview.md --port 3051 --open",
     "test": "cd examples && go test -race ./... && go vet ./...",
     "build": "slidev build slides.md --base /slides/python-to-go-concurrency/ --out dist",
     "build:hugo": "rm -rf ../../../static/slides/python-to-go-concurrency && slidev build slides.md --base /slides/python-to-go-concurrency/ --out ../../../static/slides/python-to-go-concurrency"
