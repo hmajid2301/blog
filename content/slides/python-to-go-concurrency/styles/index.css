@@ -17,10 +17,6 @@
 .slidev-layout table { font-size: 27px; }
 .slidev-layout .resources { font-size: 25px; text-align: left; }
 .slidev-layout .pool-diagram { width: 100%; margin: 8px auto; }
-.slidev-layout .toc { width: min(100%, 1050px); margin: 24px auto 0; display: grid; gap: 18px; text-align: left; }
-.slidev-layout .toc-item { font-size: 34px; line-height: 1.2; }
-.slidev-layout .toc-num { font-family: 'MonoLisa', 'Noto Sans Mono', 'Liberation Mono', monospace; font-size: 28px; color: var(--ctp-blue); margin-right: 24px; }
-.slidev-layout .toc-tail { margin-top: 32px; }
 /* Chapter story footer: the five agenda stops, on content slides only. */
 .slidev-layout .chapter-footer { position: absolute; left: 48px; bottom: 12px; display: flex; align-items: center; gap: 14px; opacity: 0.55; }
 .slidev-layout .chapter-footer .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--ctp-surface1); }

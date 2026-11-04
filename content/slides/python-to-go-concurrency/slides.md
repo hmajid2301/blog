@@ -51,19 +51,7 @@ Use a URL status checker throughout. No live internet or audience Go setup requi
 
 ---
 
-## Agenda
-
-<div class="toc">
-
-<div class="toc-item"><span class="toc-num">01</span>Mental model — goroutines &amp; the GIL</div>
-<div class="toc-item"><span class="toc-num">02</span>Channels &amp; ownership</div>
-<div class="toc-item"><span class="toc-num">03</span>A safe worker pool — context, cancellation, demo</div>
-<div class="toc-item"><span class="toc-num">04</span>Under load — backpressure, locks, shared state</div>
-<div class="toc-item"><span class="toc-num">05</span>Pitfalls &amp; a take-home checklist</div>
-
-</div>
-
-<div class="small toc-tail">Then 90 seconds of questions · six appendices to browse later.</div>
+<AgendaTimeline />
 
 <!--
 00:30–01:00 · 30 seconds
