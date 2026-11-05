@@ -116,7 +116,8 @@ func Run(ctx context.Context, client *http.Client, urls []string, workers int) (
 	// #endregion collector
 }
 
-func main() {
+// legacyDemo preserves the original no-arguments, local-only executable.
+func legacyDemo() {
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
 		case "/broken":

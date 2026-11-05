@@ -10,8 +10,9 @@ hideSummary: true
 ---
 
 A 30-minute introduction to Go concurrency for developers who know Python but are
-new to Go. We evolve one URL checker from sequential Python and thread/asyncio
-mental models into a bounded Go worker pool, with explicit ownership,
+new to Go. We start with a working Python HTTP service, translate it into Go,
+and improve it one observable problem at a time. The same URL-checking endpoint
+introduces goroutines, channels, a bounded worker pool, explicit ownership,
 cancellation, deadlines, and error handling.
 
 Along the way: concurrency versus parallelism, what the GIL does (and does not)
@@ -20,4 +21,4 @@ how to avoid races, leaks, and deadlocks. No promise that Go is always faster—
 a practical model for overlapping I/O safely.
 
 - [Slides](/slides/python-to-go-concurrency/)
-- [Runnable Go example and tests](https://gitlab.com/hmajid2301/blog/-/tree/main/content/slides/python-to-go-concurrency/examples)
+- [Runnable Python and Go services, local demo, and existing tests](https://gitlab.com/hmajid2301/blog/-/tree/main/content/slides/python-to-go-concurrency/examples)

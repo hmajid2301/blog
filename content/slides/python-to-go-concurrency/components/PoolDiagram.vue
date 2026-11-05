@@ -1,37 +1,102 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-import rough from 'roughjs'
+import { useNav, useSlideContext } from '@slidev/client'
+import { computed, unref, useId } from 'vue'
 
-// Inline SVG font sizes and opacity avoid UnoCSS attributify collisions.
 const props = withDefaults(defineProps<{ step?: number }>(), { step: 3 })
-const generator = rough.generator()
+const { $renderContext } = useSlideContext()
+const { isPrintMode } = useNav()
+const markerId = `pool-arrow-${useId()}`
+// Overview, print and export must tell the whole story without playing clicks.
+const stage = computed(() => unref(isPrintMode) || !['slide', 'presenter'].includes(unref($renderContext))
+  ? 3 : Math.max(0, Math.min(props.step, 3)))
+const workers = [112, 202, 292]
 const nodes = [
-  { label: 'URL producer', x: 20, y: 145, color: '#89b4fa', stage: 0 },
-  { label: 'jobs', x: 250, y: 145, color: '#fab387', stage: 0 },
-  ...[55, 145, 235].map((y, i) => ({ label: `worker ${i + 1}`, x: 480, y, color: '#94e2d5', stage: 1 })),
-  { label: 'results', x: 710, y: 145, color: '#cba6f7', stage: 2 },
-  { label: 'collector', x: 940, y: 145, color: '#a6e3a1', stage: 2 },
+  { label: 'producer', detail: 'owns input', x: 16, y: 202, width: 160, step: 0 },
+  { label: 'jobs', detail: 'handoff', x: 240, y: 202, width: 130, step: 0 },
+  ...workers.map((y, i) => ({ label: `worker ${i + 1}`, detail: 'HEAD → result', x: 450, y, width: 190, step: 1 })),
+  { label: 'results', detail: 'handoff', x: 730, y: 202, width: 140, step: 2 },
+  { label: 'collector', detail: 'owns report', x: 960, y: 202, width: 190, step: 2 },
 ]
-const boxes = nodes.map((node, i) => ({ ...node, paths: generator.toPaths(generator.rectangle(node.x, node.y, 180, 64, {
-  seed: i + 7, stroke: node.color, fill: node.color, fillStyle: 'hachure', fillWeight: 1, hachureGap: 12, roughness: 1.3, strokeWidth: 2.5,
-})) }))
-const edges = [[0, 1], [1, 2], [1, 3], [1, 4], [2, 5], [3, 5], [4, 5], [5, 6]].map(([a, b]) => {
-  const from = nodes[a], to = nodes[b]
-  return { points: `${from.x + 180},${from.y + 32} ${to.x - 8},${to.y + 32}`, stage: Math.max(from.stage, to.stage) }
-})
-const visible = computed(() => Math.min(props.step, 3))
+const edges = [
+  { d: 'M176 202 H230', step: 0 },
+  ...workers.map(y => ({ d: `M370 202 H410 V${y} H440`, step: 1 })),
+  ...workers.map(y => ({ d: `M640 ${y} H680 V202 H720`, step: 2 })),
+  { d: 'M870 202 H950', step: 2 },
+]
+const captions = [
+  '0 · The producer hands off one URL. No growing job queue.',
+  '1 · Fixed workers overlap the network waits. Each owns its local result.',
+  '2 · Workers send values. Only the collector appends to the report.',
+  '3 · Cancel every wait. Join producer + workers. Then close results.',
+]
 </script>
 
 <template>
-  <svg class="pool-diagram" viewBox="0 0 1140 355" role="img" aria-label="One producer feeds a jobs channel; three workers send to a results channel owned by one collector.">
-    <defs><marker id="pool-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8" fill="#bac2de" /></marker></defs>
-    <g v-for="(edge, i) in edges" :key="i" :style="{ opacity: visible >= edge.stage ? 1 : 0.12 }">
-      <polyline :points="edge.points" fill="none" stroke="#bac2de" stroke-width="2" marker-end="url(#pool-arrow)" />
+  <svg class="pool-diagram" viewBox="0 0 1180 420" role="img" :aria-labelledby="`${markerId}-title ${markerId}-description`">
+    <title :id="`${markerId}-title`">Bounded work, one report owner, explicit shutdown</title>
+    <desc :id="`${markerId}-description`">{{ captions[stage] }} One producer sends URLs through jobs to three illustrated workers. Workers perform HTTP checks and send results to one collector. Context cancellation reaches job handoff, workers, HTTP and result handoff; the coordinator joins before closing results. The runnable service uses two workers per batch.</desc>
+    <defs>
+      <marker :id="markerId" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+        <path d="M0 0 L8 4 L0 8" fill="none" stroke="currentColor" stroke-width="2" />
+      </marker>
+    </defs>
+
+    <g v-for="(edge, i) in edges" :key="i" class="reveal" :class="{ shown: stage >= edge.step }" :aria-hidden="stage < edge.step">
+      <path class="ink trace" :d="edge.d" pathLength="1" :marker-end="`url(#${markerId})`" />
     </g>
-    <g v-for="box in boxes" :key="box.label" :style="{ opacity: visible >= box.stage ? 1 : 0.12 }">
-      <path v-for="(path, i) in box.paths" :key="i" :d="path.d" :fill="path.fill" :stroke="path.stroke" :stroke-width="path.strokeWidth" />
-      <text :x="box.x + 90" :y="box.y + 40" text-anchor="middle" :fill="box.color" style="font-family: 'Patrick Hand', Poppins, sans-serif; font-size: 28px">{{ box.label }}</text>
+    <g class="action-labels">
+      <text x="202" y="146" text-anchor="middle">send URL</text>
+      <text v-if="stage >= 1" x="410" y="72" text-anchor="middle">receive</text>
+      <text v-if="stage >= 2" x="685" y="72" text-anchor="middle">send result</text>
+      <text v-if="stage >= 2" x="910" y="146" text-anchor="middle">collect</text>
     </g>
-    <text x="570" y="340" text-anchor="middle" fill="#a6adc8" style="font-size: 23px">{{ visible >= 3 ? 'context cancellation reaches producer, workers, and HTTP requests' : 'Bound the workers. Make ownership explicit.' }}</text>
+
+    <g v-for="node in nodes" :key="node.label" class="reveal" :class="{ shown: stage >= node.step }" :aria-hidden="stage < node.step">
+      <rect class="node" :x="node.x" :y="node.y - 35" :width="node.width" height="70" rx="5" />
+      <text class="node-label" :x="node.x + node.width / 2" :y="node.y - 4" text-anchor="middle">{{ node.label }}</text>
+      <text class="node-detail" :x="node.x + node.width / 2" :y="node.y + 23" text-anchor="middle">{{ node.detail }}</text>
+    </g>
+
+    <!-- Work tokens change position only when the presenter advances a stage. -->
+    <g v-if="stage < 3" class="tokens" aria-hidden="true">
+      <g v-for="(y, i) in (stage === 1 ? workers : [202])" :key="i" :transform="`translate(${stage === 0 ? 305 : stage === 1 ? 545 : 1055}, ${stage === 1 ? y + 46 : 264})`">
+        <rect x="-28" y="-13" width="56" height="26" rx="4" />
+        <text y="6" text-anchor="middle">{{ stage === 2 ? '200' : `/${['a', 'b', 'c'][i]}` }}</text>
+      </g>
+    </g>
+
+    <g class="reveal stop" :class="{ shown: stage >= 3 }" :aria-hidden="stage < 3">
+      <text x="590" y="24" text-anchor="middle">request context · cancel</text>
+      <rect class="ink" x="438" y="70" width="214" height="264" rx="8" stroke-dasharray="5 6" />
+      <path class="ink trace" d="M96 52 H910 M96 52 V157 M305 52 V157 M545 52 V68 M800 52 V157" pathLength="1" />
+      <g v-for="x in [96, 305, 545, 800]" :key="x">
+        <path class="ink" :d="`M${x - 5} ${x === 545 ? 62 : 151} l5 6 l5 -6`" />
+      </g>
+      <text x="590" y="368" text-anchor="middle">HTTP observes cancellation · coordinator joins → close(results)</text>
+    </g>
+    <text class="caption" x="590" y="410" text-anchor="middle">{{ captions[stage] }}</text>
   </svg>
 </template>
+
+<style scoped>
+.pool-diagram { display: block; width: 100%; height: auto; color: var(--talk-ink, #24211d); font-family: inherit; overflow: visible; }
+.ink { fill: none; stroke: currentColor; stroke-width: 2.5; stroke-linejoin: round; stroke-linecap: round; }
+.node { fill: var(--talk-paper, #faf8f3); stroke: currentColor; stroke-width: 2.5; }
+.node-label { fill: currentColor; font-size: 27px; font-weight: 600; }
+.node-detail, .action-labels { fill: var(--talk-muted, #625e56); font-size: 21px; }
+.caption { fill: currentColor; font-size: 23px; }
+.reveal { opacity: 0; transition: opacity .2s ease; }
+.reveal.shown { opacity: 1; }
+.trace { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset .55s ease; }
+.shown .trace { stroke-dashoffset: 0; }
+.stop { color: var(--talk-accent, #a9432e); font-size: 23px; fill: currentColor; }
+.tokens rect { fill: var(--talk-paper, #faf8f3); stroke: var(--talk-accent, #a9432e); stroke-width: 2; }
+.tokens text { fill: var(--talk-accent, #a9432e); font-size: 20px; font-family: monospace; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .trace { transition: none; }
+}
+@media print {
+  .reveal { opacity: 1; }
+  .trace { stroke-dashoffset: 0; transition: none; }
+}
+</style>

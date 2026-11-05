@@ -1,0 +1,14 @@
+=== RUN   TestRunBoundedAndCollectsEveryResult
+--- PASS: TestRunBoundedAndCollectsEveryResult (0.00s)
+=== RUN   TestRunKeepsPerURLErrors
+--- PASS: TestRunKeepsPerURLErrors (0.00s)
+=== RUN   TestRunCancellationJoinsWorkers
+--- PASS: TestRunCancellationJoinsWorkers (0.00s)
+=== RUN   TestRunDeadline
+--- PASS: TestRunDeadline (0.00s)
+=== RUN   TestRunEmptyAndInvalidWorkerCount
+--- PASS: TestRunEmptyAndInvalidWorkerCount (0.00s)
+=== RUN   TestCheckRequestTimeout
+--- PASS: TestCheckRequestTimeout (0.50s)
+PASS
+ok  	example.com/python-to-go-concurrency	1.515s
