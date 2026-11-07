@@ -9,23 +9,21 @@ This site also has all of my talks and the slides for them! You can find them on
 
 ## Slides
 
-Most decks are written in [presenterm](https://github.com/mfontanini/presenterm) markdown under
-`content/slides/<name>/slides.md` and exported to a self-contained HTML file that Hugo serves
-at `/slides/<name>/`. The new Go+Kafka deck is a [Slidev](https://sli.dev) project under
-`content/slides/go-labs-eda-go-kafka/` and is built to the same `static/slides/` output path.
-Slidev decks share their Catppuccin theme and shiki setup from `content/slides/slidev-shared/`.
+Slide sources live in the separate [slides repository](https://gitlab.com/hmajid2301/slides),
+using Reveal.js and Slidev, published at `https://slides.haseebmajid.dev/`.
+Decks are grouped under `content/slides/<topic>/<YYYY-MM-DD>-<event>/` there,
+with reusable Slidev components in `content/slides/slidev-shared/`.
+The blog no longer keeps deck sources or uses reveal-hugo. Hugo excludes old
+`static/slides/**` assets from publication. `/talks/` stays here and links directly
+to the dated editions, PDFs and demo sources.
 
-```bash
-# Export all presenterm decks to static/slides/<name>/index.html
-task slides:export
+`task build` builds only the blog and its permanent legacy `/slides` HTTP redirects.
+The 12 mappings in `data/slide_redirects.toml` generate 38 rules through
+`layouts/index.redirects`. Keep these redirects permanently for printed QR codes
+and existing conference links.
 
-# Build all slide decks (Slidev and reveal.js)
-task slides:publish
-```
-
-Commit the generated HTML alongside the deck. CI re-runs the export/build and fails
-if the committed output is out of date. Mermaid diagrams are rendered at export time via
-`mermaid-cli`; the presenterm config lives in `presenterm/config.yaml`.
+**Local preparation only: do not deploy the blog cutover until the new slide host
+and every mapped destination, asset, and route have been verified.**
 
 ## Usage
 
@@ -37,8 +35,8 @@ you need to get started.
 # Serve Main Site
 task start_server
 
-# Serve /slides path
-task start_slides
+# Build the blog and permanent slide redirects
+task build
 ```
 
 ## Deployment

@@ -16,8 +16,8 @@ hideSummary: true
 
 - [Abstract](https://golab.io/talks/using-nix-to-create-reproducible-go-development-environments)
 - [Example Project](https://gitlab.com/hmajid2301/banterbus)
-- [Slides](/slides/go-labs-reproducible-envs-with-nix)
-- [PDF](https://gitlab.com/hmajid2301/blog/-/blob/main/content/slides/go-labs-reproducible-envs-with-nix/slides.pdf)
+- [Slides](https://slides.haseebmajid.dev/reproducible-envs-with-nix/2024-11-13-golab/)
+- [PDF](https://slides.haseebmajid.dev/reproducible-envs-with-nix/2024-11-13-golab/slides.pdf)
 
 ## Photo from conference
 
