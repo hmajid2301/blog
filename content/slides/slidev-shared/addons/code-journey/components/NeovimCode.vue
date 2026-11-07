@@ -20,25 +20,41 @@ const showDirectory = computed(() => props.directory && !unref(isPrintMode)
 const filetypeLabel = computed(() => props.filetype ?? (props.filename.endsWith('.go')
   ? 'go · gopls' : props.filename === 'go.mod' ? 'gomod' : props.filename.split('.').at(-1)))
 const selectedIndex = computed(() => Math.max(0, props.files.indexOf(props.selected ?? props.filename)))
+// SVG paths keep the illustration independent of Nerd Fonts and font fallback.
+const fileIconPath = 'M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8Z M14 3v5h5 M9 13h6 M9 17h6'
+const folderIconPath = 'M3 7V5a1 1 0 0 1 1-1h5l2 3h9a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1Z M3 9h18'
 </script>
 
 <template>
   <section class="neovim-code" :aria-label="`Neovim-style code view: ${filename}`">
-    <header class="buffer-tab"><span class="file-icon" aria-hidden="true">▤</span>{{ showDirectory ? directoryLabel : filename }}</header>
+    <header class="buffer-tab">
+      <svg class="editor-icon file-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path :d="showDirectory ? folderIconPath : fileIconPath" /></svg>
+      {{ showDirectory ? directoryLabel : filename }}
+    </header>
     <div v-if="showDirectory" class="directory-view" aria-label="Project directory illustration">
       <div class="directory-path">../</div>
-      <div v-for="(file, i) in files" :key="file" class="directory-row" :class="{ active: i === selectedIndex }"><span class="gutter">{{ i === selectedIndex ? i + 1 : Math.abs(i - selectedIndex) }}</span><span class="file-icon" aria-hidden="true">▤</span>{{ file }}</div>
+      <div v-for="(file, i) in files" :key="file" class="directory-row" :class="{ active: i === selectedIndex }">
+        <span class="gutter">{{ i === selectedIndex ? i + 1 : Math.abs(i - selectedIndex) }}</span>
+        <svg class="editor-icon file-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path :d="fileIconPath" /></svg>
+        {{ file }}
+      </div>
       <div v-for="i in 2" :key="`empty-${i}`" class="empty-line" aria-hidden="true">~</div>
     </div>
     <div v-else class="editor" :class="{ dimmed: showPicker }"><slot /></div>
     <Transition name="picker">
       <div v-if="showPicker" class="file-picker" aria-label="File picker illustration">
         <div class="picker-heading"><span>Files</span></div>
-        <div class="search"><span aria-hidden="true">⌕</span><span class="block-cursor" aria-hidden="true"></span><small>{{ files.length }}/{{ files.length }}</small></div>
+        <div class="search">
+          <svg class="editor-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="6.5" /><path d="m16 16 5 5" /></svg>
+          <span class="block-cursor" aria-hidden="true"></span><small>{{ files.length }}/{{ files.length }}</small>
+        </div>
         <div class="picker-columns">
           <div class="file-list">
             <div class="selection" :style="{ transform: `translateY(${selectedIndex * 38}px)` }"></div>
-            <div v-for="file in files" :key="file" class="file-row" :class="{ selected: file === (selected ?? filename) }"><span aria-hidden="true">▤</span>{{ file }}</div>
+            <div v-for="file in files" :key="file" class="file-row" :class="{ selected: file === (selected ?? filename) }">
+              <svg class="editor-icon file-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path :d="fileIconPath" /></svg>
+              {{ file }}
+            </div>
           </div>
           <div class="preview"><div class="preview-title">{{ selected ?? filename }}</div><slot name="preview" /></div>
         </div>
@@ -57,7 +73,8 @@ const selectedIndex = computed(() => Math.max(0, props.files.indexOf(props.selec
 .directory-row.active .gutter { color: var(--_journey-ink); }
 
 .neovim-code { position: relative; height: 360px; overflow: hidden; border: 1px solid var(--_journey-border); border-radius: 9px; background: var(--_journey-paper); color: var(--_journey-ink); font: 22px/1.45 var(--_journey-mono); box-shadow: 0 12px 28px #0002; }
-.buffer-tab { display: flex; gap: 12px; width: fit-content; min-width: 190px; padding: 8px 20px; background: var(--_journey-surface); border-top: 2px solid var(--_journey-accent); font-size: 20px; }
+.buffer-tab { display: flex; align-items: center; gap: 12px; width: fit-content; min-width: 190px; padding: 8px 20px; background: var(--_journey-surface); border-top: 2px solid var(--_journey-accent); font-size: 20px; }
+.editor-icon { display: block; width: 20px; height: 20px; flex: 0 0 20px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .file-icon { color: var(--_journey-accent); }
 .editor { padding: 18px 16px; transition: opacity .25s ease; }
 .editor.dimmed { opacity: .28; }
