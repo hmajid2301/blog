@@ -20,5 +20,5 @@ mean, optional free-threaded CPython, goroutines, channels, synchronization, and
 how to avoid races, leaks, and deadlocks. No promise that Go is always faster—just
 a practical model for overlapping I/O safely.
 
-- [Slides](/slides/python-to-go-concurrency/)
-- [Runnable Python and Go services, local demo, and existing tests](https://gitlab.com/hmajid2301/blog/-/tree/main/content/slides/python-to-go-concurrency/examples)
+- [Slides](https://slides.haseebmajid.dev/python-to-go-concurrency/2026-11-02/)
+- [Runnable Python and Go services, local demo, and existing tests](https://gitlab.com/hmajid2301/slides/-/tree/main/content/slides/python-to-go-concurrency/2026-11-02/examples)

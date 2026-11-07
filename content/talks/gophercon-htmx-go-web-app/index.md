@@ -13,8 +13,8 @@ hideSummary: true
 
 {{< youtube id="lZ4EPkIngRc" >}}
 
-- [Slides](/slides/gophercon-htmx-go-web-app)
-- [PDF](https://gitlab.com/hmajid2301/blog/-/blob/main/content/slides/gophercon-htmx-go-web-app/slides.pdf)
+- [Slides](https://slides.haseebmajid.dev/htmx-go-web-app/2026-08-12-gophercon-uk/)
+- [PDF](https://slides.haseebmajid.dev/htmx-go-web-app/2026-08-12-gophercon-uk/slides.pdf)
 
 ## Photo from conference
 

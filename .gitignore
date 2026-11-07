@@ -72,6 +72,7 @@ static/slides/*-slidev/
 
 # Agent planning notes (not part of the published site)
 .planning/
+/docs/
 
 .playwright/
 .playwright-browsers/

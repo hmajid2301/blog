@@ -12,7 +12,7 @@ cover:
 What we are trying to achieve is hosting RevealJS slides on our Hugo blog like
 [this example slide deck](https://haseebmajid.dev/slides/reproducible-envs-with-nix/#/).
 The markdown the slides are built from is in
-[the slide source](https://gitlab.com/hmajid2301/blog/-/blob/main/content/slides/reproducible-envs-with-nix/_index.md).
+[the slide source](https://gitlab.com/hmajid2301/blog/-/blob/81e3801d267b95fcd8d7b294eefbe20a0e0270b3/content/slides/reproducible-envs-with-nix/_index.md).
 
 ## Background
 

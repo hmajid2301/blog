@@ -9,15 +9,18 @@ This site also has all of my talks and the slides for them! You can find them on
 
 ## Slides
 
-Slides are migrating to standalone [Reveal.js](https://revealjs.com/) in a separate
-`slides` repository, published at `https://slides.haseebmajid.dev/`. Neither repository
-will use reveal-hugo as a build dependency. Historical sources in `content/slides/`
-remain here for now, but Hugo ignores them and excludes `static/slides/**` from publication.
-`/talks/` remains unchanged.
+Slide sources live in the separate [slides repository](https://gitlab.com/hmajid2301/slides),
+using Reveal.js and Slidev, published at `https://slides.haseebmajid.dev/`.
+Decks are grouped under `content/slides/<topic>/<YYYY-MM-DD>-<event>/` there,
+with reusable Slidev components in `content/slides/slidev-shared/`.
+The blog no longer keeps deck sources or uses reveal-hugo. Hugo excludes old
+`static/slides/**` assets from publication. `/talks/` stays here and links directly
+to the dated editions, PDFs and demo sources.
 
 `task build` builds only the blog and its permanent legacy `/slides` HTTP redirects.
 The 12 mappings in `data/slide_redirects.toml` generate 38 rules through
-`layouts/index.redirects`. See [the migration checklist](docs/slides-migration.md).
+`layouts/index.redirects`. Keep these redirects permanently for printed QR codes
+and existing conference links.
 
 **Local preparation only: do not deploy the blog cutover until the new slide host
 and every mapped destination, asset, and route have been verified.**
