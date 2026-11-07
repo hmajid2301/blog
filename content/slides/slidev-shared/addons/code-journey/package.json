@@ -1,0 +1,12 @@
+{
+  "name": "slidev-addon-code-journey",
+  "version": "0.1.0",
+  "description": "Click-driven Neovim code views and Go teaching diagrams for Slidev",
+  "private": true,
+  "license": "UNLICENSED",
+  "type": "module",
+  "keywords": ["slidev", "slidev-addon", "vue", "diagrams"],
+  "files": ["components", "styles", "example.md", "README.md"],
+  "engines": { "slidev": ">=52.0.0" },
+  "peerDependencies": { "@slidev/client": ">=52.0.0", "vue": "^3.5.0" }
+}

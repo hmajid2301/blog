@@ -1,0 +1,12 @@
+Python sequential: 6 results; fixture peak=1; elapsed=0.617s; batch_error=''
+  ok:200:ok, ok:200:ok, ok:200:ok, ok:200:ok, ok:200:ok, ok:200:ok
+Python sequential / failures: 3 results; fixture peak=1; elapsed=0.704s; batch_error=''
+  broken:503:error, ok:200:ok, slow:0:error
+Go sequential: 6 results; fixture peak=1; elapsed=0.604s; batch_error=''
+  ok:200:ok, ok:200:ok, ok:200:ok, ok:200:ok, ok:200:ok, ok:200:ok
+Go sequential / failures: 3 results; fixture peak=1; elapsed=0.702s; batch_error=''
+  broken:503:error, ok:200:ok, slow:0:error
+Go pool (2 workers): 6 results; fixture peak=2; elapsed=0.302s; batch_error=''
+  ok:200:ok, ok:200:ok, ok:200:ok, ok:200:ok, ok:200:ok, ok:200:ok
+Go pool (2 workers) / failures: 3 results; fixture peak=2; elapsed=0.602s; batch_error=''
+  broken:503:error, ok:200:ok, slow:0:error
