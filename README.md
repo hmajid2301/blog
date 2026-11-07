@@ -13,6 +13,7 @@ Most decks are written in [presenterm](https://github.com/mfontanini/presenterm)
 `content/slides/<name>/slides.md` and exported to a self-contained HTML file that Hugo serves
 at `/slides/<name>/`. The new Go+Kafka deck is a [Slidev](https://sli.dev) project under
 `content/slides/go-labs-eda-go-kafka/` and is built to the same `static/slides/` output path.
+Slidev decks share their Catppuccin theme and shiki setup from `content/slides/slidev-shared/`.
 
 ```bash
 # Export all presenterm decks to static/slides/<name>/index.html

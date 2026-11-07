@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en" data-register="editorial">
+<head>
+<title>Python → Go · twenty theme studies</title>
+<link rel="stylesheet" href="kit.css" data-ve-kit>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500;700&family=IBM+Plex+Mono:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap">
+<style>
+:root { --bg:#f4f3ef; --surface:#eae9e3; --text:#202b30; --text-dim:#526168; --accent:#006a80; }
+body { margin:0; }
+main { max-width:1500px; margin:auto; padding:32px; }
+header { display:grid; grid-template-columns:2fr 1fr; gap:24px; align-items:end; margin-bottom:28px; }
+header h1 { font-size:clamp(32px,4vw,60px); margin:0; letter-spacing:-.04em; }
+header p { margin:8px 0; }
+.eyebrow { font:12px var(--font-mono); letter-spacing:.12em; text-transform:uppercase; color:var(--accent); }
+.toolbar { position:sticky; top:0; z-index:5; display:flex; flex-wrap:wrap; align-items:center; gap:8px; padding:14px 0; background:var(--bg); border-block:1px solid #b2b9b9; }
+button { cursor:pointer; font:inherit; padding:9px 14px; border:1px solid #68777c; border-radius:3px; background:transparent; color:var(--text); }
+button[aria-pressed="true"] { background:var(--text); color:var(--bg); }
+button:focus-visible,a:focus-visible { outline:3px solid #007d97; outline-offset:4px; }
+.toolbar span { margin-right:10px; font-size:14px; }
+#selection { margin-left:auto; font-size:14px; }
+.gallery { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:36px 28px; padding-top:28px; }
+.gallery.all { grid-template-columns:1fr; gap:56px; }
+.previews { display:grid; grid-template-columns:1fr; gap:24px; }
+.gallery.all .previews { grid-template-columns:repeat(2,minmax(0,1fr)); }
+.study-description { margin:0 0 18px; color:var(--text-dim); font-size:15px; }
+.theme-links { display:flex; flex-wrap:wrap; gap:8px 18px; padding-top:18px; font-size:14px; }
+.theme-links a { color:var(--accent); }
+.study { min-width:0; scroll-margin-top:110px; }
+.study-head { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:10px; }
+.study h2 { font-size:22px; margin:0; }
+.study figure { margin:0; }
+.study figcaption { margin-top:12px; font-size:14px; color:#43545b; }
+.slide { aspect-ratio:16/9; container-type:inline-size; position:relative; display:flex; flex-direction:column; justify-content:center; padding:6%; box-sizing:border-box; overflow:hidden; background:var(--paper); color:var(--ink); font-family:var(--face); border:1px solid var(--line); }
+.slide h3 { font-family:var(--display,var(--face)); color:var(--ink); font-weight:700; font-size:5.2cqw; line-height:1.12; letter-spacing:-.025em; margin:0 0 4cqw; }
+.slide p { font-size:2.5cqw; line-height:1.45; margin:0; }
+.slide .kicker { color:var(--signal); font:1.65cqw var(--mono); letter-spacing:.1em; text-transform:uppercase; margin-bottom:3cqw; }
+.slide .deck-title { font-size:8cqw; max-width:12ch; margin-bottom:3cqw; }
+.slide .sub { color:var(--muted); }
+.slide .folio { position:absolute; bottom:4%; left:6%; right:6%; display:flex; justify-content:space-between; color:var(--muted); font:1.4cqw var(--mono); }
+.slide .pair { display:grid; grid-template-columns:1fr 1fr; gap:3cqw; }
+.slide .pair h4 { font:2cqw var(--mono); color:var(--signal); margin:0 0 1.5cqw; }
+.slide pre { color:var(--ink); background:var(--panel); border:1px solid var(--line); padding:2cqw; margin:0 0 2cqw; overflow:auto; border-radius:var(--round,0); font:1.95cqw/1.55 var(--mono); box-shadow:none; white-space:pre; }
+.slide .http { font-size:2.05cqw; }
+.slide .kw { color:var(--signal); font-weight:700; }
+.slide .hint { font-size:2.2cqw; color:var(--muted); margin-top:1cqw; }
+.slide svg { width:100%; height:auto; color:var(--ink); }
+.slide svg text { font-family:var(--mono); fill:var(--ink); }
+.slide svg rect { fill:var(--panel); stroke:var(--signal); stroke-width:2; rx:var(--node-radius,0); }
+.slide svg path { stroke:var(--signal); fill:none; stroke-width:2; }
+.slide svg polygon { fill:var(--signal); }
+.slide .flow-label { fill:var(--muted); font-size:12px; }
+.workshop { --paper:#ffffff; --panel:#eef6f8; --ink:#152c37; --muted:#47616e; --signal:#006b82; --line:#92b1bb; --face:'DM Sans',sans-serif; --mono:'JetBrains Mono',monospace; }
+.terminal { --paper:#151d1c; --panel:#202c29; --ink:#e2eee7; --muted:#a6bfb1; --signal:#9dd7b1; --line:#6c8a7b; --face:'IBM Plex Sans',sans-serif; --display:'IBM Plex Mono',monospace; --mono:'IBM Plex Mono',monospace; }
+.terminal .deck-title::before { content:'> '; color:var(--signal); }
+.blueprint { --paper:#152a42; --panel:#1c354f; --ink:#e6f1f6; --muted:#a8c6d7; --signal:#85d2e8; --line:#648ea3; --face:'IBM Plex Sans',sans-serif; --mono:'IBM Plex Mono',monospace; background-image:linear-gradient(#a8c6d711 1px,transparent 1px),linear-gradient(90deg,#a8c6d711 1px,transparent 1px); background-size:24px 24px; }
+.blueprint pre,.blueprint svg rect { border-style:dashed; stroke-dasharray:5 3; }
+.paper { --paper:#f6f1e7; --panel:#ede6d8; --ink:#302c28; --muted:#655c50; --signal:#8c432e; --line:#b49d85; --face:'DM Sans',sans-serif; --display:Georgia,serif; --mono:'JetBrains Mono',monospace; }
+.paper .deck-title { font-weight:400; font-size:9cqw; }
+.nord { --paper:#2e3440; --panel:#3b4252; --ink:#eceff4; --muted:#b7c3d2; --signal:#8fcbda; --line:#7e91a4; --face:'DM Sans',sans-serif; --mono:'JetBrains Mono',monospace; --round:1cqw; --node-radius:8; }
+.catppuccin { --paper:#1e1e2e; --panel:#313244; --ink:#cdd6f4; --muted:#bac2de; --signal:#89b4fa; --line:#7f849c; --face:'DM Sans',sans-serif; --mono:'JetBrains Mono',monospace; --round:1.2cqw; --node-radius:10; }
+.catppuccin .deck-title { color:#b4befe; }
+.swiss { --paper:#fffdf9; --panel:#f0eeea; --ink:#191919; --muted:#5b5651; --signal:#b52d20; --line:#79736d; --face:'DM Sans',sans-serif; --mono:'JetBrains Mono',monospace; }
+.swiss .deck-title { font-size:10cqw; letter-spacing:-.065em; line-height:.97; }
+.swiss .kicker { border-bottom:3px solid var(--signal); padding-bottom:2cqw; }
+.solarized { --paper:#fdf6e3; --panel:#eee8d5; --ink:#405960; --muted:#526970; --signal:#006b7c; --line:#8c9a91; --face:'IBM Plex Sans',sans-serif; --mono:'IBM Plex Mono',monospace; }
+.solarized h3 { font-weight:500; }
+.chalk { --paper:#193a31; --panel:#23483d; --ink:#f3efdc; --muted:#c0d0bc; --signal:#edda9b; --line:#92ad92; --face:'DM Sans',sans-serif; --display:Georgia,serif; --mono:'IBM Plex Mono',monospace; }
+.chalk svg rect { stroke-dasharray:7 2; }
+.chalk .deck-title { font-style:italic; font-weight:400; }
+.bridge { --paper:#f8faf9; --panel:#eaf1f3; --ink:#18374a; --muted:#4c6571; --signal:#007991; --line:#89a8b4; --face:'DM Sans',sans-serif; --mono:'JetBrains Mono',monospace; }
+.bridge .pair > div:first-child h4 { color:#245d89; }
+.bridge .pair > div:first-child pre { border-top:4px solid #bb8b00; }
+.bridge .pair > div:last-child pre { border-top:4px solid #007991; }
+.bridge .deck-title { max-width:100%; }
+.bridge .deck-title span { display:block; color:var(--signal); }
+.oxide { --paper:#262421; --panel:#34302b; --ink:#f3e9d9; --muted:#c8baa5; --signal:#e8ac81; --line:#a48c74; --face:'IBM Plex Sans',sans-serif; --display:Georgia,serif; --mono:'IBM Plex Mono',monospace; }
+.oxide .deck-title { font-size:9cqw; font-weight:400; }
+.cobalt { --paper:#1435a1; --panel:#193caa; --ink:#ffffff; --muted:#d0dcff; --signal:#f0d584; --line:#95adee; --face:'DM Sans',sans-serif; --mono:'JetBrains Mono',monospace; }
+.cobalt .deck-title { font-size:10cqw; letter-spacing:-.06em; }
+.cobalt .kicker { color:var(--ink); }
+.newsprint { --paper:#eeeee8; --panel:#e3e3db; --ink:#20221e; --muted:#53594c; --signal:#385442; --line:#929a89; --face:'IBM Plex Sans',sans-serif; --display:Georgia,serif; --mono:'IBM Plex Mono',monospace; }
+.newsprint h3 { border-bottom:2px solid var(--ink); padding-bottom:2cqw; }
+.newsprint .kicker { letter-spacing:.18em; }
+.desert { --paper:#f3e5d3; --panel:#ead6be; --ink:#3b3027; --muted:#6e5847; --signal:#8a431f; --line:#ad8a67; --face:'DM Sans',sans-serif; --mono:'JetBrains Mono',monospace; --round:1.7cqw; --node-radius:12; }
+.desert .deck-title { font-size:8.7cqw; letter-spacing:-.055em; }
+.plum { --paper:#302633; --panel:#413247; --ink:#f4e9ee; --muted:#d0b8cc; --signal:#eac4a2; --line:#a78da9; --face:'DM Sans',sans-serif; --display:Georgia,serif; --mono:'JetBrains Mono',monospace; }
+.plum .deck-title { font-style:italic; font-size:9cqw; font-weight:400; }
+.monochrome { --paper:#111111; --panel:#222222; --ink:#f5f5f0; --muted:#bcbcb5; --signal:#ffffff; --line:#888880; --face:'IBM Plex Sans',sans-serif; --mono:'IBM Plex Mono',monospace; }
+.monochrome .deck-title { text-transform:uppercase; font-size:8cqw; letter-spacing:-.05em; }
+.monochrome pre { border-width:0 0 1px; }
+.botanical { --paper:#f0f2e9; --panel:#e2e8d5; --ink:#243a29; --muted:#4d644c; --signal:#396c32; --line:#8caa7c; --face:'DM Sans',sans-serif; --display:Georgia,serif; --mono:'JetBrains Mono',monospace; --node-radius:16; }
+.botanical .deck-title { font-weight:400; }
+.botanical .kicker { border:1px solid var(--signal); padding:1cqw 1.5cqw; align-self:flex-start; }
+.ledger { --paper:#f7f9fb; --panel:#e9eef4; --ink:#1b3049; --muted:#4e6279; --signal:#234e82; --line:#8b9fb6; --face:'IBM Plex Sans',sans-serif; --display:'IBM Plex Mono',monospace; --mono:'IBM Plex Mono',monospace; }
+.ledger .kicker { border-block:1px solid var(--line); padding:1cqw 0; }
+.ledger .deck-title { font-size:7.3cqw; }
+.terracotta { --paper:#743e30; --panel:#663529; --ink:#fff0df; --muted:#eac5ad; --signal:#ffe1a3; --line:#ce9d80; --face:'DM Sans',sans-serif; --display:Georgia,serif; --mono:'JetBrains Mono',monospace; }
+.terracotta .deck-title { font-size:9.5cqw; font-weight:400; }
+.arctic { --paper:#f0f8fa; --panel:#e0eef2; --ink:#143c48; --muted:#426771; --signal:#006b7f; --line:#80adb7; --face:'DM Sans',sans-serif; --mono:'JetBrains Mono',monospace; --round:2cqw; --node-radius:14; }
+.arctic .deck-title { font-size:8.5cqw; font-weight:500; letter-spacing:-.05em; }
+.arctic .pair { gap:5cqw; }
+.study.chosen .slide { outline:3px solid #006b82; outline-offset:4px; }
+.notes { margin-top:48px; border-top:1px solid #b2b9b9; padding-top:20px; font-size:14px; max-width:75ch; }
+@media(max-width:850px) { main { padding:20px; } header,.gallery,.gallery.all .previews { grid-template-columns:1fr; } #selection { width:100%; margin:0; } .toolbar { position:relative; } }
+@media print { .toolbar,.choose { display:none; } .study { break-inside:avoid; } }
+</style>
+</head>
+<body>
+<main>
+<header><div><p class="eyebrow">Python → Go / design studies</p><h1>One talk. Twenty directions.</h1><p>Four example slides per theme. Compare typography, code, columns, and diagrams.</p></div><p>Start with <strong>Go Workshop</strong> for teaching clarity, or <strong>Catppuccin Refined</strong> to match Kafka.</p></header>
+<nav class="toolbar" aria-label="Slide sample"><span>Preview</span><button data-sample="all" aria-pressed="true">All four slides</button><button data-sample="cover" aria-pressed="false">Cover</button><button data-sample="comparison" aria-pressed="false">Python / Go</button><button data-sample="http" aria-pressed="false">HTTP code</button><button data-sample="flow" aria-pressed="false">Request flow</button><span id="selection" role="status">No theme selected</span></nav>
+<nav id="theme-links" class="theme-links" aria-label="Jump to theme"></nav>
+<div id="gallery" class="gallery all"></div>
+<noscript>This interactive gallery needs JavaScript to show its twenty theme studies.</noscript>
+<section class="notes"><h2>Pick a direction, not a dependency</h2><p>These are visual prototypes, not installed Slidev themes. Each uses the same content and a 16:9 canvas. Your choice does not change either existing deck. Select a theme to create a bookmarkable URL, then tell me its name.</p><p>Samples adapt the Python/Go talk’s Go 1.22+ HTTP API and Kafka’s diagram-first approach. Fonts use local fallbacks when offline. Syntax colours here are illustrative; the selected theme will need a matching Shiki setup and checks in Slidev.</p></section>
+</main>
+<script>
+const themes = [
+ ['workshop','Go Workshop','Bright, left-aligned instruction. Clear separation between explanation and code.'],
+ ['terminal','Midnight Terminal','A terminal-led identity with monospace headings and mint on charcoal.'],
+ ['blueprint','Blueprint','Technical grid, dashed boundaries, and precise system diagrams.'],
+ ['paper','Editorial Paper','Warm paper and generous serif headlines; a quieter workshop handout.'],
+ ['nord','Nord Classroom','Cool slate, soft geometry, and restrained blue emphasis.'],
+ ['catppuccin','Catppuccin Refined','The Kafka palette with calmer hierarchy and consistent code panels.'],
+ ['swiss','Swiss Signal','Oversized compact headings, sharp geometry, and a single red signal.'],
+ ['solarized','Solarized Lab','Warm low-glare surfaces, teal labels, and readable technical typography.'],
+ ['chalk','Chalkboard','Cream serif headings and dashed diagram outlines on forest green.'],
+ ['bridge','Python → Go','Python blue and yellow introduce the comparison; Go cyan marks the destination.'],
+ ['oxide','Oxide Studio','Warm charcoal, copper accents, and large serif titles.'],
+ ['cobalt','Cobalt Stage','Bold blue slides, compact display type, and warm yellow emphasis.'],
+ ['newsprint','Technical Newsprint','An ink-and-paper editorial layout with ruled headings.'],
+ ['desert','Desert Workshop','Sand surfaces, rust labels, and soft code panels.'],
+ ['plum','Plum Seminar','Muted plum, warm cream, and expressive italic serif titles.'],
+ ['monochrome','Monochrome Systems','High-contrast black and white with uppercase titles and minimal code framing.'],
+ ['botanical','Botanical Notes','Sage paper, forest-green type, serif headings, and outlined topic labels.'],
+ ['ledger','Engineering Ledger','Monospace headings, navy ink, and ruled technical labels.'],
+ ['terracotta','Terracotta Lecture','Clay-red surfaces and cream serif titles for a warm stage presence.'],
+ ['arctic','Arctic Air','Pale blue, open spacing, rounded diagrams, and lighter-weight display type.']
+];
+const samples = {
+ cover: `<p class="kicker">Python experience. Go curiosity.</p><h3 class="deck-title">From Python <span>to Go.</span></h3><p>Familiar ideas. Explicit contracts.<br>Your first HTTP service.</p><p class="hint">Haseeb Majid · 30 minutes</p>`,
+ comparison: `<p class="kicker">The language bridge</p><h3>Give the response a shape.</h3><div class="pair"><div><h4>Python · dataclass</h4><pre>@dataclass\nclass Greeting:\n    message: str</pre><p class="hint">Type hints describe intent.</p></div><div><h4>Go · struct</h4><pre><span class="kw">type</span> Greeting <span class="kw">struct</span> {\n    Message string\n}</pre><p class="hint">The compiler checks types.</p></div></div><p class="hint">Same data model. Different enforcement.</p>`,
+ http: `<p class="kicker">Standard library · Go 1.22+</p><h3>A route. A handler. A response.</h3><pre class="http">mux := http.NewServeMux()\nmux.HandleFunc("GET /hello", <span class="kw">func</span>(\n    w http.ResponseWriter, r *http.Request,\n) {\n    w.Header().Set("Content-Type", "application/json")\n    io.WriteString(w, \`{"message":"hello"}\`)\n})</pre><p class="hint">http.Handler is the seam for routing and middleware.</p>`,
+ flow: `<p class="kicker">A normal HTTP service</p><h3>Follow one request.</h3><svg viewBox="0 0 720 185" role="img" aria-label="Client sends GET hello to a router, which dispatches a handler that calls a service."><path d="M130 70H191 M310 70H371 M490 70H551"/><polygon points="191,70 182,65 182,75"/><polygon points="371,70 362,65 362,75"/><polygon points="551,70 542,65 542,75"/><rect x="10" y="40" width="120" height="60"/><rect x="191" y="40" width="119" height="60"/><rect x="371" y="40" width="119" height="60"/><rect x="551" y="40" width="155" height="60"/><g text-anchor="middle" font-size="17"><text x="70" y="76">Client</text><text x="250" y="76">Router</text><text x="430" y="76">Handler</text><text x="628" y="76">Service</text><text class="flow-label" x="160" y="29">sends GET</text><text class="flow-label" x="340" y="29">dispatches</text><text class="flow-label" x="520" y="29">calls</text></g><path d="M628 101V140H70V101" stroke-dasharray="5 4"/><polygon points="70,101 65,110 75,110"/><text class="flow-label" x="260" y="165">returns data → writes JSON → receives response</text></svg><p class="hint">Pass request context inward. Return errors outward.</p>`
+};
+const sampleLabels = {cover:'Cover · display typography',comparison:'Python / Go · side-by-side code',http:'HTTP handler · syntax and code density',flow:'Request flow · diagram and annotations'};
+let sample = 'all';
+let selected = '';
+function updateHash() {
+ const params = new URLSearchParams({sample});
+ if (selected) params.set('theme', selected);
+ history.replaceState(null, '', '#' + params);
+}
+function render() {
+ const shown = sample === 'all' ? Object.keys(samples) : [sample];
+ document.querySelector('#gallery').classList.toggle('all', sample === 'all');
+ document.querySelector('#theme-links').innerHTML = themes.map(([id,name]) => `<a href="#${id}" data-jump="${id}">${name}</a>`).join('');
+ document.querySelector('#gallery').innerHTML = themes.map(([id,name,description]) => `<section class="study ${selected===id?'chosen':''}" id="${id}"><div class="study-head"><h2>${name}</h2><button class="choose" data-theme="${id}" aria-pressed="${selected===id}" aria-label="Choose ${name}">${selected===id?'Selected':'Choose'}</button></div><p class="study-description">${description}</p><div class="previews">${shown.map(key => `<figure><div class="slide ${id}">${samples[key]}<div class="folio"><span>PYTHON → GO</span><span>${{cover:'01',comparison:'02',http:'03',flow:'04'}[key]} / 04</span></div></div><figcaption>${sampleLabels[key]}</figcaption></figure>`).join('')}</div></section>`).join('');
+ document.querySelectorAll('[data-sample]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.sample===sample)));
+ document.querySelector('#selection').textContent = selected ? 'Selected: ' + themes.find(t=>t[0]===selected)[1] : 'No theme selected';
+}
+function restore() {
+ const params = new URLSearchParams(location.hash.slice(1));
+ sample = params.get('sample') === 'all' || Object.hasOwn(samples,params.get('sample')) ? params.get('sample') : 'all';
+ selected = themes.some(t=>t[0]===params.get('theme')) ? params.get('theme') : '';
+ render();
+}
+document.querySelector('.toolbar').addEventListener('click',event=>{
+ const button=event.target.closest('[data-sample]');
+ if(!button) return;
+ sample=button.dataset.sample; render(); updateHash();
+});
+document.querySelector('#gallery').addEventListener('click',event=>{
+ const button=event.target.closest('[data-theme]');
+ if(!button) return;
+ selected=button.dataset.theme; render(); updateHash();
+ document.querySelector(`[data-theme="${selected}"]`).focus({preventScroll:true});
+});
+document.querySelector('#theme-links').addEventListener('click',event=>{
+ const link=event.target.closest('[data-jump]');
+ if(!link) return;
+ event.preventDefault();
+ document.getElementById(link.dataset.jump).scrollIntoView({block:'start'});
+});
+window.addEventListener('hashchange',restore);
+restore();
+</script>
+</body>
+</html>

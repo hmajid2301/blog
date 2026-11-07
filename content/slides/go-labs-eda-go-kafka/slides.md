@@ -65,17 +65,17 @@ defaults:
 
 ---
 
-<div style="display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); align-items: center; gap: 32px;">
+<div class="diagram-explanation">
 
 <RoughDiagram diagram="happy-path" :step="$clicks" talk />
 
-<div class="transfer-captions" style="text-align: left; font-size: 24px; line-height: 1.4;">
-  <div v-click.fade-in="1" class="transfer-step" style="font-size: 32px; font-weight: 700; color: #94e2d5;">1. Charge</div>
-  <div v-click.fade-in="1" class="transfer-detail" style="margin: 8px 0 28px;">Collections charges the customer.</div>
-  <div v-click.fade-in="2" class="transfer-step" style="font-size: 32px; font-weight: 700; color: #cba6f7;">2. Payout</div>
-  <div v-click.fade-in="2" class="transfer-detail" style="margin: 8px 0 28px;">Disbursements requests the bank payout.</div>
-  <div v-click.fade-in="3" class="transfer-step" style="font-size: 32px; font-weight: 700; color: #a6e3a1;">3. Receipt</div>
-  <div v-click.fade-in="3" class="transfer-detail" style="margin-top: 8px;">Notifications sends the receipt.</div>
+<div class="explanation-captions" >
+  <div v-click.fade-in="1" class="explanation-heading tone-teal" >1. Charge</div>
+  <div v-click.fade-in="1" class="explanation-detail explanation-detail-spaced" >Collections charges the customer.</div>
+  <div v-click.fade-in="2" class="explanation-heading tone-mauve" >2. Payout</div>
+  <div v-click.fade-in="2" class="explanation-detail explanation-detail-spaced" >Disbursements requests the bank payout.</div>
+  <div v-click.fade-in="3" class="explanation-heading tone-green" >3. Receipt</div>
+  <div v-click.fade-in="3" class="explanation-detail" >Notifications sends the receipt.</div>
 </div>
 
 </div>
@@ -113,13 +113,13 @@ Imagine 1,000 payouts waiting.
 <v-switch>
 <template #0>
 
-<div style="display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); align-items: center; gap: 32px;">
+<div class="diagram-explanation">
 
 <RoughDiagram diagram="slow-bank" :step="0" talk />
 
-<div class="transfer-captions" style="text-align: left; font-size: 24px; line-height: 1.4;">
-  <div class="transfer-step" style="font-size: 32px; font-weight: 700; color: #89b4fa;">Synchronous chain</div>
-  <div class="transfer-detail" style="margin-top: 8px;">More holiday payments. Every caller still waits on downstream work.</div>
+<div class="explanation-captions" >
+  <div class="explanation-heading tone-blue" >Synchronous chain</div>
+  <div class="explanation-detail" >More holiday payments. Every caller still waits on downstream work.</div>
 </div>
 
 </div>
@@ -127,13 +127,13 @@ Imagine 1,000 payouts waiting.
 </template>
 <template #1>
 
-<div style="display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); align-items: center; gap: 32px;">
+<div class="diagram-explanation">
 
 <RoughDiagram diagram="slow-bank" :step="1" talk />
 
-<div class="transfer-captions" style="text-align: left; font-size: 24px; line-height: 1.4;">
-  <div class="transfer-step" style="font-size: 32px; font-weight: 700; color: #f38ba8;">1. Bank failure</div>
-  <div class="transfer-detail" style="margin-top: 8px;">The partner bank is slow or unavailable.</div>
+<div class="explanation-captions" >
+  <div class="explanation-heading tone-red" >1. Bank failure</div>
+  <div class="explanation-detail" >The partner bank is slow or unavailable.</div>
 </div>
 
 </div>
@@ -141,13 +141,13 @@ Imagine 1,000 payouts waiting.
 </template>
 <template #2>
 
-<div style="display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); align-items: center; gap: 32px;">
+<div class="diagram-explanation">
 
 <RoughDiagram diagram="slow-bank" :step="2" talk />
 
-<div class="transfer-captions" style="text-align: left; font-size: 24px; line-height: 1.4;">
-  <div class="transfer-step" style="font-size: 32px; font-weight: 700; color: #fab387;">2. Timeouts</div>
-  <div class="transfer-detail" style="margin-top: 8px;">Waiting upstream calls time out. Downstream failure spreads through the chain.</div>
+<div class="explanation-captions" >
+  <div class="explanation-heading tone-peach" >2. Timeouts</div>
+  <div class="explanation-detail" >Waiting upstream calls time out. Downstream failure spreads through the chain.</div>
 </div>
 
 </div>
@@ -155,13 +155,13 @@ Imagine 1,000 payouts waiting.
 </template>
 <template #3>
 
-<div style="display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); align-items: center; gap: 32px;">
+<div class="diagram-explanation">
 
 <RoughDiagram diagram="slow-bank" :step="3" talk />
 
-<div class="transfer-captions" style="text-align: left; font-size: 24px; line-height: 1.4;">
-  <div class="transfer-step" style="font-size: 32px; font-weight: 700; color: #fab387;">3. Retry storm</div>
-  <div class="transfer-detail" style="margin-top: 8px;">Client retries add load and can repeat the same payment request.</div>
+<div class="explanation-captions" >
+  <div class="explanation-heading tone-peach" >3. Retry storm</div>
+  <div class="explanation-detail" >Client retries add load and can repeat the same payment request.</div>
 </div>
 
 </div>
@@ -187,7 +187,7 @@ Imagine 1,000 payouts waiting.
 
 ---
 
-<img src="./images/failure.jpg" style="height: 65vh; width: auto; max-width: 100%; object-fit: contain; display: block; margin: 0 auto;" class="rounded shadow-lg" />
+<img src="./images/failure.jpg"  class="rounded shadow-lg slide-image" />
 
 ---
 
@@ -197,22 +197,22 @@ Imagine 1,000 payouts waiting.
 zoom: 0.8
 ---
 
-<div style="display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); align-items: center; gap: 32px;">
+<div class="diagram-explanation">
 
 <RoughDiagram diagram="event-flow" :step="$clicks" talk />
 
-<div v-show="$clicks < 4" class="transfer-captions" style="text-align: left; font-size: 24px; line-height: 1.4;">
-  <div v-click.fade-in="1" class="transfer-step" style="font-size: 32px; font-weight: 700; color: #94e2d5;">1. Publish completion</div>
-  <div v-click.fade-in="1" class="transfer-detail" style="margin: 8px 0 28px;">Collections publishes completion.</div>
-  <div v-click.fade-in="2" class="transfer-step" style="font-size: 32px; font-weight: 700; color: #cba6f7;">2. Request payout</div>
-  <div v-click.fade-in="2" class="transfer-detail" style="margin: 8px 0 28px;">Disbursements calls the bank.</div>
-  <div v-click.fade-in="3" class="transfer-step" style="font-size: 32px; font-weight: 700; color: #a6e3a1;">3. Send receipt</div>
-  <div v-click.fade-in="3" class="transfer-detail" style="margin-top: 8px;">Notifications sends the receipt.</div>
+<div v-show="$clicks < 4" class="explanation-captions" >
+  <div v-click.fade-in="1" class="explanation-heading tone-teal" >1. Publish completion</div>
+  <div v-click.fade-in="1" class="explanation-detail explanation-detail-spaced" >Collections publishes completion.</div>
+  <div v-click.fade-in="2" class="explanation-heading tone-mauve" >2. Request payout</div>
+  <div v-click.fade-in="2" class="explanation-detail explanation-detail-spaced" >Disbursements calls the bank.</div>
+  <div v-click.fade-in="3" class="explanation-heading tone-green" >3. Send receipt</div>
+  <div v-click.fade-in="3" class="explanation-detail" >Notifications sends the receipt.</div>
 </div>
 
-<div v-click="4" v-show="$clicks >= 4" class="transfer-captions" style="text-align: left; font-size: 24px; line-height: 1.4;">
-  <div class="transfer-step" style="font-size: 32px; font-weight: 700; color: #f38ba8;">4. Bank down</div>
-  <div class="transfer-detail" style="margin-top: 8px;">Collections keeps working. Payouts and receipts wait.</div>
+<div v-click="4" v-show="$clicks >= 4" class="explanation-captions" >
+  <div class="explanation-heading tone-red" >4. Bank down</div>
+  <div class="explanation-detail" >Collections keeps working. Payouts and receipts wait.</div>
 </div>
 
 </div>
@@ -259,7 +259,7 @@ class: go-audience
 
 ---
 
-<p v-click="1"><strong style="color: #f9e2af;">Event</strong>: a <span style="display: inline-block; white-space: nowrap;" v-mark="{ at: 1, type: 'underline', color: '#f9e2af', padding: 2 }">fact</span> that happened in the past.</p>
+<p v-click="1"><strong class="tone-yellow">Event</strong>: a <span class="marked-phrase" v-mark="{ at: 1, type: 'underline', color: '#f9e2af', padding: 2 }">fact</span> that happened in the past.</p>
 
 <!--
 [click]
@@ -303,16 +303,7 @@ const (
   <span class="inline-block" v-mark="{ at: 4, type: 'box', color: '#94e2d5', padding: 3 }">collections</span>.<span class="inline-block" v-mark="{ at: 4, type: 'underline', color: '#a6e3a1', padding: 2 }">completed</span>.<span class="inline-block" v-mark="{ at: 4, type: 'circle', color: '#b4befe', padding: 3 }">v1</span>
 </div>
 
-<style>
-.event-name-breakdown {
-  font-family: 'MonoLisa', monospace;
-  font-size: 28px;
-  line-height: 1.5;
-  white-space: nowrap;
-  transition: opacity 220ms ease;
-}
-.event-name-breakdown.slidev-vclick-hidden { transform: none; filter: none; }
-</style>
+
 
 <!--
 - Payload
@@ -356,13 +347,12 @@ class: code-fit
 -->
 
 ---
+class: px-8 py-6 reveal-fade
+---
 
-<p v-click="1"><strong style="color: #fab387;">Topics</strong>: How <span style="display: inline-block; white-space: nowrap;" v-mark="{ at: 1, type: 'circle', color: '#fab387', padding: 3 }">events</span> are organised</p>
+<p v-click="1"><strong class="tone-peach">Topics</strong>: How <span class="marked-phrase" v-mark="{ at: 1, type: 'circle', color: '#fab387', padding: 3 }">events</span> are organised</p>
 
-<style>
-.slidev-vclick-target { transition: opacity 220ms ease; }
-.slidev-vclick-hidden { transform: none; filter: none; }
-</style>
+
 
 <!--
 [click]
@@ -382,20 +372,14 @@ class: diagram-preview-slide
 -->
 
 ---
+class: px-8 py-6 reveal-fade
+---
 
-<p v-click="1"><strong style="color: #94e2d5;">Producer</strong>: <span style="display: inline-block; white-space: nowrap;" v-mark="{ at: 1, type: 'circle', color: '#94e2d5', padding: 4 }">publishes</span> event to topic</p>
+<p v-click="1"><strong class="tone-teal">Producer</strong>: <span class="marked-phrase" v-mark="{ at: 1, type: 'circle', color: '#94e2d5', padding: 4 }">publishes</span> event to topic</p>
 
-<p v-click="2"><strong style="color: #cba6f7;">Consumer</strong>: <span style="display: inline-block; white-space: nowrap;" v-mark="{ at: 2, type: 'box', color: '#cba6f7', padding: 4 }">receives events</span> from a topic</p>
+<p v-click="2"><strong class="tone-mauve">Consumer</strong>: <span class="marked-phrase" v-mark="{ at: 2, type: 'box', color: '#cba6f7', padding: 4 }">receives events</span> from a topic</p>
 
-<style>
-.slidev-vclick-target {
-  transition: opacity 220ms ease;
-}
-.slidev-vclick-hidden {
-  transform: none;
-  filter: none;
-}
-</style>
+
 
 <!--
 [click]
@@ -467,9 +451,9 @@ clicks: 4
 ## Why franz-go?
 
 <ul class="franz-main-reasons">
-  <li v-click="1"><strong style="color: #94e2d5;">Pure Go</strong>: No CGO</li>
-  <li v-click="2"><strong style="color: #cba6f7;">Idiomatic API</strong>: contexts and errors</li>
-  <li v-click="3"><strong style="color: #89b4fa;">Well Supported</strong>: KIPs Implemented</li>
+  <li v-click="1"><strong class="tone-teal">Pure Go</strong>: No CGO</li>
+  <li v-click="2"><strong class="tone-mauve">Idiomatic API</strong>: contexts and errors</li>
+  <li v-click="3"><strong class="tone-blue">Well Supported</strong>: KIPs Implemented</li>
 </ul>
 
 <div v-click="4" class="franz-extras">
@@ -523,7 +507,7 @@ class: code-lg
 ---
 
 
-<div class="code-focus" :style="{ '--focus-start': $clicks < 2 ? 2 : $clicks < 4 ? 1 : 4, '--focus-lines': $clicks < 2 || $clicks >= 4 ? 1 : 3 }">
+<div class="code-focus" :class="$clicks < 2 ? 'focus-start-2 focus-lines-1' : $clicks < 4 ? 'focus-start-1 focus-lines-3' : 'focus-start-4 focus-lines-1'">
 
 ````md magic-move {at:1, duration:500}
 ```go {all|3}
@@ -667,13 +651,12 @@ clicks: 4
 -->
 
 ---
+class: px-8 py-6 reveal-fade
+---
 
-<p v-click="1"><strong style="color: #89b4fa;">Partition</strong>: an <span style="display: inline-block; white-space: nowrap;" v-mark="{ at: 1, type: 'underline', color: '#89b4fa', padding: 2 }">ordered</span>, append-only log within a topic.</p>
+<p v-click="1"><strong class="tone-blue">Partition</strong>: an <span class="marked-phrase" v-mark="{ at: 1, type: 'underline', color: '#89b4fa', padding: 2 }">ordered</span>, append-only log within a topic.</p>
 
-<style>
-.slidev-vclick-target { transition: opacity 220ms ease; }
-.slidev-vclick-hidden { transform: none; filter: none; }
-</style>
+
 
 <!--
 [click]
@@ -731,7 +714,7 @@ class: diagram-compact
 
 ---
 
-<img src="./images/always_has_been.jpg" alt="Two astronauts: Wait, Kafka is just logs? It always has been." style="height: 65vh; width: auto; max-width: 100%; object-fit: contain; display: block; margin: 0 auto;" />
+<img src="./images/always_has_been.jpg" alt="Two astronauts: Wait, Kafka is just logs? It always has been." class="slide-image" />
 
 ---
 class: diagram-preview-slide
@@ -755,7 +738,7 @@ clicks: 1
 
 <v-clicks at="1">
 
-- <strong style="color: #74c7ec;">ISR (In-Sync Replicas)</strong>: replicas of a partition that are <span style="display: inline-block; white-space: nowrap;" v-mark="{ at: 1, type: 'underline', color: '#74c7ec', padding: 2 }">caught up</span> with its leader
+- <strong class="tone-sapphire">ISR (In-Sync Replicas)</strong>: replicas of a partition that are <span class="marked-phrase" v-mark="{ at: 1, type: 'underline', color: '#74c7ec', padding: 2 }">caught up</span> with its leader
 
 </v-clicks>
 
@@ -861,13 +844,12 @@ if err != nil { return err }
 -->
 
 ---
+class: px-8 py-6 reveal-fade
+---
 
-<p v-click="1"><strong style="color: #b4befe;">Consumer Group</strong>: a set of consumers that <span style="display: inline-block; white-space: nowrap;" v-mark="{ at: 1, type: 'box', color: '#b4befe', padding: 3 }">share</span> a topic’s <span style="display: inline-block; white-space: nowrap;" v-mark="{ at: 1, type: 'highlight', color: 'rgba(180,190,254,0.25)', padding: 2 }">partitions</span>.</p>
+<p v-click="1"><strong class="tone-lavender">Consumer Group</strong>: a set of consumers that <span class="marked-phrase" v-mark="{ at: 1, type: 'box', color: '#b4befe', padding: 3 }">share</span> a topic’s <span class="marked-phrase" v-mark="{ at: 1, type: 'highlight', color: 'rgba(180,190,254,0.25)', padding: 2 }">partitions</span>.</p>
 
-<style>
-.slidev-vclick-target { transition: opacity 220ms ease; }
-.slidev-vclick-hidden { transform: none; filter: none; }
-</style>
+
 
 <!--
 [click]
@@ -962,28 +944,7 @@ clicks: 2
   </div>
 </div>
 
-<style>
-.offset-board { position: relative; width: 1100px; height: 395px; margin: 45px auto 0; font-family: 'Patrick Hand', 'Poppins', sans-serif; letter-spacing: 0.02em; }
-.offset-log { position: absolute; inset: 0 0 auto; height: 220px; border: 3px solid #fab387; background: rgba(30,30,46,.9); }
-.offset-topic { position: absolute; top: 18px; left: 20px; font-size: 24px; font-weight: 500; color: #cdd6f4; }
-.offset-log-end { position: absolute; top: 20px; right: 20px; font-size: 24px; color: #f5c2e7; }
-.offset-records { position: absolute; top: 96px; left: -3px; display: grid; grid-template-columns: repeat(5, 220px); }
-.offset-record { position: relative; width: 190px; height: 90px; margin: 0 15px; --node-color: #7f849c; --node-hatch: rgba(127,132,156,.16); }
-.offset-node { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; width: 190px; height: 90px; color: #e6e9f7; background: repeating-linear-gradient(135deg, transparent 0 6px, var(--node-hatch) 6px 7.5px, transparent 7.5px 13px); line-height: 1.1; }
-.offset-node strong { font-size: 24px; font-weight: 500; }
-.offset-node span { font-size: 22px; }
-.offset-record.is-disbursement { --node-color: #b4befe; --node-hatch: rgba(203,166,247,.22); }
-.offset-record.is-reconciliation { --node-color: #89b4fa; --node-hatch: rgba(137,180,250,.22); }
-.offset-record.is-lag { --node-color: #f5c2e7; --node-hatch: rgba(245,194,231,.22); }
-.offset-lag-selection { position: absolute; top: 75px; left: 222px; right: 2px; height: 125px; border: 3px dashed #f5c2e7; }
-.offset-lag-selection span { position: absolute; top: -19px; left: 50%; translate: -50% 0; padding: 0 12px; background: #1e1e2e; color: #f5c2e7; font-size: 24px; font-weight: 500; }
-.offset-bookmark { position: absolute; top: 235px; width: 190px; color: var(--bookmark-color); }
-.offset-bookmark-disbursements { left: 235px; --bookmark-color: #b4befe; --node-hatch: rgba(203,166,247,.22); }
-.offset-bookmark-reconciliation { left: 675px; --bookmark-color: #89b4fa; --node-hatch: rgba(137,180,250,.22); }
-.offset-bookmark-tip { width: 0; height: 0; margin: 0 auto; border-left: 8px solid transparent; border-right: 8px solid transparent; border-bottom: 12px solid var(--bookmark-color); }
-.offset-bookmark-stem { width: 0; height: 28px; margin: 0 auto; border-left: 2px dashed var(--bookmark-color); }
-.offset-bookmark-label { width: 190px; }
-</style>
+
 
 <!--
 - Offset = bookmark, not event ID
@@ -1003,7 +964,7 @@ clicks: 2
 class: code-fit
 ---
 
-<div class="code-focus" :style="{ '--focus-start': $clicks === 0 ? 1 : 5, '--focus-lines': 3 }">
+<div class="code-focus focus-lines-3" :class="$clicks === 0 ? 'focus-start-1' : 'focus-start-5'">
 
 ````md magic-move {at:1, duration:500}
 ```go {2-4}
@@ -1087,9 +1048,9 @@ clicks: 3
 
 <RoughDiagram diagram="bank-crash" :step="$clicks" talk />
 
-<div class="transfer-captions" style="text-align: left; font-size: 24px; line-height: 1.4;">
-  <div class="transfer-step" style="font-size: 32px; font-weight: 700;" :style="{ color: ['#a6e3a1', '#f38ba8', '#f38ba8', '#a6e3a1'][Math.min($clicks, 3)] }">{{ ['Bank paid', '1. Crash before commit', '2. Replay without a key', '3. With a stable key'][Math.min($clicks, 3)] }}</div>
-  <div class="transfer-detail" style="margin-top: 8px;">{{ ['Payment succeeded. The offset is not committed yet.', 'Disbursements crashes. Kafka still has offset 42 as the next record to read.', 'After restart, Kafka delivers Collection A again. The bank pays twice.', 'Use the same key on the original call and replay. The bank returns the original result; then commit.'][Math.min($clicks, 3)] }}</div>
+<div class="explanation-captions" >
+  <div class="explanation-heading"  :class="['tone-green', 'tone-red', 'tone-red', 'tone-green'][Math.min($clicks, 3)]">{{ ['Bank paid', '1. Crash before commit', '2. Replay without a key', '3. With a stable key'][Math.min($clicks, 3)] }}</div>
+  <div class="explanation-detail" >{{ ['Payment succeeded. The offset is not committed yet.', 'Disbursements crashes. Kafka still has offset 42 as the next record to read.', 'After restart, Kafka delivers Collection A again. The bank pays twice.', 'Use the same key on the original call and replay. The bank returns the original result; then commit.'][Math.min($clicks, 3)] }}</div>
 </div>
 
 <!--
@@ -1146,16 +1107,13 @@ clicks: 3
 -->
 
 ---
-class: diagram-compact
+class: diagram-compact reveal-fade
 clicks: 3
 ---
 
 <RoughDiagram diagram="rebalance" :step="$clicks" talk />
 
-<style>
-.slidev-vclick-target { transition: opacity 220ms ease; }
-.slidev-vclick-hidden { transform: none; filter: none; }
-</style>
+
 
 <!--
 - Same join
@@ -1740,7 +1698,7 @@ err := pgx.BeginFunc(ctx, db, func(tx pgx.Tx) error {
 class: code-lg
 ---
 
-<div class="code-focus" :style="{ '--focus-start': [5, 1, 1, 2, 8][Math.min($clicks, 4)], '--focus-lines': 1 }">
+<div class="code-focus focus-lines-1" :class="['focus-start-5', 'focus-start-1', 'focus-start-1', 'focus-start-2', 'focus-start-8'][Math.min($clicks, 4)]">
 
 ````md magic-move {at:1, duration:500}
 ```go
@@ -1832,7 +1790,7 @@ clicks: 3
 
 <RoughDiagram diagram="metric-overview" :step="$clicks" talk />
 
-<p style="text-align: center; font-size: 28px;">{{ ['47 − 42 = 5 records behind.', 'Oldest unpublished row: 09:00 → 09:05 = 5 minutes.', '12 events waiting to retry.', '12 unresolved events need investigation.'][Math.min($clicks, 3)] }}</p>
+<p class="slide-summary">{{ ['47 − 42 = 5 records behind.', 'Oldest unpublished row: 09:00 → 09:05 = 5 minutes.', '12 events waiting to retry.', '12 unresolved events need investigation.'][Math.min($clicks, 3)] }}</p>
 
 <!--
 - Illustrative metrics
