@@ -44,9 +44,10 @@ One HTTP service. A rewrite we can explain.
 Haseeb Majid · [haseebmajid.dev](https://haseebmajid.dev)
 
 <!--
-00:00–00:30. Audience: Python developers, no Go concurrency knowledge assumed.
-The service already works. The hard part is not starting more work: it is owning the results and knowing when every task has stopped.
-Not a Python-versus-Go benchmark. Python already overlaps I/O well; we are learning Go through one concrete rewrite.
+00:00–00:30.
+- Python audience; no Go concurrency assumed.
+- Working service → owned results + work that actually stops.
+- Learn Go through a rewrite, not a language benchmark.
 -->
 
 ---
@@ -54,9 +55,11 @@ Not a Python-versus-Go benchmark. Python already overlaps I/O well; we are learn
 <AgendaTimeline />
 
 <!--
-00:30–01:30. One application, three chapters. First observe serial waiting in a working Python HTTP service. Translate it sequentially into Go. Then add bounded work, explicit ownership and cancellation, with visible local evidence.
-Promise: learn core Go by rewriting this service, from packages and the first go run through goroutines, channels, testing and a built executable. Ownership and lifetime make the rewrite complete.
-Expanded working version: allow about 46 minutes for the body, 45 seconds for closing, and 3 minutes 45 seconds for questions. The 52-minute timer is a rehearsal placeholder; the author will cut later. Appendix remains untimed.
+00:30–01:30.
+- Three chapters: observe waiting → rewrite sequentially → bound, own, stop.
+- First-day Go: packages, run, goroutines/channels, test, build.
+- Provisional 52 minutes: body ~46; recap 45 seconds; Q&A 3¾ minutes.
+- Rehearse, then trim. Appendix untimed.
 -->
 
 ---
@@ -75,10 +78,10 @@ What bounds the work?<br>
 How does it stop—and who joins it?
 
 <!--
-Expanded route: roughly 47:30–48:15, pending rehearsal and trimming. A bare go statement answers none of these questions.
-Our service gives us a concrete answer: a fixed per-batch pool, one collector, a request-derived context reaching every wait, and a coordinator that joins before closing results.
-The model transfers back to Python: executor/TaskGroup lifetimes, bounded queues, explicit shared-state synchronization. No language superiority claim.
-If the body runs long, use its last ownership slide as the recap and move straight to questions. Protect at least 3 minutes of Q&A.
+~47:30–48:15; provisional.
+- Answer: per-batch pool, one collector, request context, join before close.
+- Python transfer: executor/TaskGroup lifetime, bounded queues, synchronized sharing.
+- If behind: use body's last slide as recap. Protect ≥3 minutes Q&A.
 -->
 
 ---
@@ -93,10 +96,11 @@ What would you change in your service?
 [Haseeb Majid · haseebmajid.dev](https://haseebmajid.dev)
 
 <!--
-Expanded route: roughly 48:15–52:00. Q&A, not more prepared material. Restore a tighter timing only after content is cut.
-If quiet: ask whether two workers means a global service limit. No: each inbound batch has its own pool. Ask how to preserve order: attach an input index and collect by index without worker-side mutation.
-Other prompts: context doesn't join or force a remote server to stop; rate limiting is different from active-call limits; a finished report can contain failed URLs.
-Everything after this is an untimed appendix. Local demo fallback is examples/demo-output.txt; existing verification output is examples/verification-output.txt.
+~48:15–52:00. Q&A; appendix untimed.
+- Quiet? Two workers globally? No, per batch.
+- Preserve order? Attach indices; collector writes by index.
+- Prompts: cancel ≠ join; remote may continue; concurrency cap ≠ rate limit; URL failures still form a report.
+- Fallback: examples/demo-output.txt and verification-output.txt.
 -->
 
 ---

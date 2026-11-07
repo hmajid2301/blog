@@ -136,7 +136,7 @@ func legacyDemo() {
 	defer server.Close()
 	urls := []string{server.URL + "/ok", server.URL + "/broken", server.URL + "/slow"}
 	// #region parent
-	// In a service, the OS supplies the parent context.
+	// OS signals govern this CLI; the HTTP handler uses r.Context().
 	parent, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
 	defer stop()
 	// #endregion parent

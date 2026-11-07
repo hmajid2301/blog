@@ -8,8 +8,10 @@ label: '01 · the service we have'
 A working Python service. A growing queue of waiting callers.
 
 <!--
-Expanded working version: main body begins around 01:30. Rehearse roughly 4 minutes for chapter 1, 26½ for chapter 2 (including packages, go run and scheduler/channel animations), and 15½ for chapter 3 (including go test and go build). These are provisional budgets, not the former 30-minute route; the author will cut later.
-One application evolves, not a parade of disconnected concurrency snippets. Each change answers a failure we can observe. No language-speed contest.
+~15 seconds. Body starts around 01:30; timing provisional until rehearsal.
+- Chapter budgets: ~4 / 26½ / 15½ minutes. Expand first, trim later.
+- One evolving service; each change answers an observable problem.
+- No language-speed contest.
 -->
 
 ---
@@ -39,9 +41,12 @@ Content-Type: application/json
 ```
 
 <!--
-45 seconds. Same request/response shape in service.py and service.go. HTTP 200 means the report completed, NOT that every URL is healthy. Each result has a status and error; 0 means no HTTP response. Order is not part of the contract. Error strings are diagnostic text, not machine-readable identifiers.
-Only three exact local targets are accepted: /ok, /broken, /slow on 127.0.0.1:9099. Unknown targets, malformed bodies and more than 1000 URLs get 400. Body cap: 64 KiB. Redirects are disabled. This is deliberately not an arbitrary-URL proxy.
-Python listens on 18080, Go on 18081. Go adds a 2-second batch deadline: 504 with partial results and batch_error. A disconnected client cannot receive that response. The baseline lacks that lifecycle guarantee; this is an explicit improvement, not hidden API equivalence.
+~45 seconds. Same wire shape in service.py / service.go.
+- HTTP 200 = completed report, not healthy URLs. Status 0 = no response; order unspecified; error text diagnostic only.
+- Exact local /ok, /broken, /slow targets on :9099. No redirects or arbitrary-URL proxy.
+- Bad input → 400; ≤1000 URLs, ≤64 KiB body.
+- Python :18080; Go :18081 adds 2 s batch deadline → 504 + partial report if writable.
+- Disconnect means no response. Go lifetime policy is an explicit improvement over baseline.
 -->
 
 ---
@@ -69,25 +74,22 @@ check returns a result even for network failures and HTTP 503. urllib raises HTT
 -->
 
 ---
-layout: terminal
-title: Watch the waiting
-command: python3 demo.py
+class: runtime-animation
+routeAlias: overlapping-waits
+clicks: 2
 ---
 
-# Six URLs. One occupied slot.
+# Same checks. Overlapping waits.
 
-```text
-Python sequential: 6 results; fixture peak=1
-Go sequential:     6 results; fixture peak=1
-Go pool:           6 results; fixture peak=2
-```
-
-Normalized evidence from the local demo; timings come next.
+<WaitTimeline :step="$clicks" />
 
 <!--
-45 seconds. Run from examples/. These are normalized summaries, not invented benchmark numbers. Replace timings only with captured local output; demo.py prints elapsed wall time, fixture-observed peak and status/error summaries.
-The fixture waits 100 ms for /ok and /broken, one second for /slow. Six /ok calls are deliberately small and deterministic in behavior, not scheduler timing. The bottleneck is serial waiting, not Python bytecode. See examples/demo-output.txt for the captured run.
-A simple timeline: request A waits, then B waits. We want B's wait to overlap A's. Concurrency means multiple tasks in progress; parallelism means simultaneous execution. This I/O problem does not require a CPU benchmark.
+~60 seconds.
+- Start: A–F wait one after another. Python and Go sequential: same pattern.
+- [click 1] Same six checks → two workers. Overlap waits, not faster requests.
+- [click 2] Earlier finish. Illustration, not measured timing or a promised 2× speedup.
+- Evidence: demo-output.txt — six results each; fixture peaks 1 / 1 / 2.
+- Bridge: Python can overlap I/O too. Show that next.
 -->
 
 ---
@@ -128,9 +130,13 @@ async def check_async(url):
 Both need bounded submission and a deliberate stop policy.
 
 <!--
-60 seconds. Conceptual sketches, not new dependencies. ThreadPoolExecutor/as_completed imports and report are omitted here; checker.py is the existing complete threaded CLI with explicit exception reporting. Our service.py check returns errors as data, so the same strategy can wrap its run function.
-The semaphore limits active calls, not the number of tasks created by gather. The executor limits active calls, not queued submissions. Exiting its with block waits for work; cancelling a future does not kill an already-running thread. asyncio needs an actual async HTTP client: async_head stands for that operation, NOT urllib in async def. TaskGroup gives structured lifetime, but errors/cancellation still require policy.
-GIL-enabled CPython allows overlapping blocking I/O; it limits Python-bytecode CPU parallelism, not all concurrency. Native extensions can release it; optional free-threaded CPython builds exist since 3.13. The GIL was never an application-invariant lock. Go is a rewrite choice, not a prerequisite for concurrency.
+~60 seconds. Conceptual sketches; imports/report omitted. Complete threaded CLI: checker.py.
+- service.py check returns errors as data; threads can wrap its run.
+- Executor bounds active calls, not queued submissions. with waits; future.cancel won't kill a running thread.
+- Semaphore bounds active calls, not gather-created tasks. async_head means real async I/O, not urllib in async def.
+- TaskGroup structures lifetime; still choose error/stop policy.
+- GIL-enabled CPython overlaps blocking I/O; bytecode CPU parallelism differs. Extensions may release GIL; optional free-threaded builds since 3.13.
+- GIL ≠ application lock. Go is a choice, not prerequisite for concurrency.
 -->
 
 ---
@@ -180,10 +186,8 @@ go 1.22
 ```go
 package main
 
-import (
-    "net/http"
-    // Other imports omitted.
-)
+import "net/http"
+// Other imports omitted.
 ```
 
 </div>
@@ -192,9 +196,13 @@ import (
 </NeovimCode>
 
 <!--
-About 90 seconds. A stylized Neovim view inspired by the author's reference screenshots (code buffer, floating picker, directory listing and hover), not a live editor or a screenshot of this codebase. We use our actual filenames and module identity, not the unrelated application shown in those references. Initially show the directory buffer with relative line numbers; [click] open the file picker previewing go.mod; [click] the selection moves to service.go and its preview changes; [click] the picker closes to open that buffer. For overview/print/export, the component omits the picker and shows service.go directly.
-This is our same HTTP service, not a new project. The module preview is the complete examples/go.mod. The service preview is a shortened import block: net/http is real, other imports are explicitly omitted. The NORMAL indicator, line-number gutter and block cursor are illustration, not keyboard-editing controls. There is no executable code editor or embedded terminal.
-We have files and an import on screen. Next, explain how files form a package, and how packages belong to a module. Keep that distinction visual instead of reciting Python analogies.
+~90 seconds. Stylized editor, not live Neovim; actual example filenames.
+- Start: directory + relative line numbers.
+- [click 1] Picker previews complete go.mod.
+- [click 2] Select service.go; shortened imports, omissions labeled.
+- [click 3] Open buffer. Print/overview show this final state.
+- NORMAL, cursor and gutter are illustration, not controls.
+- Bridge: files → package → module.
 -->
 
 ---
@@ -208,11 +216,14 @@ clicks: 3
 <GoProjectDiagram scene="packages" :step="$clicks" />
 
 <!--
-About 90 seconds. Before translating the endpoint, show where the Go code lives. These are actual filenames from examples/, not a proposed project restructuring. Initially three files; [click] they group into package main; [click] go.mod reveals the containing module; [click] net/http appears outside the module as an imported standard-library package.
-Python's module often means one .py file. Here main.go and service.go declare the SAME package main and can refer to each other's package-level declarations without importing each other. main_test.go also declares package main but participates during go test, not ordinary go run/build. One directory normally holds one package; external _test packages are a testing exception. A module is a versioned collection of packages, identified by its module path, not a virtual environment. We deliberately need only one package here; a larger module can have several directories/packages.
-Actual examples/go.mod: module example.com/python-to-go-concurrency, go 1.22. In a fresh project, go mod init <module-path> creates go.mod; this checkout already has it, so don't initialize it again. The module path is a placeholder identity, not a dependency we download. The go directive declares the minimum Go version; it is not an exact toolchain pin.
-Imports identify packages, not filenames. service.go imports net/http; http.NewServeMux uses that imported package name. Imports are file-scoped, even though package-level declarations are shared across files. Capitalized identifiers are exported to other packages; lower-case check is still visible across our own package's files.
-go.mod records module identity and dependency requirements. go.sum records dependency checksums, not a complete lockfile. Our standard-library-only example has no external requirements and no go.sum; don't draw one as an existing file. go mod tidy maintains requirements/checksums when dependencies are needed. No pip install or third-party router is required for net/http. Next: give the existing JSON a Go shape.
+~90 seconds. Actual examples/ files; no restructuring.
+- [click 1] Files → package main. Shared declarations; no mutual imports.
+- main_test.go joins during tests only. Normally one package per directory; external _test exception.
+- [click 2] go.mod → module: versioned package collection, not a virtual environment.
+- Module path is identity; go 1.22 is minimum version, not exact pin. go mod init only for a new project.
+- [click 3] net/http: standard-library package. Imports are file-scoped; capitals export across packages.
+- go.sum: dependency checksums, not complete lockfile. None needed here; stdlib only. go mod tidy maintains dependencies.
+- Bridge: give the existing JSON a Go shape.
 Sources: examples/go.mod, main.go, service.go, main_test.go; https://go.dev/doc/code ; https://go.dev/ref/mod .
 -->
 
@@ -342,9 +353,13 @@ clicks: 3
 <GoProjectDiagram scene="run" :step="$clicks" />
 
 <!--
-About 60 seconds. We have translated the sequential path. How do we run it? All commands on these tooling slides are from examples/. The dot selects the main package in this directory, not just main.go. [click] compile/link as needed; [click] execute the service on 127.0.0.1:18081; [click] distinguish compile-and-run from leaving a named binary behind.
-The arguments after the package go to our program: -serve starts HTTP mode; -sequential selects Sequential. These are this example's flags, not Go tool flags. package main plus func main supplies the executable entry point; in our real code func main is in service.go, showing why filenames don't define the entry point. go run main.go would omit service.go, not run the same complete package. _test.go files are excluded here.
-This is not an interpreter or an automatic file watcher. Go can reuse cached build artifacts; the picture is a conceptual pipeline, not a promise of a full rebuild each invocation. For HTTP checks, run python3 demo.py fixtures separately and ensure 9099/18081 are free. No flags runs the older standalone demo instead. Keep the sequential baseline: now ask what happens when we add go before check.
+~60 seconds. Commands run from examples/; dot selects the whole package.
+- [click 1] Compile/link as needed; cached artifacts may be reused.
+- [click 2] Run on 127.0.0.1:18081. -serve / -sequential are program flags.
+- [click 3] Compile-and-run, not a named binary to keep. Not an interpreter/watcher.
+- Entry point: package main + func main (here in service.go). go run main.go omits that file; _test.go excluded.
+- Manual demo: python3 demo.py fixtures separately; ports 9099/18081 free. No flags → older standalone demo.
+- Bridge: add go before check. What goes missing?
 Sources: examples/service.go (main); https://pkg.go.dev/cmd/go#hdr-Compile_and_run_Go_program .
 -->
 
@@ -587,16 +602,26 @@ Limits are only useful if work also stops.
 -->
 
 ---
-layout: statement
+class: runtime-animation
+routeAlias: cancellation-lifecycle
+clicks: 5
 ---
 
-# The caller left.<br>Your work didn’t.
+# The caller left. Stop, then join.
 
-A result nobody wants can still occupy a socket, a worker, or a blocked send.
+<ShutdownDiagram :step="$clicks" />
 
 <!--
-40 seconds. The sequential Python baseline catches a broken response pipe only AFTER doing all its checks. Threading or async alone would not supply a complete cancellation policy.
-Go's incoming request context is cancelled when the client disconnects, the request is cancelled, or the handler returns. Merely spawning a goroutine doesn't attach a structured lifetime to it. Cancellation must reach every blocking boundary, AND the owner must join.
+~90 seconds. Illustrative path; exits need not happen together.
+- Start: job handoff / HTTP / result send. Collector receives throughout.
+- [click 1] Caller leaves → context canceled. Signal ≠ kill or join.
+- [click 2] Producer + workers exit. Client I/O stops; remote work may continue.
+- [click 3] Join complete. No senders remain.
+- [click 4] Close results → drain → collector range ends.
+- [click 5] Run returns partial report + error. Disconnected caller gets no response.
+- Caveat: send can race cancellation; a completed result may be omitted.
+- Bridge: now show the code behind each boundary.
+Sources: examples/main.go; examples/service.go; https://pkg.go.dev/context ; https://pkg.go.dev/net/http#Request.Context .
 -->
 
 ---
@@ -793,9 +818,13 @@ clicks: 3
 <GoProjectDiagram scene="test" :step="$clicks" />
 
 <!--
-About 75 seconds. We've claimed the pool is bounded and work stops. How do we check? Start with go test ./... from examples/. The pattern means packages beneath this directory within the module; our example has one. [click] _test.go joins the package in a test binary; [click] the runner executes Test functions; [click] add -race to observe executed concurrent accesses. This drawing explains the tool; it does not display fabricated PASS output.
-Go's testing package and go test are supplied by the toolchain. Existing main_test.go uses func TestName(t *testing.T). A failed assertion reports through t.Fatal/t.Fatalf. We are not adding new tests. The service reuses the existing checker/pool suite; it does not yet test the HTTP wrapper. Successful package test results may be cached; -count=1 forces test execution when fresh evidence is needed. go test builds test binaries but does not normally leave a named service executable behind.
-The race detector needs a supported platform and C compiler. It finds races on executed paths, not every possible interleaving, and does not prove absence of deadlocks or leaks. go vet is static analysis, a different tool, shown with the existing captured evidence next. The deliberately racy append slide is a teaching sketch, not code in the working suite.
+~75 seconds. From examples/: go test ./... covers packages below this directory in the module; here, one.
+- [click 1] _test.go joins a test binary; not a retained service executable.
+- [click 2] Runner calls TestName(t *testing.T); t.Fatal/t.Fatalf fail a test.
+- [click 3] -race checks executed accesses; supported platform + C compiler required.
+- Existing pool/checker tests, not HTTP-wrapper coverage. Racy append sketch is not in the suite.
+- Cached success possible; -count=1 forces execution. go vet is separate static analysis.
+- No claim of every schedule, no leaks, or no deadlocks. Diagram isn't PASS evidence; that comes next.
 Sources: examples/main_test.go; https://pkg.go.dev/cmd/go#hdr-Test_packages ; https://go.dev/doc/articles/race_detector .
 -->
 
@@ -819,9 +848,12 @@ TestCheckRequestTimeout                PASS
 Existing tests · real local HTTP · no external network
 
 <!--
-75 seconds including demo. This is normalized actual local test output, not new tests. Captured full output in examples/verification-output.txt. Environment lacked gcc; used nix shell nixpkgs#gcc to run the existing race suite. go vet has no output on success.
-Explain evidence, don't merely read green names. The bounds test forces two requests to overlap, checks six results and exact peak=2. The cancellation test waits for a request to start, cancels its parent, then waits for both Run and the server's request context to stop. That is stronger evidence than sleeping and counting goroutines. URL-error test includes malformed URL and 503; deadline test starts with an expired deadline; per-request timeout uses a server that waits for cancellation.
-These existing tests cover Run/check, not the newly added HTTP wrapper. The local demo exercises the wrapper's success/failure contract. Race detection covers executed paths, not every possible schedule. Passing tests aren't a proof of no leaks or all production behavior.
+~75 seconds including demo. Normalized captured output: examples/verification-output.txt.
+- Existing suite; gcc supplied via nix shell nixpkgs#gcc. go vet silent on success.
+- Bounds: force overlap, six results, peak=2.
+- Cancellation: wait for request start → cancel → await Run and server request-context exit. Not sleep/count evidence.
+- URL errors: malformed URL + 503. Deadline test: already expired. URL timeout: server waits for cancellation.
+- Scope: Run/check, not HTTP wrapper. Demo exercises wrapper contract; races only on executed paths. No universal leak/production proof.
 -->
 
 ---
@@ -845,9 +877,12 @@ Go pool           → 6 results; peak 2
 Normalized captured demo output. This is not a cross-language benchmark.
 
 <!--
-65 seconds. Run examples/demo.py; it starts the local fixture, builds Go in a temporary directory, runs Python, sequential Go, then bounded Go through the SAME HTTP contract, and cleans up subprocesses. See demo-output.txt for measured elapsed times and full summaries. It refuses occupied service ports; requires loopback 9099, 18080 and 18081.
-Manual path: terminal A python3 demo.py fixtures; terminal B python3 service.py OR go run . -serve -sequential OR go run . -serve. POST the request from the contract slide to port 18080 or 18081. go run . with no flags still runs the original standalone local demo.
-The fixture uses fixed delays and known responses, but elapsed time varies with scheduling and machine load. Peak is observed at the local server for the finite healthy batch; it isn't a production throughput claim. On timeout, a remote may continue server-side work even when our client stops. The cancellation test uses a Go fixture that cooperates with disconnect, unlike the Python fixture's deliberate sleep.
+~65 seconds. From examples/: python3 demo.py.
+- Local fixture → temporary Go build → three service stages → subprocess cleanup. Ports 9099/18080/18081 must be free.
+- Fallback: demo-output.txt, measured times + full summaries.
+- Manual: terminal A python3 demo.py fixtures; B chooses ONE service. POST to :18080 or :18081. No Go flags → standalone demo.
+- Fixed fixture delays, variable elapsed time. Peak proves local overlap, not production throughput.
+- Remote work may outlive client timeout. Cancellation-test Go fixture cooperates; Python fixture deliberately sleeps.
 -->
 
 ---
@@ -861,9 +896,13 @@ clicks: 3
 <GoProjectDiagram scene="build" :step="$clicks" />
 
 <!--
-About 75 seconds. The same service now works, overlaps waits, and has evidence for its pool. How do we hand it over? From examples/: go build -o checker . [click] compile/link the main package and its dependencies as needed; [click] keep ./checker as the named executable; [click] explicitly run ./checker -serve. Building alone neither starts the service nor runs the tests. The final command selects the bounded pool; add -sequential to compare the baseline.
-Contrast the earlier go run: both compile, but build gives us an executable to keep. The target does not need Go installed. That is not a universal portability/static-linking claim: target OS/architecture must match, and cgo/native libraries can introduce runtime requirements. A suitable CGO_ENABLED=0 build can avoid native-library dependencies. Don't promise every Go binary is static, tiny, or works unchanged on every machine. Deployment configuration, CA certificates, network access, and graceful shutdown remain separate concerns.
-This completes the practical first-day loop: package/module, run the rewrite, test behavior, build the result. No third-party dependency was needed. Do not create checker in the repository during slide verification; use a temporary output path. Next: look back at what we learned from rewriting one service.
+~75 seconds. From examples/: go build -o checker .
+- [click 1] Compile/link main package + dependencies as needed.
+- [click 2] Keep ./checker. Build neither starts the service nor runs tests.
+- [click 3] ./checker -serve starts the pool; add -sequential for baseline.
+- No Go installation needed on target; OS/architecture must match. cgo/native libraries may add requirements; suitable CGO_ENABLED=0 builds avoid those.
+- Not universally static/tiny/portable. CA certificates, config, network and graceful shutdown remain separate.
+- Bridge: package → run → test → build, all stdlib. Recap the rewrite.
 Sources: examples/service.go; https://pkg.go.dev/cmd/go#hdr-Compile_packages_and_dependencies .
 -->
 
@@ -879,7 +918,10 @@ One owner of the report.<br>
 No sender left behind.
 
 <!--
-45 seconds. Hand back to the closing after the expanded route; the old minute-25½ target no longer applies until the author trims. Retell the problem→evidence→fix sequence: working service waits sequentially; threads/async can overlap too; a sequential Go equivalent preserves behavior; naive goroutines lose completion and ownership; collector fixes races; workers bound active work; contexts stop all waits; joining makes return mean finished.
-Limits to state honestly: two workers per batch, not globally; bounded input/result memory via a finite API, not a streaming design; concurrency cap, not a rate limiter; exact trusted local targets, not an SSRF-safe internet checker. Production global admission, per-host limits, retries, observability, shutdown and SSRF policy are separate requirements, not hidden claims of this example.
-The lesson is not to memorize arrows. Before go, ask who owns data, how work stops, who joins, and who is allowed to close.
+~45 seconds. Hand back to closing; timing provisional.
+- Journey: serial waits → sequential rewrite → goroutines → collector → workers → cancel + join.
+- Python threads/async also overlap; no language superiority claim.
+- Limits: per-batch workers, finite O(n) memory, no rate limiter, trusted local targets only.
+- Production still needs global/per-host admission, SSRF policy, retries, observability and shutdown.
+- Before go: who owns, stops, joins and closes?
 -->
