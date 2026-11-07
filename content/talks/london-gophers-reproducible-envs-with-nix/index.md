@@ -13,8 +13,8 @@ hideSummary: true
 ---
 
 - [Abstract](https://www.meetup.com/londongophers/events/303598426/)
-- [Slides](/slides/london-gophers-reproducible-envs-with-nix)
-- [PDF](https://gitlab.com/hmajid2301/blog/-/blob/main/content/slides/london-gophers-reproducible-envs-with-nix/slides.pdf)
+- [Slides](https://slides.haseebmajid.dev/reproducible-envs-with-nix/2024-11-20-london-gophers/)
+- [PDF](https://slides.haseebmajid.dev/reproducible-envs-with-nix/2024-11-20-london-gophers/slides.pdf)
 
 ## Photo from conference
 

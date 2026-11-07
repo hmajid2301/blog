@@ -28,9 +28,7 @@ check:og:
 pages:
   stage: deploy
   script:
-    - nix develop -c task slides:publish
     - nix develop -c hugo
-    - nix develop -c hugo --config hugo-slides.toml
   pages: true
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH

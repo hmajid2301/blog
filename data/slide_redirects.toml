@@ -1,0 +1,55 @@
+# Permanent compatibility map for published slide URLs, including printed QR codes.
+# Paths are relative to https://slides.haseebmajid.dev/.
+# Never remove an old slug when renaming a talk or adding another conference edition.
+base_url = "https://slides.haseebmajid.dev"
+
+[[decks]]
+old = "an-intro-to-pocketbase"
+new = "an-intro-to-pocketbase/2023-05-31-london-gophers"
+
+[[decks]]
+old = "faster-go-tests-and-postgres"
+new = "faster-go-tests-and-postgres/2025-07-15"
+# No conference recorded in the existing deck metadata.
+
+[[decks]]
+old = "gitlab-runners-and-dind"
+new = "gitlab-runners-and-dind/2023-11-15-london-gophers"
+
+[[decks]]
+old = "go-labs-eda-go-kafka"
+new = "eda-go-kafka/2026-11-02-golab"
+
+[[decks]]
+old = "go-labs-htmx-go-web-app"
+new = "htmx-go-web-app/2025-10-06-golab"
+# Uses content/talks metadata; the deck incorrectly repeats the GopherCon metadata.
+
+[[decks]]
+old = "go-labs-reproducible-envs-with-nix"
+new = "reproducible-envs-with-nix/2024-11-13-golab"
+
+[[decks]]
+old = "gophercon-htmx-go-web-app"
+new = "htmx-go-web-app/2026-08-12-gophercon-uk"
+
+[[decks]]
+old = "gophercon-otel"
+new = "otel-go/2025-07-15-gophercon-uk"
+
+[[decks]]
+old = "london-gophers-reproducible-envs-with-nix"
+new = "reproducible-envs-with-nix/2024-11-20-london-gophers"
+
+[[decks]]
+old = "my-journey-using-docker-as-a-developer-tool"
+new = "my-journey-using-docker-as-a-developer-tool/2022-07-13-europython"
+
+[[decks]]
+old = "python-to-go-concurrency"
+new = "python-to-go-concurrency/2026-11-02"
+# No conference recorded in the existing talk metadata.
+
+[[decks]]
+old = "reproducible-envs-with-nix"
+new = "reproducible-envs-with-nix/2024-04-25-conf42-golang"

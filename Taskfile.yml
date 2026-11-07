@@ -3,17 +3,11 @@ version: "3"
 tasks:
   build:
     cmds:
-      - task slides:publish
       - hugo
-      - hugo --config hugo-slides.toml
 
   start_server:
     cmds:
       - hugo server -D --buildFuture
-
-  start_slides:
-    cmds:
-      - hugo server -D --buildFuture --config hugo-slides.toml
 
   new_post:
     cmds:
@@ -22,56 +16,3 @@ tasks:
   generate:og:
     cmds:
       - ls content/posts/ | parallel 'mkdir -p content/posts/{}/images && tcardgen -c scripts/og/config.yaml --template=scripts/og/template.png -f scripts/og/fonts/ content/posts/{}/index.md -o content/posts/{}/images/cover.png'
-
-  slides:export:
-    cmds:
-      - ./scripts/export-slides.sh
-
-  slides:publish:
-    cmds:
-      - task slides:export
-      - task slides:publish:slidev
-
-  slides:publish:slidev:
-    cmds:
-      - |
-        set -euo pipefail
-        for deck in content/slides/*/package.json; do
-          [ -f "$deck" ] || continue
-          dir=$(dirname "$deck")
-          name=$(basename "$dir")
-          if ! jq -e '.scripts["build:hugo"]' "$deck" >/dev/null 2>&1; then
-            continue
-          fi
-          echo "Publishing Slidev deck: $name"
-          (
-            cd "$dir"
-            pnpm install --frozen-lockfile
-            pnpm build:hugo
-          )
-        done
-
-  slides:dev:slidev:
-    cmds:
-      - |
-        deck=$(find content/slides -maxdepth 1 -mindepth 1 -type f -name package.json -exec sh -c 'jq -e \'.scripts["build:hugo"]\' "$1" >/dev/null 2>&1 && dirname "$1"' _ {} \; | sort | gum choose)
-        cd "$deck"
-        pnpm dev
-
-  slides:export:slidev:
-    cmds:
-      - |
-        deck=$(find content/slides -maxdepth 1 -mindepth 1 -type f -name package.json -exec sh -c 'jq -e \'.scripts.export\' "$1" >/dev/null 2>&1 && dirname "$1"' _ {} \; | sort | gum choose)
-        cd "$deck"
-        pnpm export
-
-  slides:dev:reveal:
-    cmds:
-      - |
-        deck=$(find content/slides -maxdepth 1 -mindepth 1 -type d -name '*-reveal' -printf '%f\n' | sort | gum choose)
-        cd "content/slides/$deck"
-        if jq -e '.scripts.dev' package.json >/dev/null 2>&1; then
-          pnpm dev
-        else
-          python3 -m http.server 3031
-        fi
