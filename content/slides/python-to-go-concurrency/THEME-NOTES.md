@@ -1,9 +1,16 @@
 # Theme direction
 
-Original local implementation: warm paper, near-black ink, one oxblood accent.
+The local implementation now uses the original Fireside light/dark palettes,
+recovered from the 2026-11-04 Pi comparison session. Dark is the default.
+
+- Light: paper `#faf2e8`, ink `#3c2b26`, accent `#a13e25`, muted `#72584b`, surface `#f1e3d3`, border `#c8ad98`, selection `#f0cdb8`.
+- Dark: paper `#281f1a`, ink `#f4e8da`, accent `#f0aa7d`, muted `#cbb6a2`, surface `#382a22`, border `#896a54`, selection `#4c3326`.
+
 Radio Canada Big carries the explanation; Source Serif 4 marks sections and
-statements; Geist Mono carries code and metadata. These fonts were already
-used by the deck. No upstream dependency, brand marks, portraits or assets.
+statements; Geist Mono carries code and metadata. Typography and animations
+are unchanged. Shiki uses `github-light` / `github-dark`, matching the original
+Fireside comparison. Both presets are available in the opt-in picker.
+No upstream dependency, brand marks, portraits or assets are introduced.
 
 ## Research
 

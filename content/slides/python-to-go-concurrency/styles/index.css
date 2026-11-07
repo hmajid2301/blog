@@ -1,14 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&family=Radio+Canada+Big:wght@400;500;600;700&family=Source+Serif+4:wght@400;500;600&display=swap');
 
-/* Original editorial theme. Shared tokens are also the SVG component API. */
+/* Original Fireside palettes recovered from the comparison session.
+   Shared tokens are also the SVG component API. */
 :root {
-  --talk-paper: #f8f5ee;
-  --talk-ink: #252823;
-  --talk-accent: #9e3039;
-  --talk-muted: #596057;
-  --talk-surface: #f1eee7;
-  --talk-border: #b8bbb0;
-  --talk-accent-soft: #eddbd8;
+  color-scheme: light;
+  --talk-paper: #faf2e8;
+  --talk-ink: #3c2b26;
+  --talk-accent: #a13e25;
+  --talk-muted: #72584b;
+  --talk-surface: #f1e3d3;
+  --talk-border: #c8ad98;
+  --talk-accent-soft: #f0cdb8;
   /* Compatibility while the diagrams migrate from the earlier palette. */
   --talk-bg: var(--talk-paper);
   --talk-blue: var(--talk-accent);
@@ -17,6 +19,18 @@
   --slidev-theme-primary: var(--talk-accent);
   --slidev-theme-background: var(--talk-paper);
   --slidev-code-background: var(--talk-surface);
+  --slidev-controls-foreground: var(--talk-ink);
+  --slidev-controls-background: var(--talk-paper);
+}
+:root.dark {
+  color-scheme: dark;
+  --talk-paper: #281f1a;
+  --talk-ink: #f4e8da;
+  --talk-accent: #f0aa7d;
+  --talk-muted: #cbb6a2;
+  --talk-surface: #382a22;
+  --talk-border: #896a54;
+  --talk-accent-soft: #4c3326;
 }
 
 html, body, #app { background: var(--talk-paper); }
@@ -154,6 +168,7 @@ html, body, #app { background: var(--talk-paper); }
 .slidev-layout.code-hero pre { font-size: 24px !important; }
 .slidev-layout :not(pre) > code { color: inherit; background: var(--talk-surface); padding: .06em .2em; border-radius: 0; font-size: .88em; }
 .slidev-layout .shiki span { font-style: var(--shiki-light-font-style, inherit); font-weight: var(--shiki-light-font-weight, inherit); }
+html.dark .slidev-layout .shiki span { font-style: var(--shiki-dark-font-style, inherit); font-weight: var(--shiki-dark-font-weight, inherit); }
 .slidev-layout .slidev-code .line.dim { opacity: .55; }
 .slidev-layout .slidev-code-magic-move .shiki { margin: 0; }
 .talk-terminal-command {
@@ -173,6 +188,9 @@ html, body, #app { background: var(--talk-paper); }
 .slidev-layout table th { color: var(--talk-ink); font-weight: 700; }
 .slidev-layout table th, .slidev-layout table td { padding: .45em .5em; border-bottom: 1px solid var(--talk-border); }
 .slidev-layout .pool-diagram { width: 100%; height: 280px; margin: 16px auto; }
+.slidev-layout.runtime-animation h1 { font-size: 48px; margin-bottom: 14px; }
+.slidev-layout.runtime-animation .scheduler-diagram,
+.slidev-layout.runtime-animation .channel-diagram { display: block; width: 100%; height: 380px; flex: none; }
 .slidev-layout .mermaid { font-family: 'Radio Canada Big', sans-serif; }
 .slidev-vclick-target { transition: opacity 180ms cubic-bezier(.22, 1, .36, 1); }
 /* Keep Slidev's own visibility and keyboard/presenter handling intact. */

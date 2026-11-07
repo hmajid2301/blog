@@ -1,4 +1,6 @@
 export const themePresets = [
+  { id: 'fireside-light', name: 'Fireside Light', dark: false },
+  { id: 'fireside-dark', name: 'Fireside Dark', dark: true },
   { id: 'workshop', name: 'Go Workshop', dark: false },
   { id: 'terminal', name: 'Midnight Terminal', dark: true },
   { id: 'blueprint', name: 'Blueprint', dark: true },

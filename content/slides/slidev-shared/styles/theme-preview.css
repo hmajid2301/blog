@@ -21,6 +21,9 @@
   --ctp-link-hover: var(--talk-ink);
   --ctp-selection: var(--talk-line);
 }
+:root[data-talk-theme^='fireside-'] { --talk-face:'Radio Canada Big',sans-serif; --talk-display:var(--talk-face); --talk-mono:'Geist Mono',monospace; --talk-weight:700; --talk-panel:var(--talk-surface); --talk-line:var(--talk-border); --talk-signal:var(--talk-accent); }
+:root[data-talk-theme='fireside-light'] { --talk-paper:#faf2e8; --talk-ink:#3c2b26; --talk-accent:#a13e25; --talk-muted:#72584b; --talk-surface:#f1e3d3; --talk-border:#c8ad98; --talk-accent-soft:#f0cdb8; }
+:root[data-talk-theme='fireside-dark'] { --talk-paper:#281f1a; --talk-ink:#f4e8da; --talk-accent:#f0aa7d; --talk-muted:#cbb6a2; --talk-surface:#382a22; --talk-border:#896a54; --talk-accent-soft:#4c3326; }
 :root[data-talk-theme='workshop'] { --talk-paper:#ffffff; --talk-panel:#eef6f8; --talk-ink:#152c37; --talk-muted:#47616e; --talk-signal:#006b82; --talk-line:#92b1bb; }
 :root[data-talk-theme='terminal'] { --talk-paper:#151d1c; --talk-panel:#202c29; --talk-ink:#e2eee7; --talk-muted:#a6bfb1; --talk-signal:#9dd7b1; --talk-line:#6c8a7b; --talk-face:'IBM Plex Sans',sans-serif; --talk-display:'IBM Plex Mono',monospace; --talk-mono:'IBM Plex Mono',monospace; }
 :root[data-talk-theme='blueprint'] { --talk-paper:#152a42; --talk-panel:#1c354f; --talk-ink:#e6f1f6; --talk-muted:#a8c6d7; --talk-signal:#85d2e8; --talk-line:#648ea3; --talk-face:'IBM Plex Sans',sans-serif; --talk-mono:'IBM Plex Mono',monospace; }
@@ -73,6 +76,7 @@ html[data-talk-theme='swiss'] .slidev-layout > h2 { letter-spacing:-.04em; }
 html[data-talk-theme='monochrome'] .slidev-layout > h2 { text-transform:uppercase; font-size:46px; }
 html[data-talk-theme='plum'] .slidev-layout > h2,
 html[data-talk-theme='chalk'] .slidev-layout > h2 { font-style:italic; }
+html[data-talk-theme^='fireside-'] .slidev-layout:is(.section,.statement) h1 { font-family:'Source Serif 4',Georgia,serif; font-weight:500; }
 html[data-talk-theme='bridge'] .columns > div:first-child .shiki { border-top:4px solid #bb8b00; }
 html[data-talk-theme='bridge'] .columns > div:last-child .shiki { border-top:4px solid #007991; }
 

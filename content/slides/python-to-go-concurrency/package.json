@@ -15,7 +15,6 @@
     "prettier-plugin-slidev": "^1.0.5"
   },
   "dependencies": {
-    "@slidev/theme-default": "^0.25.0",
-    "roughjs": "4.6.6"
+    "@slidev/theme-default": "^0.25.0"
   }
 }

@@ -8,7 +8,7 @@ const chapters = [
 
 <template>
   <section class="timeline-agenda" aria-label="Three chapters about one HTTP service">
-    <p class="eyebrow">30 minutes · one service · room for questions</p>
+    <p class="eyebrow">Expanded working talk · one service · room for questions</p>
     <h2>A rewrite, not a syntax tour.</h2>
     <svg class="track" viewBox="0 0 1080 52" role="img" aria-label="Observe, rewrite, verify">
       <path d="M18 26 H1062" />

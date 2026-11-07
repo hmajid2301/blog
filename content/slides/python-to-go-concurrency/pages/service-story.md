@@ -8,7 +8,7 @@ label: '01 · the service we have'
 A working Python service. A growing queue of waiting callers.
 
 <!--
-Main body begins around 01:30. Chapter 1: 4 minutes; chapter 2: 9 minutes; chapter 3: 11 minutes. Leave about 4½ minutes for the deck's opener, closing and questions.
+Expanded working version: main body begins around 01:30. Rehearse roughly 4 minutes for chapter 1, 26½ for chapter 2 (including packages, go run and scheduler/channel animations), and 15½ for chapter 3 (including go test and go build). These are provisional budgets, not the former 30-minute route; the author will cut later.
 One application evolves, not a parade of disconnected concurrency snippets. Each change answers a failure we can observe. No language-speed contest.
 -->
 
@@ -143,7 +143,77 @@ label: '02 · the service we rewrite'
 Same endpoint. Same result policy. Make it work before making it concurrent.
 
 <!--
-15 seconds. Chapter 2 about 9 minutes. Introduce syntax immediately before it is used. We are translating the working service, not beginning with a worker-pool abstraction.
+15 seconds. Expanded chapter 2: allow roughly 26½ minutes, then trim after rehearsal. Introduce syntax immediately before it is used. We are translating the working service, not beginning with a worker-pool abstraction.
+-->
+
+---
+routeAlias: go-editor
+clicks: 3
+---
+
+# Open the Go project
+
+<NeovimCode filename="service.go" directory-label="examples/" :directory="$clicks === 0" :picker="$clicks === 1 || $clicks === 2" :files="['go.mod', 'main.go', 'service.go', 'main_test.go']" :selected="$clicks < 2 ? 'go.mod' : 'service.go'">
+
+```go
+package main
+
+import (
+    "net/http"
+    // Other imports omitted.
+)
+```
+
+<template #preview>
+
+<div v-if="$clicks < 2">
+
+```go
+module example.com/python-to-go-concurrency
+
+go 1.22
+```
+
+</div>
+<div v-else>
+
+```go
+package main
+
+import (
+    "net/http"
+    // Other imports omitted.
+)
+```
+
+</div>
+
+</template>
+</NeovimCode>
+
+<!--
+About 90 seconds. A stylized Neovim view inspired by the author's reference screenshots (code buffer, floating picker, directory listing and hover), not a live editor or a screenshot of this codebase. We use our actual filenames and module identity, not the unrelated application shown in those references. Initially show the directory buffer with relative line numbers; [click] open the file picker previewing go.mod; [click] the selection moves to service.go and its preview changes; [click] the picker closes to open that buffer. For overview/print/export, the component omits the picker and shows service.go directly.
+This is our same HTTP service, not a new project. The module preview is the complete examples/go.mod. The service preview is a shortened import block: net/http is real, other imports are explicitly omitted. The NORMAL indicator, line-number gutter and block cursor are illustration, not keyboard-editing controls. There is no executable code editor or embedded terminal.
+We have files and an import on screen. Next, explain how files form a package, and how packages belong to a module. Keep that distinction visual instead of reciting Python analogies.
+-->
+
+---
+class: runtime-animation
+routeAlias: go-packages
+clicks: 3
+---
+
+# Files ≠ packages ≠ modules
+
+<GoProjectDiagram scene="packages" :step="$clicks" />
+
+<!--
+About 90 seconds. Before translating the endpoint, show where the Go code lives. These are actual filenames from examples/, not a proposed project restructuring. Initially three files; [click] they group into package main; [click] go.mod reveals the containing module; [click] net/http appears outside the module as an imported standard-library package.
+Python's module often means one .py file. Here main.go and service.go declare the SAME package main and can refer to each other's package-level declarations without importing each other. main_test.go also declares package main but participates during go test, not ordinary go run/build. One directory normally holds one package; external _test packages are a testing exception. A module is a versioned collection of packages, identified by its module path, not a virtual environment. We deliberately need only one package here; a larger module can have several directories/packages.
+Actual examples/go.mod: module example.com/python-to-go-concurrency, go 1.22. In a fresh project, go mod init <module-path> creates go.mod; this checkout already has it, so don't initialize it again. The module path is a placeholder identity, not a dependency we download. The go directive declares the minimum Go version; it is not an exact toolchain pin.
+Imports identify packages, not filenames. service.go imports net/http; http.NewServeMux uses that imported package name. Imports are file-scoped, even though package-level declarations are shared across files. Capitalized identifiers are exported to other packages; lower-case check is still visible across our own package's files.
+go.mod records module identity and dependency requirements. go.sum records dependency checksums, not a complete lockfile. Our standard-library-only example has no external requirements and no go.sum; don't draw one as an existing file. go mod tidy maintains requirements/checksums when dependencies are needed. No pip install or third-party router is required for net/http. Next: give the existing JSON a Go shape.
+Sources: examples/go.mod, main.go, service.go, main_test.go; https://go.dev/doc/code ; https://go.dev/ref/mod .
 -->
 
 ---
@@ -262,6 +332,23 @@ The shared reusable client is safe for concurrent use. Per-request timeout is a 
 -->
 
 ---
+class: runtime-animation
+routeAlias: go-run
+clicks: 3
+---
+
+# Run the rewrite
+
+<GoProjectDiagram scene="run" :step="$clicks" />
+
+<!--
+About 60 seconds. We have translated the sequential path. How do we run it? All commands on these tooling slides are from examples/. The dot selects the main package in this directory, not just main.go. [click] compile/link as needed; [click] execute the service on 127.0.0.1:18081; [click] distinguish compile-and-run from leaving a named binary behind.
+The arguments after the package go to our program: -serve starts HTTP mode; -sequential selects Sequential. These are this example's flags, not Go tool flags. package main plus func main supplies the executable entry point; in our real code func main is in service.go, showing why filenames don't define the entry point. go run main.go would omit service.go, not run the same complete package. _test.go files are excluded here.
+This is not an interpreter or an automatic file watcher. Go can reuse cached build artifacts; the picture is a conceptual pipeline, not a promise of a full rebuild each invocation. For HTTP checks, run python3 demo.py fixtures separately and ensure 9099/18081 are free. No flags runs the older standalone demo instead. Keep the sequential baseline: now ask what happens when we add go before check.
+Sources: examples/service.go (main); https://pkg.go.dev/cmd/go#hdr-Compile_and_run_Go_program .
+-->
+
+---
 layout: statement
 ---
 
@@ -280,6 +367,90 @@ for _, url := range urls {
 45 seconds. Deliberately broken sketch, not runnable service code. The function is ordinary Go; go changes how it executes, not its definition. There is no await color on check.
 Goroutines are runtime-scheduled, not one OS thread each. Waiting network operations can park them; CPU work can run across cores subject to runtime/CPU limits. They still cost memory, sockets and lifetime management.
 Returning from an HTTP handler doesn't wait for spawned work, and its request context is cancelled. Returning from main exits the entire program. Neither boundary provides automatic TaskGroup semantics.
+-->
+
+---
+class: runtime-animation
+routeAlias: scheduler-roles
+clicks: 3
+---
+
+# G, M, P
+
+<SchedulerDiagram scene="roles" :step="$clicks" />
+
+<!--
+Expanded route · about 90 seconds. Click 0: G is a goroutine, with its own growable stack. Click 1: M is an operating-system thread. Click 2: P holds scheduler/allocator resources required to execute user Go code; it is NOT a physical core. Click 3: the runtime pairs G + M + P to execute that code.
+Use our HTTP check as G1. The Go runtime schedules goroutines onto threads; the OS schedules those threads on hardware. Neither layer promises a particular core or thread affinity. More Gs do not require one M each. The matching model is a runtime implementation model, not new Go syntax or a public API we configure per request.
+Source: https://go.dev/src/runtime/HACKING.md#scheduler-structures . Runtime details can change across Go versions. This is an original teaching diagram, not a measured execution trace.
+-->
+
+---
+class: runtime-animation
+routeAlias: scheduler-parallelism
+clicks: 3
+---
+
+# Many Gs. Two Ps.
+
+<SchedulerDiagram scene="parallelism" :step="$clicks" />
+
+<!--
+Expanded route · about 75 seconds. Illustrate two Ps with two Gs executing; more Gs are runnable, not running. Advance to a possible yield and replacement without inventing another execution slot. The final distinction is concurrency versus parallel execution.
+Use two as a chosen illustration, not an assertion about the user's machine or Go's version-dependent default. GOMAXPROCS is process-wide, not our service's per-batch worker count. It neither creates CPU cores nor guarantees two cores of CPU time under OS/container limits. It doesn't bound total goroutines, sockets or OS threads. Runtime work and system calls are outside this simplified user-code limit.
+For this service, two workers is an application policy; two Ps would be a separate runtime configuration. Don't conflate the two merely because this picture uses the same number.
+Sources: https://pkg.go.dev/runtime#GOMAXPROCS and https://go.dev/src/runtime/HACKING.md .
+-->
+
+---
+class: runtime-animation
+routeAlias: scheduler-network
+clicks: 4
+---
+
+# Network wait
+
+<SchedulerDiagram scene="network" :step="$clicks" />
+
+<!--
+Expanded route · about 90 seconds. Trace G1 executing a request, parking for pollable network I/O, and G2 using the same M/P. Network readiness later makes G1 runnable; only a subsequent scheduling decision runs it. Advance one step at a time so waiting, runnable and running are visibly different states.
+This is why our blocking-looking client.Do can overlap waits without dedicating an OS thread to each socket wait. It does not mean every operation inside an HTTP request is pollable or thread-free: DNS resolution, cgo and other blocking system calls may behave differently. The next slide distinguishes that case.
+The runtime network poller integrates readiness with goroutine scheduling. It is not one goroutine executing Go code on a hidden extra P. No claim that concurrency makes CPU-bound work cheaper.
+Sources: https://go.dev/src/runtime/HACKING.md (gopark/goready) and https://go.dev/src/runtime/netpoll.go .
+-->
+
+---
+class: runtime-animation
+routeAlias: scheduler-syscall
+clicks: 4
+---
+
+# Blocking syscall
+
+<SchedulerDiagram scene="syscall" :step="$clicks" />
+
+<!--
+Expanded route · about 90 seconds. Contrast with the previous network picture: G1 and M1 are stuck in a blocking syscall. Show P1 becoming available/retaken, then M2 using P1 to execute another G. On return, G1 must obtain execution resources or become runnable; syscall return doesn't guarantee immediate user-Go execution.
+This shows one possible slow/blocking path. Do NOT teach “every syscall immediately releases its P”: runtime entry paths, fast returns, handoff and sysmon retake vary. A long cgo/blocking call can consume an OS thread even though Go work elsewhere keeps moving. That is why GOMAXPROCS is not an OS-thread limit.
+Avoid adding low-level syscall API recommendations; net/http is still the right abstraction for our service. We expose the mechanism to understand resource limits, not to replace the scheduler.
+Sources: https://go.dev/src/runtime/HACKING.md and https://go.dev/src/runtime/proc.go (entersyscall, exitsyscall, retake).
+-->
+
+---
+class: runtime-animation
+routeAlias: scheduler-queues
+clicks: 3
+---
+
+# Work stealing
+
+<SchedulerDiagram scene="steal" :step="$clicks" />
+
+<!--
+Expanded route · about 75 seconds. Show P1's runnable queue, P2 exhausting local work, a possible steal, then execution on the otherwise idle M/P. The moving token is a runnable G; we are not stealing the currently executing goroutine or a parked I/O operation.
+Simplified possible schedule, not a guarantee of FIFO, fairness, exact steal size, or who runs next. The runtime also has a global queue, runnext, timers, network readiness and preemption; this small drawing is not the complete findRunnable algorithm. Scheduler choices differ by version and load. Never make application correctness depend on these arrows' order.
+Return to the service: because goroutines can interleave, who owns the shared report? A scheduler is not a data-race fix. That question motivates the WaitGroup/collector slides immediately after this one.
+Source: https://go.dev/src/runtime/proc.go (findRunnable, stealWork, runqsteal).
 -->
 
 ---
@@ -338,6 +509,23 @@ We still need to know when ALL senders finish; a channel alone doesn't infer tha
 -->
 
 ---
+class: runtime-animation
+routeAlias: channel-rendezvous
+clicks: 3
+---
+
+# Unbuffered
+
+<ChannelDiagram scene="rendezvous" :step="$clicks" />
+
+<!--
+Expanded route · about 90 seconds. Follow the same value from sender to receiver. With no receiver, the send waits and the goroutine can park; it need not monopolize an OS thread. A matching receive permits the communication; a woken goroutine is runnable, not guaranteed to run immediately.
+After the value is transferred, the sender may continue even while the receiver is still processing it. Rendezvous synchronizes the communication, not all future work in either goroutine. Our worker gives a Result to the collector; only the collector appends to the report.
+The value is copied according to its type. Slice headers and pointers can still reference shared memory; a channel is not deep-copy isolation. Channel operations being safe concurrently does not make unsynchronized mutation of pointed-to data safe.
+Sources: https://go.dev/ref/spec#Channel_types and https://go.dev/ref/mem#Channel_communication .
+-->
+
+---
 layout: statement
 ---
 
@@ -351,6 +539,7 @@ The contract caps a batch at 1000 URLs, but that is validation, not the concurre
 -->
 
 ---
+routeAlias: worker-pool
 clicks: 3
 ---
 
@@ -367,24 +556,21 @@ We are reusing the existing bounded Run implementation and its tests, not replac
 -->
 
 ---
-layout: code-hero
+class: runtime-animation
+routeAlias: channel-buffer
+clicks: 4
 ---
 
-# Queue capacity isn't concurrency
+# Buffered
 
-```go
-jobs := make(chan string)      // No waiting queue.
-results := make(chan Result)   // Collector receives as we run.
-
-// Alternative: up to 8 queued values, NOT 8 workers.
-jobs = make(chan string, 8)
-```
-
-Full queue → producer waits → backpressure.
+<ChannelDiagram scene="buffer" :step="$clicks" />
 
 <!--
-45 seconds. Our actual pool uses the first two unbuffered channels, not the alternative reassignment. A fixed worker count bounds active calls; capacity bounds queued values. A huge buffer postpones overload, not fixes it. No sleeps or default select busy-spins.
-This finite-batch API still retains the input and output slices: O(number of URLs) memory, not constant memory. A streaming contract would be another feature. Limits apply to two outbound checks per incoming batch; a global admission limit/rate limit would be needed for a public service. Concurrency is not requests per second.
+Expanded route · about 90 seconds. Buffered ALTERNATIVE, not the runnable service. Follow A/B/C waiting, D's blocked send, a worker finishing, then its receive of A. Because D is already waiting to send, the runtime copies D into the vacated buffer slot before waking its sender; the sender later resumes and its send returns. Do not depict a stable two-of-three buffer while that sender is runnable. There are still only two workers. A blocked channel operation can park its G; it does not need to spin or occupy a whole OS thread.
+Actual service: jobs := make(chan string), results := make(chan Result). Both are unbuffered, so our fixed workers rendezvous with producer/collector rather than using this three-value queue. This alternative makes the difference between active checks and queued values concrete, not a hidden change to examples/main.go.
+Full queue → producer waits → backpressure. An available receiver can receive directly; this drawing deliberately starts with workers busy so values fill the buffer. A huge buffer postpones overload, not fixes it. No sleep or default-select busy-spins.
+Finite input/output slices remain O(number of URLs), not constant-memory streaming. Two workers per batch is not a global service limit or requests-per-second rate limiter.
+Sources: https://go.dev/ref/spec#Channel_types , https://go.dev/ref/spec#Send_statements , and https://go.dev/src/runtime/chan.go (recv copies queue→receiver and waiting sender→queue before goready).
 -->
 
 ---
@@ -397,7 +583,7 @@ label: '03 · the service we can trust'
 Limits are only useful if work also stops.
 
 <!--
-15 seconds. Chapter 3 about 11 minutes, including evidence. We have solved overlap, ownership and active-call bounds. Now break the caller's connection and ask what remains running.
+15 seconds. Expanded chapter 3: allow roughly 15½ minutes including channel lifecycle animations, tooling and evidence; trim after rehearsal. We have solved overlap, ownership and active-call bounds. Now break the caller's connection and ask what remains running.
 -->
 
 ---
@@ -465,6 +651,40 @@ Producer owns `close(jobs)`: “no more input.”
 55 seconds. Exact producer body from Run; producerDone is make(chan struct{}) in the complete code. A select waits for one ready communication. Done closes to broadcast stop. If send and cancellation are both ready either may win: cancellation isn't strict priority and doesn't guarantee zero extra handoffs.
 Defers run in reverse order: jobs closes, then producerDone closes. Receiving jobs with url, ok detects closed-and-drained. Closing a channel is NOT cancellation and doesn't remove buffered values. Channels need not be closed for garbage collection; close here is a protocol signal.
 Without the cancellation arm, a producer could be stuck after all workers leave. The coordinator later joins producerDone as well as the workers.
+-->
+
+---
+class: runtime-animation
+routeAlias: channel-close
+clicks: 4
+---
+
+# Close, then drain
+
+<ChannelDiagram scene="close" :step="$clicks" />
+
+<!--
+Expanded route · about 90 seconds. Separate buffered teaching example, not the unbuffered jobs/results channels in our service. Start with A/B queued; the producer closes; A and B remain receivable with ok=true. Only closed AND drained yields the element type's zero value with ok=false. For chan int that is 0,false; for our chan Result it is Result{},false. A legitimate zero sent before closure still has ok=true.
+The goroutine/protocol that knows no sends remain owns close. Sending on a closed channel panics; so does closing an already closed or nil channel. Closing is not required to garbage-collect a channel. A nil channel is different: send and receive block, rather than producing a zero/false result.
+Our producer's defer close(jobs) lets workers finish ranging/receiving. Results needs a different closer: the coordinator must join ALL senders before closing. Close is an end-of-stream signal, not a request to interrupt HTTP work, and does not itself join the goroutines.
+Sources: https://go.dev/ref/spec#Close and https://go.dev/ref/spec#Receive_operator .
+-->
+
+---
+class: runtime-animation
+routeAlias: channel-select
+clicks: 3
+---
+
+# Select: one ready case
+
+<ChannelDiagram scene="select" :step="$clicks" />
+
+<!--
+Expanded route · about 90 seconds. Revisit the producer's select: jobs <- url versus <-ctx.Done(). Initially neither can proceed; then the receiver is ready AND Done is closed. Show one possible cancellation choice, followed by a clearly labeled ALTERNATIVE send choice from the same readiness state—not two case bodies executing in one select.
+The spec says one ready communication is selected by uniform pseudo-random selection. Source order doesn't prioritize cancellation. A pre-check of ctx.Err can reduce unnecessary work but cannot make cancellation and a send atomic. Some work/results can therefore race with cancellation; don't promise strict “zero extra handoffs.”
+Without default, select waits until some case can proceed. A default would make an immediate alternative; repeatedly taking it can busy-spin. A nil channel's case is disabled because it cannot communicate. Done closes to broadcast cancellation; it does not kill arbitrary code or wait for completion. Our coordinator/WaitGroup is still needed.
+Sources: https://go.dev/ref/spec#Select_statements and https://pkg.go.dev/context .
 -->
 
 ---
@@ -563,6 +783,23 @@ For cancellation classification inside Go use errors.Is(err, context.Canceled/De
 -->
 
 ---
+class: runtime-animation
+routeAlias: go-test
+clicks: 3
+---
+
+# Test the rewrite
+
+<GoProjectDiagram scene="test" :step="$clicks" />
+
+<!--
+About 75 seconds. We've claimed the pool is bounded and work stops. How do we check? Start with go test ./... from examples/. The pattern means packages beneath this directory within the module; our example has one. [click] _test.go joins the package in a test binary; [click] the runner executes Test functions; [click] add -race to observe executed concurrent accesses. This drawing explains the tool; it does not display fabricated PASS output.
+Go's testing package and go test are supplied by the toolchain. Existing main_test.go uses func TestName(t *testing.T). A failed assertion reports through t.Fatal/t.Fatalf. We are not adding new tests. The service reuses the existing checker/pool suite; it does not yet test the HTTP wrapper. Successful package test results may be cached; -count=1 forces test execution when fresh evidence is needed. go test builds test binaries but does not normally leave a named service executable behind.
+The race detector needs a supported platform and C compiler. It finds races on executed paths, not every possible interleaving, and does not prove absence of deadlocks or leaks. go vet is static analysis, a different tool, shown with the existing captured evidence next. The deliberately racy append slide is a teaching sketch, not code in the working suite.
+Sources: examples/main_test.go; https://pkg.go.dev/cmd/go#hdr-Test_packages ; https://go.dev/doc/articles/race_detector .
+-->
+
+---
 layout: terminal
 title: Evidence, not a promise
 command: go test -race -v ./... && go vet ./...
@@ -614,6 +851,23 @@ The fixture uses fixed delays and known responses, but elapsed time varies with 
 -->
 
 ---
+class: runtime-animation
+routeAlias: go-build
+clicks: 3
+---
+
+# Keep the executable
+
+<GoProjectDiagram scene="build" :step="$clicks" />
+
+<!--
+About 75 seconds. The same service now works, overlaps waits, and has evidence for its pool. How do we hand it over? From examples/: go build -o checker . [click] compile/link the main package and its dependencies as needed; [click] keep ./checker as the named executable; [click] explicitly run ./checker -serve. Building alone neither starts the service nor runs the tests. The final command selects the bounded pool; add -sequential to compare the baseline.
+Contrast the earlier go run: both compile, but build gives us an executable to keep. The target does not need Go installed. That is not a universal portability/static-linking claim: target OS/architecture must match, and cgo/native libraries can introduce runtime requirements. A suitable CGO_ENABLED=0 build can avoid native-library dependencies. Don't promise every Go binary is static, tiny, or works unchanged on every machine. Deployment configuration, CA certificates, network access, and graceful shutdown remain separate concerns.
+This completes the practical first-day loop: package/module, run the rewrite, test behavior, build the result. No third-party dependency was needed. Do not create checker in the repository during slide verification; use a temporary output path. Next: look back at what we learned from rewriting one service.
+Sources: examples/service.go; https://pkg.go.dev/cmd/go#hdr-Compile_packages_and_dependencies .
+-->
+
+---
 layout: statement
 ---
 
@@ -625,7 +879,7 @@ One owner of the report.<br>
 No sender left behind.
 
 <!--
-45 seconds. Hand back to the deck's closing around minute 25½. Retell the problem→evidence→fix sequence: working service waits sequentially; threads/async can overlap too; a sequential Go equivalent preserves behavior; naive goroutines lose completion and ownership; collector fixes races; workers bound active work; contexts stop all waits; joining makes return mean finished.
+45 seconds. Hand back to the closing after the expanded route; the old minute-25½ target no longer applies until the author trims. Retell the problem→evidence→fix sequence: working service waits sequentially; threads/async can overlap too; a sequential Go equivalent preserves behavior; naive goroutines lose completion and ownership; collector fixes races; workers bound active work; contexts stop all waits; joining makes return mean finished.
 Limits to state honestly: two workers per batch, not globally; bounded input/result memory via a finite API, not a streaming design; concurrency cap, not a rate limiter; exact trusted local targets, not an SSRF-safe internet checker. Production global admission, per-host limits, retries, observability, shutdown and SSRF policy are separate requirements, not hidden claims of this example.
 The lesson is not to memorize arrows. Before go, ask who owns data, how work stops, who joins, and who is allowed to close.
 -->

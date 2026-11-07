@@ -1,9 +1,11 @@
 ---
 theme: default
+addons:
+  - '@/../slidev-shared/addons/code-journey'
 title: "From Python to Go: Concurrency Without the Surprises"
 author: Haseeb Majid
 presenter: true
-duration: 30min
+duration: 52min
 timer: countdown
 browserExporter: dev
 record: dev
@@ -13,7 +15,7 @@ download: false
 lineNumbers: false
 monaco: false
 twoslash: false
-colorSchema: light
+colorSchema: dark
 routerMode: hash
 canvasWidth: 1280
 aspectRatio: 16/9
@@ -53,8 +55,8 @@ Not a Python-versus-Go benchmark. Python already overlaps I/O well; we are learn
 
 <!--
 00:30–01:30. One application, three chapters. First observe serial waiting in a working Python HTTP service. Translate it sequentially into Go. Then add bounded work, explicit ownership and cancellation, with visible local evidence.
-Promise: after the talk, ask who starts work, who owns data, and who joins it when the caller leaves.
-Main body budget: about 24 minutes. Closing: 45 seconds. Reserve the remaining 3 minutes 45 seconds for questions. Appendix is not part of the timed talk.
+Promise: learn core Go by rewriting this service, from packages and the first go run through goroutines, channels, testing and a built executable. Ownership and lifetime make the rewrite complete.
+Expanded working version: allow about 46 minutes for the body, 45 seconds for closing, and 3 minutes 45 seconds for questions. The 52-minute timer is a rehearsal placeholder; the author will cut later. Appendix remains untimed.
 -->
 
 ---
@@ -73,7 +75,7 @@ What bounds the work?<br>
 How does it stop—and who joins it?
 
 <!--
-25:30–26:15 target. A bare go statement answers none of these questions.
+Expanded route: roughly 47:30–48:15, pending rehearsal and trimming. A bare go statement answers none of these questions.
 Our service gives us a concrete answer: a fixed per-batch pool, one collector, a request-derived context reaching every wait, and a coordinator that joins before closing results.
 The model transfers back to Python: executor/TaskGroup lifetimes, bounded queues, explicit shared-state synchronization. No language superiority claim.
 If the body runs long, use its last ownership slide as the recap and move straight to questions. Protect at least 3 minutes of Q&A.
@@ -91,7 +93,7 @@ What would you change in your service?
 [Haseeb Majid · haseebmajid.dev](https://haseebmajid.dev)
 
 <!--
-26:15–30:00. Q&A, not more prepared material.
+Expanded route: roughly 48:15–52:00. Q&A, not more prepared material. Restore a tighter timing only after content is cut.
 If quiet: ask whether two workers means a global service limit. No: each inbound batch has its own pool. Ask how to preserve order: attach an input index and collect by index without worker-side mutation.
 Other prompts: context doesn't join or force a remote server to stop; rate limiting is different from active-call limits; a finished report can contain failed URLs.
 Everything after this is an untimed appendix. Local demo fallback is examples/demo-output.txt; existing verification output is examples/verification-output.txt.
@@ -108,6 +110,8 @@ section: 'appendix'
 - [Free-threaded CPython: support and extension caveats](https://docs.python.org/3/howto/free-threading-python.html)
 - [asyncio tasks, cancellation, and TaskGroup](https://docs.python.org/3/library/asyncio-task.html)
 - [A Tour of Go: concurrency](https://go.dev/tour/concurrency/1)
+- [Runtime G/M/P model](https://go.dev/src/runtime/HACKING.md) · [GOMAXPROCS](https://pkg.go.dev/runtime#GOMAXPROCS)
+- [Channel, close, and select semantics](https://go.dev/ref/spec#Channel_types)
 - [Go context: cancellation, deadlines, and cleanup](https://pkg.go.dev/context)
 - [Go pipelines: cancellation and stopping short](https://go.dev/blog/pipelines)
 - [Go race detector](https://go.dev/doc/articles/race_detector)
