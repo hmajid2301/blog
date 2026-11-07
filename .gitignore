@@ -60,9 +60,9 @@ content/posts/**/source_code/**/android/app/debug.keystore
 .task/
 .codegraph
 
-content/slides/*/node_modules/
-content/slides/*/dist/
-content/slides/*/.slidev/
+content/slides/**/node_modules/
+content/slides/**/dist/
+content/slides/**/.slidev/
 # Generated Slidev build output (matches source directory name)
 static/slides/go-labs-eda-go-kafka/
 static/slides/python-to-go-concurrency/

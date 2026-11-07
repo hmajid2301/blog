@@ -1,0 +1,21 @@
+/* Only addon roots receive defaults. No deck layout or syntax theme overrides.
+   Public --journey-* tokens take precedence; --talk-* preserves existing decks. */
+.neovim-code, .go-project-diagram, .scheduler-diagram, .channel-diagram {
+  --_journey-paper: var(--journey-paper, var(--talk-paper, #faf8f3));
+  --_journey-ink: var(--journey-ink, var(--talk-ink, #24211d));
+  --_journey-accent: var(--journey-accent, var(--talk-accent, #a9432e));
+  --_journey-muted: var(--journey-muted, var(--talk-muted, #625e56));
+  --_journey-surface: var(--journey-surface, var(--talk-surface, #f1e3d3));
+  --_journey-border: var(--journey-border, var(--talk-border, #c8ad98));
+  --_journey-accent-soft: var(--journey-accent-soft, var(--talk-accent-soft, #f0cdb8));
+  --_journey-mono: var(--journey-font-mono, var(--slidev-font-mono, ui-monospace)), monospace;
+}
+.dark .neovim-code, .dark .go-project-diagram, .dark .scheduler-diagram, .dark .channel-diagram {
+  --_journey-paper: var(--journey-paper, var(--talk-paper, #281f1a));
+  --_journey-ink: var(--journey-ink, var(--talk-ink, #f4e8da));
+  --_journey-accent: var(--journey-accent, var(--talk-accent, #f0aa7d));
+  --_journey-muted: var(--journey-muted, var(--talk-muted, #cbb6a2));
+  --_journey-surface: var(--journey-surface, var(--talk-surface, #382a22));
+  --_journey-border: var(--journey-border, var(--talk-border, #896a54));
+  --_journey-accent-soft: var(--journey-accent-soft, var(--talk-accent-soft, #4c3326));
+}

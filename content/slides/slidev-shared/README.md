@@ -1,4 +1,4 @@
-# Shared Slidev styles
+# Shared Slidev resources
 
 Decks opt in through their own `styles/index.css` (automatically loaded by Slidev):
 
@@ -62,6 +62,16 @@ line index) and `focus-lines-N` (highlight height). Current start presets are
 `code-reserve-tall` reserves 505px to avoid a jump when frames change height.
 Use Vue `:class` bindings to change focus presets as `$clicks` advances.
 Extend the shared presets when another talk needs a new range.
+
+## Shareable Vue components
+
+[`addons/code-journey/`](addons/code-journey/README.md) is the opt-in Slidev addon
+under this shared folder for `NeovimCode`, `GoProjectDiagram`, `SchedulerDiagram` and
+`ChannelDiagram`. It includes its own component-scoped styling defaults and a
+standalone example; it does not require these shared theme styles. Other repositories
+can copy or locally install the addon folder. It does not migrate any deck's theme.
+Shared styles, setup hooks, palettes and addons all live here rather than in separate
+top-level Slidev utility folders.
 
 ## What stays local
 
