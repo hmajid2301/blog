@@ -9,23 +9,18 @@ This site also has all of my talks and the slides for them! You can find them on
 
 ## Slides
 
-Most decks are written in [presenterm](https://github.com/mfontanini/presenterm) markdown under
-`content/slides/<name>/slides.md` and exported to a self-contained HTML file that Hugo serves
-at `/slides/<name>/`. The new Go+Kafka deck is a [Slidev](https://sli.dev) project under
-`content/slides/go-labs-eda-go-kafka/` and is built to the same `static/slides/` output path.
-Slidev decks share their Catppuccin theme and shiki setup from `content/slides/slidev-shared/`.
+Slides are migrating to standalone [Reveal.js](https://revealjs.com/) in a separate
+`slides` repository, published at `https://slides.haseebmajid.dev/`. Neither repository
+will use reveal-hugo as a build dependency. Historical sources in `content/slides/`
+remain here for now, but Hugo ignores them and excludes `static/slides/**` from publication.
+`/talks/` remains unchanged.
 
-```bash
-# Export all presenterm decks to static/slides/<name>/index.html
-task slides:export
+`task build` builds only the blog and its permanent legacy `/slides` HTTP redirects.
+The 12 mappings in `data/slide_redirects.toml` generate 38 rules through
+`layouts/index.redirects`. See [the migration checklist](docs/slides-migration.md).
 
-# Build all slide decks (Slidev and reveal.js)
-task slides:publish
-```
-
-Commit the generated HTML alongside the deck. CI re-runs the export/build and fails
-if the committed output is out of date. Mermaid diagrams are rendered at export time via
-`mermaid-cli`; the presenterm config lives in `presenterm/config.yaml`.
+**Local preparation only: do not deploy the blog cutover until the new slide host
+and every mapped destination, asset, and route have been verified.**
 
 ## Usage
 
@@ -37,8 +32,8 @@ you need to get started.
 # Serve Main Site
 task start_server
 
-# Serve /slides path
-task start_slides
+# Build the blog and permanent slide redirects
+task build
 ```
 
 ## Deployment
