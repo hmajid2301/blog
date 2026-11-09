@@ -1,0 +1,32 @@
+{{- /* Ghostty-chrome terminal render hook: ```terminal fences.
+     Plain markdown — no colour markup. A line beginning with ❯ starts a
+     command section; following lines are its output, rendered monochrome
+     in the terminal chrome. */ -}}
+{{- $s := .Page.Store -}}
+{{- $s.Set "termOut" "" -}}
+{{- $s.Set "termInBody" false -}}
+{{- $lines := split (trim .Inner "\n") "\n" -}}
+{{- range $lines -}}
+  {{- $line := . -}}
+  {{- if hasPrefix $line "❯" -}}
+    {{- if $s.Get "termInBody" -}}
+      {{- $s.Set "termOut" (printf "%s</pre>\n" ($s.Get "termOut")) -}}
+      {{- $s.Set "termInBody" false -}}
+    {{- end -}}
+    {{- $cmd := strings.TrimPrefix "❯" $line -}}
+    {{- $cmd = strings.TrimPrefix " " $cmd -}}
+    {{- $s.Set "termOut" (printf "%s<div class=\"lab-terminal-head\"><span class=\"lab-terminal-prompt\"><span class=\"prompt-caret\">❯</span> %s</span></div>\n" ($s.Get "termOut") ($cmd | htmlEscape)) -}}
+  {{- else -}}
+    {{- if not ($s.Get "termInBody") -}}
+      {{- $s.Set "termOut" (printf "%s<pre class=\"lab-terminal-body\">" ($s.Get "termOut")) -}}
+      {{- $s.Set "termInBody" true -}}
+    {{- end -}}
+    {{- $s.Set "termOut" (printf "%s%s\n" ($s.Get "termOut") ($line | htmlEscape)) -}}
+  {{- end -}}
+{{- end -}}
+{{- if $s.Get "termInBody" -}}
+  {{- $s.Set "termOut" (printf "%s</pre>" ($s.Get "termOut")) -}}
+{{- end -}}
+<div class="lab-terminal" role="img" aria-label="terminal output">
+{{ $s.Get "termOut" | safeHTML }}
+</div>

@@ -1,0 +1,46 @@
+/* Footer treatments — scoped to the design-lab demo. */
+html[data-design] .footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px 22px;
+  max-width: 1160px;
+  margin: 36px auto 0;
+  padding: 28px 28px 34px;
+  font-family: var(--lab-mono);
+  font-size: 12px;
+  line-height: 1.8;
+  color: var(--lab-muted);
+  text-align: center;
+}
+html[data-design] .footer a {
+  color: var(--lab-muted);
+  font-weight: 500;
+  box-shadow: none;
+  text-decoration: none;
+  transition: color .15s ease;
+}
+html[data-design] .footer a:hover { color: var(--lab-accent); }
+html[data-design] .footer .footer-copy a { color: var(--lab-text); }
+html[data-design] .footer .footer-copy a:hover { color: var(--lab-accent); }
+html[data-design] .footer .footer-tagline { color: var(--lab-accent); font-weight: 500; }
+
+/* Rule — the existing centred look. */
+html[data-design][data-footer='rule'] .footer { border-top: 1px solid var(--lab-rule); border-radius: 0; background: transparent; }
+
+/* Split — three groups spread across one line. */
+html[data-design][data-footer='split'] .footer { justify-content: space-between; text-align: left; border-top: 1px solid var(--lab-rule); gap: 16px; }
+
+/* Minimal — quiet centred text, no rule. */
+html[data-design][data-footer='minimal'] .footer { border-top: 0; padding-top: 18px; font-size: 11px; }
+
+/* Boxed — a rounded, bordered surface. */
+html[data-design][data-footer='boxed'] .footer { border: 1px solid var(--lab-rule); border-radius: 18px; background: color-mix(in srgb, var(--lab-surface) 70%, transparent); margin-top: 26px; padding: 22px 28px; }
+
+/* Stacked — a centred column. */
+html[data-design][data-footer='stacked'] .footer { flex-direction: column; gap: 6px; border-top: 1px solid var(--lab-rule); }
+
+@media (max-width: 700px) {
+  html[data-design][data-footer='split'] .footer { justify-content: center; text-align: center; }
+}

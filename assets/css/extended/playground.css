@@ -1,0 +1,270 @@
+/* All overrides are scoped to the opt-in local playground. */
+html[data-design] {
+  --lab-bg: #f7f5f0;
+  --lab-surface: #eeece6;
+  --lab-text: #1d2232;
+  --lab-muted: #626571;
+  --lab-rule: #d4d2cc;
+  --lab-accent: #a43b54;
+  --lab-heading: 'Schibsted Grotesk', sans-serif;
+  --lab-body: 'Schibsted Grotesk', sans-serif;
+  --lab-mono: 'IBM Plex Mono', monospace;
+  --lab-reading-width: 760px;
+  --lab-text-size: 19px;
+  --main-width: 1100px;
+  --nav-width: 1160px;
+  --post-width: var(--lab-reading-width);
+  --radius: 2px;
+}
+/* Style owns typography and treatment; palette tokens live in zzz-playground-palettes.css. */
+html[data-design='journal'] {
+  --lab-heading: 'Newsreader', Georgia, serif; --lab-body: 'Instrument Sans', sans-serif; --main-width: 980px;
+}
+html[data-design='workshop'] {
+  --lab-heading: 'Space Grotesk', sans-serif; --lab-body: 'IBM Plex Sans', sans-serif; --lab-mono: 'JetBrains Mono', monospace;
+}
+html[data-design='notebook'] {
+  --lab-heading: 'Literata', Georgia, serif; --lab-body: 'Literata', Georgia, serif; --main-width: 780px;
+}
+html[data-design='swiss'] {
+  --lab-heading: 'Manrope', sans-serif; --lab-body: 'Manrope', sans-serif; --main-width: 1160px;
+}
+html[data-design='studio'] {
+  --lab-heading: 'Fraunces', Georgia, serif; --lab-body: 'DM Sans', sans-serif; --radius: 16px; --main-width: 1060px;
+}
+html[data-design][data-font='grotesk'] { --lab-heading: 'Schibsted Grotesk', sans-serif; --lab-body: 'Schibsted Grotesk', sans-serif; --lab-mono: 'IBM Plex Mono', monospace; }
+html[data-design][data-font='literary'] { --lab-heading: 'Newsreader', Georgia, serif; --lab-body: 'Instrument Sans', sans-serif; --lab-mono: 'IBM Plex Mono', monospace; }
+html[data-design][data-font='technical'] { --lab-heading: 'Space Grotesk', sans-serif; --lab-body: 'IBM Plex Sans', sans-serif; --lab-mono: 'JetBrains Mono', monospace; }
+html[data-design][data-font='book'] { --lab-heading: 'Literata', Georgia, serif; --lab-body: 'IBM Plex Sans', sans-serif; --lab-mono: 'IBM Plex Mono', monospace; }
+html[data-design][data-font='geometric'] { --lab-heading: 'Manrope', sans-serif; --lab-body: 'Manrope', sans-serif; --lab-mono: 'IBM Plex Mono', monospace; }
+html[data-design][data-font='expressive'] { --lab-heading: 'Fraunces', Georgia, serif; --lab-body: 'DM Sans', sans-serif; --lab-mono: 'IBM Plex Mono', monospace; }
+html[data-design] body {
+  --theme: var(--lab-bg);
+  --entry: var(--lab-surface);
+  --primary: var(--lab-text);
+  --primary-dim: var(--lab-muted);
+  --secondary: var(--lab-muted);
+  --tertiary: var(--lab-muted);
+  --tertiary-bg: var(--lab-rule);
+  --content: var(--lab-text);
+  --code-bg: var(--lab-surface);
+  --border: var(--lab-rule);
+  --signature: var(--lab-accent);
+  --link-color: var(--lab-accent);
+  --link-hover-color: var(--lab-accent);
+  --link-background-color: color-mix(in srgb, var(--lab-accent) 12%, transparent);
+  --monospace: var(--lab-mono);
+  color: var(--lab-text);
+  background: var(--lab-bg);
+  font-family: var(--lab-body);
+  font-size: 17px;
+  line-height: 1.65;
+}
+html[data-design] :focus-visible { outline: 2px solid var(--lab-accent); outline-offset: 4px; }
+html[data-design] h1, html[data-design] h2, html[data-design] h3, html[data-design] h4 { font-family: var(--lab-heading); line-height: 1.15; letter-spacing: -.035em; }
+html[data-design] .header { border-bottom: 1px solid var(--lab-rule); }
+html[data-design] .nav { max-width: var(--nav-width); padding: 20px 28px; min-height: 90px; align-items: center; line-height: 1.5; }
+html[data-design] .logo { margin: 0; }
+html[data-design] .logo a { font-family: var(--lab-heading); font-weight: 700; font-size: 25px; letter-spacing: -.05em; }
+html[data-design] #menu { margin: 0; gap: 24px; align-items: center; }
+html[data-design] #menu li + li { margin-inline-start: 0; }
+html[data-design] #menu a { font-size: 14px; }
+html[data-design] #menu .active { border-bottom-color: var(--lab-accent); }
+html[data-design] .main { padding: 46px 28px; min-height: 60vh; }
+html[data-design] .page-header { margin-bottom: 40px; }
+html[data-design] .page-header h1 { font-size: clamp(44px, 6vw, 76px); }
+html[data-design] .post-header { margin: 20px 0 38px; }
+html[data-design] .post-title { font-size: clamp(36px, 4.7vw, 61px); line-height: 1.08; }
+html[data-design] .post-description { border-left: 0; padding: 0; opacity: 1; font-size: 20px; }
+html[data-design] .post-meta, html[data-design] .breadcrumbs, html[data-design] .entry-footer { font-family: var(--lab-mono); font-size: 11px; line-height: 1.8; }
+html[data-design] .breadcrumbs a { font-size: inherit; }
+html[data-design] .post-content { font-family: var(--lab-body); font-size: var(--lab-text-size); line-height: 1.85; }
+html[data-design] .post-content p { margin-bottom: 1.4em; }
+html[data-design] .post-content h2 { margin-top: 2em; margin-bottom: .7em; }
+html[data-design] .post-content h3 { margin-top: 1.7em; margin-bottom: .7em; }
+html[data-design] .post-content a { color: var(--lab-accent); box-shadow: none; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+html[data-design] .post-content pre { max-width: 100%; overflow-x: auto; font-family: var(--lab-mono); border: 1px solid var(--lab-rule); border-radius: var(--radius); }
+html[data-design] code, html[data-design] kbd { font-family: var(--lab-mono); }
+html[data-design] .post-content img { border-radius: var(--radius); }
+html[data-design] .post-entry { margin: 0; padding: 30px 0; border: 0; border-bottom: 1px solid var(--lab-rule); border-radius: 0; background: transparent; }
+html[data-design] .post-entry:hover { transform: none; }
+html[data-design] .entry-header h2 { font-size: 28px; line-height: 1.22; }
+html[data-design] .entry-content { margin: 13px 0; font-size: 16px; line-height: 1.7; color: var(--lab-muted); }
+html[data-design] .entry-content p { -webkit-line-clamp: 3; }
+html[data-design] .entry-footer { margin-top: 14px; }
+html[data-design] .toc { background: var(--lab-surface); border: 1px solid var(--lab-rule); border-radius: var(--radius); font-family: var(--lab-body); font-size: 14px; }
+html[data-design] .toc.side { position: static; width: auto; max-height: none; margin: 0 0 30px; }
+html[data-design] .footer { max-width: 1160px; border-top: 1px solid var(--lab-rule); padding: 30px 28px; margin: 25px auto 0; font-family: var(--lab-mono); font-size: 11px; }
+html[data-design] .post-tags a, html[data-design] .terms-tags a { border: 1px solid var(--lab-rule); background: transparent; border-radius: var(--radius); }
+html[data-design] .archive-year { border-color: var(--lab-rule); }
+html[data-design] .archive-month { padding-top: 20px; }
+html[data-design] .archive-entry-title { font-family: var(--lab-heading); }
+html[data-design] .pagination a { background: var(--lab-text); color: var(--lab-bg); border-radius: var(--radius); padding: 10px 18px; }
+html[data-design] .not-found { font-family: var(--lab-heading); color: var(--lab-accent); }
+html[data-design] .search-input { background: var(--lab-bg); border: 1px solid var(--lab-rule); border-radius: var(--radius); font-family: var(--lab-body); }
+html[data-design] #search-modal { border: 1px solid var(--lab-rule); background: var(--lab-bg); border-radius: var(--radius); }
+html[data-design] .search-title { font-family: var(--lab-heading); }
+html[data-design] .search-date { font-family: var(--lab-mono); }
+html[data-design] .search-item { background: var(--lab-surface); border-radius: var(--radius); }
+html[data-design] .reading-progress-bar { background: var(--lab-accent); }
+html[data-design] .lab-home-hero { display: grid; grid-template-columns: minmax(0, 1fr) 290px; gap: 70px; padding: 34px 0 62px; border-bottom: 1px solid var(--lab-rule); align-items: center; }
+html[data-design] .lab-eyebrow { font-family: var(--lab-mono); font-size: 11px; text-transform: uppercase; letter-spacing: .1em; color: var(--lab-accent); }
+html[data-design] .lab-home-hero h1 { margin: 22px 0; font-size: clamp(48px, 6.3vw, 80px); font-weight: 700; line-height: 1.08; letter-spacing: -.055em; }
+html[data-design] .lab-intro { font-size: 21px; line-height: 1.7; max-width: 46ch; color: var(--lab-muted); }
+html[data-design] .lab-portrait { margin: 0; }
+html[data-design] .lab-portrait img { width: 100%; height: 340px; object-fit: cover; filter: grayscale(1); }
+html[data-design] .lab-portrait figcaption { font-family: var(--lab-mono); font-size: 10px; color: var(--lab-muted); margin-top: 12px; }
+html[data-design] .lab-home-links { display: flex; flex-wrap: wrap; gap: 24px; margin-top: 30px; font-size: 14px; }
+html[data-design] .lab-home-links a { border-bottom: 1px solid var(--lab-accent); padding-bottom: 4px; }
+html[data-design] .lab-home-bottom .lab-home-links a {
+  display: inline-block;
+  border: 1px solid var(--lab-rule);
+  border-radius: 999px;
+  padding: 6px 14px;
+  transition: background-color .15s ease, border-color .15s ease;
+}
+html[data-design] .lab-home-bottom .lab-home-links a:hover {
+  background: color-mix(in srgb, var(--lab-accent) 12%, transparent);
+  border-color: var(--lab-accent);
+}
+html[data-design] .lab-home-section { margin-top: 52px; }
+html[data-design] .lab-section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 20px; border-bottom: 1px solid var(--lab-rule); padding-bottom: 20px; }
+html[data-design] .lab-section-head h2 { font-size: 32px; }
+html[data-design] .lab-section-head > a { font-family: var(--lab-mono); font-size: 11px; white-space: nowrap; color: var(--lab-accent); }
+html[data-design] .lab-home-entry { display: grid; grid-template-columns: 125px minmax(0, 1fr) 24px; gap: 25px; padding: 27px 0; border-bottom: 1px solid var(--lab-rule); align-items: baseline; }
+html[data-design] .lab-home-entry time { font-family: var(--lab-mono); font-size: 11px; color: var(--lab-muted); }
+html[data-design] .lab-home-entry h3 { font-size: 24px; line-height: 1.25; }
+html[data-design] .lab-home-entry p { font-size: 15px; color: var(--lab-muted); margin-top: 10px; line-height: 1.7; }
+html[data-design] .lab-home-entry .lab-arrow { font-size: 22px; color: var(--lab-accent); }
+html[data-design] .lab-home-entry a:hover { color: var(--lab-accent); }
+html[data-design] .lab-home-bottom { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; }
+html[data-design] .lab-home-bottom h3 { font-size: 24px; margin: 18px 0 10px; }
+html[data-design] .lab-home-bottom p { color: var(--lab-muted); }
+html[data-design] .lab-home-bottom a { color: var(--lab-accent); }
+html[data-design] .lab-socials { margin-top: 24px; }
+/* Journal: bookish hierarchy and long horizontal reading rhythm. */
+html[data-design='journal'] .lab-home-hero { grid-template-columns: minmax(0, 1fr) 230px; gap: 50px; }
+html[data-design='journal'] .lab-home-hero h1 { font-weight: 500; font-size: clamp(52px, 7vw, 86px); }
+html[data-design='journal'] .lab-portrait img { height: 300px; }
+html[data-design='journal'] .lab-home-entry h3 { font-size: 30px; font-weight: 500; }
+html[data-design='journal'] .entry-header h2 { font-size: 34px; font-weight: 500; }
+html[data-design='journal'] .post-title { font-weight: 500; font-size: clamp(42px, 5vw, 66px); }
+/* Workshop: a technical information rail and bounded work surfaces. */
+html[data-design='workshop'] .lab-home-hero { grid-template-columns: minmax(0, 1fr) 240px; gap: 55px; border: 1px solid var(--lab-rule); padding: 40px; }
+html[data-design='workshop'] .lab-home-hero h1 { font-size: clamp(44px, 5vw, 66px); }
+html[data-design='workshop'] .lab-portrait img { height: 270px; }
+html[data-design='workshop'] .lab-eyebrow::before { content: '> '; }
+html[data-design='workshop'] .post-entry { display: grid; grid-template-columns: 190px minmax(0, 1fr); gap: 12px 30px; padding: 28px 20px; }
+html[data-design='workshop'] .post-entry .entry-footer { grid-column: 1; grid-row: 1 / span 2; margin-top: 0; border-right: 1px solid var(--lab-rule); padding-right: 20px; }
+html[data-design='workshop'] .post-entry .entry-header, html[data-design='workshop'] .post-entry .entry-content { grid-column: 2; margin: 0; }
+html[data-design='workshop'] .entry-header h2 { font-size: 25px; }
+html[data-design='workshop'] .lab-home-entry { background: var(--lab-surface); padding: 24px; margin-top: 10px; border: 1px solid var(--lab-rule); }
+html[data-design='workshop'] .lab-section-head { border: 0; }
+/* Notebook: one quiet column and a small personal signature. */
+html[data-design='notebook'] .nav { max-width: 900px; }
+html[data-design='notebook'] .logo a { font-size: 21px; }
+html[data-design='notebook'] .lab-home-hero { display: block; padding: 22px 0 42px; position: relative; }
+html[data-design='notebook'] .lab-home-hero h1 { font-size: clamp(40px, 5vw, 55px); line-height: 1.2; max-width: 15ch; font-weight: 500; letter-spacing: -.04em; }
+html[data-design='notebook'] .lab-portrait { display: none; }
+html[data-design='notebook'] .lab-intro { font-size: 19px; }
+html[data-design='notebook'] .lab-home-entry { grid-template-columns: 100px minmax(0, 1fr); gap: 20px; }
+html[data-design='notebook'] .lab-arrow { display: none; }
+html[data-design='notebook'] .lab-home-entry h3, html[data-design='notebook'] .entry-header h2 { font-size: 23px; font-weight: 500; line-height: 1.4; }
+html[data-design='notebook'] .lab-home-entry p { display: none; }
+html[data-design='notebook'] .lab-section-head h2 { font-size: 26px; font-weight: 500; }
+html[data-design='notebook'] .page-header h1 { font-size: 46px; font-weight: 500; }
+html[data-design='notebook'] .post-title { font-size: clamp(32px, 4vw, 46px); line-height: 1.25; font-weight: 500; }
+html[data-design='notebook'] .entry-content { font-size: 15px; }
+/* Swiss: typographic scale and grid carry the design. */
+html[data-design='swiss'] .header { border-bottom: 3px solid var(--lab-text); }
+html[data-design='swiss'] .lab-home-hero { border-bottom: 5px solid var(--lab-text); grid-template-columns: minmax(0, 1fr) 270px; }
+html[data-design='swiss'] .lab-home-hero h1 { font-weight: 800; font-size: clamp(52px, 7vw, 88px); letter-spacing: -.07em; }
+html[data-design='swiss'] .lab-home-entry { grid-template-columns: 170px minmax(0, 1fr) 24px; }
+html[data-design='swiss'] .lab-home-entry h3 { font-weight: 800; font-size: 28px; }
+html[data-design='swiss'] .page-header { border-bottom: 5px solid var(--lab-text); padding-bottom: 30px; }
+html[data-design='swiss'] .post-entry { padding-left: 190px; }
+html[data-design='swiss'] .post-entry .entry-footer { position: absolute; top: 30px; left: 0; width: 155px; margin: 0; }
+html[data-design='swiss'] .entry-header h2 { font-weight: 800; font-size: 32px; }
+html[data-design='swiss'] .post-header { border-top: 5px solid var(--lab-text); padding-top: 30px; }
+/* Studio: expressive type, soft framing, a different list composition. */
+html[data-design='studio'] .lab-home-hero { background: var(--lab-surface); border: 0; border-radius: 24px; padding: 44px; grid-template-columns: minmax(0, 1fr) 240px; gap: 40px; }
+html[data-design='studio'] .lab-home-hero h1 { font-weight: 500; font-size: clamp(44px, 5.8vw, 72px); }
+html[data-design='studio'] .lab-portrait img { border-radius: 130px 130px 12px 12px; height: 310px; filter: none; }
+html[data-design='studio'] .lab-home-entry { border: 0; border-radius: 16px; background: var(--lab-surface); padding: 26px; margin-top: 16px; }
+html[data-design='studio'] .lab-home-entry h3 { font-size: 28px; font-weight: 500; }
+html[data-design='studio'] .lab-section-head { border: 0; }
+html[data-design='studio'] .post-entry { border: 0; background: var(--lab-surface); border-radius: 16px; padding: 30px; margin-bottom: 20px; }
+html[data-design='studio'] .entry-header h2 { font-size: 32px; font-weight: 500; }
+html[data-design='studio'] .post-title { font-weight: 500; }
+/* The playground chrome stays neutral so it does not impersonate the design. */
+html[data-design] .lab { font: 12px/1.5 'IBM Plex Sans', sans-serif; background: #191d27; color: #e9edf5; border-bottom: 1px solid #414859; }
+html[data-design] .lab button, html[data-design] .lab select, html[data-design] .lab input { font: inherit; }
+html[data-design] .lab button, html[data-design] .lab select { color: #e9edf5; background: #252b38; border: 1px solid #596175; border-radius: 5px; }
+html[data-design] .lab button { padding: 7px 12px; cursor: pointer; }
+html[data-design] .lab button:hover { background: #343e50; }
+html[data-design] .lab :focus-visible { outline-color: #b5caff; }
+html[data-design] .lab-bar { max-width: 1260px; padding: 12px 28px; margin: auto; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+html[data-design] .lab-brand { font: 11px 'IBM Plex Mono', monospace; letter-spacing: .08em; color: #f5f7fb; }
+html[data-design] .lab-brand span { margin-left: 15px; color: #b6c0d3; letter-spacing: 0; }
+html[data-design] .lab-bar-actions { display: flex; align-items: center; gap: 16px; }
+html[data-design] #lab-current { color: #c4d3fa; }
+html[data-design] #lab-panel { max-width: 1260px; margin: auto; padding: 6px 28px 15px; }
+html[data-design] .lab [hidden] { display: none !important; }
+html[data-design] #lab-page-status:empty { display: none; }
+html[data-design] #lab-page-status { margin: 12px 0; color: #f5f7fb; font-size: 13px; }
+html[data-design] .lab-designs { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 9px; margin-bottom: 16px; }
+html[data-design] .lab-designs button { display: flex; align-items: center; gap: 10px; padding: 9px; text-align: left; }
+html[data-design] .lab-designs button[aria-pressed='true'] { border-color: #c4d3fa; background: #364156; box-shadow: inset 0 0 0 1px #c4d3fa; }
+html[data-design] .lab-swatch { display: flex; align-items: center; justify-content: center; flex-shrink: 0; width: 35px; height: 35px; font-size: 21px; border-radius: 2px; background: #eceff4; color: #252b38; }
+html[data-design] .lab-swatch-editorial { font-family: 'Schibsted Grotesk', sans-serif; }
+html[data-design] .lab-swatch-journal { font-family: 'Newsreader', serif; }
+html[data-design] .lab-swatch-workshop { font-family: 'Space Grotesk', sans-serif; }
+html[data-design] .lab-swatch-notebook { font-family: 'Literata', serif; }
+html[data-design] .lab-swatch-swiss { font-family: 'Manrope', sans-serif; font-weight: 800; }
+html[data-design] .lab-swatch-studio { font-family: 'Fraunces', serif; }
+html[data-design] .lab-settings { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr auto; gap: 16px; align-items: end; }
+html[data-design] .lab-settings label { color: #b6c0d3; display: block; min-width: 0; font-size: 11px; }
+html[data-design] .lab-settings select { width: 100%; padding: 7px; margin-top: 5px; }
+html[data-design] .lab-settings input { display: block; width: 100%; margin-top: 11px; height: 22px; accent-color: #b5caff; }
+html[data-design] .lab-settings output { color: #f5f7fb; float: right; }
+html[data-design] .lab-bottom { display: flex; justify-content: space-between; gap: 20px; margin-top: 14px; color: #b6c0d3; font-size: 11px; }
+html[data-design] .lab-bottom p { margin: 0; }
+html[data-design] .lab-pages { display: flex; flex-wrap: wrap; gap: 7px 18px; border-top: 1px solid #414859; padding-top: 11px; margin-top: 12px; }
+html[data-design] .lab-pages a { color: #d1d9e8; font-size: 11px; text-decoration: underline; text-underline-offset: 3px; }
+@media (max-width: 1000px) {
+  html[data-design] .lab-designs { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  html[data-design] .lab-settings { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  html[data-design] .lab-home-hero { gap: 30px; grid-template-columns: minmax(0, 1fr) 230px; }
+}
+@media (max-width: 700px) {
+  html[data-design] .nav { padding: 18px 20px; flex-wrap: wrap; gap: 12px; }
+  html[data-design] #menu { gap: 20px; width: 100%; justify-content: flex-start; overflow-x: auto; }
+  html[data-design] .main { padding: 28px 20px; }
+  html[data-design] .lab-home-hero { grid-template-columns: 1fr; padding: 18px 0 35px; gap: 25px; }
+  html[data-design] .lab-home-hero h1 { font-size: 48px; }
+  html[data-design] .lab-portrait { display: none; }
+  html[data-design] .lab-intro { font-size: 18px; }
+  html[data-design] .lab-home-entry, html[data-design='swiss'] .lab-home-entry, html[data-design='notebook'] .lab-home-entry { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  html[data-design] .lab-home-entry h3 { font-size: 24px; }
+  html[data-design] .lab-home-entry .lab-arrow { display: none; }
+  html[data-design] .lab-home-bottom { grid-template-columns: 1fr; gap: 28px; }
+  html[data-design] .post-entry { display: block; padding: 24px 0; }
+  html[data-design='workshop'] .post-entry .entry-footer { border: 0; padding: 0; margin-top: 14px; }
+  html[data-design='swiss'] .post-entry .entry-footer { position: static; width: auto; margin-top: 14px; }
+  html[data-design='studio'] .post-entry, html[data-design='workshop'] .lab-home-hero, html[data-design='studio'] .lab-home-hero { padding: 24px; }
+  html[data-design] .post-title { font-size: 36px; }
+  html[data-design] .entry-header h2 { font-size: 26px; }
+  html[data-design] .page-header h1 { font-size: 44px; }
+  html[data-design] .lab-bar { padding: 10px 16px; }
+  html[data-design] .lab-brand span, html[data-design] #lab-current, html[data-design] .lab-bottom > span { display: none; }
+  html[data-design] #lab-panel { padding: 6px 16px 15px; }
+  html[data-design] .lab-designs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  html[data-design] .lab-designs button { font-size: 11px; }
+  html[data-design] .lab-settings { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  html[data-design] .lab-home-links { gap: 18px; }
+  html[data-design] .post-meta { overflow-wrap: anywhere; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-design] *, html[data-design] *::before, html[data-design] *::after { scroll-behavior: auto !important; transition: none !important; animation: none !important; }
+}
+@media print { html[data-design] .lab { display: none; } }

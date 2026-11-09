@@ -1,0 +1,203 @@
+/* Navbar treatments — scoped to the design-lab demo.
+   Common layout is shared; each [data-navbar] value supplies its own look. */
+html[data-design] .nav {
+  max-width: var(--nav-width);
+  padding: 14px 28px;
+  min-height: 74px;
+  align-items: center;
+  gap: 24px;
+  line-height: 1.5;
+}
+html[data-design] .logo { margin: 0; }
+html[data-design] .logo a {
+  font-family: var(--lab-heading);
+  font-weight: 700;
+  font-size: 22px;
+  letter-spacing: -.04em;
+}
+html[data-design] .nav-end {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  min-width: 0;
+}
+html[data-design] #menu {
+  margin: 0;
+  align-items: center;
+}
+html[data-design] #menu li + li { margin-inline-start: 0; }
+html[data-design] #menu a {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--lab-muted);
+  padding: 7px 13px;
+  transition: background-color .16s ease, color .16s ease;
+}
+html[data-design] #menu .active { box-shadow: none; }
+/* Theme + search icons travel with the nav links, separated by a hairline. */
+html[data-design] .logo-switches {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+  padding-inline-start: 16px;
+  border-inline-start: 1px solid var(--lab-rule);
+}
+html[data-design] .logo-switches button,
+html[data-design] .logo-switches button#theme-toggle,
+html[data-design] .logo-switches button#search-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+  color: var(--lab-muted);
+  background: transparent;
+  border: 0;
+  border-radius: 999px;
+  transition: background-color .16s ease, color .16s ease;
+}
+html[data-design] .logo-switches button:hover,
+html[data-design] .logo-switches button#theme-toggle:hover,
+html[data-design] .logo-switches button#search-button:hover {
+  color: var(--lab-text);
+  background: color-mix(in srgb, var(--lab-accent) 8%, transparent);
+}
+
+/* Pill — rounded buttons, accent active pill. */
+html[data-design][data-navbar='pill'] #menu { gap: 4px; }
+html[data-design][data-navbar='pill'] #menu a { border-radius: 999px; }
+html[data-design][data-navbar='pill'] #menu a:hover {
+  color: var(--lab-text);
+  background: color-mix(in srgb, var(--lab-accent) 8%, transparent);
+}
+html[data-design][data-navbar='pill'] #menu .active,
+html[data-design][data-navbar='pill'] #menu a.active:hover {
+  color: var(--lab-accent);
+  background: color-mix(in srgb, var(--lab-accent) 12%, transparent);
+}
+
+/* Underline — bare links, animated accent underline on hover, full underline when active. */
+html[data-design][data-navbar='underline'] #menu { gap: 20px; }
+html[data-design][data-navbar='underline'] #menu a { padding: 7px 2px; border-radius: 0; position: relative; }
+html[data-design][data-navbar='underline'] #menu a::after {
+  content: '';
+  position: absolute;
+  left: 2px;
+  right: 100%;
+  bottom: 2px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--lab-accent);
+  transition: right .18s ease;
+}
+html[data-design][data-navbar='underline'] #menu a:hover { color: var(--lab-text); background: transparent; }
+html[data-design][data-navbar='underline'] #menu a:hover::after,
+html[data-design][data-navbar='underline'] #menu .active::after { right: 2px; }
+html[data-design][data-navbar='underline'] #menu .active,
+html[data-design][data-navbar='underline'] #menu a.active:hover { color: var(--lab-accent); background: transparent; }
+
+/* Floating bar — rounded, bordered, softly elevated surface. */
+html[data-design][data-navbar='floating'] .header {
+  border-bottom: 0;
+  padding: 16px 24px 0;
+}
+html[data-design][data-navbar='floating'] .nav {
+  padding: 10px 18px;
+  min-height: 64px;
+  border: 1px solid var(--lab-rule);
+  border-radius: 20px;
+  background: color-mix(in srgb, var(--lab-surface) 82%, transparent);
+  box-shadow: 0 10px 32px -20px color-mix(in srgb, var(--lab-text) 45%, transparent);
+}
+html[data-design][data-navbar='floating'] #menu { gap: 4px; }
+html[data-design][data-navbar='floating'] #menu a { border-radius: 999px; }
+html[data-design][data-navbar='floating'] #menu a:hover {
+  color: var(--lab-text);
+  background: color-mix(in srgb, var(--lab-accent) 8%, transparent);
+}
+html[data-design][data-navbar='floating'] #menu .active,
+html[data-design][data-navbar='floating'] #menu a.active:hover {
+  color: var(--lab-accent);
+  background: color-mix(in srgb, var(--lab-accent) 12%, transparent);
+}
+
+/* Centered — masthead: logo on top, links + icons centred below. */
+html[data-design][data-navbar='centered'] .nav {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 28px 16px;
+  min-height: 0;
+}
+html[data-design][data-navbar='centered'] .logo a { font-size: 26px; }
+html[data-design][data-navbar='centered'] #menu { gap: 4px; }
+html[data-design][data-navbar='centered'] #menu a { border-radius: 999px; }
+html[data-design][data-navbar='centered'] #menu a:hover {
+  color: var(--lab-text);
+  background: color-mix(in srgb, var(--lab-accent) 8%, transparent);
+}
+html[data-design][data-navbar='centered'] #menu .active,
+html[data-design][data-navbar='centered'] #menu a.active:hover {
+  color: var(--lab-accent);
+  background: color-mix(in srgb, var(--lab-accent) 12%, transparent);
+}
+
+/* Minimal — flat, borderless, just the words. */
+html[data-design][data-navbar='minimal'] .header { border-bottom: 0; }
+html[data-design][data-navbar='minimal'] .nav { min-height: 64px; }
+html[data-design][data-navbar='minimal'] #menu { gap: 22px; }
+html[data-design][data-navbar='minimal'] #menu a { padding: 6px 0; border-radius: 0; }
+html[data-design][data-navbar='minimal'] #menu a:hover { color: var(--lab-text); background: transparent; }
+html[data-design][data-navbar='minimal'] #menu .active,
+html[data-design][data-navbar='minimal'] #menu a.active:hover { color: var(--lab-accent); background: transparent; }
+
+/* Pill outline — outlined pills; the active page fills with the accent. */
+html[data-design][data-navbar='pill-outline'] #menu { gap: 6px; }
+html[data-design][data-navbar='pill-outline'] #menu a { border: 1px solid var(--lab-rule); border-radius: 999px; padding: 6px 14px; }
+html[data-design][data-navbar='pill-outline'] #menu a:hover { color: var(--lab-text); border-color: color-mix(in srgb, var(--lab-accent) 40%, var(--lab-rule)); background: color-mix(in srgb, var(--lab-accent) 8%, transparent); }
+html[data-design][data-navbar='pill-outline'] #menu .active,
+html[data-design][data-navbar='pill-outline'] #menu a.active:hover { color: var(--lab-bg); background: var(--lab-accent); border-color: var(--lab-accent); }
+
+/* Pill active — bare links; only the active page becomes a filled pill. */
+html[data-design][data-navbar='pill-active'] #menu { gap: 4px; }
+html[data-design][data-navbar='pill-active'] #menu a { border-radius: 999px; padding: 7px 13px; }
+html[data-design][data-navbar='pill-active'] #menu a:hover { color: var(--lab-text); background: transparent; }
+html[data-design][data-navbar='pill-active'] #menu .active,
+html[data-design][data-navbar='pill-active'] #menu a.active:hover { color: var(--lab-bg); background: var(--lab-accent); }
+
+/* Dock — a centred floating capsule. */
+html[data-design][data-navbar='dock'] .header { border-bottom: 0; padding: 14px 20px 0; }
+html[data-design][data-navbar='dock'] .nav { width: fit-content; max-width: min(var(--nav-width), calc(100vw - 40px)); margin: 0 auto; padding: 7px 10px 7px 20px; min-height: 0; gap: 14px; border: 1px solid var(--lab-rule); border-radius: 999px; background: color-mix(in srgb, var(--lab-surface) 82%, transparent); box-shadow: 0 10px 32px -20px color-mix(in srgb, var(--lab-text) 45%, transparent); }
+html[data-design][data-navbar='dock'] .logo a { font-size: 19px; }
+html[data-design][data-navbar='dock'] #menu { gap: 2px; }
+html[data-design][data-navbar='dock'] #menu a { border-radius: 999px; padding: 6px 12px; font-size: 14px; }
+html[data-design][data-navbar='dock'] #menu a:hover { color: var(--lab-text); background: color-mix(in srgb, var(--lab-accent) 8%, transparent); }
+html[data-design][data-navbar='dock'] #menu .active,
+html[data-design][data-navbar='dock'] #menu a.active:hover { color: var(--lab-accent); background: color-mix(in srgb, var(--lab-accent) 12%, transparent); }
+
+/* Ruler — links separated by fine vertical rules. */
+html[data-design][data-navbar='ruler'] #menu { gap: 0; }
+html[data-design][data-navbar='ruler'] #menu li + li::before { content: ''; display: inline-block; width: 1px; height: 16px; margin: 0 16px; vertical-align: middle; background: var(--lab-rule); }
+html[data-design][data-navbar='ruler'] #menu a { padding: 7px 0; border-radius: 0; }
+html[data-design][data-navbar='ruler'] #menu a:hover { color: var(--lab-text); background: transparent; }
+html[data-design][data-navbar='ruler'] #menu .active,
+html[data-design][data-navbar='ruler'] #menu a.active:hover { color: var(--lab-accent); background: transparent; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; }
+
+@media (max-width: 700px) {
+  html[data-design] .nav-end { width: 100%; flex-wrap: wrap; row-gap: 10px; }
+  html[data-design] #menu { flex: 1 1 auto; width: auto; }
+  html[data-design] .logo-switches { margin-inline-start: auto; border-inline-start: 0; padding-inline-start: 0; }
+  html[data-design][data-navbar='centered'] .nav-end { justify-content: center; }
+  html[data-design][data-navbar='floating'] .header { padding: 12px 16px 0; }
+}
+
+/* Logo mark injected beside the site name. */
+html[data-design] .logo a { display: inline-flex; align-items: center; gap: 10px; }
+html[data-design] .logo a .lab-mark { display: inline-flex; flex: none; color: var(--lab-accent); }
+html[data-design] .logo a .lab-mark[hidden] { display: none; }
+html[data-design] .logo a .lab-mark svg { width: 26px; height: 26px; display: block; }

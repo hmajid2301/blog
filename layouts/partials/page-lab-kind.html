@@ -1,0 +1,17 @@
+{{- $kind := "" -}}
+{{- if eq .Layout "archives" -}}
+  {{- $kind = "archive" -}}
+{{- else if eq .Kind "taxonomy" -}}
+  {{- $kind = "topics" -}}
+{{- else if eq .RelPermalink "/uses/" -}}
+  {{- $kind = "uses" -}}
+{{- else if and (eq .Kind "section") (eq .Section "talks") -}}
+  {{- $kind = "talks" -}}
+{{- else if and (eq .Kind "section") (eq .Section "posts") -}}
+  {{- $kind = "writing" -}}
+{{- else if and .IsPage (eq .Section "talks") -}}
+  {{- $kind = "talk" -}}
+{{- else if and .IsPage (eq .Section "posts") -}}
+  {{- $kind = "article" -}}
+{{- end -}}
+{{- return $kind -}}

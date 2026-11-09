@@ -1,0 +1,17 @@
+{{- $lang := default "text" .Type -}}
+{{- $opts := dict -}}
+{{- if not (transform.CanHighlight .Type) -}}
+  {{- $opts = dict "type" "text" -}}
+{{- end -}}
+{{- $result := transform.HighlightCodeBlock . $opts -}}
+{{- $n := len (split (trim .Inner "\n") "\n") -}}
+{{- $label := printf "%s · snippet %02d" (upper $lang) (add .Ordinal 1) -}}
+<div class="lab-neovim">
+  <div class="lab-code-tab" aria-hidden="true">{{ $label }}</div>
+  {{ $result.Wrapped | safeHTML }}
+  <div class="lab-code-status" aria-hidden="true">
+    <strong>NORMAL</strong>
+    <span class="lab-code-language">{{ $lang }}</span>
+    <span>{{ $n }} {{ if eq $n 1 }}line{{ else }}lines{{ end }} · read only</span>
+  </div>
+</div>

@@ -1,0 +1,3 @@
+<ul class="page-lab-archive-links">
+{{- range . }}<li><time datetime="{{ .PublishDate.Format "2006-01-02" }}">{{ .PublishDate.Format "02 Jan" }}</time><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>{{ end -}}
+</ul>

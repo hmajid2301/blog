@@ -78,7 +78,7 @@ iconHeight = 35
 [params.profileMode]
 enabled = true
 title = "Haseeb Majid"
-subtitle = "Backend software engineer 💻 and village cricketer 🏏"
+subtitle = "Backend software engineer 💻, Linux enthusiast 🐧 and village cricketer 🏏"
 imageUrl = "https://www.gravatar.com/avatar/7ddefc94d562a0b5896ef7f1b7c69e0e?s=250"
 imageWidth = 250
 imageHeight = 250
@@ -139,8 +139,10 @@ isCaseSensitive = false
 shouldSort = true
 location = 0
 distance = 100
-threshold = 0.0
-minMatchCharLength = 0
+threshold = 0.3
+minMatchCharLength = 3
+ignoreLocation = true
+findAllMatches = true
 
 [[params.fuseOpts.keys]]
 name = "title"
@@ -151,11 +153,18 @@ name = "section"
 weight = 0.2
 
 [[params.fuseOpts.keys]]
+name = "summary"
+weight = 0.6
+
+[[params.fuseOpts.keys]]
+name = "tags"
+weight = 0.5
+
+[[params.fuseOpts.keys]]
 name = "content"
-weight = 0.4
+weight = 0.3
 
 [taxonomies]
-category = "categories"
 tag = "tags"
 series = "series"
 
@@ -166,12 +175,6 @@ identifier = "posts"
 name = "Posts"
 url = "/posts/"
 weight = 10
-
-[[menu.main]]
-identifier = "slides"
-name = "Slides"
-url = "/slides/"
-weight = 15
 
 [[menu.main]]
 identifier = "talks"

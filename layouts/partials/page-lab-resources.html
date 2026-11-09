@@ -1,0 +1,24 @@
+{{/* Extract only real authored links and YouTube shortcodes; never infer availability. */}}
+{{- $resources := slice -}}
+{{- $seen := slice -}}
+{{- range findRE `!?\[[^\]\n]+\]\([^\s)]+\)` .RawContent -}}
+  {{- if not (hasPrefix . "!") -}}
+    {{- $label := replaceRE `^\[([^\]]+)\].*$` "$1" . -}}
+    {{- $url := replaceRE `^\[[^\]]+\]\(([^)]+)\)$` "$1" . -}}
+    {{- if and (findRE `^(https?://|/)` $url) (not (in $seen $url)) -}}
+      {{- $resources = $resources | append (dict "label" $label "url" $url) -}}
+      {{- $seen = $seen | append $url -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- range findRE `\{\{[<%]\s*youtube\s+[^}]+[>%]\}\}` .RawContent -}}
+  {{- $id := replaceRE `.*?(?:id=)?["']([A-Za-z0-9_-]+)["'].*` "$1" . -}}
+  {{- if findRE `^[A-Za-z0-9_-]+$` $id -}}
+    {{- $url := printf "https://www.youtube.com/watch?v=%s" $id -}}
+    {{- if not (in $seen $url) -}}
+      {{- $resources = $resources | append (dict "label" "Recording" "url" $url) -}}
+      {{- $seen = $seen | append $url -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- return $resources -}}

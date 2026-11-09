@@ -1,195 +1,225 @@
-import * as params from '@params';
-
-var fuse;
-var showButton = document.getElementById("search-button");
-var showButtonMobile = document.getElementById("search-button-mobile");
-var hideButton = document.getElementById("close-search-button");
-var wrapper = document.getElementById("search-wrapper");
-var modal = document.getElementById("search-modal");
-var input = document.getElementById("search-query");
-var output = document.getElementById("search-results");
-var first = output.firstChild;
-var last = output.lastChild;
-var searchVisible = false;
-var indexed = false;
-var hasResults = false;
-
-
-// Listen for events
-showButton? showButton.addEventListener("click", displaySearch) : null;
-showButtonMobile? showButtonMobile.addEventListener("click", displaySearch) : null;
-hideButton.addEventListener("click", hideSearch);
-wrapper.addEventListener("click", hideSearch);
-modal.addEventListener("click", function (event) {
-  event.stopPropagation();
-  event.stopImmediatePropagation();
-  return false;
-});
-document.addEventListener("keydown", function (event) {
-  // Forward slash to open search wrapper
-  if (event.key == "/") {
-    if (!searchVisible) {
-      event.preventDefault();
-      displaySearch();
-    }
-  }
-
-  // Esc to close search wrapper
-  if (event.key == "Escape") {
-    hideSearch();
-  }
-
-  // Down arrow to move down results list
-  if (event.key == "ArrowDown") {
-    if (searchVisible && hasResults) {
-      event.preventDefault();
-      if (document.activeElement == input) {
-        first.focus();
-      } else if (document.activeElement == last) {
-        last.focus();
-      } else {
-        document.activeElement.parentElement.nextSibling.firstElementChild.focus();
-      }
-    }
-  }
-
-  // Up arrow to move up results list
-  if (event.key == "ArrowUp") {
-    if (searchVisible && hasResults) {
-      event.preventDefault();
-      if (document.activeElement == input) {
-        input.focus();
-      } else if (document.activeElement == first) {
-        input.focus();
-      } else {
-        document.activeElement.parentElement.previousSibling.firstElementChild.focus();
-      }
-    }
-  }
-});
-
-// Update search on each keypress
-input.onkeyup = function (event) {
-  executeQuery(this.value);
+// Self-hosted Fuse.js search over a slim JSON index, with a polished modal.
+const fuseOptions = {
+  shouldSort: true,
+  ignoreLocation: true,
+  findAllMatches: true,
+  threshold: 0.3,
+  minMatchCharLength: 3,
+  includeMatches: true,
+  keys: [
+    { name: 'title', weight: 0.8 },
+    { name: 'section', weight: 0.2 },
+    { name: 'summary', weight: 0.6 },
+    { name: 'tags', weight: 0.5 },
+    { name: 'content', weight: 0.3 }
+  ]
 };
+
+let fuse = null;
+let indexed = false;
+let searchVisible = false;
+let resultLinks = [];
+
+const showButton = document.getElementById('search-button');
+const hideButton = document.getElementById('close-search-button');
+const wrapper = document.getElementById('search-wrapper');
+const modal = document.getElementById('search-modal');
+const input = document.getElementById('search-query');
+const output = document.getElementById('search-results');
+const status = document.getElementById('search-status');
+
+function escapeHtml(value) {
+  return String(value).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+function highlightTerms(value, terms, maxMarks) {
+  const text = String(value || '');
+  if (!terms || !terms.length) return escapeHtml(text);
+  const intervals = [];
+  const lowerText = text.toLowerCase();
+  terms.forEach(term => {
+    if (!term) return;
+    const lowerTerm = term.toLowerCase();
+    let pos = 0;
+    while ((pos = lowerText.indexOf(lowerTerm, pos)) !== -1) {
+      intervals.push([pos, pos + lowerTerm.length]);
+      pos += 1;
+    }
+  });
+  if (!intervals.length) return escapeHtml(text);
+  intervals.sort((a, b) => a[0] - b[0] || a[1] - b[1]);
+  const merged = [];
+  let cur = intervals[0];
+  for (let i = 1; i < intervals.length; i++) {
+    if (intervals[i][0] <= cur[1]) {
+      cur[1] = Math.max(cur[1], intervals[i][1]);
+    } else {
+      merged.push(cur);
+      cur = intervals[i];
+    }
+  }
+  merged.push(cur);
+  if (maxMarks && maxMarks > 0) merged.splice(maxMarks);
+  let html = '';
+  let cursor = 0;
+  merged.forEach(([start, end]) => {
+    html += escapeHtml(text.slice(cursor, start));
+    html += '<mark>' + escapeHtml(text.slice(start, end)) + '</mark>';
+    cursor = end;
+  });
+  html += escapeHtml(text.slice(cursor));
+  return html;
+}
+
+function highlightField(item, _matches, key, terms, maxMarks) {
+  return highlightTerms(item[key], terms, maxMarks);
+}
+
+function setStatus(message) {
+  if (!status) return;
+  status.textContent = message;
+  status.hidden = !message;
+}
 
 function displaySearch() {
   if (!indexed) {
     buildIndex();
+    setStatus('Indexing posts…');
   }
-  if (!searchVisible) {
-    document.body.style.overflow = "hidden";
-    wrapper.style.visibility = "visible";
-    input.focus();
-    searchVisible = true;
-  }
+  if (searchVisible) return;
+  document.body.style.overflow = 'hidden';
+  wrapper.classList.add('search-open');
+  searchVisible = true;
+  requestAnimationFrame(() => input.focus());
 }
 
 function hideSearch() {
-  if (searchVisible) {
-    document.body.style.overflow = "visible";
-    wrapper.style.visibility = "hidden";
-    input.value = "";
-    output.innerHTML = "";
-    document.activeElement.blur();
-    searchVisible = false;
-  }
+  if (!searchVisible) return;
+  document.body.style.overflow = '';
+  wrapper.classList.remove('search-open');
+  searchVisible = false;
+  input.value = '';
+  output.innerHTML = '';
+  resultLinks = [];
+  setStatus('');
+  if (document.activeElement && modal.contains(document.activeElement)) document.activeElement.blur();
+}
+
+function moveFocus(dir) {
+  if (!searchVisible || !resultLinks.length) return;
+  const index = resultLinks.indexOf(document.activeElement);
+  const next = index === -1
+    ? (dir === 1 ? 0 : resultLinks.length - 1)
+    : Math.min(Math.max(index + dir, 0), resultLinks.length - 1);
+  resultLinks[next].focus();
+}
+
+function trapFocus(event) {
+  const focusables = Array.from(modal.querySelectorAll('input, button, a[href]')).filter(el => !el.disabled && el.offsetParent !== null);
+  if (!focusables.length) return;
+  const first = focusables[0];
+  const last = focusables[focusables.length - 1];
+  if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+  else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
 }
 
 function fetchJSON(path, callback) {
-  var httpRequest = new XMLHttpRequest();
-  httpRequest.onreadystatechange = function () {
-    if (httpRequest.readyState === 4) {
-      if (httpRequest.status === 200) {
-        var data = JSON.parse(httpRequest.responseText);
-        if (callback) callback(data);
-      }
+  const request = new XMLHttpRequest();
+  request.onreadystatechange = function () {
+    if (request.readyState === 4 && request.status === 200) {
+      try { callback(JSON.parse(request.responseText)); } catch (_) { callback([]); }
     }
   };
-  httpRequest.open("GET", path);
-  httpRequest.send();
+  request.open('GET', path);
+  request.send();
 }
 
 function buildIndex() {
-  var baseURL = wrapper.getAttribute("data-url");
-  baseURL = baseURL.replace(/\/?$/, '/');
-  fetchJSON(baseURL + "index.json", function (data) {
-    var options = {
-      shouldSort: true,
-      ignoreLocation: true,
-      threshold: 0.0,
-      includeMatches: true,
-      keys: [
-        { name: "title", weight: 0.8 },
-        { name: "section", weight: 0.2 },
-        { name: "summary", weight: 0.6 },
-        { name: "content", weight: 0.4 },
-      ],
-    };
-    if (params.fuseOpts) {
-      options = {
-          isCaseSensitive: params.fuseOpts.iscasesensitive ?? false,
-          includeScore: params.fuseOpts.includescore ?? false,
-          includeMatches: params.fuseOpts.includematches ?? false,
-          minMatchCharLength: params.fuseOpts.minmatchcharlength ?? 1,
-          shouldSort: params.fuseOpts.shouldsort ?? true,
-          findAllMatches: params.fuseOpts.findallmatches ?? false,
-          location: params.fuseOpts.location ?? 0,
-          threshold: params.fuseOpts.threshold ?? 0.4,
-          distance: params.fuseOpts.distance ?? 100,
-          ignoreLocation: params.fuseOpts.ignorelocation ?? true,
-          keys: params.fuseOpts.keys ??
-          [
-            { name: "title", weight: 0.8 },
-            { name: "section", weight: 0.2 },
-            { name: "summary", weight: 0.6 },
-            { name: "content", weight: 0.4 },
-          ],
-      }
-    }
-    fuse = new Fuse(data, options);
+  const baseURL = (wrapper.getAttribute('data-url') || '/').replace(/\/?$/, '/');
+  fetchJSON(baseURL + 'index.json', function (data) {
+    fuse = new Fuse(data, fuseOptions);
     indexed = true;
+    setStatus('');
+    if (searchVisible) executeQuery(input.value);
+  });
+}
+
+function renderResults(results, term) {
+  output.innerHTML = '';
+  resultLinks = [];
+  if (!results.length) {
+    const empty = document.createElement('li');
+    empty.className = 'search-empty';
+    empty.textContent = term ? 'No results for “' + term + '”.' : 'Start typing to search.';
+    output.appendChild(empty);
+    setStatus('');
+    return;
+  }
+  setStatus(results.length + (results.length === 1 ? ' result' : ' results'));
+  const words = (term || '').trim().split(/\s+/).filter(Boolean);
+  const highlightTermsList = words.filter(w => w.length >= 2);
+  results.forEach(function (result) {
+    const item = result.item;
+    const li = document.createElement('li');
+    const link = document.createElement('a');
+    link.className = 'search-item-link';
+    link.href = item.permalink;
+    link.setAttribute('tabindex', '0');
+
+    const card = document.createElement('div');
+    card.className = 'search-item';
+
+    const title = document.createElement('div');
+    title.className = 'search-title';
+    title.innerHTML = highlightField(item, result.matches, 'title', highlightTermsList);
+
+    const meta = document.createElement('div');
+    meta.className = 'search-meta';
+    meta.textContent = [item.section, item.date].filter(Boolean).join(' · ');
+
+    card.appendChild(title);
+    card.appendChild(meta);
+
+    if (item.content) {
+      const summary = document.createElement('div');
+      summary.className = 'search-summary';
+      summary.innerHTML = highlightField(item, result.matches, 'content', highlightTermsList, 3);
+      card.appendChild(summary);
+    }
+
+    link.appendChild(card);
+    li.appendChild(link);
+    output.appendChild(li);
+    resultLinks.push(link);
   });
 }
 
 function executeQuery(term) {
-  let results = fuse.search(term);
-
-  output.innerHTML = "";
-  hasResults = false;
-
-  if (results.length > 0) {
-    results.forEach(function (value, key) {
-      const li = document.createElement("li");
-      li.className = "mb-2";
-
-      const link = document.createElement("a");
-      link.className = "search-item-link";
-      link.href = value.item.permalink;
-      link.setAttribute("tabindex", "0");
-
-      const itemDiv = document.createElement("div");
-      itemDiv.className = "search-item";
-
-      const titleDiv = document.createElement("div");
-      titleDiv.className = "search-title";
-      titleDiv.textContent = value.item.title;
-
-      const summaryDiv = document.createElement("div");
-      summaryDiv.className = "search-summary";
-      summaryDiv.textContent = value.item.summary;
-
-      itemDiv.appendChild(titleDiv);
-      itemDiv.appendChild(summaryDiv);
-      link.appendChild(itemDiv);
-      li.appendChild(link);
-      output.appendChild(li);
-    });
-    hasResults = true;
+  if (!indexed) return;
+  const query = (term || '').trim();
+  if (!query) {
+    output.innerHTML = '';
+    resultLinks = [];
+    setStatus('');
+    return;
   }
-
-  if (results.length > 0) {
-    first = output.firstChild.firstElementChild;
-    last = output.lastChild.firstElementChild;
-  }
+  const results = fuse.search(query);
+  renderResults(results.slice(0, 20), query);
 }
+
+if (showButton) showButton.addEventListener('click', displaySearch);
+if (hideButton) hideButton.addEventListener('click', hideSearch);
+if (wrapper) wrapper.addEventListener('click', function (event) { if (event.target === wrapper) hideSearch(); });
+if (modal) modal.addEventListener('click', function (event) { event.stopPropagation(); });
+if (input) input.addEventListener('input', function () { executeQuery(input.value); });
+
+document.addEventListener('keydown', function (event) {
+  const mod = event.metaKey || event.ctrlKey;
+  if (event.key === '/' && !searchVisible) { event.preventDefault(); displaySearch(); return; }
+  if (mod && (event.key === 'k' || event.key === 'K')) { event.preventDefault(); searchVisible ? hideSearch() : displaySearch(); return; }
+  if (event.key === 'Escape') { hideSearch(); return; }
+  if (!searchVisible) return;
+  if (event.key === 'ArrowDown') { event.preventDefault(); moveFocus(1); return; }
+  if (event.key === 'ArrowUp') { event.preventDefault(); moveFocus(-1); return; }
+  if (event.key === 'Tab') { trapFocus(event); }
+});

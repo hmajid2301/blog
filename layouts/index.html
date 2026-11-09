@@ -1,3 +1,74 @@
 {{- define "main" }}
-  {{- partial "index_profile.html" . }}
+  {{- if site.Params.designLab }}
+  <section class="lab-home-hero" aria-labelledby="home-title">
+    <div>
+      <p class="lab-eyebrow">{{ site.Title }} / a personal corner of the web</p>
+      <h1 id="home-title">Backend engineer.<br><span class="lab-heading-tail">Always tinkering.</span></h1>
+      <p class="lab-intro">{{ site.Params.profileMode.subtitle | markdownify }}</p>
+      <p class="lab-intro">Notes on Go, Nix, developer tools, and the things I learn while building software.</p>
+      <div class="lab-home-links"><a href="/posts/">Read the writing ↗</a><a href="/talks/">On stage ↗</a><a href="/uses/">What I use ↗</a></div>
+      <div class="lab-socials">{{ partial "social_icons.html" (dict "icons" site.Params.socialIcons "svg" hugo.Data.svg "MaskedEmail" site.Params.maskedemail) }}</div>
+    </div>
+    {{- with site.GetPage "/talks/gophercon-htmx-go-web-app" }}
+      {{- with .Resources.GetMatch "images/1Q2A7438.webp" }}
+      {{- $photo := .Fill "580x720 Center" }}
+      <figure class="lab-portrait"><img src="{{ $photo.RelPermalink }}" alt="Haseeb speaking at GopherCon UK" width="580" height="720"><figcaption>On stage at GopherCon UK.</figcaption></figure>
+      {{- end }}
+    {{- end }}
+  </section>
+  {{- range first 1 (where site.RegularPages "Section" "posts").ByDate.Reverse }}
+  <section class="lab-featured" data-home-section="featured" aria-labelledby="featured-title">
+    <p class="lab-eyebrow">Latest from the notebook / {{ .Date.Format "02 Jan 2006" }}</p>
+    <h2 id="featured-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+    <p>{{ .Description | default (.Summary | plainify | htmlUnescape) | truncate 260 }}</p>
+    <div class="lab-home-links"><span>{{ .ReadingTime }} min read</span></div>
+  </section>
+  {{- end }}
+  <section class="lab-discover" data-home-section="discover" aria-labelledby="discover-topics">
+    <div class="lab-section-head"><div><p class="lab-eyebrow">Find your next rabbit hole</p><h2 id="discover-topics">Explore the notebook</h2></div><a href="/tags/">All topics ↗</a></div>
+    <div class="lab-topic-grid">
+      {{- range slice "go" "nixos" "nix" "neovim" "postgres" }}
+        {{- with site.GetPage (printf "/tags/%s" .) }}
+        <section class="lab-topic-group">
+          <h3><a href="{{ .RelPermalink }}">{{ .LinkTitle }} <span>{{ len .Pages }} posts ↗</span></a></h3>
+          <ul>{{ range first 2 .Pages.ByDate.Reverse }}<li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>{{ end }}</ul>
+        </section>
+        {{- end }}
+      {{- end }}
+      <section class="lab-topic-group">
+        <h3><a href="/series/">Read a series <span>Follow a thread ↗</span></a></h3>
+        <ul>{{ range first 2 site.Taxonomies.series.ByCount }}<li><a href="{{ .Page.RelPermalink }}">{{ .Page.Title }}</a></li>{{ end }}</ul>
+      </section>
+    </div>
+  </section>
+  <section class="lab-home-section lab-writing" data-home-section="writing" aria-labelledby="latest-writing">
+    <div class="lab-section-head"><h2 id="latest-writing">Recently written</h2><a href="/posts/">All writing ↗</a></div>
+    {{- range $index, $post := first 12 (where site.RegularPages "Section" "posts").ByDate.Reverse }}
+    <article class="lab-home-entry" data-home-post{{ if ge $index 6 }} hidden{{ end }}>
+      <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "02 Jan 2006" }}</time>
+      <div><h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3><p>{{ .Description | default (.Summary | plainify | htmlUnescape) | truncate 160 }}</p></div>
+      <span class="lab-arrow" aria-hidden="true">↗</span>
+    </article>
+    {{- end }}
+  </section>
+  <section class="lab-home-section lab-talks" data-home-section="talks" aria-labelledby="on-stage">
+    <div class="lab-section-head"><h2 id="on-stage">Talks I've given</h2><a href="/talks/">All talks ↗</a></div>
+    {{- range $index, $talk := first 6 (where site.RegularPages "Section" "talks").ByDate.Reverse }}
+    <article class="lab-home-entry" data-home-talk{{ if ge $index 3 }} hidden{{ end }}>
+      <time datetime="{{ .PublishDate.Format "2006-01-02" }}">Published {{ .PublishDate.Format "02 Jan 2006" }}</time>
+      <div>
+        <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+        {{- with .Params.conference }}<p class="lab-home-talk-event">{{ . }}</p>{{ end }}
+        <div class="lab-home-talk-resources">{{ partial "page-lab-resource-links.html" . }}</div>
+      </div><span class="lab-arrow" aria-hidden="true">↗</span>
+    </article>
+    {{- end }}
+  </section>
+  <section class="lab-home-section lab-home-bottom" data-home-section="bottom" aria-label="Explore more">
+    <div><p class="lab-eyebrow">The setup</p><h3>The tools behind the work.</h3><p>NixOS, Neovim, a split keyboard, and Catppuccin.</p><div class="lab-home-links"><a href="/uses/">Browse my setup ↗</a></div></div>
+    <div><p class="lab-eyebrow">More to explore</p><h3>Follow a thread.</h3><p>Find a topic, work through a series, or browse the archive.</p><div class="lab-home-links"><a href="/series/">Series ↗</a><a href="/tags/">Topics ↗</a><a href="/archive/">Archive ↗</a></div></div>
+  </section>
+  {{- else }}
+    {{- partial "index_profile.html" . }}
+  {{- end }}
 {{- end }}

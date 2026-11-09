@@ -1,5 +1,6 @@
+{{- $labKind := partial "page-lab-kind.html" . -}}
 <!DOCTYPE html>
-<html lang="{{ .Params.language | default .Language.Lang }}" dir="{{ .Language.Direction | default "auto" }}">
+<html lang="{{ .Params.language | default .Language.Lang }}" dir="{{ .Language.Direction | default "auto" }}"{{ if eq $labKind "talk" }} data-page-variant="briefing"{{ else if eq $labKind "article" }} data-page-variant="editorial"{{ end }}>
 
 <head>
     {{- partial "head.html" . }}
@@ -13,13 +14,20 @@
 {{- if eq site.Params.defaultTheme `dark` -}}
       {{- print " dark" }}
     {{- end }} type-{{ .Type }} kind-{{ .Kind }} layout-{{ .Layout -}}
-" id="top">
+" id="top"{{ if site.Params.designLab }} data-lab-page="{{ partial "page-lab-kind.html" . }}"{{ end }}>
+    {{- partial "playground.html" . -}}
     {{- partialCached "header.html" . .Page -}}
     <div class="reading-progress-bar"></div>
+    {{ if site.Params.designLab }}<div class="lab-site">{{ partial "playground-sidebar.html" . }}{{ end }}
     <main class="main {{- if (eq .Kind `page`) -}}{{- print " post" -}}{{- end -}}">
+        {{- $labKind := partial "page-lab-kind.html" . -}}
+        {{- $labAlternates := and site.Params.designLab (in (slice "talks" "writing" "archive" "topics") $labKind) -}}
+        {{ if $labAlternates }}<div data-page-original>{{ end }}
         {{- block "main" . }}{{ end }}
+        {{ if $labAlternates }}</div>{{ partial "page-lab-alternatives.html" (dict "page" . "kind" $labKind) }}{{ end }}
 
     </main>
+    {{ if site.Params.designLab }}</div>{{ end }}
     {{- if .Site.Params.goatcounter }}
     {{ partial "analytics.html" . -}}
     {{- end }}

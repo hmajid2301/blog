@@ -1,0 +1,152 @@
+{{- $page := .page -}}
+{{- $kind := .kind -}}
+{{- $variant := .variant | default "" -}}
+{{- $featured := .featured | default false -}}
+{{- $compact := .compact | default false -}}
+{{- $grouped := .grouped | default false -}}
+{{- if eq $variant "programme" -}}
+<article class="page-lab-entry page-lab-entry-programme">
+  <time datetime="{{ $page.PublishDate.Format "2006-01-02" }}">{{ $page.PublishDate.Format "2 Jan" }}</time>
+  <div class="page-lab-entry-main">
+    <h3><a href="{{ $page.RelPermalink }}">{{ $page.Title }}</a></h3>
+    {{- with or $page.Params.location $page.Params.conference }}<p class="page-lab-entry-event">{{ . }}</p>{{ end -}}
+  </div>
+  {{- if eq $kind "talks" }}{{ partial "page-lab-resource-links.html" $page }}{{ end -}}
+</article>
+{{- else if eq $variant "featured" -}}
+<article class="page-lab-entry page-lab-feature">
+  <p class="page-lab-kicker">Featured {{ if eq $kind "talks" }}talk{{ else }}article{{ end }}</p>
+  {{- with or $page.Params.location $page.Params.conference }}<p class="page-lab-entry-event">{{ . }}</p>{{ end -}}
+  <h2><a href="{{ $page.RelPermalink }}">{{ $page.Title }}</a></h2>
+  {{- with $page.Description }}<p>{{ . | plainify }}</p>{{ else }}
+    {{- if eq $kind "writing" }}<p>{{ $page.Summary | plainify | htmlUnescape | truncate 210 }}</p>{{ end -}}
+  {{- end -}}
+  <p class="page-lab-entry-meta-featured">Published <time datetime="{{ $page.PublishDate.Format "2006-01-02" }}">{{ $page.PublishDate.Format "2 Jan 2006" }}</time></p>
+  {{- if eq $kind "talks" }}{{ partial "page-lab-resource-links.html" $page }}{{ end -}}
+</article>
+{{- else if eq $variant "library" -}}
+<article class="page-lab-entry page-lab-entry-library">
+  {{- $coverName := $page.Params.cover.image -}}
+  {{- $coverResource := "" -}}
+  {{- if $coverName }}{{ $coverResource = $page.Resources.GetMatch $coverName }}{{ end -}}
+  {{- with $coverResource }}
+  <a href="{{ $page.RelPermalink }}" class="page-lab-entry-cover" aria-hidden="true" tabindex="-1">
+    <img src="{{ .RelPermalink }}" alt="{{ $page.Title }}" loading="lazy" onerror="this.style.display='none'; this.closest('.page-lab-entry-cover').style.display='none'">
+  </a>
+  {{- end -}}
+  <div class="page-lab-entry-body">
+    {{- with or $page.Params.location $page.Params.conference }}<p class="page-lab-entry-event">{{ . }}</p>{{ end -}}
+    <h3><a href="{{ $page.RelPermalink }}">{{ $page.Title }}</a></h3>
+    <p class="page-lab-entry-meta"><time datetime="{{ $page.PublishDate.Format "2006-01-02" }}">{{ $page.PublishDate.Format "2 Jan 2006" }}</time></p>
+    {{- if eq $kind "talks" }}{{ partial "page-lab-resource-links.html" $page }}{{ end -}}
+  </div>
+</article>
+{{- else if eq $variant "timeline" -}}
+<article class="page-lab-entry page-lab-entry-timeline">
+  <div class="page-lab-entry-node">
+    <time datetime="{{ $page.PublishDate.Format "2006-01-02" }}">{{ $page.PublishDate.Format "2 Jan" }}</time>
+    <span class="page-lab-entry-dot" aria-hidden="true"></span>
+  </div>
+  <div class="page-lab-entry-body">
+    <h3><a href="{{ $page.RelPermalink }}">{{ $page.Title }}</a></h3>
+    {{- with or $page.Params.location $page.Params.conference }}<p class="page-lab-entry-event">{{ . }}</p>{{ end -}}
+    {{- if eq $kind "talks" }}{{ partial "page-lab-resource-links.html" $page }}{{ end -}}
+  </div>
+</article>
+{{- else if eq $variant "milestone" -}}
+<article class="page-lab-entry page-lab-entry-milestone">
+  <div class="page-lab-entry-node">
+    <time datetime="{{ $page.PublishDate.Format "2006-01-02" }}">{{ $page.PublishDate.Format "2 Jan" }}</time>
+    <span class="page-lab-entry-dot" aria-hidden="true"></span>
+  </div>
+  <div class="page-lab-entry-body">
+    <h3><a href="{{ $page.RelPermalink }}">{{ $page.Title }}</a></h3>
+    {{- with or $page.Params.location $page.Params.conference }}<p class="page-lab-entry-event">{{ . }}</p>{{ end -}}
+    {{- if eq $kind "talks" }}{{ partial "page-lab-resource-links.html" $page }}{{ end -}}
+  </div>
+</article>
+{{- else if eq $variant "rail" -}}
+<article class="page-lab-entry page-lab-entry-rail">
+  <time datetime="{{ $page.PublishDate.Format "2006-01-02" }}">{{ $page.PublishDate.Format "2 Jan" }}</time>
+  <div class="page-lab-entry-main">
+    <h3><a href="{{ $page.RelPermalink }}">{{ $page.Title }}</a></h3>
+    {{- with or $page.Params.location $page.Params.conference }}<p class="page-lab-entry-event">{{ . }}</p>{{ end -}}
+    {{- if eq $kind "talks" }}{{ partial "page-lab-resource-links.html" $page }}{{ end -}}
+  </div>
+</article>
+{{- else if eq $variant "poster" -}}
+<article class="page-lab-entry page-lab-entry-poster">
+  <div class="page-lab-entry-poster-dot" aria-hidden="true"></div>
+  {{- $coverName := $page.Params.cover.image -}}
+  {{- $coverResource := "" -}}
+  {{- if $coverName }}{{ $coverResource = $page.Resources.GetMatch $coverName }}{{ end -}}
+  {{- with $coverResource }}
+  <a href="{{ $page.RelPermalink }}" class="page-lab-entry-cover" aria-hidden="true" tabindex="-1">
+    <img src="{{ .RelPermalink }}" alt="{{ $page.Title }}" loading="lazy" onerror="this.style.display='none'; this.closest('.page-lab-entry-cover').style.display='none'">
+  </a>
+  {{- end -}}
+  <div class="page-lab-entry-body">
+    <p class="page-lab-entry-meta"><time datetime="{{ $page.PublishDate.Format "2006-01-02" }}">{{ $page.PublishDate.Format "2 Jan" }}</time>{{- with or $page.Params.location $page.Params.conference }} <span>· {{ . }}</span>{{ end -}}</p>
+    <h3><a href="{{ $page.RelPermalink }}">{{ $page.Title }}</a></h3>
+    {{- if eq $kind "talks" }}{{ partial "page-lab-resource-links.html" $page }}{{ end -}}
+  </div>
+</article>
+{{- else if eq $variant "editorial" -}}
+<article class="page-lab-entry page-lab-entry-editorial">
+  <div class="page-lab-entry-main">
+    <h3><a href="{{ $page.RelPermalink }}">{{ $page.Title }}</a></h3>
+    <p class="page-lab-entry-meta"><time datetime="{{ $page.PublishDate.Format "2006-01-02" }}">{{ $page.PublishDate.Format "2 Jan 2006" }}</time> <span>· {{ $page.ReadingTime }} min read</span></p>
+    {{- if not $compact -}}
+      {{- with $page.Description }}<p>{{ . | plainify | htmlUnescape | truncate 140 }}</p>{{ else -}}
+        {{- if eq $kind "writing" }}<p>{{ $page.Summary | plainify | htmlUnescape | truncate 140 }}</p>{{ end -}}
+      {{- end -}}
+    {{- end -}}
+  </div>
+</article>
+{{- else if eq $variant "magazine" -}}
+<article class="page-lab-entry page-lab-entry-magazine">
+  {{- $coverName := $page.Params.cover.image -}}
+  {{- $coverResource := "" -}}
+  {{- if $coverName }}{{ $coverResource = $page.Resources.GetMatch $coverName }}{{ end -}}
+  {{- with $coverResource }}
+  <a href="{{ $page.RelPermalink }}" class="page-lab-entry-cover" aria-hidden="true" tabindex="-1">
+    <img src="{{ .RelPermalink }}" alt="{{ $page.Title }}" loading="lazy" onerror="this.style.display='none'; this.closest('.page-lab-entry-cover').style.display='none'">
+  </a>
+  {{- end -}}
+  <div class="page-lab-entry-body">
+    <h3><a href="{{ $page.RelPermalink }}">{{ $page.Title }}</a></h3>
+    <p class="page-lab-entry-meta"><time datetime="{{ $page.PublishDate.Format "2006-01-02" }}">{{ $page.PublishDate.Format "2 Jan 2006" }}</time> <span>· {{ $page.ReadingTime }} min read</span></p>
+    {{- with $page.Description }}
+    <p>{{ . | plainify | htmlUnescape | truncate 120 }}</p>
+    {{- else -}}
+      {{- if eq $kind "writing" }}
+      <p>{{ $page.Summary | plainify | htmlUnescape | truncate 120 }}</p>
+      {{- end -}}
+    {{- end -}}
+  </div>
+</article>
+{{- else if eq $variant "compact" -}}
+<article class="page-lab-entry page-lab-entry-compact">
+  <time datetime="{{ $page.PublishDate.Format "2006-01-02" }}">{{ $page.PublishDate.Format "2 Jan" }}</time>
+  <h3><a href="{{ $page.RelPermalink }}">{{ $page.Title }}</a></h3>
+  <span class="page-lab-entry-meta">{{ $page.ReadingTime }} min</span>
+</article>
+{{- else -}}
+<article class="page-lab-entry{{ if $featured }} page-lab-feature{{ end }}">
+  <div class="page-lab-entry-meta">
+    {{- with $page.Params.conference }}<span>{{ . }}</span>{{ end -}}
+    <span>Published <time datetime="{{ $page.PublishDate.Format "2006-01-02" }}">{{ $page.PublishDate.Format "2 Jan 2006" }}</time></span>
+    {{- if eq $kind "writing" }}<span>{{ $page.ReadingTime }} min read</span>{{ end -}}
+  </div>
+  <div class="page-lab-entry-body">
+    {{- if $featured }}<p class="page-lab-kicker">Featured {{ if eq $kind "talks" }}talk{{ else }}article{{ end }}</p>{{ end -}}
+    <h{{ if $grouped }}3{{ else }}2{{ end }}><a href="{{ $page.RelPermalink }}">{{ $page.Title }}</a></h{{ if $grouped }}3{{ else }}2{{ end }}>
+    {{- if not $compact }}
+      {{- with $page.Description }}<p>{{ . | plainify }}</p>{{ else }}
+        {{- if eq $kind "writing" }}<p>{{ $page.Summary | plainify | htmlUnescape | truncate 210 }}</p>{{ end -}}
+      {{- end -}}
+    {{- end -}}
+    {{- if eq $kind "talks" }}{{ partial "page-lab-resource-links.html" $page }}{{ end -}}
+  </div>
+</article>
+{{- end -}}

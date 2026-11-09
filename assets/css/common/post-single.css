@@ -95,6 +95,15 @@
     0 1px 0 var(--link-hover-underline-color);
 }
 
+.post-content h1,
+.post-content h2,
+.post-content h3,
+.post-content h4,
+.post-content h5,
+.post-content h6 {
+  position: relative;
+}
+
 h1 .anchor,
 h2 .anchor,
 h3 .anchor,
@@ -103,9 +112,12 @@ h5 .anchor,
 h6 .anchor {
   box-shadow: none;
   user-select: none;
-  font-size: 0.8em;
-  position: relative;
-  top: -2px;
+  font-size: 0.75em;
+  position: absolute;
+  left: -1em;
+  top: 50%;
+  transform: translateY(-50%);
+  text-decoration: none;
 }
 
 h1:hover .anchor,
@@ -115,7 +127,6 @@ h4:hover .anchor,
 h5:hover .anchor,
 h6:hover .anchor {
   color: var(--secondary);
-  margin-inline-start: 8px;
   font-weight: 500;
   display: inline-flex;
 }
@@ -437,7 +448,6 @@ h5:hover .anchor,
 h6:hover .anchor {
   display: inline-flex;
   color: var(--secondary);
-  margin-inline-start: 8px;
   font-weight: 500;
   user-select: none;
 }

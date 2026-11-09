@@ -1,0 +1,32 @@
+<aside class="lab-sidebar" aria-label="Notebook navigation">
+  <div class="lab-sidebar-inner">
+    <a class="lab-sidebar-name" href="/">Haseeb Majid</a>
+    <p>Backend engineer.<br>Notes from the workbench.</p>
+    <nav aria-label="Browse the notebook">
+      <a href="/posts/">All writing <span>↗</span></a>
+      <a href="/talks/">Talks <span>↗</span></a>
+      <a href="/slides/">Slides <span>↗</span></a>
+      <a href="/uses/">Uses <span>↗</span></a>
+      <a href="/archive/">Archive <span>↗</span></a>
+    </nav>
+    <h2>Follow a topic</h2>
+    <nav aria-label="Notebook topics">
+      {{- range slice "go" "nixos" "nix" "neovim" "postgres" }}
+        {{- with site.GetPage (printf "/tags/%s" .) }}
+        <a href="{{ .RelPermalink }}">{{ .LinkTitle }} <span>{{ len .Pages }}</span></a>
+        {{- end }}
+      {{- end }}
+      <a href="/tags/">All topics <span>↗</span></a>
+    </nav>
+    <h2>Read in order</h2>
+    <nav aria-label="Notebook series">
+      {{- with site.Taxonomies.series }}
+        {{- range first 3 .ByCount }}
+        <a href="{{ .Page.RelPermalink }}">{{ .Page.Title }}</a>
+        {{- end }}
+      {{- end }}
+      <a href="/series/">All series <span>↗</span></a>
+    </nav>
+    <p class="lab-sidebar-foot">A personal notebook.<br>Go, Nix, and useful detours.</p>
+  </div>
+</aside>

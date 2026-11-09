@@ -1,0 +1,2 @@
+# Exclude Slidev source trees from the Reveal/Hugo catalogue build.
+ignoreFiles = ["go-labs-eda-go-kafka/.*", "python-to-go-concurrency/.*", "slidev-shared/.*"]

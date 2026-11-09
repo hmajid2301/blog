@@ -1,0 +1,57 @@
+{{- if and site.Params.designLab (ne .Layout "design-builder") }}
+<aside class="lab" aria-label="Design playground">
+  <div class="lab-bar">
+    <a class="lab-brand" href="/design-lab/">DESIGN LAB <span>mix structure, style &amp; theme</span></a>
+    <div class="lab-bar-actions"><a href="/design-builder/" data-no-instant>Step-by-step builder ↗</a><span id="lab-current">Editorial</span><button id="lab-toggle" type="button" aria-expanded="true" aria-controls="lab-panel">Hide controls</button></div>
+  </div>
+  <div id="lab-panel">
+    <div id="lab-builder-active" class="lab-builder-notice" hidden>
+      <p>Builder design active. Styles below preserve your chosen fonts and weight. <a href="/design-builder/" data-no-instant>Edit draft ↗</a> · <button type="button" id="lab-builder-exit">Use manual controls</button> · Theme, Font override, Accent, and combined profile shortcuts leave builder mode.</p>
+      <div class="lab-presets" role="group" aria-label="Applied palette comparison"><span>Comparison colours</span><button type="button" data-lab-builder-pair="catppuccin" aria-pressed="false">Catppuccin</button><button type="button" data-lab-builder-pair="fireside" aria-pressed="false">Fireside</button><span>Use Appearance or the header switch for Light / Dark.</span></div>
+      <p id="lab-builder-pair-status" role="status" aria-live="polite"></p>
+    </div>
+    <div class="lab-presets" role="group" aria-label="Structural starting points">
+      <span>Try a starting point</span>
+      <button type="button" data-lab-preset="minimal" aria-pressed="false">Minimal writer</button>
+      <button type="button" data-lab-preset="personal" aria-pressed="false">Personal profile</button>
+      <button type="button" data-lab-preset="magazine" aria-pressed="false">Magazine</button>
+      <button type="button" data-lab-preset="library" aria-pressed="false">Knowledge base</button>
+      <button type="button" data-lab-preset="sidebar" aria-pressed="false">Sidebar journal</button>
+      <button type="button" data-lab-preset="split" aria-pressed="false">Split editorial</button>
+      <a href="/design-lab/#upstream-themes">Structure references ↗</a>
+    </div>
+    <div class="lab-presets" role="group" aria-label="Personal profile variations">
+      <span>Personal profile variations</span>
+      <button type="button" data-lab-preset="soft-panels" aria-pressed="false" title="Restore Soft Studio's rounded panels with Profile layout; keep your palette">Soft Panels</button>
+      <button type="button" data-lab-preset="literary-profile" aria-pressed="false" title="Serif headlines, shaded journal cards, and Profile layout">Literary Profile</button>
+      <button type="button" data-lab-preset="humanist-profile" aria-pressed="false" title="Friendly sans-serif type, inset panels, and Profile layout">Humanist Profile</button>
+      <button type="button" data-lab-preset="serif-profile" aria-pressed="false" title="Editorial serif type, outlined cards, and Profile layout">Serif Profile</button>
+      <button type="button" data-lab-preset="bold-profile" aria-pressed="false" title="Bold headlines, accent bands, and Profile layout">Bold Profile</button>
+      <button type="button" data-lab-preset="quiet-profile" aria-pressed="false" title="Gentle section tints, soft cards, and Profile layout">Quiet Profile</button>
+    </div>
+    <p id="lab-style-label">Style · fonts, typography &amp; visual treatment · does not change colours</p>
+    <div id="lab-styles" class="lab-designs" role="group" aria-labelledby="lab-style-label"></div>
+    <div class="lab-settings">
+      <label>Theme · colour palette<select id="lab-theme" data-lab-setting="theme"></select></label>
+      <label>Page structure<select id="lab-layout" data-lab-setting="layout"></select></label>
+      <label hidden>Content layout · this page<select id="lab-page-layout" aria-describedby="lab-page-status"></select></label>
+      <label>Font override<select id="lab-font" data-lab-setting="font"></select></label>
+      <label>Illustration style<select id="lab-art-style" data-lab-setting="artStyle"></select></label>
+      <label>Appearance<select data-lab-setting="mode"><option value="default">Theme default</option><option value="light">Light</option><option value="dark">Dark</option></select></label>
+      <label>Accent<select data-lab-setting="accent"><option value="default">Theme default</option><option value="rose">Rose</option><option value="blue">Blue</option><option value="green">Green</option><option value="peach">Peach</option><option value="mauve">Mauve</option><option value="teal">Teal</option></select></label>
+      <label for="lab-width">Reading width <output id="lab-width-value" for="lab-width">760px</output><input id="lab-width" type="range" min="620" max="960" step="20" value="760" data-lab-setting="width"></label>
+      <label for="lab-size">Article type <output id="lab-size-value" for="lab-size">19px</output><input id="lab-size" type="range" min="16" max="24" step="1" value="19" data-lab-setting="size"></label>
+      <button type="button" id="lab-reset">Reset all</button>
+    </div>
+    <p id="lab-page-status" role="status" aria-live="polite"></p>
+    <div class="lab-bottom"><p id="lab-note">Schibsted Grotesk · IBM Plex Mono / bold, open editorial type</p><span>Selections stay as you browse.</span></div>
+    <div class="lab-layout-description"><p id="lab-layout-note"></p><a id="lab-layout-source" href="/design-lab/">Structure reference ↗</a></div>
+    <nav class="lab-pages" aria-label="Demo pages">
+      <a href="/">Home</a><a href="/posts/">Writing</a>
+      {{- range first 1 (where site.RegularPages "Section" "posts").ByDate.Reverse }}<a href="{{ .RelPermalink }}">Read an article</a>{{ end }}
+      <a href="/posts/2026-08-15-how-i-implemented-authorization-in-my-go-app-with-rls-postgres/#the-problem">Code preview</a>
+      <a href="/talks/">Talks</a><a href="/slides/">Slides</a><a href="/uses/">Uses</a><a href="/archive/">Archive</a><a href="/tags/">Tags</a><a href="/series/">Series</a><a href="/site-history/">Site history</a><a href="/404.html">404</a><a href="/design-art/">SVG graphics</a><a href="/design-lab/">Guide &amp; references</a>
+    </nav>
+  </div>
+</aside>
+{{- end }}

@@ -1,0 +1,53 @@
+{{ define "main" }}
+{{ if site.Params.designLab }}
+<section class="builder" aria-label="Page-first design builder">
+  <header class="builder-header">
+    <div><p class="builder-kicker">DESIGN BUILDER</p><h1>Fine-tune your pages.</h1>{{ .Content }}</div>
+    <nav aria-label="Leave builder"><a href="/" data-no-instant>Blog preview ↗</a><a href="/design-lab/" data-no-instant>All playground controls ↗</a></nav>
+  </header>
+  <noscript><p>This workbench needs JavaScript. <a href="/">Browse the blog instead.</a></p></noscript>
+  <div id="builder-controls" hidden>
+    <div class="builder-topbar">
+      <div class="builder-sample-picker">
+        <label for="builder-sample">Preview page</label>
+        <select id="builder-sample" aria-describedby="builder-sample-help"></select>
+        <p id="builder-sample-help">Change pages without changing your other choices.</p>
+      </div>
+      <div class="builder-comparisons">
+        <div role="group" aria-label="Palette comparison"><span>Colour pair</span><button type="button" data-builder-pair="catppuccin" aria-pressed="false">Catppuccin</button><button type="button" data-builder-pair="fireside" aria-pressed="false">Fireside</button></div>
+        <div role="group" aria-label="Preview appearance"><span>Appearance</span><button type="button" data-builder-mode="light" aria-pressed="true">Light</button><button type="button" data-builder-mode="dark" aria-pressed="false">Dark</button></div>
+      </div>
+      <button type="button" id="builder-apply" class="builder-primary">Use this design</button>
+    </div>
+    <p id="builder-pair-note">Each pair keeps separate light/dark colours and accents.</p>
+    <p id="builder-status" role="status" aria-live="polite" aria-atomic="true">Draft only. The blog is unchanged until you choose Use this design.</p>
+    <div id="builder-applied" hidden><a href="/" data-no-instant>Open the blog with this design ↗</a></div>
+    <div class="builder-workspace">
+      <section class="builder-picker" aria-labelledby="builder-title">
+        <h2 id="builder-title">Home</h2>
+        <p id="builder-help">Adjust this page while keeping your overall design.</p>
+        <button type="button" id="builder-reset">Reset Home tweaks</button>
+        <details class="builder-details">
+          <summary>Overall design</summary>
+          <p>Fonts, style and colours apply across pages. Page tweaks do not replace these choices.</p>
+          <div id="builder-overall"></div>
+          <p class="builder-reason">Space Grotesk and Radio Canada Big stop at Bold (700). MonoLisa uses your installed font; no licensed font files are bundled. Without it, system monospace is used.</p>
+        </details>
+        <div id="builder-fields"></div>
+        <details class="builder-details">
+          <summary>Review current design</summary>
+          <dl id="builder-summary"></dl>
+        </details>
+      </section>
+      <section class="builder-preview" aria-label="Draft page preview">
+        <div class="builder-preview-toolbar"><span id="builder-preview-label">Home · Light</span><a id="builder-open-page" href="/" target="_blank" rel="noopener" data-no-instant>Open current page ↗</a></div>
+        <iframe id="builder-frame" title="Draft preview of your selected page layout, fonts, code style, and colours"></iframe>
+        <p class="builder-preview-note">Actual blog routes, not mockups. Scroll inside the preview. Non-anchor links open a new tab. Open current page shows the normal blog, not this unapplied draft.</p>
+      </section>
+    </div>
+  </div>
+</section>
+{{ else }}
+<h1>Design Builder</h1><p>This page is available in the local design playground.</p>
+{{ end }}
+{{ end }}

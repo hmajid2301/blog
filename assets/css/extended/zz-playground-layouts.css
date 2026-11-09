@@ -1,0 +1,221 @@
+/* Independent structural experiments; colours and fonts come from the chosen style. */
+html[data-design] .lab-sidebar,
+html[data-design] .lab-featured,
+html[data-design] .lab-discover { display: none; }
+html[data-design] .lab-presets { display: flex; flex-wrap: wrap; gap: 7px; align-items: center; margin-bottom: 14px; }
+html[data-design] .lab-presets > span { color: #b6c0d3; margin-right: 5px; }
+html[data-design] .lab-presets button { font-size: 11px; padding: 5px 9px; }
+html[data-design] .lab-presets button[aria-pressed='true'] { color: #191d27; background: #c4d3fa; border-color: #c4d3fa; }
+html[data-design] .lab-presets > a { color: #b6c0d3; font-size: 10px; text-decoration: underline; text-underline-offset: 3px; margin-left: auto; }
+html[data-design] .lab-settings { grid-template-columns: 1.25fr 1.3fr 1fr .9fr 1fr 1fr auto; }
+html[data-design] .lab-layout-description { display: flex; gap: 15px; justify-content: space-between; margin-top: 8px; font-size: 11px; color: #d1d9e8; }
+html[data-design] .lab-layout-description p { margin: 0; }
+html[data-design] .lab-layout-description a { flex-shrink: 0; color: #c4d3fa; text-decoration: underline; text-underline-offset: 3px; }
+html[data-design] .lab-site { min-width: 0; }
+html[data-design] .lab-featured { padding: 36px; background: var(--lab-surface); border: 1px solid var(--lab-rule); }
+html[data-design] .lab-featured h2 { font-size: clamp(32px, 3.5vw, 49px); margin: 25px 0; max-width: 23ch; }
+html[data-design] .lab-featured > p:not(.lab-eyebrow) { color: var(--lab-muted); line-height: 1.8; }
+html[data-design] .lab-featured .lab-home-links span { font: 11px var(--lab-mono); color: var(--lab-muted); }
+html[data-design] .lab-topic-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; margin-top: 24px; }
+html[data-design] .lab-topic-group { min-width: 0; padding: 24px; border: 1px solid var(--lab-rule); border-radius: var(--radius); background: var(--lab-surface); }
+html[data-design] .lab-topic-group h3 { font-size: 27px; margin: 0; }
+html[data-design] .lab-topic-group h3 a { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+html[data-design] .lab-topic-group h3 span { font: 10px var(--lab-mono); white-space: nowrap; color: var(--lab-accent); letter-spacing: 0; }
+html[data-design] .lab-topic-group ul { list-style: none; padding: 0; margin: 18px 0 0; }
+html[data-design] .lab-topic-group li { font-size: 14px; line-height: 1.6; margin-top: 12px; }
+html[data-design] .lab-topic-group a:hover { color: var(--lab-accent); }
+/* Writing first: identity is a signature, not a hero. */
+html[data-design][data-layout='writing'] { --main-width: 780px; }
+html[data-design][data-layout='writing'] .nav { max-width: 900px; }
+html[data-design][data-layout='writing'] .lab-home-hero { display: block; background: none; border: 0; border-radius: 0; padding: 0 0 30px; }
+html[data-design][data-layout='writing'] .lab-home-hero h1 { font-size: 30px; line-height: 1.25; letter-spacing: -.03em; margin: 14px 0; max-width: none; }
+html[data-design][data-layout='writing'] .lab-home-hero h1 br { display: none; }
+html[data-design][data-layout='writing'] .lab-heading-tail { margin-inline-start: .25em; }
+html[data-design][data-layout='writing'] .lab-home-hero .lab-intro { font-size: 16px; max-width: 58ch; }
+html[data-design][data-layout='writing'] .lab-home-hero p.lab-intro:nth-of-type(2),
+html[data-design][data-layout='writing'] .lab-portrait,
+html[data-design][data-layout='writing'] .lab-socials { display: none; }
+html[data-design][data-layout='writing'] .lab-home-links { margin-top: 18px; }
+html[data-design][data-layout='writing'] .lab-home-section { margin-top: 30px; }
+html[data-design][data-layout='writing'] .lab-section-head { padding-bottom: 14px; border-bottom: 1px solid var(--lab-rule); }
+html[data-design][data-layout='writing'] .lab-section-head h2 { font-size: 25px; }
+html[data-design][data-layout='writing'] .lab-home-entry { display: grid; grid-template-columns: 110px minmax(0, 1fr); padding: 17px 0; margin: 0; gap: 20px; border: 0; background: none; border-radius: 0; }
+html[data-design][data-layout='writing'] .lab-home-entry h3 { font-size: 19px; line-height: 1.5; font-weight: 500; letter-spacing: -.02em; }
+html[data-design][data-layout='writing'] .lab-home-entry p,
+html[data-design][data-layout='writing'] .lab-arrow { display: none; }
+html[data-design][data-layout='writing'] .lab-home-bottom { border-top: 1px solid var(--lab-rule); padding-top: 28px; }
+html[data-design][data-layout='writing'] .page-header h1 { font-size: 38px; }
+html[data-design][data-layout='writing'] .post-entry { display: block; padding: 23px 0; margin: 0; border: 0; border-bottom: 1px solid var(--lab-rule); background: none; border-radius: 0; }
+html[data-design][data-layout='writing'] .entry-header h2 { font-size: 24px; font-weight: 500; }
+html[data-design][data-layout='writing'] .entry-footer { position: static; width: auto; border: 0; padding: 0; margin-top: 12px; }
+html[data-design][data-layout='writing'] .post-title { font-size: clamp(32px, 4vw, 46px); line-height: 1.2; }
+/* Sidebar and library share one small navigation partial. */
+html[data-design][data-layout='sidebar'] .lab-site,
+html[data-design][data-layout='library'] .lab-site { display: grid; grid-template-columns: 225px minmax(0, 1fr); max-width: 1320px; margin: auto; }
+html[data-design][data-layout='sidebar'] .lab-sidebar,
+html[data-design][data-layout='library'] .lab-sidebar { display: block; border-right: 1px solid var(--lab-rule); padding: 40px 25px 40px 20px; min-width: 0; }
+html[data-design] .lab-sidebar-inner { position: sticky; top: 24px; max-height: calc(100vh - 48px); overflow-y: auto; padding-right: 6px; scrollbar-width: thin; }
+html[data-design] .lab-sidebar-name { display: block; font: 600 23px var(--lab-heading); letter-spacing: -.035em; }
+html[data-design] .lab-sidebar p { font-size: 13px; line-height: 1.7; color: var(--lab-muted); margin: 12px 0 22px; }
+html[data-design] .lab-sidebar h2 { font: 11px var(--lab-mono); text-transform: uppercase; letter-spacing: .05em; color: var(--lab-muted); margin: 32px 0 12px; }
+html[data-design] .lab-sidebar nav { display: grid; gap: 11px; }
+html[data-design] .lab-sidebar nav a { display: flex; justify-content: space-between; gap: 10px; font-size: 13px; line-height: 1.55; overflow-wrap: anywhere; }
+html[data-design] .lab-sidebar nav a:hover { color: var(--lab-accent); }
+html[data-design] .lab-sidebar nav a span { font-family: var(--lab-mono); font-size: 10px; color: var(--lab-muted); }
+html[data-design] .lab-sidebar .lab-sidebar-foot { margin-top: 32px; font: 10px/1.8 var(--lab-mono); }
+html[data-design][data-layout='sidebar'] .main,
+html[data-design][data-layout='library'] .main { width: 100%; min-width: 0; }
+html[data-design][data-layout='sidebar'] .lab-home-hero,
+html[data-design][data-layout='library'] .lab-home-hero { display: block; border: 0; background: none; border-radius: 0; padding: 0 0 28px; }
+html[data-design][data-layout='sidebar'] .lab-home-hero h1,
+html[data-design][data-layout='library'] .lab-home-hero h1 { font-size: clamp(34px, 4vw, 49px); line-height: 1.15; margin: 16px 0; }
+html[data-design][data-layout='sidebar'] .lab-home-hero .lab-intro,
+html[data-design][data-layout='library'] .lab-home-hero .lab-intro { font-size: 17px; }
+html[data-design][data-layout='sidebar'] .lab-portrait,
+html[data-design][data-layout='library'] .lab-portrait,
+html[data-design][data-layout='sidebar'] .lab-socials,
+html[data-design][data-layout='library'] .lab-socials { display: none; }
+html[data-design][data-layout='sidebar'] .lab-home-section,
+html[data-design][data-layout='library'] .lab-home-section { margin-top: 30px; }
+html[data-design][data-layout='sidebar'] .lab-home-entry,
+html[data-design][data-layout='library'] .lab-home-entry { display: block; border: 0; border-bottom: 1px solid var(--lab-rule); padding: 25px 0; margin: 0; border-radius: 0; background: none; }
+html[data-design][data-layout='sidebar'] .lab-home-entry h3,
+html[data-design][data-layout='library'] .lab-home-entry h3 { font-size: 26px; margin-top: 8px; }
+html[data-design][data-layout='sidebar'] .lab-home-entry .lab-arrow,
+html[data-design][data-layout='library'] .lab-home-entry .lab-arrow { display: none; }
+html[data-design][data-layout='sidebar'] .post-entry,
+html[data-design][data-layout='library'] .post-entry { display: block; padding: 25px 0; margin: 0; border: 0; border-bottom: 1px solid var(--lab-rule); border-radius: 0; background: none; }
+html[data-design][data-layout='sidebar'] .post-entry .entry-footer,
+html[data-design][data-layout='library'] .post-entry .entry-footer { position: static; width: auto; border: 0; padding: 0; margin-top: 14px; }
+html[data-design][data-layout='sidebar'] .entry-header h2,
+html[data-design][data-layout='library'] .entry-header h2 { font-size: 27px; }
+/* Topic library: discovery comes before chronology. */
+html[data-design][data-layout='library'] .lab-discover { display: block; }
+html[data-design][data-layout='library'] .lab-home-hero .lab-home-links,
+html[data-design][data-layout='library'] .lab-home-hero p.lab-intro:nth-of-type(2) { display: none; }
+html[data-design][data-layout='library'] .lab-home-hero { padding-bottom: 36px; }
+html[data-design][data-layout='library'] .lab-section-head h2 { font-size: 30px; }
+html[data-design][data-layout='library'] .lab-topic-grid { gap: 18px; }
+html[data-design][data-layout='library'] .lab-topic-group { padding: 22px; }
+html[data-design][data-layout='library'] .lab-topic-group h3 { font-size: 23px; }
+/* Magazine: feature + grid + a distinct secondary column. */
+html[data-design][data-layout='magazine'] .kind-home .main { display: grid; grid-template-columns: minmax(0, 2fr) minmax(250px, 1fr); gap: 32px; max-width: 1260px; }
+html[data-design][data-layout='magazine'] .lab-home-hero { display: block; grid-column: 1 / -1; padding: 0 0 28px; margin: 0; background: none; border: 0; border-bottom: 3px solid var(--lab-text); border-radius: 0; }
+html[data-design][data-layout='magazine'] .lab-home-hero h1 { font-size: clamp(34px, 4.5vw, 57px); margin: 12px 0; max-width: none; }
+html[data-design][data-layout='magazine'] .lab-home-hero h1 br { display: none; }
+html[data-design][data-layout='magazine'] .lab-heading-tail { margin-inline-start: .25em; }
+html[data-design][data-layout='magazine'] .lab-portrait,
+html[data-design][data-layout='magazine'] .lab-socials,
+html[data-design][data-layout='magazine'] .lab-home-hero .lab-home-links,
+html[data-design][data-layout='magazine'] .lab-home-hero p.lab-intro:nth-of-type(2) { display: none; }
+html[data-design][data-layout='magazine'] .lab-home-hero .lab-intro { font-size: 17px; max-width: none; }
+html[data-design][data-layout='magazine'] .lab-featured { display: block; grid-column: 1; grid-row: 2; border-radius: var(--radius); }
+html[data-design][data-layout='magazine'] .lab-discover { display: block; grid-column: 2; grid-row: 2; align-self: start; }
+html[data-design][data-layout='magazine'] .lab-discover .lab-section-head { display: block; padding-bottom: 12px; }
+html[data-design][data-layout='magazine'] .lab-discover .lab-section-head h2 { font-size: 24px; margin: 10px 0; }
+html[data-design][data-layout='magazine'] .lab-discover .lab-section-head .lab-eyebrow { display: none; }
+html[data-design][data-layout='magazine'] .lab-topic-grid { display: block; margin-top: 0; }
+html[data-design][data-layout='magazine'] .lab-topic-group { border: 0; border-bottom: 1px solid var(--lab-rule); background: none; border-radius: 0; padding: 15px 0; }
+html[data-design][data-layout='magazine'] .lab-topic-group h3 { font-size: 21px; }
+html[data-design][data-layout='magazine'] .lab-topic-group ul { display: none; }
+html[data-design][data-layout='magazine'] .lab-home-section { margin: 0; }
+html[data-design][data-layout='magazine'] .lab-writing { grid-column: 1; grid-row: 3; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 25px; align-content: start; }
+html[data-design][data-layout='magazine'] .lab-writing .lab-section-head { grid-column: 1 / -1; }
+html[data-design][data-layout='magazine'] .lab-writing .lab-home-entry { display: block; background: none; padding: 0 0 25px; border: 0; border-bottom: 1px solid var(--lab-rule); margin: 0; border-radius: 0; }
+html[data-design][data-layout='magazine'] .lab-writing .lab-home-entry:first-of-type { display: none; }
+html[data-design][data-layout='magazine'] .lab-home-entry h3 { font-size: 25px; margin-top: 12px; }
+html[data-design][data-layout='magazine'] .lab-home-entry .lab-arrow { display: none; }
+html[data-design][data-layout='magazine'] .lab-talks { grid-column: 2; grid-row: 3; }
+html[data-design][data-layout='magazine'] .lab-talks .lab-section-head { display: block; }
+html[data-design][data-layout='magazine'] .lab-talks .lab-section-head h2 { font-size: 24px; margin-bottom: 12px; }
+html[data-design][data-layout='magazine'] .lab-talks .lab-home-entry { display: block; padding: 24px 0; border: 0; border-bottom: 1px solid var(--lab-rule); margin: 0; background: none; border-radius: 0; }
+html[data-design][data-layout='magazine'] .lab-talks .lab-home-entry h3 { font-size: 22px; }
+html[data-design][data-layout='magazine'] .lab-home-bottom { grid-column: 1 / -1; border-top: 1px solid var(--lab-rule); padding-top: 32px; }
+html[data-design][data-layout='magazine'] .kind-section.type-posts .main,
+html[data-design][data-layout='magazine'] .kind-term .main { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px; }
+html[data-design][data-layout='magazine'] .main > .page-header,
+html[data-design][data-layout='magazine'] .main > .pagination,
+html[data-design][data-layout='magazine'] .main > .post-content { grid-column: 1 / -1; }
+html[data-design][data-layout='magazine'] .post-entry { display: block; padding: 28px; background: var(--lab-surface); border: 1px solid var(--lab-rule); border-radius: var(--radius); margin: 0; }
+html[data-design][data-layout='magazine'] .post-entry .entry-footer { position: static; width: auto; border: 0; padding: 0; margin-top: 18px; }
+html[data-design][data-layout='magazine'] .entry-header h2 { font-size: 28px; }
+html[data-design][data-layout='magazine'] .post-header { border-bottom: 1px solid var(--lab-rule); padding-bottom: 32px; }
+/* Split: the personal introduction stays beside the writing. */
+html[data-design][data-layout='split'] .kind-home .main { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); column-gap: 65px; max-width: 1260px; align-items: start; }
+html[data-design][data-layout='split'] .lab-home-hero { display: block; position: sticky; top: 24px; grid-column: 1; grid-row: 1 / span 3; background: none; border: 0; border-radius: 0; padding: 10px 0 30px; }
+html[data-design][data-layout='split'] .lab-home-hero h1 { font-size: clamp(40px, 4vw, 59px); line-height: 1.07; margin: 23px 0; }
+html[data-design][data-layout='split'] .lab-home-hero .lab-intro { font-size: 17px; }
+html[data-design][data-layout='split'] .lab-portrait { display: block; margin-top: 28px; }
+html[data-design][data-layout='split'] .lab-portrait img { width: 150px; height: 165px; border-radius: var(--radius); }
+html[data-design][data-layout='split'] .lab-socials { display: none; }
+html[data-design][data-layout='split'] .lab-home-section { grid-column: 2; margin-top: 0; margin-bottom: 42px; }
+html[data-design][data-layout='split'] .lab-section-head h2 { font-size: 28px; }
+html[data-design][data-layout='split'] .lab-home-entry { display: block; margin: 0; border: 0; border-bottom: 1px solid var(--lab-rule); border-radius: 0; padding: 24px 0; background: none; }
+html[data-design][data-layout='split'] .lab-home-entry h3 { font-size: 24px; margin-top: 8px; }
+html[data-design][data-layout='split'] .lab-home-entry .lab-arrow { display: none; }
+html[data-design][data-layout='split'] .lab-home-bottom { display: block; }
+html[data-design][data-layout='split'] .lab-home-bottom > div + div { margin-top: 32px; }
+html[data-design][data-layout='split'] .main.post { max-width: calc(var(--lab-reading-width) + 290px); }
+html[data-design][data-layout='split'] .post-single:has(> .toc) { display: grid; grid-template-columns: 180px minmax(0, 1fr); column-gap: 35px; align-items: start; }
+html[data-design][data-layout='split'] .post-single:has(> .toc) > * { grid-column: 2; min-width: 0; }
+html[data-design][data-layout='split'] .post-single:has(> .toc) > .toc { grid-column: 1; grid-row: 1 / span 5; position: sticky; top: 24px; margin-top: 25px; font-size: 12px; max-height: calc(100vh - 48px); overflow-y: auto; }
+@media (max-width: 1100px) {
+  html[data-design] .lab-settings { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  html[data-design] .lab-presets > a { margin-left: 0; }
+  html[data-design][data-layout='sidebar'] .lab-site,
+  html[data-design][data-layout='library'] .lab-site { grid-template-columns: 190px minmax(0, 1fr); }
+  html[data-design][data-layout='library'] .lab-topic-grid { grid-template-columns: 1fr; }
+  html[data-design][data-layout='split'] .kind-home .main { column-gap: 30px; }
+  html[data-design][data-layout='magazine'] .kind-home .main { grid-template-columns: minmax(0, 1fr); }
+  html[data-design][data-layout='magazine'] .lab-featured { grid-column: 1; grid-row: auto; }
+  html[data-design][data-layout='magazine'] .lab-discover { display: none; }
+  html[data-design][data-layout='magazine'] .lab-writing { grid-column: 1; grid-row: auto; }
+  html[data-design][data-layout='magazine'] .lab-talks { grid-column: 1; grid-row: auto; }
+}
+@media (max-width: 800px) {
+  html[data-design][data-layout='sidebar'] .lab-site,
+  html[data-design][data-layout='library'] .lab-site { display: block; }
+  html[data-design][data-layout='sidebar'] .lab-sidebar,
+  html[data-design][data-layout='library'] .lab-sidebar { padding: 15px 20px; border-right: 0; border-bottom: 1px solid var(--lab-rule); }
+  html[data-design] .lab-sidebar-inner { position: static; max-height: none; overflow: visible; padding: 0; }
+  html[data-design] .lab-sidebar-name,
+  html[data-design] .lab-sidebar p,
+  html[data-design] .lab-sidebar h2,
+  html[data-design] .lab-sidebar nav:not(:first-of-type) { display: none; }
+  html[data-design] .lab-sidebar nav:first-of-type { display: flex; flex-wrap: wrap; gap: 10px 20px; }
+  html[data-design] .lab-sidebar nav a span { display: none; }
+  html[data-design][data-layout='library'] .lab-topic-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  html[data-design][data-layout='split'] .kind-home .main { display: block; }
+  html[data-design][data-layout='split'] .lab-home-hero { position: static; }
+  html[data-design][data-layout='split'] .lab-portrait { display: none; }
+  html[data-design][data-layout='split'] .lab-home-section { margin-top: 30px; }
+  html[data-design][data-layout='split'] .post-single:has(> .toc) { display: block; }
+  html[data-design][data-layout='split'] .post-single:has(> .toc) > .toc { position: static; max-height: none; margin: 0 0 30px; }
+}
+@media (max-width: 600px) {
+  html[data-design] .lab-settings { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  html[data-design] .lab-layout-description { display: block; }
+  html[data-design] .lab-layout-description a { display: inline-block; margin-top: 6px; }
+  html[data-design][data-layout='writing'] .lab-home-entry { grid-template-columns: 1fr; gap: 5px; }
+  html[data-design][data-layout='writing'] .lab-home-hero h1 br { display: block; }
+  html[data-design][data-layout='writing'] .lab-heading-tail,
+  html[data-design][data-layout='magazine'] .lab-heading-tail { margin-inline-start: 0; }
+  html[data-design][data-layout='magazine'] .lab-writing,
+  html[data-design][data-layout='magazine'] .kind-section.type-posts .main,
+  html[data-design][data-layout='magazine'] .kind-term .main,
+  html[data-design][data-layout='library'] .lab-topic-grid { grid-template-columns: 1fr; }
+  html[data-design][data-layout='magazine'] .lab-home-hero h1 { font-size: 36px; line-height: 1.15; }
+  html[data-design][data-layout='magazine'] .lab-home-hero h1 br { display: block; }
+  html[data-design][data-layout='magazine'] .lab-featured { padding: 24px; }
+  html[data-design][data-layout='magazine'] .lab-featured h2 { font-size: 33px; }
+  html[data-design][data-layout='magazine'] .lab-writing .lab-home-entry { padding-bottom: 22px; }
+  html[data-design][data-layout='library'] .lab-home-hero h1,
+  html[data-design][data-layout='sidebar'] .lab-home-hero h1 { font-size: 35px; }
+  html[data-design][data-layout='split'] .lab-home-hero h1 { font-size: 43px; }
+}
+.lab-art { margin: 32px 0 40px; }
+.lab-art-image { border: 1px solid var(--lab-rule, var(--border, #bcc0cc)); border-radius: var(--radius, 2px); overflow: hidden; }
+.lab-art svg { display: block; width: 100%; height: auto; }
+.lab-art figcaption { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px 20px; margin-top: 12px; font: 11px/1.7 var(--lab-mono, monospace); color: var(--lab-muted, #62657b); }
+.lab-art figcaption a { color: var(--lab-accent, #1e66f5); text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
+@media print { html[data-design] .lab-sidebar { display: none !important; } html[data-design] .lab-site { display: block !important; } }

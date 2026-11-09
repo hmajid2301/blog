@@ -93,6 +93,7 @@
 {{- template "partials/templates/opengraph.html" (dict "page" . "pageTitle" $pageTitle) }}
 {{- template "partials/templates/schema_json.html" (dict "page" . "pageTitle" $pageTitle) }}
 {{- partial "extend_head.html" . }}
+{{- partial "playground-head.html" . }}
 <noscript>
   <style>
     #theme-toggle,

@@ -71,7 +71,7 @@
     <div class="logo">
       {{- $label_text := (site.Params.logo.text | default site.Title) }}
       {{- if site.Title }}
-      <a href="{{ "" | absLangURL }}" accesskey="h" title="{{ $label_text }} (Alt + H)">
+      <a href="{{ if site.Params.designLab }}/{{ else }}{{ "" | absLangURL }}{{ end }}" accesskey="h" title="{{ $label_text }} (Alt + H)">
         {{- if site.Params.logo.icon }}
         {{- $img := resources.Get site.Params.logo.icon }}
         {{- if $img }}
@@ -101,22 +101,10 @@
         {{- $label_text -}}
       </a>
       {{- end }}
-      <div class="logo-switches">
-        {{- if (not site.Params.disableThemeToggle) }}
-        <button class="icon-hover" id="theme-toggle" accesskey="t" title="(Alt + T)">
-          {{ safeHTML (index hugo.Data.svg "moon") }}
-          {{ safeHTML (index hugo.Data.svg "sun") }}
-        </button>
-        <button id="search-button" class="icon-hover" title="{{ i18n " search.open_button_title" }}">
-          {{ safeHTML (index hugo.Data.svg "search") }}
-        </button>
-        {{- end }}
-        <!-- </span> -->
-      </div>
-      <!-- END HERE -->
     </div>
     {{- $currentPage := . }}
-    <ul id="menu">
+    <div class="nav-end">
+      <ul id="menu">
       {{- range site.Menus.main }}
       {{- $menu_item_url := (cond (strings.HasSuffix .URL "/") .URL (printf "%s/" .URL)) | absURL }}
       {{- $page_url:= $currentPage.Permalink }}
@@ -139,6 +127,18 @@
         </a>
       </li>
       {{- end }}
-    </ul>
+      </ul>
+      <div class="logo-switches">
+        {{- if (not site.Params.disableThemeToggle) }}
+        <button class="icon-hover" id="theme-toggle" accesskey="t" title="(Alt + T)">
+          {{ safeHTML (index hugo.Data.svg "moon") }}
+          {{ safeHTML (index hugo.Data.svg "sun") }}
+        </button>
+        <button id="search-button" class="icon-hover" title="Search (press / or Ctrl+K)">
+          {{ safeHTML (index hugo.Data.svg "search") }}
+        </button>
+        {{- end }}
+      </div>
+    </div>
   </nav>
 </header>

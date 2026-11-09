@@ -1,0 +1,14 @@
+/* Obvious, consistent link hovers across the demo. */
+html[data-design] a {
+  transition: color .15s ease, background-color .15s ease, text-decoration-color .15s ease;
+}
+html[data-design] .main a {
+  border-radius: 3px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+html[data-design] .main a:hover {
+  color: var(--lab-accent);
+  background-color: color-mix(in srgb, var(--lab-accent) 14%, transparent);
+  text-decoration-color: var(--lab-accent);
+}

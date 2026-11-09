@@ -1,0 +1,66 @@
+/* Ghostty-themed fake terminal (nitch output on /uses).
+   Mirrors the user's actual Ghostty: borderless GTK window, rounded corners,
+   Catppuccin Mocha (Stylix) background. Always dark, like the real terminal. */
+
+.lab-terminal {
+  --term-bg: #1e1e2e;     /* catppuccin mocha base   */
+  --term-border: #313244; /* surface0                */
+  --term-text: #cdd6f4;   /* text                    */
+
+  background: var(--term-bg);
+  border: 1px solid var(--term-border);
+  border-radius: 14px;
+  color: var(--term-text);
+  font-family: var(--lab-mono), 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 14px;
+  line-height: 1.55;
+  overflow-x: auto;
+  padding: 20px 24px 24px;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.35);
+  max-width: 100%;
+}
+
+.lab-terminal-head {
+  margin-bottom: 16px;
+  user-select: none;
+}
+
+.lab-terminal-head-second {
+  margin-top: 22px;
+}
+
+.lab-terminal-prompt {
+  color: var(--term-text);
+}
+
+.lab-terminal-prompt .prompt-caret {
+  color: #a6e3a1; /* catppuccin green, starship/fish */
+}
+
+.lab-terminal-body {
+  margin: 0;
+  font: inherit;
+  white-space: pre;
+  overflow-x: auto;
+}
+
+/* Catppuccin Mocha palette, mirroring nitch's 16-colour output */
+.lab-terminal .t-wordmark { color: #94e2d5; font-weight: 700; } /* teal    */
+.lab-terminal .t-bd        { color: #cdd6f4; font-weight: 700; } /* text    */
+.lab-terminal .t-red       { color: #f38ba8; }                   /* red     */
+.lab-terminal .t-green     { color: #a6e3a1; }                   /* green   */
+.lab-terminal .t-yellow    { color: #f9e2af; }                   /* yellow  */
+.lab-terminal .t-blue      { color: #89b4fa; }                   /* blue    */
+.lab-terminal .t-mauve     { color: #cba6f7; }                   /* mauve   */
+.lab-terminal .t-teal      { color: #94e2d5; }                   /* teal    */
+.lab-terminal .t-peach     { color: #fab387; }                   /* peach   */
+.lab-terminal .t-text      { color: #cdd6f4; }                   /* text    */
+.lab-terminal .t-dim       { color: #a6adc8; }                   /* subtext0*/
+.lab-terminal .t-black     { color: #45475a; }                   /* surface1*/
+
+@media (max-width: 600px) {
+  .lab-terminal {
+    padding: 16px;
+    font-size: 12.5px;
+  }
+}
