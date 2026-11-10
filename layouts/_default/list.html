@@ -1,7 +1,4 @@
 {{- define "main" }}
-  {{- if (and site.Params.profilemode.enabled .IsHome) }}
-    {{- partial "index_profile.html" . }}
-  {{- else }}
     {{/* if not profileMode */}}
       {{- if not .IsHome | and .Title }}
         <header class="page-header">
@@ -128,9 +125,5 @@
           </nav>
         </footer>
       {{- end }}
-
-    {{- end }}
-
-  {{/* end profileMode */}}
 
 {{- end }}{{- /* end main */ -}}

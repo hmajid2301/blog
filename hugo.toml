@@ -52,7 +52,6 @@ ShowRssButtonInSectionTermList = true
 UseHugoToc = true
 disableSpecial1stPost = false
 disableScrollToTop = false
-comments = false
 hidemeta = false
 hideSummary = false
 showtoc = true
@@ -134,35 +133,6 @@ hiddenInSingle = true
 [params.editPost]
 URL = "https://gitlab.com/hmajid2301/blog/-/blob/main/content"
 appendFilePath = true
-[params.fuseOpts]
-isCaseSensitive = false
-shouldSort = true
-location = 0
-distance = 100
-threshold = 0.3
-minMatchCharLength = 3
-ignoreLocation = true
-findAllMatches = true
-
-[[params.fuseOpts.keys]]
-name = "title"
-weight = 0.8
-
-[[params.fuseOpts.keys]]
-name = "section"
-weight = 0.2
-
-[[params.fuseOpts.keys]]
-name = "summary"
-weight = 0.6
-
-[[params.fuseOpts.keys]]
-name = "tags"
-weight = 0.5
-
-[[params.fuseOpts.keys]]
-name = "content"
-weight = 0.3
 
 [taxonomies]
 tag = "tags"
