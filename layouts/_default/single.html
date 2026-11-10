@@ -1,6 +1,6 @@
 {{- define "main" }}
 
-<article class="post-single"{{ if and site.Params.designLab (eq .RelPermalink "/posts/2026-08-15-how-i-implemented-authorization-in-my-go-app-with-rls-postgres/") }} data-lab-neovim{{ end }}>
+<article class="post-single">
   <header class="post-header">
     {{ partial "breadcrumbs.html" . }}
 
@@ -16,10 +16,6 @@
     {{- if not (.Param "hideMeta") }}
     <div class="post-meta">
       {{- partial "post_meta.html" . -}}
-      {{/* TODO move to footer */}}
-      {{- if .Params.ShowLikes | default site.Params.ShowLikes | default false}}
-      {{- partial "likes.html" . }}
-      {{- end }}
       {{ if and (.Params.ShowPageViews | default (.Site.Params.ShowPageViews | default true)) }}
         {{- partial "page_views.html" . -}}
       {{ end }}
@@ -30,7 +26,7 @@
     {{- end }}
   </header>
 
-  {{- if and site.Params.designLab (eq (partial "page-lab-kind.html" .) "talk") }}
+  {{- if eq (partial "page-lab-kind.html" .) "talk" }}
   <aside class="page-lab-talk-briefing" aria-label="Talk briefing">
     {{ with .Params.conference }}<p class="page-lab-kicker">{{ . }}</p>{{ end }}
     <p>Published <time datetime="{{ .PublishDate.Format "2006-01-02" }}">{{ .PublishDate.Format "2 January 2006" }}</time></p>
@@ -38,11 +34,9 @@
   </aside>
   {{- end }}
 
-  {{- if site.Params.designLab }}
-    {{- $artwork := dict "/talks/reproducible-envs-with-nix/" "reproducible-environments" "/talks/python-to-go-concurrency/" "concurrency-switchyard" "/posts/2026-08-15-how-i-implemented-authorization-in-my-go-app-with-rls-postgres/" "row-level-security" }}
-    {{- with index $artwork .RelPermalink }}
-      {{- partial "editorial-art.html" (dict "name" . "caption" "Original SVG cover exploration.") }}
-    {{- end }}
+  {{- $artwork := dict "/talks/reproducible-envs-with-nix/" "reproducible-environments" "/talks/python-to-go-concurrency/" "concurrency-switchyard" "/posts/2026-08-15-how-i-implemented-authorization-in-my-go-app-with-rls-postgres/" "row-level-security" }}
+  {{- with index $artwork .RelPermalink }}
+    {{- partial "editorial-art.html" (dict "name" . "caption" "Original SVG cover exploration.") }}
   {{- end }}
 
   {{ if .Params.series }}
@@ -61,29 +55,18 @@
     {{- if not (.Param "disableAnchoredHeadings") }}
       {{- $content = partial "anchored_headings.html" .Content -}}
     {{- end }}
-    {{- if and site.Params.designLab (eq (partial "page-lab-kind.html" .) "uses") }}
+    {{- if eq (partial "page-lab-kind.html" .) "uses" }}
       {{- partial "page-lab-uses-content.html" $content -}}
     {{- else }}{{ $content | safeHTML }}{{ end }}
   </div>
   {{- end }}
 
   <footer class="post-footer">
-    {{- if (.Param "socialLinks") }}
-    {{- partial "social_links.html" . }}
-    {{- end }}
-
-    {{- if (and .Site.Params.ShowShareButtons (ne .Params.disableShare true) ) }}
-    {{- partial "share_icons.html" . }}
-    {{- end }}
-
     {{- if (.Param "ShowPostNavLinks") }}
     {{- partial "post_nav_links.html" . }}
     {{- end }}
   </footer>
 
-  {{- if not (.Param "noComments") }}
-    {{- partial "comments.html" . }}
-  {{- end }}
 </article>
 
 {{ if .Page.Store.Get "hasMermaid" }}

@@ -1,6 +1,8 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{{- $themeToggle := resources.Get "js/theme-toggle.js" | fingerprint }}
+<script src="{{ $themeToggle.RelPermalink }}" integrity="{{ $themeToggle.Data.Integrity }}"></script>
 {{- if hugo.IsProduction | or (eq site.Params.env "production") }}
 <meta name="robots" content="index, follow">
 {{- else }}
@@ -14,7 +16,7 @@
 <title>{{ $pageTitle }}</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Schibsted+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 {{- /* Meta */}}
 {{- if .IsHome }}
 {{ with site.Params.keywords -}}<meta name="keywords" content="{{- range $i, $e := . }}{{ if $i }}, {{ end }}{{ $e }}{{ end }}">{{ end }}
@@ -93,10 +95,10 @@
 {{- template "partials/templates/opengraph.html" (dict "page" . "pageTitle" $pageTitle) }}
 {{- template "partials/templates/schema_json.html" (dict "page" . "pageTitle" $pageTitle) }}
 {{- partial "extend_head.html" . }}
-{{- partial "playground-head.html" . }}
 <noscript>
   <style>
-    #theme-toggle,
+    .palette-switch,
+    #mode-toggle,
     .top-link {
         display: none;
     }

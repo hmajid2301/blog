@@ -1,5 +1,4 @@
 {{- define "main" }}
-  {{- if site.Params.designLab }}
   <section class="lab-home-hero" aria-labelledby="home-title">
     <div>
       <p class="lab-eyebrow">{{ site.Title }} / a personal corner of the web</p>
@@ -68,7 +67,4 @@
     <div><p class="lab-eyebrow">The setup</p><h3>The tools behind the work.</h3><p>NixOS, Neovim, a split keyboard, and Catppuccin.</p><div class="lab-home-links"><a href="/uses/">Browse my setup ↗</a></div></div>
     <div><p class="lab-eyebrow">More to explore</p><h3>Follow a thread.</h3><p>Find a topic, work through a series, or browse the archive.</p><div class="lab-home-links"><a href="/series/">Series ↗</a><a href="/tags/">Topics ↗</a><a href="/archive/">Archive ↗</a></div></div>
   </section>
-  {{- else }}
-    {{- partial "index_profile.html" . }}
-  {{- end }}
 {{- end }}

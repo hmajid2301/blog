@@ -201,3 +201,37 @@ html[data-design] .logo a { display: inline-flex; align-items: center; gap: 10px
 html[data-design] .logo a .lab-mark { display: inline-flex; flex: none; color: var(--lab-accent); }
 html[data-design] .logo a .lab-mark[hidden] { display: none; }
 html[data-design] .logo a .lab-mark svg { width: 26px; height: 26px; display: block; }
+
+/* Palette switcher — Catppuccin ↔ Fireside segmented control + light/dark button. */
+html[data-design] .palette-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  background: var(--lab-surface);
+  border: 1px solid var(--lab-rule);
+  border-radius: 999px;
+}
+html[data-design] .palette-switch button {
+  border: 0;
+  background: transparent;
+  color: var(--lab-muted);
+  cursor: pointer;
+  font: 600 12px/1 var(--lab-body);
+  padding: 6px 11px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+html[data-design] .palette-switch button[aria-pressed="true"] {
+  background: var(--lab-accent);
+  color: var(--lab-bg);
+}
+html[data-design] .logo-switches button#mode-toggle {
+  border: 1px solid var(--lab-rule);
+  background: var(--lab-surface);
+  color: var(--lab-text);
+  font-size: 15px;
+}
+html[data-design] .logo-switches button#mode-toggle:hover {
+  background: color-mix(in srgb, var(--lab-accent) 8%, transparent);
+}

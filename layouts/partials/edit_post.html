@@ -5,7 +5,7 @@
       href="{{ .Params.editPost.URL | default site.Params.editPost.URL }}{{ if .Params.editPost.appendFilePath | default ( site.Params.editPost.appendFilePath | default false ) }}/{{ $fileUrlPath }}
       {{ end }}"
       rel="noopener noreferrer"
-      {{ if site.Params.designLab }}aria-label="View source for {{ .Title }} (opens in a new tab)"{{ end }}
+      aria-label="View source for {{ .Title }} (opens in a new tab)"
       target="_blank"
     >
       <span>

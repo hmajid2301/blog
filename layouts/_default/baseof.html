@@ -1,6 +1,22 @@
 {{- $labKind := partial "page-lab-kind.html" . -}}
 <!DOCTYPE html>
-<html lang="{{ .Params.language | default .Language.Lang }}" dir="{{ .Language.Direction | default "auto" }}"{{ if eq $labKind "talk" }} data-page-variant="briefing"{{ else if eq $labKind "article" }} data-page-variant="editorial"{{ end }}>
+<html lang="{{ .Params.language | default .Language.Lang }}" dir="{{ .Language.Direction | default "auto" }}"
+    data-design="studio"
+    data-font="custom"
+    data-theme="cat-latte-mauve"
+    data-mode="light"
+    data-navbar="pill"
+    data-footer="rule"
+    data-search-popup="dropdown"
+    data-neovim="true"
+    data-builder-active="true"
+    data-home-portrait-shape="rounded"
+    data-home-section-gap="comfortable"
+    data-home-corners="round"
+    data-home-writing-summaries="full"
+    data-home-talk-details="resources"
+    style="--lab-body: 'Jost', serif; --lab-heading: 'Schibsted Grotesk', sans-serif; --lab-mono: 'MonoLisa', monospace; --lab-heading-weight: 700; color-scheme: light;"
+    {{ if eq $labKind "talk" }} data-page-variant="briefing"{{ else if eq $labKind "article" }} data-page-variant="editorial"{{ end }}>
 
 <head>
     {{- partial "head.html" . }}
@@ -11,23 +27,16 @@
 {{- if (or (ne .Kind `page` ) (eq .Layout `archives`) (eq .Layout `search`)) -}}
       {{- print "list-page" -}}
     {{- end -}}
-{{- if eq site.Params.defaultTheme `dark` -}}
-      {{- print " dark" }}
-    {{- end }} type-{{ .Type }} kind-{{ .Kind }} layout-{{ .Layout -}}
-" id="top"{{ if site.Params.designLab }} data-lab-page="{{ partial "page-lab-kind.html" . }}"{{ end }}>
-    {{- partial "playground.html" . -}}
+ type-{{ .Type }} kind-{{ .Kind }} layout-{{ .Layout -}}
+" id="top" data-lab-page="{{ $labKind }}">
     {{- partialCached "header.html" . .Page -}}
     <div class="reading-progress-bar"></div>
-    {{ if site.Params.designLab }}<div class="lab-site">{{ partial "playground-sidebar.html" . }}{{ end }}
     <main class="main {{- if (eq .Kind `page`) -}}{{- print " post" -}}{{- end -}}">
-        {{- $labKind := partial "page-lab-kind.html" . -}}
-        {{- $labAlternates := and site.Params.designLab (in (slice "talks" "writing" "archive" "topics") $labKind) -}}
-        {{ if $labAlternates }}<div data-page-original>{{ end }}
+        {{- $labAlternates := in (slice "talks" "archive") $labKind -}}
+        {{ if $labAlternates }}<div data-page-original hidden>{{ end }}
         {{- block "main" . }}{{ end }}
         {{ if $labAlternates }}</div>{{ partial "page-lab-alternatives.html" (dict "page" . "kind" $labKind) }}{{ end }}
-
     </main>
-    {{ if site.Params.designLab }}</div>{{ end }}
     {{- if .Site.Params.goatcounter }}
     {{ partial "analytics.html" . -}}
     {{- end }}
