@@ -24,7 +24,8 @@ html[data-design] .footer a {
 html[data-design] .footer a:hover { color: var(--lab-accent); }
 html[data-design] .footer .footer-copy a { color: var(--lab-text); }
 html[data-design] .footer .footer-copy a:hover { color: var(--lab-accent); }
-html[data-design] .footer .footer-tagline { color: var(--lab-accent); font-weight: 500; }
+html[data-design] .footer .footer-tagline { color: var(--lab-muted); font-weight: 500; }
+html[data-design] .footer .footer-tagline em { color: var(--lab-accent); font-style: normal; font-weight: 500; }
 
 /* Rule — the existing centred look. */
 html[data-design][data-footer='rule'] .footer { border-top: 1px solid var(--lab-rule); border-radius: 0; background: transparent; }

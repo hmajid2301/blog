@@ -1,0 +1,267 @@
+/* TEMP — visual-check variant switcher. Remove once the design is picked.
+   Keyed off html[data-hero-accent] and html[data-talk-style], which the
+   dev notes-widget picker sets. Defaults match the baked studio design.
+   Solid accents only — no gradients. */
+
+/* ---------- Hero side accent ---------- */
+/* Spine — full-height accent bar drawn as a background layer, clipped by
+   the card's own border-radius (same anti-aliasing as the card corner). */
+html[data-design='studio'][data-hero-accent='spine'] .lab-home-hero {
+  background:
+    linear-gradient(90deg, var(--lab-accent) 0 6px, transparent 6px 100%),
+    var(--lab-surface);
+}
+
+/* Spine thin — hairline accent bar. */
+html[data-design='studio'][data-hero-accent='spine-thin'] .lab-home-hero {
+  background:
+    linear-gradient(90deg, var(--lab-accent) 0 2px, transparent 2px 100%),
+    var(--lab-surface);
+}
+
+/* Spine double — two thin parallel bars. */
+html[data-design='studio'][data-hero-accent='spine-double'] .lab-home-hero { position: relative; }
+html[data-design='studio'][data-hero-accent='spine-double'] .lab-home-hero::before,
+html[data-design='studio'][data-hero-accent='spine-double'] .lab-home-hero::after {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 2px;
+  background: var(--lab-accent);
+}
+html[data-design='studio'][data-hero-accent='spine-double'] .lab-home-hero::after { left: 6px; }
+
+/* Spine tab — short rounded accent capsule, vertically centred. */
+html[data-design='studio'][data-hero-accent='spine-tab'] .lab-home-hero { position: relative; }
+html[data-design='studio'][data-hero-accent='spine-tab'] .lab-home-hero::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 50%;
+  transform: translateY(-50%);
+  width: 6px; height: 140px;
+  background: var(--lab-accent);
+  border-radius: 999px;
+}
+
+/* Corner — L-shaped bracket on the top-left corner. */
+html[data-design='studio'][data-hero-accent='corner'] .lab-home-hero { position: relative; }
+html[data-design='studio'][data-hero-accent='corner'] .lab-home-hero::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0;
+  width: 42px; height: 42px;
+  border-left: 4px solid var(--lab-accent);
+  border-top: 4px solid var(--lab-accent);
+  border-radius: 24px 0 0 0;
+}
+
+/* Rule — drop the card, accent eyebrow with a short accent rule above the h1. */
+html[data-design='studio'][data-hero-accent='rule'] .lab-home-hero {
+  background: transparent;
+  border-radius: 0;
+  padding: 34px 0 62px;
+}
+html[data-design='studio'][data-hero-accent='rule'] .lab-home-hero .lab-eyebrow::after {
+  content: '';
+  display: block;
+  width: 56px;
+  height: 3px;
+  margin-top: 18px;
+  border-radius: 2px;
+  background: var(--lab-accent);
+}
+
+/* ---------- Talk + writing entry style ---------- */
+/* Flat — divider rows, no boxes; arrow nudges on hover. */
+html[data-design='studio'][data-talk-style='flat'] body.kind-home :is(.lab-writing, .lab-talks) .lab-home-entry {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  padding: 27px 0;
+  margin-top: 0;
+  border-bottom: 1px solid var(--lab-rule);
+}
+html[data-design='studio'][data-talk-style='flat'] body.kind-home :is(.lab-writing, .lab-talks) .lab-home-entry .lab-arrow {
+  transition: transform .15s ease;
+}
+html[data-design='studio'][data-talk-style='flat'] body.kind-home :is(.lab-writing, .lab-talks) .lab-home-entry:hover .lab-arrow {
+  transform: translateX(3px);
+}
+
+/* Rail — cards with a crisp accent left edge and hover lift. */
+html[data-design='studio'][data-talk-style='rail'] body.kind-home :is(.lab-writing, .lab-talks) .lab-home-entry {
+  background:
+    linear-gradient(90deg, var(--lab-accent) 0 4px, transparent 4px 100%),
+    var(--lab-surface);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+html[data-design='studio'][data-talk-style='rail'] body.kind-home :is(.lab-writing, .lab-talks) .lab-home-entry:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px -14px color-mix(in srgb, var(--lab-text) 30%, transparent);
+}
+
+/* Rail thin — hairline accent left edge. */
+html[data-design='studio'][data-talk-style='rail-thin'] body.kind-home :is(.lab-writing, .lab-talks) .lab-home-entry {
+  background:
+    linear-gradient(90deg, var(--lab-accent) 0 2px, transparent 2px 100%),
+    var(--lab-surface);
+}
+
+/* Rail double — two thin parallel bars on the left edge. */
+html[data-design='studio'][data-talk-style='rail-double'] body.kind-home :is(.lab-writing, .lab-talks) .lab-home-entry { position: relative; }
+html[data-design='studio'][data-talk-style='rail-double'] body.kind-home :is(.lab-writing, .lab-talks) .lab-home-entry::before,
+html[data-design='studio'][data-talk-style='rail-double'] body.kind-home :is(.lab-writing, .lab-talks) .lab-home-entry::after {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 2px;
+  background: var(--lab-accent);
+}
+html[data-design='studio'][data-talk-style='rail-double'] body.kind-home :is(.lab-writing, .lab-talks) .lab-home-entry::after { left: 6px; }
+
+/* Rail tab — short rounded accent capsule on the card's left edge. */
+html[data-design='studio'][data-talk-style='rail-tab'] body.kind-home :is(.lab-writing, .lab-talks) .lab-home-entry {
+  position: relative;
+}
+html[data-design='studio'][data-talk-style='rail-tab'] body.kind-home :is(.lab-writing, .lab-talks) .lab-home-entry::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 50%;
+  transform: translateY(-50%);
+  width: 4px; height: 44px;
+  background: var(--lab-accent);
+  border-radius: 999px;
+}
+
+/* Rail dot — small accent marker on the card's left. */
+html[data-design='studio'][data-talk-style='rail-dot'] body.kind-home :is(.lab-writing, .lab-talks) .lab-home-entry {
+  position: relative;
+}
+html[data-design='studio'][data-talk-style='rail-dot'] body.kind-home :is(.lab-writing, .lab-talks) .lab-home-entry::before {
+  content: '';
+  position: absolute;
+  left: 10px; top: 50%;
+  transform: translateY(-50%);
+  width: 8px; height: 8px;
+  border-radius: 2px;
+  background: var(--lab-accent);
+}
+
+/* Numbered — flat rows, accent number prefix on the title. */
+html[data-design='studio'][data-talk-style='numbered'] body.kind-home :is(.lab-writing, .lab-talks) {
+  counter-reset: home-entry;
+}
+html[data-design='studio'][data-talk-style='numbered'] body.kind-home :is(.lab-writing, .lab-talks) .lab-home-entry {
+  counter-increment: home-entry;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  padding: 24px 0;
+  margin-top: 0;
+  border-bottom: 1px solid var(--lab-rule);
+}
+html[data-design='studio'][data-talk-style='numbered'] body.kind-home :is(.lab-writing, .lab-talks) .lab-home-entry h3::before {
+  content: counter(home-entry, decimal-leading-zero);
+  color: var(--lab-accent);
+  font-family: var(--lab-mono);
+  font-size: 15px;
+  font-weight: 500;
+  margin-right: 10px;
+}
+
+/* Talk resource links — their own accent, independent of the site accent,
+   so the pills can be a slightly different colour. */
+html[data-design] .page-lab-resources a {
+  color: var(--lab-talk-accent, var(--lab-accent));
+  border-color: color-mix(in srgb, var(--lab-talk-accent, var(--lab-accent)) 30%, var(--lab-rule));
+}
+html[data-talk-accent='rose']  { --lab-talk-accent: #a43b54; }
+html[data-talk-accent='blue']  { --lab-talk-accent: #1e66c2; }
+html[data-talk-accent='green'] { --lab-talk-accent: #28751c; }
+html[data-talk-accent='peach'] { --lab-talk-accent: #a34c0c; }
+html[data-talk-accent='mauve'] { --lab-talk-accent: #8839ef; }
+html[data-talk-accent='teal']  { --lab-talk-accent: #287a7d; }
+html[data-mode='dark'][data-talk-accent='rose']  { --lab-talk-accent: #f38ba8; }
+html[data-mode='dark'][data-talk-accent='blue']  { --lab-talk-accent: #89b4fa; }
+html[data-mode='dark'][data-talk-accent='green'] { --lab-talk-accent: #a6e3a1; }
+html[data-mode='dark'][data-talk-accent='peach'] { --lab-talk-accent: #fab387; }
+html[data-mode='dark'][data-talk-accent='mauve'] { --lab-talk-accent: #cba6f7; }
+html[data-mode='dark'][data-talk-accent='teal']  { --lab-talk-accent: #94e2d5; }
+
+/* ---------- Resource link (chip) style ---------- */
+/* Chip — bordered chip, no underline. */
+html[data-design][data-link-style='chip'] .page-lab-resources a {
+  text-decoration: none;
+}
+html[data-design][data-link-style='chip'] .page-lab-resources a:hover {
+  border-color: var(--lab-accent);
+  color: var(--lab-accent);
+  background: color-mix(in srgb, var(--lab-accent) 8%, transparent);
+}
+
+/* Pill — fully rounded chips, no underline. */
+html[data-design][data-link-style='pill'] .page-lab-resources a {
+  text-decoration: none;
+  border-radius: 999px;
+}
+html[data-design][data-link-style='pill'] .page-lab-resources a:hover {
+  border-color: var(--lab-accent);
+  color: var(--lab-accent);
+  background: color-mix(in srgb, var(--lab-accent) 8%, transparent);
+}
+
+/* Ghost — borderless text, no underline, hover accent. */
+html[data-design][data-link-style='ghost'] .page-lab-resources a {
+  text-decoration: none;
+  border-color: transparent;
+  background: transparent;
+  padding: 6px 4px;
+}
+html[data-design][data-link-style='ghost'] .page-lab-resources a:hover {
+  color: var(--lab-accent);
+  background: transparent;
+  border-color: transparent;
+}
+
+/* Dot — accent bullet before each link, no box or underline. */
+html[data-design][data-link-style='dot'] .page-lab-resources a {
+  text-decoration: none;
+  border-color: transparent;
+  background: transparent;
+  padding: 6px 4px 6px 0;
+}
+html[data-design][data-link-style='dot'] .page-lab-resources a::before {
+  content: '';
+  display: inline-block;
+  width: 5px; height: 5px;
+  margin-right: 8px;
+  border-radius: 50%;
+  background: var(--lab-accent);
+}
+html[data-design][data-link-style='dot'] .page-lab-resources a:hover {
+  color: var(--lab-accent);
+  background: transparent;
+  border-color: transparent;
+}
+
+/* ---------- Footer text treatments ---------- */
+/* Quiet — tagline fully muted, no accent words. */
+html[data-design][data-footer-text='quiet'] .footer .footer-tagline em {
+  color: var(--lab-muted);
+}
+/* Accent — whole tagline in accent. */
+html[data-design][data-footer-text='accent'] .footer .footer-tagline,
+html[data-design][data-footer-text='accent'] .footer .footer-tagline em {
+  color: var(--lab-accent);
+}
+/* Caps — uppercase, letter-spaced, smaller tagline. */
+html[data-design][data-footer-text='caps'] .footer .footer-tagline {
+  text-transform: uppercase;
+  letter-spacing: .14em;
+  font-size: 11px;
+}
+/* Small — tighter, smaller footer text overall. */
+html[data-design][data-footer-text='small'] .footer {
+  font-size: 11px;
+  gap: 6px 16px;
+}

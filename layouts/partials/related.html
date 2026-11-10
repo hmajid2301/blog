@@ -1,0 +1,13 @@
+{{- $related := site.RegularPages.Related . | first 5 }}
+{{- with $related }}
+<section class="lab-related" aria-labelledby="related-title">
+  <div class="lab-section-head"><h2 id="related-title">You might also like</h2></div>
+  {{- range . }}
+  <article class="lab-related-entry">
+    <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "02 Jan 2006" }}</time>
+    <div><h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3></div>
+    <span class="lab-arrow" aria-hidden="true">↗</span>
+  </article>
+  {{- end }}
+</section>
+{{- end }}

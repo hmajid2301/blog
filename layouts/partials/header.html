@@ -38,10 +38,6 @@
       {{- end }}
       </ul>
       <div class="logo-switches">
-        <div class="palette-switch" role="group" aria-label="Colour palette">
-          <button type="button" data-palette="cat" aria-pressed="true">Catppuccin</button>
-          <button type="button" data-palette="fireside" aria-pressed="false">Fireside</button>
-        </div>
         <button type="button" id="mode-toggle" aria-label="Switch to dark mode">☀️</button>
         <button id="search-button" class="icon-hover" title="Search (press / or Ctrl+K)">
           {{ safeHTML (index hugo.Data.svg "search") }}

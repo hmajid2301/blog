@@ -6,18 +6,11 @@
     {{- else }}
     <span class="footer-copy">&copy; {{ now.Year }} <a href="{{ "" | absURL }}">{{ site.Title }}</a></span>
     {{- end -}}
-    <span class="footer-tagline">Deploys code 💻. Bowls a few overs 🏏.</span>
-    <span class="footer-license">
-        <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="license">CC BY-SA</a>
-    </span>
-    {{- if .Site.Params.goatcounter }}
-    <span class="footer-analytics">
-        Analytics by
-        <a href="https://{{ .Site.Params.goatcounter }}.goatcounter.com">
-            Goatcounter.
-        </a>
-    </span>
-    {{- end }}
+    <span class="footer-tagline">Deploys <em>code 💻</em>. Bowls a few <em>overs 🏏</em>.</span>
+    <div class="palette-switch footer-palette" role="group" aria-label="Colour palette">
+        <button type="button" data-palette="cat" aria-pressed="true">Catppuccin</button>
+        <button type="button" data-palette="fireside" aria-pressed="false">Fireside</button>
+    </div>
 </footer>
 {{- end }}
 

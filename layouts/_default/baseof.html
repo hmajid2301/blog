@@ -6,7 +6,7 @@
     data-theme="cat-latte-mauve"
     data-mode="light"
     data-navbar="pill"
-    data-footer="rule"
+    data-footer="split"
     data-search-popup="dropdown"
     data-neovim="true"
     data-builder-active="true"
@@ -43,6 +43,7 @@
     {{ partial "footer.html" . -}}
     {{- partial "search.html" . -}}
     {{- block "body_end" . }}{{ end }}
+    {{- partial "notes-widget.html" . -}}
 </body>
 
 </html>

@@ -1,0 +1,102 @@
+{{- /* OG social card: Catppuccin Mocha base + gopher + brand + title + date. */ -}}
+{{- $page := . -}}
+
+{{- $base := resources.Get "og/base.png" -}}
+{{- $gopher := resources.Get "og/gopher_haseeb.png" -}}
+{{- $fontBold := resources.Get "fonts/SchibstedGrotesk-Bold.ttf" -}}
+
+{{- /* Title: page title, section title, or site title for home. */ -}}
+{{- $title := site.Title -}}
+{{- if $page.IsPage -}}
+  {{- $title = $page.Title -}}
+{{- else if $page.IsSection -}}
+  {{- $title = $page.LinkTitle -}}
+{{- end -}}
+
+{{- /* Word-wrap the title into lines of at most 21 characters. */ -}}
+{{- $maxLineLen := 21 -}}
+{{- $words := split $title " " -}}
+{{- $lines := slice -}}
+{{- $line := "" -}}
+{{- range $words -}}
+  {{- if gt (len (printf "%s %s" $line .)) $maxLineLen -}}
+    {{- $lines = $lines | append (strings.TrimSpace $line) -}}
+    {{- $line = . -}}
+  {{- else -}}
+    {{- $line = printf "%s %s" $line . -}}
+  {{- end -}}
+{{- end -}}
+{{- $lines = $lines | append (strings.TrimSpace $line) -}}
+
+{{- /* Cap at three lines; ellipsis the third. */ -}}
+{{- if gt (len $lines) 3 -}}
+  {{- $third := index $lines 2 -}}
+  {{- if gt (len $third) 19 -}}
+    {{- $third = printf "%s…" (substr $third 0 19) -}}
+  {{- else -}}
+    {{- $third = printf "%s…" $third -}}
+  {{- end -}}
+  {{- $lines = slice (index $lines 0) (index $lines 1) $third -}}
+{{- end -}}
+
+{{- /* Short single-line titles get a bigger punch. */ -}}
+{{- $size := 52 -}}
+{{- if and (eq (len $lines) 1) (le (len (index $lines 0)) 17) -}}
+  {{- $size = 64 -}}
+{{- end -}}
+
+{{- $titleText := delimit $lines "\n" -}}
+
+{{- /* Compose: gopher bottom-right, text block vertically centred left. */ -}}
+{{- $gopherH := 360 -}}
+{{- $gopherResized := $gopher.Resize (printf "x%d" $gopherH) -}}
+{{- $gx := sub (sub 1200 $gopherResized.Width) 56 -}}
+{{- $gy := sub (sub 628 $gopherH) 36 -}}
+
+{{- $img := $base.Filter (images.Overlay $gopherResized $gx $gy) -}}
+
+{{- $linespacing := 16 -}}
+{{- $titleSize := $size -}}
+{{- if $page.IsHome -}}
+  {{- $titleSize = 72 -}}
+{{- end -}}
+
+{{- $titleHeight := add (mul (len $lines) $titleSize) (mul (sub (len $lines) 1) $linespacing) -}}
+
+{{- $brandHeight := 0 -}}
+{{- $brandGap := 0 -}}
+{{- if not $page.IsHome -}}
+  {{- $brandHeight = 34 -}}
+  {{- $brandGap = 46 -}}
+{{- end -}}
+
+{{- /* Published date for posts. */ -}}
+{{- $dateText := "" -}}
+{{- $dateHeight := 0 -}}
+{{- $dateGap := 0 -}}
+{{- if $page.IsPage -}}
+  {{- with $page.PublishDate -}}
+    {{- $dateText = .Format "2 Jan 2006" -}}
+    {{- $dateHeight = 26 -}}
+    {{- $dateGap = 28 -}}
+  {{- end -}}
+{{- end -}}
+
+{{- $topY := div (sub 628 (add $brandHeight $brandGap $titleHeight $dateGap $dateHeight)) 2 -}}
+{{- $titleY := add $topY $brandHeight $brandGap -}}
+{{- $dateY := add $titleY $titleHeight $dateGap -}}
+
+{{- if not $page.IsHome -}}
+  {{- $brandOpts := dict "color" "#cba6f7" "size" 34 "x" 80 "y" $topY "font" $fontBold -}}
+  {{- $img = $img.Filter (images.Text site.Title $brandOpts) -}}
+{{- end -}}
+
+{{- $titleOpts := dict "color" "#cdd6f4" "size" $titleSize "x" 80 "y" $titleY "linespacing" $linespacing "font" $fontBold -}}
+{{- $img = $img.Filter (images.Text $titleText $titleOpts) -}}
+
+{{- if $dateText -}}
+  {{- $dateOpts := dict "color" "#a6adc8" "size" 26 "x" 80 "y" $dateY "font" $fontBold -}}
+  {{- $img = $img.Filter (images.Text $dateText $dateOpts) -}}
+{{- end -}}
+
+{{- return (resources.Copy (printf "og/%s.png" (md5 $page.RelPermalink)) $img) -}}

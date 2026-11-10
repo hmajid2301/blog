@@ -29,7 +29,7 @@
   {{- if eq (partial "page-lab-kind.html" .) "talk" }}
   <aside class="page-lab-talk-briefing" aria-label="Talk briefing">
     {{ with .Params.conference }}<p class="page-lab-kicker">{{ . }}</p>{{ end }}
-    <p>Published <time datetime="{{ .PublishDate.Format "2006-01-02" }}">{{ .PublishDate.Format "2 January 2006" }}</time></p>
+    <p>Presented <time datetime="{{ .PublishDate.Format "2006-01-02" }}">{{ .PublishDate.Format "2 January 2006" }}</time></p>
     {{ partial "page-lab-resource-links.html" . }}
   </aside>
   {{- end }}
@@ -59,6 +59,10 @@
       {{- partial "page-lab-uses-content.html" $content -}}
     {{- else }}{{ $content | safeHTML }}{{ end }}
   </div>
+  {{- end }}
+
+  {{- if .Params.ShowRelated | default true }}
+  {{- partial "related.html" . }}
   {{- end }}
 
   <footer class="post-footer">

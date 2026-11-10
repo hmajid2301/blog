@@ -1,10 +1,16 @@
-@import '../lib/chroma-light';
+@import '../lib/catppuccin-latte';
 
-// for github theme, add a background color
-.chroma {
-  background-color: #f6f8fa;
+/* Dark Catppuccin — Mocha (and the playground's Frappé/Macchiato). */
+html[data-theme^='cat-mocha'],
+html[data-theme^='cat-frappe'],
+html[data-theme^='cat-macchiato'] {
+  @import '../lib/catppuccin-mocha';
 }
 
-.dark {
-  @import '../lib/chroma-dark';
+/* Fireside palette — warm Gruvbox, light and dark. */
+html[data-theme='fireside-light'] {
+  @import '../lib/gruvbox-light';
+}
+html[data-theme='fireside-dark'] {
+  @import '../lib/gruvbox-dark';
 }

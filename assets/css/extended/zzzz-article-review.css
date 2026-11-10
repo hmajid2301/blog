@@ -1,0 +1,217 @@
+/* Article-page review fixes (baked design tweaks). */
+
+/* Hide the heading ¶ anchor link — was revealed on hover. */
+html[data-design] .post-content .anchor { display: none !important; }
+
+/* Larger table-of-contents text. */
+html[data-design] .toc { font-size: 15px; }
+
+/* Larger, tidier post meta + breadcrumbs. */
+html[data-design] .post-meta,
+html[data-design] .breadcrumbs { font-size: 13px; }
+
+/* Tidy tag chips. */
+html[data-design] .post-tags { display: inline-flex; flex-wrap: wrap; gap: 6px; }
+html[data-design] .post-tags a {
+  display: inline-block;
+  padding: 2px 10px;
+  border: 1px solid var(--lab-rule);
+  border-radius: 999px;
+  font-size: 12px;
+}
+
+/* Collapsible code blocks — open by default; click to collapse, button to reopen. */
+html[data-neovim='true'] .lab-neovim { cursor: pointer; }
+html[data-neovim='true'] .lab-neovim .lab-code-collapse { display: none; }
+html[data-neovim='true'] .lab-neovim.closed pre,
+html[data-neovim='true'] .lab-neovim.closed .lab-code-status { display: none; }
+html[data-neovim='true'] .lab-neovim.closed .lab-code-collapse { display: block; }
+html[data-neovim='true'] .lab-neovim .lab-code-collapse button {
+  display: block;
+  width: 100%;
+  padding: 10px 16px;
+  border: 0;
+  background: var(--lab-surface);
+  color: var(--lab-accent);
+  font: 12px/1.5 var(--lab-mono);
+  cursor: pointer;
+}
+
+/* Neovim code-block frames — pick via data-nvim-frame.
+   All variants keep line numbers and a NORMAL status bar. */
+html[data-neovim='true'] .lab-neovim .lab-code-tab {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  max-width: none;
+  padding: 8px 14px;
+  border-top: 0;
+  border-bottom: 1px solid var(--lab-rule);
+  background: var(--lab-surface);
+  color: var(--lab-text);
+  font: 600 12px/1.5 var(--lab-mono);
+}
+html[data-neovim='true'] .lab-code-tab .lab-code-language {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--lab-accent);
+}
+html[data-neovim='true'] .lab-code-tab .lab-code-language::before {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--lab-accent);
+}
+html[data-neovim='true'] .lab-code-tab .lab-code-lines {
+  color: var(--lab-muted);
+  font-weight: 400;
+}
+html[data-neovim='true'] .lab-neovim .lab-code-status {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-right: 12px;
+  background: var(--lab-surface);
+  color: var(--lab-muted);
+  font: 11px/30px var(--lab-mono);
+}
+html[data-neovim='true'] .lab-code-status strong {
+  padding: 0 12px;
+  background: var(--lab-accent);
+  color: var(--lab-bg);
+}
+html[data-neovim='true'] .lab-code-status .lab-code-language { margin-right: auto; }
+html[data-neovim='true'] .lab-neovim .copy-code { top: 42px; }
+
+/* classic — floating language tab + NORMAL status bar. */
+html[data-nvim-frame='classic'] .lab-neovim .lab-code-tab {
+  width: fit-content;
+  justify-content: flex-start;
+  padding: 10px 16px;
+  border-top: 2px solid var(--lab-accent);
+  border-bottom: 0;
+  color: var(--lab-accent);
+}
+html[data-nvim-frame='classic'] .lab-code-tab .lab-code-lines { display: none; }
+html[data-nvim-frame='classic'] .lab-code-tab .lab-code-language::before { display: none; }
+
+/* window — macOS-style title bar with traffic lights. */
+html[data-nvim-frame='window'] .lab-neovim {
+  border-radius: 10px;
+  box-shadow: 0 12px 30px -18px color-mix(in srgb, var(--lab-text) 45%, transparent);
+}
+html[data-nvim-frame='window'] .lab-neovim .lab-code-tab {
+  position: relative;
+  padding-inline-start: 78px;
+}
+html[data-nvim-frame='window'] .lab-code-tab::before {
+  content: '';
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 11px;
+  background:
+    radial-gradient(circle 5.5px at 5.5px 50%, #ff5f57 98%, transparent),
+    radial-gradient(circle 5.5px at 20px 50%, #febc2e 98%, transparent),
+    radial-gradient(circle 5.5px at 34.5px 50%, #28c840 98%, transparent);
+}
+html[data-nvim-frame='window'] .lab-code-tab .lab-code-language::before { display: none; }
+
+/* tabs — buffer-tab style: active tab, title only. */
+html[data-nvim-frame='tabs'] .lab-neovim .lab-code-tab {
+  width: fit-content;
+  justify-content: flex-start;
+  margin: 10px 0 0 10px;
+  padding: 5px 14px;
+  border: 1px solid var(--lab-rule);
+  border-bottom: 0;
+  border-radius: 8px 8px 0 0;
+  background: var(--lab-bg);
+  color: var(--lab-accent);
+}
+html[data-nvim-frame='tabs'] .lab-code-tab .lab-code-lines { display: none; }
+html[data-nvim-frame='tabs'] .lab-code-tab .lab-code-language::before { display: none; }
+html[data-nvim-frame='tabs'] .lab-neovim .copy-code { top: 7px; }
+
+/* minimal — no top bar, just the NORMAL status bar. */
+html[data-nvim-frame='minimal'] .lab-neovim .lab-code-tab { display: none; }
+html[data-nvim-frame='minimal'] .lab-neovim .copy-code { top: 7px; }
+
+/* Admonition icons — the bundled iconfont.ttf is empty, so use Unicode glyphs. */
+html[data-design] .notice .notice-title:before,
+html[data-design] details.notice summary:after {
+  font-family: inherit;
+  -webkit-text-stroke-width: 0;
+}
+html[data-design] .notice .notice-title:before { content: "ℹ"; }
+html[data-design] .notice.note .notice-title:before { content: "✎"; }
+html[data-design] .notice.abstract .notice-title:before { content: "❝"; }
+html[data-design] .notice.info .notice-title:before { content: "ℹ"; }
+html[data-design] .notice.tip .notice-title:before { content: "✦"; }
+html[data-design] .notice.success .notice-title:before { content: "✓"; }
+html[data-design] .notice.question .notice-title:before { content: "?"; }
+html[data-design] .notice.warning .notice-title:before { content: "⚠"; }
+html[data-design] .notice.failure .notice-title:before,
+html[data-design] .notice.danger .notice-title:before,
+html[data-design] .notice.bug .notice-title:before { content: "✕"; }
+html[data-design] .notice.example .notice-title:before { content: "»"; }
+html[data-design] .notice.quote .notice-title:before { content: "❝"; }
+/* Undefined notice types used in content — style as warning. */
+html[data-design] .notice.caution,
+html[data-design] .notice.important,
+html[data-design] .notice.warn,
+html[data-design] .notice.warnings {
+  border-left-color: #ff9100;
+  background-color: rgba(255, 145, 0, 0.1);
+}
+html[data-design] .notice.caution .notice-title,
+html[data-design] .notice.important .notice-title,
+html[data-design] .notice.warn .notice-title,
+html[data-design] .notice.warnings .notice-title {
+  background-color: rgba(255, 145, 0, 0.1);
+  border-bottom-color: rgba(255, 145, 0, 0.1);
+}
+html[data-design] .notice.caution .notice-title:before,
+html[data-design] .notice.important .notice-title:before,
+html[data-design] .notice.warn .notice-title:before,
+html[data-design] .notice.warnings .notice-title:before {
+  content: "⚠";
+  color: #ff9100;
+}
+html[data-design] details.notice summary:after { content: "▾"; }
+
+/* Related posts — "You might also like" on single pages. */
+html[data-design] .lab-related { margin-top: 48px; }
+html[data-design] .lab-related .lab-section-head {
+  border-bottom: 1px solid var(--lab-rule);
+  padding-bottom: 16px;
+  margin-bottom: 6px;
+}
+html[data-design] .lab-related .lab-section-head h2 { font-size: 26px; font-weight: 700; }
+html[data-design] .lab-related-entry {
+  display: grid;
+  grid-template-columns: 110px minmax(0, 1fr) 24px;
+  gap: 20px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--lab-rule);
+  align-items: baseline;
+}
+html[data-design] .lab-related-entry time {
+  font-family: var(--lab-mono);
+  font-size: 11px;
+  color: var(--lab-muted);
+}
+html[data-design] .lab-related-entry h3 { font-size: 19px; font-weight: 500; line-height: 1.3; }
+html[data-design] .lab-related-entry a { color: var(--lab-text); }
+html[data-design] .lab-related-entry a:hover { color: var(--lab-accent); }
+html[data-design] .lab-related-entry .lab-arrow { color: var(--lab-accent); font-size: 20px; }
+@media (max-width: 600px) {
+  html[data-design] .lab-related-entry { grid-template-columns: minmax(0, 1fr) 24px; }
+  html[data-design] .lab-related-entry time { display: none; }
+}

@@ -5,7 +5,6 @@
     nixpkgs.url = "github:NixOS/nixpkgs/e72e4f299401a3689d4b3d5fc6496b11db7064eb";
     flake-utils.url = "github:numtide/flake-utils/11707dc2f618dd54ca8739b309ec4fc024de578b";
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix/43b3c1ab9d40fb1dbb008f451988a91e375825e9";
-    tcardgen.url = "github:hmajid2301/tcardgen/66b3e4690162558aa0890f3ffcda9f49d507dd96";
     playwright.url = "github:pietdevries94/playwright-web-flake/1.61.1";
   };
 
@@ -15,7 +14,6 @@
       nixpkgs,
       flake-utils,
       pre-commit-hooks,
-      tcardgen,
       playwright,
       ...
     }:
@@ -99,9 +97,6 @@
              sed -i "s/^date: .*/date: \"$USER_DATE\"/" "$POST_FILE"
           fi
 
-          echo "Creating OG for content/posts/$SLUG"
-          tcardgen -c scripts/og/config.yaml --template=scripts/og/template.png -f scripts/og/fonts/ "$POST_FILE" -o "content/posts/$SLUG/images/cover.png"
-          rm content/posts/$SLUG/images/.gitkeep
         '';
       in
       {
@@ -144,7 +139,6 @@
           '';
           packages = with pkgs; [
             parallel
-            tcardgen.packages.${system}.default
             new_post
             go
             hugo

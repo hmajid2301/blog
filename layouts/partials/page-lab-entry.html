@@ -21,7 +21,7 @@
   {{- with $page.Description }}<p>{{ . | plainify }}</p>{{ else }}
     {{- if eq $kind "writing" }}<p>{{ $page.Summary | plainify | htmlUnescape | truncate 210 }}</p>{{ end -}}
   {{- end -}}
-  <p class="page-lab-entry-meta-featured">Published <time datetime="{{ $page.PublishDate.Format "2006-01-02" }}">{{ $page.PublishDate.Format "2 Jan 2006" }}</time></p>
+  <p class="page-lab-entry-meta-featured">{{ if eq $kind "talks" }}Presented{{ else }}Published{{ end }} <time datetime="{{ $page.PublishDate.Format "2006-01-02" }}">{{ $page.PublishDate.Format "2 Jan 2006" }}</time></p>
   {{- if eq $kind "talks" }}{{ partial "page-lab-resource-links.html" $page }}{{ end -}}
 </article>
 {{- else if eq $variant "library" -}}
@@ -135,7 +135,7 @@
 <article class="page-lab-entry{{ if $featured }} page-lab-feature{{ end }}">
   <div class="page-lab-entry-meta">
     {{- with $page.Params.conference }}<span>{{ . }}</span>{{ end -}}
-    <span>Published <time datetime="{{ $page.PublishDate.Format "2006-01-02" }}">{{ $page.PublishDate.Format "2 Jan 2006" }}</time></span>
+    <span>{{ if eq $kind "talks" }}Presented{{ else }}Published{{ end }} <time datetime="{{ $page.PublishDate.Format "2006-01-02" }}">{{ $page.PublishDate.Format "2 Jan 2006" }}</time></span>
     {{- if eq $kind "writing" }}<span>{{ $page.ReadingTime }} min read</span>{{ end -}}
   </div>
   <div class="page-lab-entry-body">

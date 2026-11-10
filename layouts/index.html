@@ -54,7 +54,7 @@
     <div class="lab-section-head"><h2 id="on-stage">Talks I've given</h2><a href="/talks/">All talks ↗</a></div>
     {{- range $index, $talk := first 6 (where site.RegularPages "Section" "talks").ByDate.Reverse }}
     <article class="lab-home-entry" data-home-talk{{ if ge $index 3 }} hidden{{ end }}>
-      <time datetime="{{ .PublishDate.Format "2006-01-02" }}">Published {{ .PublishDate.Format "02 Jan 2006" }}</time>
+      <time datetime="{{ .PublishDate.Format "2006-01-02" }}">Presented {{ .PublishDate.Format "02 Jan 2006" }}</time>
       <div>
         <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
         {{- with .Params.conference }}<p class="lab-home-talk-event">{{ . }}</p>{{ end }}
