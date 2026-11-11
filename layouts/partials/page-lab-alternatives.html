@@ -1,144 +1,33 @@
 {{- $page := .page -}}
 {{- $kind := .kind -}}
-{{- $variants := slice -}}
-{{- if eq $kind "talks" }}{{ $variants = slice "timeline" }}{{ end -}}
-{{- if eq $kind "archive" }}{{ $variants = slice "months" }}{{ end -}}
-{{- if eq $kind "writing" }}{{ $variants = slice }}{{ end -}}
-{{- if eq $kind "topics" }}{{ $variants = slice }}{{ end -}}
-{{- range $variant := $variants }}
+{{- $variant := cond (eq $kind "talks") "timeline" "months" -}}
 <section class="page-lab page-lab-{{ $kind }} page-lab-{{ $variant }}" data-page-variant="{{ $variant }}">
   <header class="page-lab-header">
-    <p class="page-lab-kicker">{{ if eq $kind "talks" }}Speaking &amp; resources{{ else if eq $kind "writing" }}Notes, guides &amp; essays{{ else if eq $kind "archive" }}The complete index{{ else }}Browse by subject{{ end }}</p>
+    <p class="page-lab-kicker">{{ if eq $kind "talks" }}Speaking &amp; resources{{ else }}The complete index{{ end }}</p>
     <h1>{{ $page.Title }}</h1>
     {{- with $page.Description }}<p>{{ . }}</p>{{ end -}}
     {{- if eq $kind "talks" }}<p>Talks, slides and recordings. Years below refer to publication, not event dates.</p>{{ end -}}
   </header>
-  {{- if in (slice "talks" "writing") $kind -}}
-    {{/* The original list has already initialised this paginator, including its custom page size. */}}
-    {{- $paginator := $page.Paginator -}}
-    {{- if eq $kind "talks" -}}
-      {{- $allPages := $paginator.Pages -}}
-      {{- $conferences := slice -}}
-      {{- $minYear := "" -}}
-      {{- range $allPages -}}
-        {{- with .Params.conference }}{{ if not (in $conferences .) }}{{ $conferences = $conferences | append . }}{{ end }}{{ end -}}
-        {{- $year := .PublishDate.Format "2006" -}}
-        {{- if or (eq $minYear "") (lt $year $minYear) }}{{ $minYear = $year }}{{ end -}}
-      {{- end -}}
-      {{- if eq $variant "programme" -}}
-        <div class="page-lab-stats" aria-label="Talks overview">
-          <div><strong>{{ len $allPages }}</strong> <span>talks</span></div>
-          <div><strong>{{ len $conferences }}</strong> <span>conferences</span></div>
-          <div><strong>since {{ $minYear }}</strong></div>
-        </div>
-        <nav class="page-lab-year-nav" aria-label="Years">{{ range $allPages.GroupByPublishDate "2006" }}<a href="#lab-programme-{{ .Key }}">{{ .Key }}</a>{{ end }}</nav>
-        {{- range $allPages.GroupByPublishDate "2006" }}
-        <section class="page-lab-year" id="lab-programme-{{ .Key }}">
-          <h2>{{ .Key }} <small>{{ len .Pages }} talks</small></h2>
-          <div class="page-lab-year-entries">{{ range .Pages }}{{ partial "page-lab-entry.html" (dict "page" . "kind" $kind "variant" "programme") }}{{ end }}</div>
-        </section>
-        {{- end -}}
-      {{- else if eq $variant "featured" -}}
-        {{- with index $allPages 0 }}{{ partial "page-lab-entry.html" (dict "page" . "kind" $kind "variant" "featured" "featured" true) }}{{ end -}}
-        {{- range (after 1 $allPages).GroupByPublishDate "2006" }}
-        <section class="page-lab-year" id="lab-featured-{{ .Key }}">
-          <h2>{{ .Key }}</h2>
-          <div class="page-lab-year-entries">{{ range .Pages }}{{ partial "page-lab-entry.html" (dict "page" . "kind" $kind "variant" "programme") }}{{ end }}</div>
-        </section>
-        {{- end -}}
-      {{- else if eq $variant "library" -}}
-        <div class="page-lab-entries page-lab-entries-library">
-        {{- range $allPages -}}
-          {{- partial "page-lab-entry.html" (dict "page" . "kind" $kind "variant" "library") -}}
-        {{- end -}}
-        </div>
-      {{- else if eq $variant "timeline" -}}
-        <div class="page-lab-timeline">
-        {{- range $allPages.GroupByPublishDate "2006" }}
-          <section class="page-lab-timeline-year">
-            <h2>{{ .Key }}</h2>
-            <div class="page-lab-timeline-entries">
-            {{- range .Pages }}
-              {{- partial "page-lab-entry.html" (dict "page" . "kind" $kind "variant" "timeline") -}}
-            {{- end -}}
-            </div>
-          </section>
-        {{- end -}}
-        </div>
-      {{- else if eq $variant "milestone" -}}
-        <nav class="page-lab-year-nav" aria-label="Years">{{ range $allPages.GroupByPublishDate "2006" }}<a href="#lab-milestone-{{ .Key }}">{{ .Key }}</a>{{ end }}</nav>
-        <div class="page-lab-milestone">
-        {{- range $allPages.GroupByPublishDate "2006" }}
-          <section class="page-lab-milestone-year" id="lab-milestone-{{ .Key }}">
-            <h2>{{ .Key }} <small>{{ len .Pages }} talks</small></h2>
-            <div class="page-lab-milestone-entries">
-            {{- range .Pages }}
-              {{- partial "page-lab-entry.html" (dict "page" . "kind" $kind "variant" "milestone") -}}
-            {{- end -}}
-            </div>
-          </section>
-        {{- end -}}
-        </div>
-      {{- else if eq $variant "rail" -}}
-        <div class="page-lab-rail">
-          <nav class="page-lab-rail-years" aria-label="Years">{{ range $allPages.GroupByPublishDate "2006" }}<a href="#lab-rail-{{ .Key }}">{{ .Key }}</a>{{ end }}</nav>
-          <div class="page-lab-rail-scroll">
-          {{- range $allPages.GroupByPublishDate "2006" }}
-            <section class="page-lab-rail-year" id="lab-rail-{{ .Key }}">
-              <h2>{{ .Key }}</h2>
-              <div class="page-lab-rail-entries">
-              {{- range .Pages }}
-                {{- partial "page-lab-entry.html" (dict "page" . "kind" $kind "variant" "rail") -}}
-              {{- end -}}
-              </div>
-            </section>
-          {{- end -}}
-          </div>
-        </div>
-      {{- else if eq $variant "poster" -}}
-        <div class="page-lab-poster">
-        {{- range $allPages.GroupByPublishDate "2006" }}
-          <section class="page-lab-poster-year">
-            <h2>{{ .Key }} <small>{{ len .Pages }} talks</small></h2>
-            <div class="page-lab-poster-entries">
-            {{- range .Pages }}
-              {{- partial "page-lab-entry.html" (dict "page" . "kind" $kind "variant" "poster") -}}
-            {{- end -}}
-            </div>
-          </section>
-        {{- end -}}
-        </div>
-      {{- end -}}
+  {{- if eq $kind "talks" -}}
+    {{- $pages := where $page.Pages "Params.hidden" "!=" true -}}
+    {{- $paginator := "" -}}
+    {{- if $page.Param "paginate" -}}
+      {{- $paginator = $page.Paginate $pages ($page.Param "paginate") -}}
     {{- else -}}
-      {{- if eq $variant "compact" -}}
-        <nav class="page-lab-year-nav" aria-label="Years">{{ range $paginator.Pages.GroupByPublishDate "2006" }}<a href="#lab-writing-compact-{{ .Key }}">{{ .Key }}</a>{{ end }}</nav>
-        {{- range $paginator.Pages.GroupByPublishDate "2006" }}
-        <section class="page-lab-year" id="lab-writing-compact-{{ .Key }}">
-          <h2>{{ .Key }} <small>{{ len .Pages }} {{ if eq (len .Pages) 1 }}post{{ else }}posts{{ end }}</small></h2>
-          <div class="page-lab-year-entries">{{ range .Pages }}{{ partial "page-lab-entry.html" (dict "page" . "kind" $kind "variant" "compact") }}{{ end }}</div>
-        </section>
-        {{- end -}}
-      {{- else if eq $variant "editorial" -}}
-        {{- $allPages := $paginator.Pages -}}
-        {{- with index $allPages 0 }}{{ partial "page-lab-entry.html" (dict "page" . "kind" $kind "variant" "featured" "featured" true) }}{{ end -}}
-        <div class="page-lab-editorial-index">
-        {{- range (after 1 $allPages).GroupByPublishDate "2006" }}
-        <section class="page-lab-year" id="lab-editorial-{{ .Key }}">
-          <h2>{{ .Key }}</h2>
-          <div class="page-lab-year-entries">{{ range .Pages }}{{ partial "page-lab-entry.html" (dict "page" . "kind" $kind "variant" "editorial") }}{{ end }}</div>
-        </section>
-        {{- end -}}
-        </div>
-      {{- else if eq $variant "magazine" -}}
-        {{- $allPages := $paginator.Pages -}}
-        {{- with index $allPages 0 }}{{ partial "page-lab-entry.html" (dict "page" . "kind" $kind "variant" "featured" "featured" true) }}{{ end -}}
-        <div class="page-lab-entries page-lab-entries-magazine">
-        {{- range (after 1 $allPages) -}}
-          {{- partial "page-lab-entry.html" (dict "page" . "kind" $kind "variant" "magazine") -}}
-        {{- end -}}
-        </div>
-      {{- end -}}
+      {{- $paginator = $page.Paginate $pages -}}
     {{- end -}}
+    <div class="page-lab-timeline">
+    {{- range $paginator.Pages.GroupByPublishDate "2006" }}
+      <section class="page-lab-timeline-year">
+        <h2>{{ .Key }}</h2>
+        <div class="page-lab-timeline-entries">
+        {{- range .Pages }}
+          {{- partial "page-lab-entry.html" (dict "page" . "kind" $kind "variant" "timeline") -}}
+        {{- end -}}
+        </div>
+      </section>
+    {{- end -}}
+    </div>
     {{- if gt $paginator.TotalPages 1 }}
     <nav class="page-lab-pagination" aria-label="Pagination">
       {{ with $paginator.Prev }}<a href="{{ .URL }}">← Previous page</a>{{ end }}
@@ -156,16 +45,9 @@
     <section class="page-lab-year" id="lab-{{ $variant }}-{{ .Key }}">
       <h2>{{ .Key }} <small>{{ len .Pages }} posts</small></h2>
       <div>
-      {{- if eq $variant "months" -}}
         {{- range .Pages.GroupByPublishDate "January" }}<section class="page-lab-month"><h3>{{ .Key }}</h3>{{ partial "page-lab-archive-links.html" .Pages }}</section>{{ end -}}
-      {{- else }}{{ partial "page-lab-archive-links.html" .Pages }}{{ end -}}
       </div>
     </section>
     {{- end -}}
-  {{- else if eq $kind "topics" -}}
-    <ul class="page-lab-topics">
-    {{- range $page.Data.Terms.Alphabetical }}<li><a href="{{ .Page.RelPermalink }}"><span>{{ .Page.Title }}</span><span>{{ .Count }} {{ if eq .Count 1 }}post{{ else }}posts{{ end }}</span></a></li>{{ else }}<li>No entries in this directory yet. <a href="/posts/">Browse all writing instead.</a></li>{{ end -}}
-    </ul>
   {{- end -}}
 </section>
-{{- end -}}

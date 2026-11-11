@@ -1,6 +1,0 @@
-{{- with resources.Get (printf "illustrations/%s.svg" .name) }}
-<figure class="lab-art">
-  <div class="lab-art-image">{{ .Content | safeHTML }}</div>
-  <figcaption>{{ $.caption }} <span class="lab-art-actions"><button class="lab-art-replay" type="button" hidden>Replay drawing</button><a href="{{ .RelPermalink }}" download>Download SVG ↗</a></span></figcaption>
-</figure>
-{{- end }}

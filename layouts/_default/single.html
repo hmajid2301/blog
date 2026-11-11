@@ -34,11 +34,6 @@
   </aside>
   {{- end }}
 
-  {{- $artwork := dict "/talks/reproducible-envs-with-nix/" "reproducible-environments" "/talks/python-to-go-concurrency/" "concurrency-switchyard" "/posts/2026-08-15-how-i-implemented-authorization-in-my-go-app-with-rls-postgres/" "row-level-security" }}
-  {{- with index $artwork .RelPermalink }}
-    {{- partial "editorial-art.html" (dict "name" . "caption" "Original SVG cover exploration.") }}
-  {{- end }}
-
   {{ if .Params.series }}
   {{- partial "series.html" . }}
   {{end}}

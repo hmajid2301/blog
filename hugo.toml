@@ -63,6 +63,10 @@ plausibleScript = "https://plausible.haseebmajid.dev/js/script.js"
 favicon = "/favicon-32x32.png"
 appleTouchIcon = "/favicon-32x32.png"
 
+[params.og]
+version = "2"
+tagline = "a personal corner of the web"
+
 [params.assets]
 favicon = "/favicon-32x32.png"
 favicon16x16 = "/favicon-16x16.png"

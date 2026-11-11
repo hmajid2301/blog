@@ -69,14 +69,7 @@
               ];
             };
 
-            # OG generation is checked in CI (check:og); don't regenerate all images on every commit.
-            # generate-og = {
-            #   enable = true;
-            #   name = "Generate Open Graph images";
-            #   entry = "task generate:og";
-            #   # pass_filenames appends files to `task generate:og`, which breaks task parsing
-            #   pass_filenames = false;
-            # };
+            # Hugo generates OG cards; rebuild their static chrome with `task og:base`.
           };
         };
         new_post = pkgs.writeScriptBin "new_post" ''
@@ -142,6 +135,7 @@
             new_post
             go
             hugo
+            resvg
             jq
             python3
             go-task

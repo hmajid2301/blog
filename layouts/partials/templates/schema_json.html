@@ -72,14 +72,7 @@
   ],
   "wordCount" : "{{ .WordCount }}",
   "inLanguage": {{ .Language.Lang | default "en-us" | jsonify }},
-  {{ if .Params.cover.image -}}
-  "image":
-    {{- if (eq .Params.cover.absolute true) }}
-    {{ .Params.cover.image | absURL | jsonify }},
-    {{- else -}}
-    {{ (path.Join .RelPermalink .Params.cover.image ) | absURL | jsonify }},
-    {{- end}}
-  {{- end -}}
+  "image": {{ (partialCached "og-image.html" . .RelPermalink).Permalink | absURL | jsonify }},
   "datePublished": {{ .PublishDate | jsonify }},
   "dateModified": {{ .Lastmod | jsonify }},
   {{- with (.Params.author | default site.Params.author) }}

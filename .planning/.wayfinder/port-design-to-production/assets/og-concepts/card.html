@@ -50,11 +50,14 @@ body{font-variant-ligatures:none;width:1200px;height:630px;overflow:hidden;backg
 #D .name{font-family:Schib;font-size:26px} #D .url{margin-left:auto;font-size:21px;color:var(--sub0)}
 
 #E{position:relative;height:630px;padding:64px 80px 0}
-#E .eyebrow{font-size:21px;color:var(--lav);letter-spacing:.06em;font-weight:700}
+#E .eyebrow{font-size:21px;color:var(--lav);letter-spacing:.06em;font-weight:700;font-family:'JetBrainsMono Nerd Font','Symbols Nerd Font Mono',monospace}
 #E .t{margin-top:28px;width:780px}
 #E .gopher{position:absolute;right:56px;bottom:62px;height:270px}
 #E .st{position:absolute;left:0;right:0;bottom:0;height:62px;background:var(--crust);display:flex;align-items:center;gap:14px;padding:0 22px;font-size:20px}
-#E .st .pill{height:36px;font-size:19px}
+#E .st .pill{height:36px;font-size:19px;line-height:1;flex-shrink:0}
+#E .st .status-meta{gap:10px;padding:0}
+#E .st .status-icon{display:inline-flex;align-items:center;justify-content:center;flex:0 0 36px;width:36px;height:36px;border-radius:6px;line-height:1;font-family:'Symbols Nerd Font Mono',monospace}
+#E .st .status-date{margin-left:auto}
 </style></head><body>
 <div id="root"></div>
 <script>
@@ -89,5 +92,5 @@ if(d==='D'){R.innerHTML=`<div id="D"><div class="eyebrow">${(kind==='talk'?'TALK
 if(d==='E'){R.innerHTML=`<div id="E"><div class="eyebrow">${kind==='talk'?'<span style="color:var(--peach)">\uf130</span> TALK · '+conf.toUpperCase():'\uf15c POST · #'+tag.toUpperCase()}</div>
 <div class="t" style="font-size:${fs}px">${title}</div><img class="gopher" src="gopher_haseeb.png">
 <div class="st"><span class="pill" style="background:var(--green);color:var(--crust)">NORMAL</span><span style="color:var(--text)"> ${slug}.md</span><span style="color:var(--o0)"> main</span>
-<span style="margin-left:auto" class="pill"><span style="background:var(--pink);color:var(--crust);padding:3px 8px;border-radius:5px">\uf073</span>&nbsp;${date}</span><span class="pill"><span style="background:var(--green);color:var(--crust);padding:3px 8px;border-radius:5px">\uf017</span>&nbsp;${kind==='talk'?'talk':mins+' min'}</span><span class="pill" style="background:var(--lav);color:var(--crust)">haseebmajid.dev</span></div></div>`}
+<span class="pill status-meta status-date"><span class="status-icon" style="background:var(--pink);color:var(--crust)">\uf073</span><span>${date}</span></span><span class="pill status-meta"><span class="status-icon" style="background:var(--green);color:var(--crust)">\uf017</span><span>${kind==='talk'?'talk':mins+' min'}</span></span><span class="pill" style="background:var(--lav);color:var(--crust)">haseebmajid.dev</span></div></div>`}
 </script></body></html>

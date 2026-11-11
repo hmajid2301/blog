@@ -32,10 +32,11 @@
     {{- partialCached "header.html" . .Page -}}
     <div class="reading-progress-bar"></div>
     <main class="main {{- if (eq .Kind `page`) -}}{{- print " post" -}}{{- end -}}">
-        {{- $labAlternates := in (slice "talks" "archive") $labKind -}}
-        {{ if $labAlternates }}<div data-page-original hidden>{{ end }}
+        {{- if in (slice "talks" "archive") $labKind -}}
+        {{- partial "page-lab-alternatives.html" (dict "page" . "kind" $labKind) }}
+        {{- else -}}
         {{- block "main" . }}{{ end }}
-        {{ if $labAlternates }}</div>{{ partial "page-lab-alternatives.html" (dict "page" . "kind" $labKind) }}{{ end }}
+        {{- end }}
     </main>
     {{- if .Site.Params.goatcounter }}
     {{ partial "analytics.html" . -}}

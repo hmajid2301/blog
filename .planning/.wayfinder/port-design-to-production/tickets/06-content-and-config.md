@@ -29,7 +29,7 @@ The answer is a concrete ship/strip list for these files.
 - `content/uses/index.md` — rewritten `/uses` page (with the ```terminal fence from ticket 02).
 - `hugo.toml` — remove the `category` taxonomy (categories dropped). Keep the `subtitle` tweak.
 - `layouts/index.html` — new home hero + sections; bake in, dropping the `if designLab`/`else index_profile` wrapper.
-- `layouts/partials/footer.html` — new rule footer (`.footer-copy`/`.footer-tagline`). ⚠️ drops the CC BY-SA + “Powered by Hugo/PaperModX” credits — confirm that’s intended.
+- `layouts/partials/footer.html` — new rule footer (`.footer-copy`/`.footer-tagline`). **Confirmed:** drop the “Powered by Hugo/PaperModX” credit (PaperMod/PaperModX are MIT; the theme is a greenfield rewrite so crediting PaperModX is misleading), but **keep a small `.footer-license` CC BY-SA link** — the site’s only visible content-license notice.
 - `layouts/partials/header.html` — nav restructure (`.nav-end` wrapper, logo-switches inside it); bake, drop `designLab` conditionals.
 - `layouts/partials/edit_post.html` — `aria-label` on the edit link (bake, drop the gate).
 - `assets/css/common/post-single.css` — anchor-link ¶ fix.

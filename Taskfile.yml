@@ -19,9 +19,10 @@ tasks:
     cmds:
       - new_post "{{.CLI_ARGS}}"
 
-  generate:og:
+  og:base:
     cmds:
-      - ls content/posts/ | parallel 'mkdir -p content/posts/{}/images && tcardgen -c scripts/og/config.yaml --template=scripts/og/template.png -f scripts/og/fonts/ content/posts/{}/index.md -o content/posts/{}/images/cover.png'
+      - resvg --width 1200 --height 630 scripts/og/base.svg assets/og/base.png
+      - resvg --width 72 --height 36 scripts/og/status-icons.svg assets/og/status-icons.png
 
   slides:export:
     cmds:

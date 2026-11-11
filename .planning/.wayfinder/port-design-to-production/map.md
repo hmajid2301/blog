@@ -16,7 +16,6 @@ The production Hugo blog (`/home/haseeb/projects/blog`) ships the design-lab's c
   - home: portrait `rounded`, sectionGap `comfortable`, corners `round`, summaries `full`, talkDetails `resources`
 - Skills to consult: `writing-plans`, `executing-plans`, `karpathy-guidelines`. Slide-craft/slidev skills do not apply.
 - Local tracker convention: `.planning/.wayfinder/<map>/map.md` + `tickets/*.md`.
-- Ticket 08 (`trim-unused-functionality`) is the final pass after merge (07): audit and delete unused PaperMod partials/JS/config.
 - Planning only unless a ticket's Notes explicitly override into execution.
 
 ## Decisions so far
@@ -59,7 +58,7 @@ The production Hugo blog (`/home/haseeb/projects/blog`) ships the design-lab's c
 
 - Ship: rewritten `/uses`, new home hero (`index.html`), rule footer, header restructure, edit-link `aria-label`, anchor-link ¶ fix, categories taxonomy removal, plus the ticket 04/05 artifacts (baseof/single/index.json, fastsearch/search.html). Terminal CSS → `07-terminal.css`; `nitch.html` deleted.
 - Strip: `hugo-design-lab*.toml`, `playground-head.html`, `playground*.html`, `playground.js`/`design-builder.js`, `index_profile.html`, all `designLab` conditionals + `data-home-*` scaffolding, and the `fuseOpts`/redirects/slides-menu `hugo.toml` changes.
-- ⚠️ Confirm: the rule footer drops the CC BY-SA + “Powered by Hugo/PaperModX” credits.
+- Footer credits: drop “Powered by Hugo/PaperModX” (MIT + greenfield theme); keep a small CC BY-SA link (`.footer-license`) as the site’s content-license notice.
 
 ### 07 — Strip & merge (resolved): merge plan
 
@@ -68,11 +67,14 @@ The production Hugo blog (`/home/haseeb/projects/blog`) ships the design-lab's c
 - Remaining execution: build the greenfield theme, verify a green `hugo` build, then merge.
 - **Locked for this redesign: stay on Hugo.** No Astro migration bundled into this port (the port is presentation-only, so a platform move is strictly more work). Astro remains a possible separate, future migration — just not part of this port.
 
+### 08 — Trim unused functionality (resolved): dead-code sweep executed
+
+- Deleted 15 files (comment backends `comments`/`disqus`/`giscus`/`remark42`/`static_comments`/`telegram_widget`; likes/share/social `likes`/`share_icons`/`social_links`/`social_quote_tweet` + shortcode; orphaned `translation_list`; dead `instantclick.min.js`/`license.js`/`license.css`) and pruned `[params.fuseOpts]` + `comments = false`.
+- Kept (verified live): `author.html`, `extend_head.html`, `extend_footer.html`, `layout/javascript.html` (slides), `page-lab-*`, `templates/opengraph.html` + `schema_json.html`.
+
 ## Not yet specified
 
-- The exact merge path to `main` (commit on the branch then merge/PR, vs cherry-pick only the design files and leave slides on the branch).
-- Whether the design-lab demo pages survive anywhere after the port, or are deleted outright.
-- Exact search behaviour on the live blog (the design-lab has a dropdown/spotlight overlay plus a modified `fastsearch.js`; the main blog already has search).
+(none — the way to the destination is clear)
 
 ## Out of scope
 

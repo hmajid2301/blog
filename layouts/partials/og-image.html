@@ -1,102 +1,103 @@
-{{- /* OG social card: Catppuccin Mocha base + gopher + brand + title + date. */ -}}
+{{- /* Editorial card with a lavender Neovim statusline; all text is composed by Hugo. */ -}}
 {{- $page := . -}}
+{{- $sans := resources.Get "fonts/SchibstedGrotesk-Bold.ttf" -}}
+{{- $mono := resources.Get "fonts/JetBrainsMonoNerdFontMono-Regular.ttf" -}}
+{{- $monoBold := resources.Get "fonts/JetBrainsMonoNerdFontMono-Bold.ttf" -}}
+{{- $canvas := resources.Get "og/canvas.png" -}}
+{{- $img := resources.Get "og/base.png" -}}
+{{- $title := $page.Title -}}
+{{- $eyebrow := "PAGE" -}}
+{{- $accent := "#b4befe" -}}
+{{- $filename := "index.md" -}}
+{{- $isPost := and $page.IsPage (eq $page.Section "posts") -}}
+{{- $isTalk := and $page.IsPage (eq $page.Section "talks") -}}
 
-{{- $base := resources.Get "og/base.png" -}}
-{{- $gopher := resources.Get "og/gopher_haseeb.png" -}}
-{{- $fontBold := resources.Get "fonts/SchibstedGrotesk-Bold.ttf" -}}
-
-{{- /* Title: page title, section title, or site title for home. */ -}}
-{{- $title := site.Title -}}
-{{- if $page.IsPage -}}
-  {{- $title = $page.Title -}}
+{{- if $page.IsHome -}}
+  {{- $title = site.Title -}}
+  {{- $eyebrow = "" -}}
+{{- else if $isPost -}}
+  {{- $eyebrow = "\uf15c POST" -}}
+  {{- with $page.Params.tags -}}
+    {{- $eyebrow = printf "%s · #%s" $eyebrow (index . 0) -}}
+  {{- end -}}
+{{- else if $isTalk -}}
+  {{- $eyebrow = "\uf130 TALK" -}}
+  {{- $accent = "#fab387" -}}
+  {{- with $page.Params.conference -}}
+    {{- $eyebrow = printf "%s · %s" $eyebrow . -}}
+  {{- end -}}
 {{- else if $page.IsSection -}}
   {{- $title = $page.LinkTitle -}}
-{{- end -}}
-
-{{- /* Word-wrap the title into lines of at most 21 characters. */ -}}
-{{- $maxLineLen := 21 -}}
-{{- $words := split $title " " -}}
-{{- $lines := slice -}}
-{{- $line := "" -}}
-{{- range $words -}}
-  {{- if gt (len (printf "%s %s" $line .)) $maxLineLen -}}
-    {{- $lines = $lines | append (strings.TrimSpace $line) -}}
-    {{- $line = . -}}
-  {{- else -}}
-    {{- $line = printf "%s %s" $line . -}}
+  {{- $eyebrow = printf "SECTION · %d ENTRIES" (len $page.RegularPagesRecursive) -}}
+  {{- $filename = printf "%s/" $page.Section -}}
+{{- else if eq $page.Kind "taxonomy" -}}
+  {{- $eyebrow = printf "%s · %d" $page.Title (len $page.Data.Terms) -}}
+  {{- $filename = printf "%s/" $page.Data.Plural -}}
+  {{- if eq $page.Data.Plural "tags" -}}
+    {{- $title = "All topics" -}}
+    {{- $eyebrow = printf "\uf02b TOPICS · %d" (len $page.Data.Terms) -}}
+  {{- end -}}
+{{- else if eq $page.Kind "term" -}}
+  {{- $eyebrow = printf "SERIES · %d POSTS" (len $page.Pages) -}}
+  {{- $filename = printf "%s/%s" $page.Data.Plural $page.Data.Term -}}
+  {{- if eq $page.Data.Plural "tags" -}}
+    {{- $title = printf "#%s" (lower $page.Title) -}}
+    {{- $eyebrow = printf "\uf02b TOPIC · %d POSTS" (len $page.Pages) -}}
   {{- end -}}
 {{- end -}}
-{{- $lines = $lines | append (strings.TrimSpace $line) -}}
 
-{{- /* Cap at three lines; ellipsis the third. */ -}}
-{{- if gt (len $lines) 3 -}}
-  {{- $third := index $lines 2 -}}
-  {{- if gt (len $third) 19 -}}
-    {{- $third = printf "%s…" (substr $third 0 19) -}}
-  {{- else -}}
-    {{- $third = printf "%s…" $third -}}
-  {{- end -}}
-  {{- $lines = slice (index $lines 0) (index $lines 1) $third -}}
-{{- end -}}
-
-{{- /* Short single-line titles get a bigger punch. */ -}}
-{{- $size := 52 -}}
-{{- if and (eq (len $lines) 1) (le (len (index $lines 0)) 17) -}}
-  {{- $size = 64 -}}
-{{- end -}}
-
-{{- $titleText := delimit $lines "\n" -}}
-
-{{- /* Compose: gopher bottom-right, text block vertically centred left. */ -}}
-{{- $gopherH := 360 -}}
-{{- $gopherResized := $gopher.Resize (printf "x%d" $gopherH) -}}
-{{- $gx := sub (sub 1200 $gopherResized.Width) 56 -}}
-{{- $gy := sub (sub 628 $gopherH) 36 -}}
-
-{{- $img := $base.Filter (images.Overlay $gopherResized $gx $gy) -}}
-
-{{- $linespacing := 16 -}}
-{{- $titleSize := $size -}}
-{{- if $page.IsHome -}}
-  {{- $titleSize = 72 -}}
-{{- end -}}
-
-{{- $titleHeight := add (mul (len $lines) $titleSize) (mul (sub (len $lines) 1) $linespacing) -}}
-
-{{- $brandHeight := 0 -}}
-{{- $brandGap := 0 -}}
-{{- if not $page.IsHome -}}
-  {{- $brandHeight = 34 -}}
-  {{- $brandGap = 46 -}}
-{{- end -}}
-
-{{- /* Published date for posts. */ -}}
-{{- $dateText := "" -}}
-{{- $dateHeight := 0 -}}
-{{- $dateGap := 0 -}}
 {{- if $page.IsPage -}}
-  {{- with $page.PublishDate -}}
-    {{- $dateText = .Format "2 Jan 2006" -}}
-    {{- $dateHeight = 26 -}}
-    {{- $dateGap = 28 -}}
-  {{- end -}}
+  {{- $slug := $page.Slug | default (path.Base (strings.TrimRight "/" $page.RelPermalink)) -}}
+  {{- $slug = replaceRE `^\d{4}-\d{2}-\d{2}-` "" $slug -}}
+  {{- $filename = printf "%s.md" (substr $slug 0 22) -}}
+{{- end -}}
+{{- $filename = substr $filename 0 25 -}}
+
+{{- $gopher := (resources.Get "og/gopher_haseeb.png").Resize "x270" -}}
+{{- $img = $img.Filter (images.Overlay $gopher (sub 1144 $gopher.Width) 298) -}}
+{{- $size := 48 -}}
+{{- $runes := strings.RuneCount $title -}}
+{{- if le $runes 30 -}}{{- $size = 76 -}}
+{{- else if le $runes 55 -}}{{- $size = 64 -}}
+{{- else if le $runes 80 -}}{{- $size = 54 -}}{{- end -}}
+{{- $titleY := 118 -}}
+{{- if $page.IsHome -}}
+  {{- $size = 96 -}}
+  {{- $titleY = 160 -}}
+{{- end -}}
+{{- /* Drawing onto a column-sized transparent image gives pixel wrapping, without truncation. */ -}}
+{{- $column := $canvas.Crop "780x430 TopLeft" -}}
+{{- $titleImage := $column.Filter (images.Text $title (dict "font" $sans "size" $size "color" "#cdd6f4" "x" 0 "y" 0 "linespacing" 10)) -}}
+{{- $img = $img.Filter (images.Overlay $titleImage 80 $titleY) -}}
+{{- with $eyebrow -}}
+  {{- $label := ($canvas.Crop "1040x40 TopLeft").Filter (images.Text (upper .) (dict "font" $monoBold "size" 21 "color" $accent "x" 0 "y" 0)) -}}
+  {{- $img = $img.Filter (images.Overlay $label 80 64) -}}
+{{- end -}}
+{{- if $page.IsHome -}}
+  {{- $tagline := site.Params.og.tagline | default "a personal corner of the web" -}}
+  {{- $img = $img.Filter (images.Text $tagline (dict "font" $mono "size" 26 "color" "#a6adc8" "x" 80 "y" 300)) -}}
 {{- end -}}
 
-{{- $topY := div (sub 628 (add $brandHeight $brandGap $titleHeight $dateGap $dateHeight)) 2 -}}
-{{- $titleY := add $topY $brandHeight $brandGap -}}
-{{- $dateY := add $titleY $titleHeight $dateGap -}}
-
-{{- if not $page.IsHome -}}
-  {{- $brandOpts := dict "color" "#cba6f7" "size" 34 "x" 80 "y" $topY "font" $fontBold -}}
-  {{- $img = $img.Filter (images.Text site.Title $brandOpts) -}}
+{{- /* All statusline pills are 36px tall, centred at y=599; icon-to-label gaps are 10px. */ -}}
+{{- $img = $img.Filter (images.Text "NORMAL" (dict "font" $monoBold "size" 19 "color" "#11111b" "x" 74 "y" 599 "alignx" "center" "aligny" "center")) -}}
+{{- $img = $img.Filter (images.Text $filename (dict "font" $mono "size" 19 "color" "#cdd6f4" "x" 142 "y" 599 "aligny" "center")) -}}
+{{- $img = $img.Filter (images.Text "\ue0a0 main" (dict "font" $mono "size" 18 "color" "#6c7086" "x" 500 "y" 599 "aligny" "center")) -}}
+{{- $img = $img.Filter (images.Text "haseebmajid.dev" (dict "font" $monoBold "size" 19 "color" "#11111b" "x" 1071 "y" 599 "alignx" "center" "aligny" "center")) -}}
+{{- if and (or $isPost $isTalk) (not $page.PublishDate.IsZero) -}}
+  {{- $duration := printf "%d min" $page.ReadingTime -}}
+  {{- if $isTalk -}}{{- $duration = "talk" -}}{{- end -}}
+  {{- $date := $page.PublishDate.Format "02 Jan 2006" -}}
+  {{- /* JetBrains Mono advances 0.6em: work right-to-left for 14px group gaps at every duration. */ -}}
+  {{- $durationX := int (math.Round (sub 950 (mul (strings.RuneCount $duration) 11.4))) -}}
+  {{- $clockX := sub $durationX 46 -}}
+  {{- $dateX := int (math.Round (sub (sub $clockX 14) (mul (strings.RuneCount $date) 11.4))) -}}
+  {{- $icons := resources.Get "og/status-icons.png" -}}
+  {{- $img = $img.Filter (images.Overlay ($icons.Crop "36x36 Left") (sub $dateX 46) 581) -}}
+  {{- $img = $img.Filter (images.Overlay ($icons.Crop "36x36 Right") $clockX 581) -}}
+  {{- $img = $img.Filter (images.Text $date (dict "font" $mono "size" 19 "color" "#cdd6f4" "x" $dateX "y" 599 "aligny" "center")) -}}
+  {{- $img = $img.Filter (images.Text $duration (dict "font" $mono "size" 19 "color" "#cdd6f4" "x" $durationX "y" 599 "aligny" "center")) -}}
 {{- end -}}
 
-{{- $titleOpts := dict "color" "#cdd6f4" "size" $titleSize "x" 80 "y" $titleY "linespacing" $linespacing "font" $fontBold -}}
-{{- $img = $img.Filter (images.Text $titleText $titleOpts) -}}
-
-{{- if $dateText -}}
-  {{- $dateOpts := dict "color" "#a6adc8" "size" 26 "x" 80 "y" $dateY "font" $fontBold -}}
-  {{- $img = $img.Filter (images.Text $dateText $dateOpts) -}}
-{{- end -}}
-
-{{- return (resources.Copy (printf "og/%s.png" (md5 $page.RelPermalink)) $img) -}}
+{{- $version := site.Params.og.version | default "2" -}}
+{{- $key := md5 (printf "%s|%s|%s" $page.RelPermalink $title $version) -}}
+{{- return (resources.Copy (printf "og/%s.png" $key) $img) -}}
