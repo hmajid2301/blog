@@ -1,0 +1,93 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:Schib;src:url(SchibstedGrotesk-Bold.ttf)}
+:root{--base:#1e1e2e;--mantle:#181825;--crust:#11111b;--s0:#313244;--s1:#45475a;--o0:#6c7086;--o1:#7f849c;--sub0:#a6adc8;--sub1:#bac2de;--text:#cdd6f4;--lav:#b4befe;--mauve:#cba6f7;--green:#a6e3a1;--peach:#fab387;--blue:#89b4fa;--pink:#f5c2e7;--yellow:#f9e2af;--teal:#94e2d5}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-variant-ligatures:none;width:1200px;height:630px;overflow:hidden;background:var(--base);color:var(--text);font-family:'JetBrainsMono Nerd Font',monospace}
+.t{font-family:Schib,sans-serif;letter-spacing:-.01em;line-height:1.12;color:var(--text)}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:0 12px;height:30px;border-radius:6px;font-weight:700;font-size:17px}
+/* A: neovim buffer */
+#A .tab{height:52px;background:var(--mantle);display:flex;align-items:center;gap:10px;padding:0 18px;font-size:18px}
+#A .win{height:40px;display:flex;align-items:center;padding:0 22px;color:var(--o1);font-size:17px;gap:8px}
+#A .body{display:flex;height:448px;padding-top:14px}
+#A .gut{width:96px;text-align:right;padding-right:22px;color:var(--o0);font-size:19px;line-height:34px}
+#A .gut b{color:var(--text)}
+#A .code{flex:1} #A .h .t{max-width:640px}
+#A .cmt{color:var(--o1);font-style:italic;font-size:19px;line-height:34px;height:68px}
+#A .h{display:flex;gap:18px}
+#A .h .hash{color:var(--lav);font-family:Schib;font-size:var(--fs)}
+#A .st{position:absolute;left:0;right:0;top:554px;height:40px;background:var(--crust);display:flex;align-items:center;gap:12px;padding:0 14px;font-size:17px}
+#A .cmd{position:absolute;left:22px;top:600px;color:var(--o1);font-size:17px}
+#A .gopher{position:absolute;right:46px;top:262px;height:290px}
+/* B: floating terminal */
+#B{background:radial-gradient(900px 500px at 85% -10%,#cba6f733,transparent 60%),radial-gradient(700px 500px at -10% 110%,#89b4fa26,transparent 60%),var(--crust);height:630px;position:relative}
+#B .float{position:absolute;left:56px;top:56px;width:1088px;height:518px;border:2px solid var(--lav);border-radius:14px;background:var(--base);padding:52px 56px}
+#B .ttl{position:absolute;top:-14px;left:32px;background:var(--base);padding:0 12px;color:var(--lav);font-size:19px;font-weight:700}
+#B .star{font-size:20px;color:var(--sub0)} #B .star .h{color:var(--lav);font-weight:700} #B .star .br{color:var(--mauve);font-weight:700} #B .star .nx{color:var(--blue)}
+#B .prompt{font-size:20px;margin:10px 0 26px;color:var(--text)} #B .prompt i{color:var(--green);font-style:normal;font-weight:800}
+#B .meta{margin-top:26px;font-size:19px;color:var(--sub0)} #B .meta .tag{color:var(--peach)}
+#B .gopher{position:absolute;right:70px;bottom:-2px;height:230px}
+#B .t{width:780px}
+/* C: picker */
+#C{background:var(--crust);height:630px;position:relative}
+#C .pk{position:absolute;left:40px;top:44px;width:1120px;height:542px;background:var(--mantle);border-radius:10px}
+#C .badge{position:absolute;top:-15px;left:50%;transform:translateX(-50%);background:var(--pink);color:var(--crust);font-weight:800;padding:3px 14px;border-radius:5px;font-size:18px}
+#C .prompt{height:62px;display:flex;align-items:center;padding:0 22px;gap:12px;font-size:20px;border-bottom:1px solid var(--s0)} #C .prompt .n{margin-left:auto;color:var(--o0);font-size:17px}
+#C .cols{display:flex;height:480px}
+#C .list{width:380px;padding:16px 0;font-size:16px;color:var(--sub0);border-right:1px solid var(--s0)}
+#C .list div{padding:7px 18px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis} #C .list .sel{background:var(--s0);color:var(--text)} #C .list .sel::before{content:'▍';color:var(--lav)}
+#C .pv{flex:1;padding:40px 40px;position:relative}
+#C .pvb{position:absolute;top:-14px;right:30px;background:var(--green);color:var(--crust);font-weight:800;padding:3px 12px;border-radius:5px;font-size:17px}
+#C .meta{font-size:17px;color:var(--sub0);margin-bottom:20px}
+#C .sum{margin-top:22px;font-family:sans-serif;font-size:20px;color:var(--sub0);line-height:1.45}
+/* D: editorial */
+#D{position:relative;height:630px;padding:72px 80px}
+#D::before{content:'';position:absolute;left:0;top:0;bottom:0;width:12px;background:var(--lav)}
+#D .eyebrow{font-size:21px;color:var(--lav);letter-spacing:.08em;font-weight:700}
+#D .logo{position:absolute;right:80px;top:66px;color:var(--lav);font-size:30px;font-weight:800}
+#D .t{margin-top:30px;width:1000px}
+#D .foot{position:absolute;left:80px;right:80px;bottom:56px;display:flex;align-items:center;gap:18px;border-top:1px solid var(--s0);padding-top:26px}
+#D .av{width:64px;height:64px;border-radius:50%;background:var(--s0) url(gopher_haseeb.png) center 12%/120% no-repeat}
+#D .name{font-family:Schib;font-size:26px} #D .url{margin-left:auto;font-size:21px;color:var(--sub0)}
+
+#E{position:relative;height:630px;padding:64px 80px 0}
+#E .eyebrow{font-size:21px;color:var(--lav);letter-spacing:.06em;font-weight:700}
+#E .t{margin-top:28px;width:780px}
+#E .gopher{position:absolute;right:56px;bottom:62px;height:270px}
+#E .st{position:absolute;left:0;right:0;bottom:0;height:62px;background:var(--crust);display:flex;align-items:center;gap:14px;padding:0 22px;font-size:20px}
+#E .st .pill{height:36px;font-size:19px}
+</style></head><body>
+<div id="root"></div>
+<script>
+const q=new URLSearchParams(location.search), d=q.get('d'), title=q.get('t').replace(/-/g,'\u2011'), date=q.get('date')||'31 Dec 2025', mins=q.get('min')||'12', tag=q.get('tag')||'nixos', slug=q.get('slug')||'lanzaboote', kind=q.get('kind')||'post', conf=q.get('conf')||'';
+const n=title.length, fs=n<=30?76:n<=55?64:n<=80?54:48;
+const fsA=n<=30?66:n<=55?56:n<=80?48:42;
+const R=document.getElementById('root');
+if(d==='A'){R.innerHTML=`<div id="A" style="--fs:${fsA}px">
+<div class="tab"><span class="pill" style="background:var(--green);color:var(--crust)">NORMAL</span><span class="pill" style="background:var(--peach);color:var(--crust);padding:0 9px">1</span><span> ${slug}.md</span><span style="margin-left:auto;color:var(--sub1)"><span style="color:var(--lav)">▍</span>haseebmajid.dev</span></div>
+<div class="win"> ${kind==='talk'?'talks':'posts'} ›  ${date.slice(-4)} › <span style="color:var(--text)"> ${slug}.md</span> › # …</div>
+<div class="body"><div class="gut">2<br>1<br><b>3</b><br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>~<br>~</div>
+<div class="code"><div class="cmt">&lt;!-- ${kind==='talk'?conf+' · ':''}${date} · ${kind==='talk'?'talk':mins+' min read'} · #${tag} --&gt;</div>
+<div class="h"><span class="hash">#</span><div class="t" style="font-size:${fsA}px">${title}</div></div></div></div>
+<img class="gopher" src="gopher_haseeb.png">
+<div class="st"><span class="pill" style="background:var(--blue);color:var(--crust)"> NORMAL</span><span> ${slug}.md</span><span style="color:var(--o0)"> main</span>
+<span style="margin-left:auto" class="pill"><span style="background:var(--blue);color:var(--crust);padding:2px 7px;border-radius:5px"></span>&nbsp;marksman</span><span class="pill"><span style="background:var(--pink);color:var(--crust);padding:2px 7px;border-radius:5px"></span>&nbsp;${date}</span><span class="pill"><span style="background:var(--green);color:var(--crust);padding:2px 7px;border-radius:5px"></span>&nbsp;${kind==='talk'?'talk':mins+' min'}</span></div>
+<div class="cmd">"${slug}.md" written</div></div>`}
+if(d==='B'){R.innerHTML=`<div id="B"><div class="float"><div class="ttl">~/${kind==='talk'?'talks':'posts'}</div>
+<div class="star"><span class="h">haseebmajid.dev</span> on <span class="br"> main</span> via <span class="nx"> nix</span></div>
+<div class="prompt"><i>❯</i> ${kind==='talk'?`./present --at "${conf}"`:`cat ${slug}.md`}</div>
+<div class="t" style="font-size:${fs-6}px">${title}</div>
+<div class="meta">${date} · ${kind==='talk'?'talk':mins+' min read'} · <span class="tag">#${tag}</span></div></div>
+<img class="gopher" src="gopher_haseeb.png"></div>`}
+if(d==='C'){R.innerHTML=`<div id="C"><div class="pk"><div class="badge">${kind==='talk'?'Talks':'Posts'}</div>
+<div class="prompt"><span style="color:var(--lav)"></span> ${tag}<span class="n">1/225</span></div>
+<div class="cols"><div class="list"><div>Part 5B: Installing Our Nix Configuration…</div><div>TIL: How to Set the Path Variable…</div><div class="sel">${title}</div><div>How to Setup Ventoy on NixOS</div><div>My NixOS Dotfiles Explained</div><div>Using Nix to create reproducible Go…</div><div>TIL - How to Fix Tailscale Using Mullvad…</div><div>How to Setup a Go Development Shell…</div></div>
+<div class="pv"><div class="pvb">${slug}.md</div><div class="meta">${date} · ${kind==='talk'?'talk':mins+' min read'} · #${tag}</div><div class="t" style="font-size:${Math.min(fs-10,58)}px">${title}</div>
+<div class="sum">Background. Be careful: make sure if you follow this guide you could lose your data…</div></div></div></div></div>`}
+if(d==='D'){R.innerHTML=`<div id="D"><div class="eyebrow">${(kind==='talk'?'TALK · '+conf+' · ':'POST · ')+date.toUpperCase()}${kind==='talk'?'':' · #'+tag.toUpperCase()}</div><div class="logo">&gt;_</div>
+<div class="t" style="font-size:${fs+4}px">${title}</div>
+<div class="foot"><div class="av"></div><div class="name">Haseeb Majid</div><div class="url">haseebmajid.dev</div></div></div>`}
+if(d==='E'){R.innerHTML=`<div id="E"><div class="eyebrow">${kind==='talk'?'<span style="color:var(--peach)">\uf130</span> TALK · '+conf.toUpperCase():'\uf15c POST · #'+tag.toUpperCase()}</div>
+<div class="t" style="font-size:${fs}px">${title}</div><img class="gopher" src="gopher_haseeb.png">
+<div class="st"><span class="pill" style="background:var(--green);color:var(--crust)">NORMAL</span><span style="color:var(--text)"> ${slug}.md</span><span style="color:var(--o0)"> main</span>
+<span style="margin-left:auto" class="pill"><span style="background:var(--pink);color:var(--crust);padding:3px 8px;border-radius:5px">\uf073</span>&nbsp;${date}</span><span class="pill"><span style="background:var(--green);color:var(--crust);padding:3px 8px;border-radius:5px">\uf017</span>&nbsp;${kind==='talk'?'talk':mins+' min'}</span><span class="pill" style="background:var(--lav);color:var(--crust)">haseebmajid.dev</span></div></div>`}
+</script></body></html>
