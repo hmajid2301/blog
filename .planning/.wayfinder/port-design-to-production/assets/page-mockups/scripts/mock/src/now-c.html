@@ -1,0 +1,127 @@
+<div class="mock-now-c">
+<style>
+.main.post:has(.mock-now-c){max-width:1156px}
+.mock-now-c{font-family:var(--lab-body);color:var(--lab-text)}
+.mock-now-c :is(h1,h2,h3){font-family:var(--lab-heading);font-weight:700;color:var(--lab-text)}
+.mock-now-c a{color:inherit;text-decoration:none}
+.mock-now-c a:focus-visible,.mock-now-c summary:focus-visible{outline:2px solid var(--lab-accent);outline-offset:3px;border-radius:4px}
+.mock-now-c .ph{font-family:var(--lab-mono);font-size:.84em;color:var(--lab-muted);border:1px dashed var(--lab-rule);border-radius:6px;padding:1px 7px}
+.mock-now-c .sl{display:flex;align-items:stretch;font-family:var(--lab-mono);font-size:12px;line-height:1;border-radius:12px;overflow:hidden;background:var(--lab-surface);border:1px solid var(--lab-rule)}
+.mock-now-c .sl>span{display:flex;align-items:center;padding:10px 14px;white-space:nowrap}
+.mock-now-c .sl .mode{background:var(--lab-accent);color:var(--lab-bg);font-weight:700;letter-spacing:.08em}
+.mock-now-c .sl .file{background:color-mix(in srgb,var(--lab-accent) 18%,var(--lab-surface))}
+.mock-now-c .sl .fill{flex:1;color:var(--lab-muted);min-width:0;overflow:hidden;text-overflow:ellipsis}
+.mock-now-c .sl .r1{color:var(--lab-muted);border-left:1px solid var(--lab-rule)}
+.mock-now-c .sl .r2{background:color-mix(in srgb,var(--lab-accent) 18%,var(--lab-surface))}
+.mock-now-c .sl .r3{background:var(--lab-accent);color:var(--lab-bg);font-weight:700}
+.mock-now-c .nc-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:end;padding:48px 0 44px}
+.mock-now-c h1{font-size:clamp(48px,6.5vw,88px);line-height:.98;letter-spacing:-.055em;margin:16px 0 0}
+.mock-now-c h1 span{font-family:var(--lab-mono);font-weight:400;font-size:.3em;letter-spacing:0;color:var(--lab-muted);vertical-align:middle;margin-left:14px}
+.mock-now-c .nc-head .lab-intro{margin:0;font-size:18px}
+.mock-now-c .nc-head .lab-intro a{border-bottom:1px solid var(--lab-accent);color:var(--lab-text)}
+.mock-now-c .legend{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:16px;font-family:var(--lab-mono);font-size:11px;color:var(--lab-muted)}
+.mock-now-c .legend b{color:var(--lab-accent);font-weight:700;margin-right:4px}
+.mock-now-c .log{list-style:none;margin:0;padding:0;border-top:1px solid var(--lab-rule)}
+.mock-now-c .entry{display:grid;grid-template-columns:200px minmax(0,1fr);gap:40px;padding:34px 33px;border-bottom:1px solid var(--lab-rule)}
+.mock-now-c .entry h2{font-family:var(--lab-mono);font-weight:500;font-size:22px;letter-spacing:-.02em}
+.mock-now-c .entry h2 small{display:block;font-family:var(--lab-body);font-size:14px;letter-spacing:0;color:var(--lab-muted);margin-top:6px;font-weight:400}
+.mock-now-c .entry.head{background:var(--lab-surface);border:1px solid var(--lab-rule);border-radius:24px;padding:32px;margin:24px 0 8px;position:relative}
+.mock-now-c .entry.head h2{color:var(--lab-accent)}
+.mock-now-c .tag-head{display:inline-block;margin-top:12px;font-family:var(--lab-mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--lab-bg);background:var(--lab-accent);border-radius:999px;padding:3px 9px}
+.mock-now-c .lines{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.mock-now-c .lines li{display:grid;grid-template-columns:22px minmax(0,1fr) auto;gap:12px;align-items:baseline;font-size:17px;line-height:1.6}
+.mock-now-c .lines .s{font-family:var(--lab-mono);font-weight:700;text-align:center}
+.mock-now-c .lines .add{color:var(--lab-accent)}
+.mock-now-c .lines .chg{color:var(--lab-muted)}
+.mock-now-c .lines a{border-bottom:1px solid var(--lab-accent)}
+.mock-now-c .lines a:hover{color:var(--lab-accent)}
+.mock-now-c .lines time{font-family:var(--lab-mono);font-size:11px;color:var(--lab-muted);white-space:nowrap}
+.mock-now-c details{border-bottom:1px solid var(--lab-rule)}
+.mock-now-c summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:12px;padding:20px 33px;font-family:var(--lab-mono);font-size:13px;color:var(--lab-muted)}
+.mock-now-c summary::-webkit-details-marker{display:none}
+.mock-now-c summary::after{content:"";flex:1;border-bottom:1px dotted var(--lab-rule)}
+.mock-now-c summary b{color:var(--lab-accent);font-weight:700}
+.mock-now-c summary:hover{color:var(--lab-text)}
+.mock-now-c details[open] summary b::before{content:"−"}
+.mock-now-c details:not([open]) summary b::before{content:"+"}
+.mock-now-c details .entry{border-bottom:0;border-top:1px solid var(--lab-rule)}
+.mock-now-c .cmd{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:28px;font-family:var(--lab-mono);font-size:12px;color:var(--lab-muted)}
+.mock-now-c .cmd a{color:var(--lab-accent)}
+@media(max-width:860px){
+ .mock-now-c .sl .r1,.mock-now-c .sl .r2{display:none}
+ .mock-now-c .sl>span{padding:9px 10px}
+ .mock-now-c .nc-head{grid-template-columns:1fr;gap:20px;padding:36px 0 32px}
+ .mock-now-c h1 span{display:block;margin:10px 0 0;font-size:13px}
+ .mock-now-c .nc-head .lab-intro{font-size:17px}
+ .mock-now-c .entry{grid-template-columns:1fr;gap:16px;padding:26px 0}
+ .mock-now-c summary{padding:18px 0}
+ .mock-now-c .entry.head{padding:22px 20px;border-radius:20px}
+ .mock-now-c .entry h2 small{display:inline;margin-left:10px}
+ .mock-now-c .tag-head{margin:0 0 0 10px;vertical-align:middle}
+ .mock-now-c .lines li{grid-template-columns:18px minmax(0,1fr);font-size:16px}
+ .mock-now-c .lines time{grid-column:2}
+ .mock-now-c .lines time:empty{display:none}
+}
+</style>
+
+<div class="sl" role="presentation" aria-hidden="true">
+  <span class="mode">NORMAL</span><span class="file">now.md</span><span class="fill">~/haseebmajid.dev/content/now</span><span class="r1">markdown</span><span class="r2">5 entries</span><span class="r3">2026-11</span>
+</div>
+
+<header class="nc-head">
+  <div>
+    <p class="lab-eyebrow">Now / changelog</p>
+    <h1>Now<span>:e now.md</span></h1>
+  </div>
+  <div>
+    <p class="lab-intro">What I&rsquo;m focused on, kept as a log. The newest entry is the current state; older months stay below so you can see what changed. Inspired by the <a href="https://nownownow.com/about">now page</a> movement.</p>
+    <p class="legend"><span><b>+</b>started or shipped</span><span><b>~</b>changed</span><span>last written <span class="ph">[11 Nov 2026]</span></span></p>
+  </div>
+</header>
+
+<ol class="log" reversed>
+  <li class="entry head">
+    <div><h2>2026-11<small>November 2026</small></h2><span class="tag-head">Current</span></div>
+    <ul class="lines">
+      <li><span class="s add" aria-label="Added">+</span><span>Gave <a href="/talks/python-to-go-concurrency/">From Python to Go: Concurrency Without the Surprises</a>, a 30-minute intro to Go concurrency for Python developers.</span><time datetime="2026-11-02">02 Nov</time></li>
+      <li><span class="s add" aria-label="Added">+</span><span>Reading <span class="ph">[title, author]</span>, book <span class="ph">[n]</span> of 20 this year.</span><time></time></li>
+      <li><span class="s add" aria-label="Added">+</span><span>Learning <span class="ph">[something new …]</span></span><time></time></li>
+      <li><span class="s chg" aria-label="Changed">~</span><span>Day job: <span class="ph">[Current role at …]</span></span><time></time></li>
+    </ul>
+  </li>
+  <li class="entry">
+    <div><h2>2026-08<small>August 2026</small></h2></div>
+    <ul class="lines">
+      <li><span class="s add" aria-label="Added">+</span><span>Spoke at GopherCon UK: <a href="/talks/gophercon-htmx-go-web-app/">What I learnt building a web app with Go and HTMX</a>.</span><time datetime="2026-08-12">12 Aug</time></li>
+      <li><span class="s add" aria-label="Added">+</span><span>Added Postgres row-level security to LettuceGo, my gardening app. <a href="/posts/2026-08-15-how-i-implemented-authorization-in-my-go-app-with-rls-postgres/">Write-up</a>.</span><time datetime="2026-08-15">15 Aug</time></li>
+      <li><span class="s chg" aria-label="Changed">~</span><span>Rebuilt the homelab and VPS from scratch on NixOS; swapped Authentik for Pocket ID and TinyAuth. <a href="/posts/2026-08-25-why-i-migrated-from-authentik-to-pocketid/">Why</a>.</span><time datetime="2026-08-25">25 Aug</time></li>
+    </ul>
+  </li>
+  <li>
+    <details open>
+      <summary><b></b>3 older entries: 2026-03, 2026-01, 2025-11</summary>
+      <div class="entry">
+        <div><h2>2026-03<small>March 2026</small></h2></div>
+        <ul class="lines">
+          <li><span class="s chg" aria-label="Changed">~</span><span>Pushing a personal project to both tangled.sh and GitLab. <a href="/posts/2026-03-09-til-how-to-git-push-to-multiple-repositories/">TIL</a>.</span><time datetime="2026-03-09">09 Mar</time></li>
+        </ul>
+      </div>
+      <div class="entry">
+        <div><h2>2026-01<small>January 2026</small></h2></div>
+        <ul class="lines">
+          <li><span class="s add" aria-label="Added">+</span><span>Set 2026 goals: one conference talk, 20 books, YouTube again, more self-hosting. <a href="/posts/2026-01-01-my-year-in-review-2025/">Year in review</a>.</span><time datetime="2026-01-01">01 Jan</time></li>
+        </ul>
+      </div>
+      <div class="entry">
+        <div><h2>2025-11<small>November 2025</small></h2></div>
+        <ul class="lines">
+          <li><span class="s chg" aria-label="Changed">~</span><span>Moved from Hyprland to Niri, with Noctalia shell.</span><time>Nov</time></li>
+          <li><span class="s add" aria-label="Added">+</span><span>Started reading again, mostly fantasy.</span><time>Nov</time></li>
+        </ul>
+      </div>
+    </details>
+  </li>
+</ol>
+
+<p class="cmd"><span>:w &nbsp;&ldquo;now.md&rdquo; written <span class="ph">[11 Nov 2026]</span></span><span><a href="/about/">:e about.md</a> &nbsp; <a href="/uses/">:e uses.md</a></span></p>
+</div>

@@ -1,0 +1,110 @@
+<div class="mock-now-a">
+<style>
+.main.post:has(.mock-now-a){max-width:1156px}
+.mock-now-a{font-family:var(--lab-body);color:var(--lab-text)}
+.mock-now-a :is(h1,h2,h3){font-family:var(--lab-heading);font-weight:700;color:var(--lab-text)}
+.mock-now-a a{color:inherit;text-decoration:none}
+.mock-now-a a:focus-visible{outline:2px solid var(--lab-accent);outline-offset:3px;border-radius:4px}
+.mock-now-a .ph{font-family:var(--lab-mono);font-size:.84em;color:var(--lab-muted);border:1px dashed var(--lab-rule);border-radius:6px;padding:1px 7px}
+.mock-now-a .na-head{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:64px;align-items:end;padding:20px 0 48px;border-bottom:1px solid var(--lab-rule)}
+.mock-now-a h1{font-size:clamp(48px,6.5vw,92px);line-height:.98;letter-spacing:-.055em;margin:18px 0 24px}
+.mock-now-a .lab-intro{margin:0;max-width:52ch}
+.mock-now-a .lab-intro a{border-bottom:1px solid var(--lab-accent)}
+.mock-now-a .na-stamp{border-left:1px solid var(--lab-rule);padding-left:24px;display:grid;gap:16px}
+.mock-now-a .na-stamp dt{font-family:var(--lab-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--lab-muted)}
+.mock-now-a .na-stamp dd{margin:4px 0 0;font-size:16px}
+.mock-now-a .na-group{display:grid;grid-template-columns:240px minmax(0,1fr);gap:48px;padding:40px 0;border-bottom:1px solid var(--lab-rule)}
+.mock-now-a .na-group h2{font-size:30px;letter-spacing:-.035em;position:sticky;top:96px}
+.mock-now-a .na-group h2 small{display:block;font-family:var(--lab-mono);font-weight:400;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--lab-accent);margin-bottom:8px}
+.mock-now-a .na-items{list-style:none;margin:0;padding:0;display:grid;gap:26px}
+.mock-now-a .na-items h3{font-size:22px;line-height:1.3;letter-spacing:-.02em}
+.mock-now-a .na-items h3 a{background:linear-gradient(var(--lab-accent),var(--lab-accent)) 0 100%/0 2px no-repeat;transition:background-size .35s cubic-bezier(.25,1,.5,1)}
+.mock-now-a .na-items h3 a:hover{background-size:100% 2px}
+.mock-now-a .na-items h3 .ph{font-size:14px;font-weight:400;letter-spacing:0}
+.mock-now-a .na-items p{margin:6px 0 0;font-size:17px;line-height:1.7;color:var(--lab-muted);max-width:64ch}
+.mock-now-a .na-items .meta{display:block;font-family:var(--lab-mono);font-size:11px;color:var(--lab-muted);margin-top:8px}
+.mock-now-a .na-items .meta a{color:var(--lab-accent)}
+.mock-now-a .na-foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px 32px;padding:32px 0 8px;font-size:15px;color:var(--lab-muted)}
+.mock-now-a .na-foot a{color:var(--lab-text);border-bottom:1px solid var(--lab-accent)}
+@media(max-width:860px){
+ .mock-now-a .na-head{grid-template-columns:1fr;gap:28px;padding-bottom:36px}
+ .mock-now-a .na-stamp{border-left:0;padding-left:0;border-top:1px solid var(--lab-rule);padding-top:20px;grid-template-columns:1fr 1fr}
+ .mock-now-a .na-group{grid-template-columns:1fr;gap:18px;padding:32px 0}
+ .mock-now-a .na-group h2{position:static;font-size:26px}
+ .mock-now-a .na-items h3{font-size:20px}
+ .mock-now-a .na-items h3 .ph{font-size:14px;font-weight:400;letter-spacing:0}
+.mock-now-a .na-items p{font-size:16px}
+}
+</style>
+
+<header class="na-head">
+  <div>
+    <p class="lab-eyebrow">Now / what I&rsquo;m focused on</p>
+    <h1>Right now<span style="color:var(--lab-accent)">.</span></h1>
+    <p class="lab-intro">A snapshot of what has my attention this month, outside of work. It&rsquo;s a <a href="https://nownownow.com/about">now page</a>: if you&rsquo;re reading this much later, things have probably moved on.</p>
+  </div>
+  <dl class="na-stamp">
+    <div><dt>Last updated</dt><dd><span class="ph">[11 Nov 2026]</span></dd></div>
+    <div><dt>Day job</dt><dd><span class="ph">[Current role at …]</span></dd></div>
+  </dl>
+</header>
+
+<section class="na-group" aria-labelledby="na-building">
+  <h2 id="na-building"><small>01</small>Building</h2>
+  <ul class="na-items">
+    <li>
+      <h3><a href="/posts/2026-08-15-how-i-implemented-authorization-in-my-go-app-with-rls-postgres/">LettuceGo, my gardening app</a></h3>
+      <p>A Go web app (yes, terrible pun). Most recently I moved authorization into Postgres with row-level security.</p>
+      <span class="meta">Go · Postgres · pgx &nbsp;/&nbsp; <a href="/posts/2026-08-15-how-i-implemented-authorization-in-my-go-app-with-rls-postgres/">write-up, Aug 2026</a></span>
+    </li>
+    <li>
+      <h3><a href="/posts/2026-08-25-why-i-migrated-from-authentik-to-pocketid/">Rebuilding my homelab and VPS from scratch</a></h3>
+      <p>All on NixOS and as declarative as I can make it. Authentik is out; Pocket ID and TinyAuth are in.</p>
+      <span class="meta">NixOS · Traefik · OpenTofu &nbsp;/&nbsp; <a href="/posts/2026-08-25-why-i-migrated-from-authentik-to-pocketid/">write-up, Aug 2026</a></span>
+    </li>
+  </ul>
+</section>
+
+<section class="na-group" aria-labelledby="na-speaking">
+  <h2 id="na-speaking"><small>02</small>Speaking</h2>
+  <ul class="na-items">
+    <li>
+      <h3><a href="/talks/python-to-go-concurrency/">From Python to Go: Concurrency Without the Surprises</a></h3>
+      <p>A 30-minute introduction to Go concurrency for Python developers: goroutines, channels, worker pools and cancellation, one observable problem at a time.</p>
+      <span class="meta">2 Nov 2026 &nbsp;/&nbsp; <a href="/slides/python-to-go-concurrency/">slides</a></span>
+    </li>
+    <li>
+      <h3>Next talk</h3>
+      <p><span class="ph">[Upcoming talk or CFP you&rsquo;re working on …]</span></p>
+    </li>
+  </ul>
+</section>
+
+<section class="na-group" aria-labelledby="na-learning">
+  <h2 id="na-learning"><small>03</small>Learning</h2>
+  <ul class="na-items">
+    <li>
+      <h3>Living in Niri</h3>
+      <p>Scrollable tiling with Noctalia since late 2025, on NixOS at home and Ubuntu at work.</p>
+    </li>
+    <li>
+      <h3><span class="ph">[Something new you&rsquo;re learning …]</span></h3>
+    </li>
+  </ul>
+</section>
+
+<section class="na-group" aria-labelledby="na-reading">
+  <h2 id="na-reading"><small>04</small>Reading</h2>
+  <ul class="na-items">
+    <li>
+      <h3><span class="ph">[Currently reading: title, author]</span></h3>
+      <p>Mostly fantasy. The goal for 2026 is 20 books; so far <span class="ph">[n]</span> of 20.</p>
+    </li>
+  </ul>
+</section>
+
+<footer class="na-foot">
+  <span>Earlier: <a href="/posts/2026-01-01-my-year-in-review-2025/">My Year in Review 2025</a></span>
+  <span>More about me: <a href="/about/">About</a> · <a href="/uses/">Uses</a></span>
+</footer>
+</div>

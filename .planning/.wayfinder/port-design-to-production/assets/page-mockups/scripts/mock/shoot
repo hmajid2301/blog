@@ -1,0 +1,3 @@
+#!/bin/sh
+# usage: shoot <url-path> <out-prefix>; crops full-page shots to 2600px tall
+env -u LD_LIBRARY_PATH -u LD_PRELOAD node /tmp/mock/shoot.mjs "$1" "$2" && for f in "$2"-light.png "$2"-dark.png "$2"-mobile.png; do magick "$f" -crop x2600+0+0 +repage "$f"; done

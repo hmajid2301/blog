@@ -1,0 +1,137 @@
+<div class="mock-about-b">
+<style>
+.main.post:has(.mock-about-b){max-width:1156px}
+.mock-about-b{font-family:var(--lab-body);color:var(--lab-text)}
+.mock-about-b :is(h1,h2,h3){font-family:var(--lab-heading);font-weight:700;color:var(--lab-text)}
+.mock-about-b a{color:inherit;text-decoration:none}
+.mock-about-b a:focus-visible{outline:2px solid var(--lab-accent);outline-offset:3px;border-radius:4px}
+.mock-about-b .ph{font-family:var(--lab-mono);font-size:12px;color:var(--lab-muted);border:1px dashed var(--lab-rule);border-radius:999px;padding:4px 11px}
+.mock-about-b .ab-card{display:grid;grid-template-columns:200px minmax(0,1fr);gap:44px;align-items:center;background:var(--lab-surface);border:1px solid var(--lab-rule);border-radius:28px;padding:40px 44px}
+.mock-about-b .ab-card img{display:block;width:200px;height:200px;object-fit:cover;object-position:50% 30%;border-radius:50%}
+.mock-about-b h1{font-size:clamp(40px,5vw,64px);line-height:1;letter-spacing:-.05em;margin:14px 0 10px}
+.mock-about-b .ab-role{font-size:19px;color:var(--lab-muted);margin:0 0 18px}
+.mock-about-b .ab-bio{font-size:17px;line-height:1.7;max-width:60ch;margin:0}
+.mock-about-b .ab-meta{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;margin-top:22px}
+.mock-about-b .ab-meta .lab-socials{margin:0 6px 0 0}
+.mock-about-b .ab-ledger{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin:28px 0 0;border-top:1px solid var(--lab-rule);border-bottom:1px solid var(--lab-rule)}
+.mock-about-b .ab-ledger>div{padding:24px 24px 22px;border-left:1px solid var(--lab-rule)}
+.mock-about-b .ab-ledger>div:first-child{border-left:0;padding-left:4px}
+.mock-about-b .ab-ledger dt{font-family:var(--lab-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--lab-muted)}
+.mock-about-b .ab-ledger dd{margin:8px 0 0;font-family:var(--lab-heading);font-weight:700;font-size:34px;letter-spacing:-.04em;line-height:1}
+.mock-about-b .ab-ledger dd small{display:block;font-family:var(--lab-body);font-weight:400;font-size:14px;letter-spacing:0;color:var(--lab-muted);margin-top:8px;line-height:1.4}
+.mock-about-b .ab-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:56px;margin-top:64px}
+.mock-about-b .lab-section-head{margin-bottom:24px}
+.mock-about-b .lab-section-head h2{font-size:26px}
+.mock-about-b .ab-years{display:grid;grid-template-columns:repeat(9,minmax(0,1fr));gap:10px;align-items:end;height:220px;margin:0;padding:0;list-style:none}
+.mock-about-b .ab-years li{display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;gap:6px}
+.mock-about-b .ab-years .v{font-family:var(--lab-mono);font-size:11px;color:var(--lab-muted)}
+.mock-about-b .ab-years .bar{width:100%;max-width:38px;height:var(--h);min-height:3px;background:color-mix(in srgb,var(--lab-accent) 55%,transparent);border-radius:6px 6px 2px 2px}
+.mock-about-b .ab-years li.peak .bar{background:var(--lab-accent)}
+.mock-about-b .ab-years li.peak .v{color:var(--lab-accent);font-weight:600}
+.mock-about-b .ab-years .y{font-family:var(--lab-mono);font-size:11px;color:var(--lab-muted);border-top:1px solid var(--lab-rule);width:100%;text-align:center;padding-top:8px}
+.mock-about-b .ab-note{font-size:14px;color:var(--lab-muted);margin:16px 0 0;line-height:1.6}
+.mock-about-b .ab-topics{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+.mock-about-b .ab-topics a{display:grid;grid-template-columns:96px minmax(0,1fr) 34px;gap:14px;align-items:center;padding:8px 0;font-size:16px}
+.mock-about-b .ab-topics a:hover .t{color:var(--lab-accent)}
+.mock-about-b .ab-topics .track{height:10px;border-radius:99px;background:color-mix(in srgb,var(--lab-accent) 10%,transparent)}
+.mock-about-b .ab-topics .fill{display:block;height:100%;width:var(--w);border-radius:99px;background:var(--lab-accent)}
+.mock-about-b .ab-topics .n{font-family:var(--lab-mono);font-size:12px;color:var(--lab-muted);text-align:right}
+.mock-about-b .ab-stack{margin:0;display:grid;grid-template-columns:120px minmax(0,1fr)}
+.mock-about-b .ab-stack :is(dt,dd){padding:14px 0;border-bottom:1px solid var(--lab-rule);margin:0}
+.mock-about-b .ab-stack dt{font-family:var(--lab-mono);font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--lab-muted);padding-top:17px}
+.mock-about-b .ab-stack dd{font-size:16px}
+.mock-about-b .ab-stages{display:flex;flex-wrap:wrap;gap:10px;list-style:none;margin:0;padding:0}
+.mock-about-b .ab-stages li{display:flex;align-items:baseline;gap:10px;border:1px solid var(--lab-rule);border-radius:999px;padding:9px 16px;font-size:15px}
+.mock-about-b .ab-stages span{font-family:var(--lab-mono);font-size:11px;color:var(--lab-muted)}
+@media(max-width:860px){
+ .mock-about-b .ab-card{grid-template-columns:1fr;gap:20px;padding:26px 22px;border-radius:22px}
+ .mock-about-b .ab-card img{width:112px;height:112px}
+ .mock-about-b .ab-ledger{grid-template-columns:1fr 1fr}
+ .mock-about-b .ab-ledger>div{padding:18px 14px}
+ .mock-about-b .ab-ledger>div:nth-child(odd){border-left:0;padding-left:4px}
+ .mock-about-b .ab-ledger>div:nth-child(n+3){border-top:1px solid var(--lab-rule)}
+ .mock-about-b .ab-ledger dd{font-size:28px}
+ .mock-about-b .ab-grid{grid-template-columns:1fr;gap:48px;margin-top:48px}
+ .mock-about-b .ab-years{gap:5px;height:180px}
+ .mock-about-b .ab-years .y{font-size:9.5px}
+ .mock-about-b .ab-years .v{font-size:10px}
+ .mock-about-b .ab-topics a{grid-template-columns:78px minmax(0,1fr) 28px}
+ .mock-about-b .ab-stack{grid-template-columns:96px minmax(0,1fr)}
+ .mock-about-b .lab-section-head h2{font-size:22px}
+}
+</style>
+
+<section class="ab-card" aria-labelledby="ab-title">
+  <img src="{{PHOTO}}" alt="Haseeb Majid speaking at GopherCon UK" width="200" height="200">
+  <div>
+    <p class="lab-eyebrow">About</p>
+    <h1 id="ab-title">Haseeb Majid</h1>
+    <p class="ab-role">Backend software engineer, Linux enthusiast and village cricketer.</p>
+    <p class="ab-bio">I write about Go, Nix and the developer tools I use to build software, plus a lot of short TILs for the fixes I&rsquo;d otherwise forget. I also give talks, mostly to Go audiences.</p>
+    <div class="ab-meta">
+      <div class="lab-socials">{{SOCIALS}}</div>
+      <span class="ph">[Current role at …]</span>
+      <span class="ph">[City, country]</span>
+    </div>
+  </div>
+</section>
+
+<dl class="ab-ledger" aria-label="At a glance">
+  <div><dt>Writing since</dt><dd>2018<small>First post in September</small></dd></div>
+  <div><dt>Posts</dt><dd>225<small>75 of them are TILs</small></dd></div>
+  <div><dt>Talks</dt><dd>10<small>at 5 conferences and meetups</small></dd></div>
+  <div><dt>Busiest year</dt><dd>2023<small>71 posts that year</small></dd></div>
+</dl>
+
+<div class="ab-grid">
+  <section aria-labelledby="ab-years">
+    <div class="lab-section-head"><h2 id="ab-years">Posts per year</h2><a href="/archive/">Archive ↗</a></div>
+    <ol class="ab-years" aria-label="Posts per year, 2018 to 2026">
+      <li style="--h:14%"><span class="v">10</span><span class="bar"></span><span class="y">2018</span></li>
+      <li style="--h:10%"><span class="v">7</span><span class="bar"></span><span class="y">2019</span></li>
+      <li style="--h:32%"><span class="v">23</span><span class="bar"></span><span class="y">2020</span></li>
+      <li style="--h:7%"><span class="v">5</span><span class="bar"></span><span class="y">2021</span></li>
+      <li style="--h:45%"><span class="v">32</span><span class="bar"></span><span class="y">2022</span></li>
+      <li class="peak" style="--h:100%"><span class="v">71</span><span class="bar"></span><span class="y">2023</span></li>
+      <li style="--h:56%"><span class="v">40</span><span class="bar"></span><span class="y">2024</span></li>
+      <li style="--h:46%"><span class="v">33</span><span class="bar"></span><span class="y">2025</span></li>
+      <li style="--h:6%"><span class="v">4</span><span class="bar"></span><span class="y">2026</span></li>
+    </ol>
+    <p class="ab-note">Half of 2023&rsquo;s 71 posts (36) were short TILs.</p>
+  </section>
+
+  <section aria-labelledby="ab-topics">
+    <div class="lab-section-head"><h2 id="ab-topics">Most-written topics</h2><a href="/tags/">All topics ↗</a></div>
+    <ul class="ab-topics">
+      <li><a href="/tags/til/"><span class="t">TIL</span><span class="track"><span class="fill" style="--w:100%"></span></span><span class="n">75</span></a></li>
+      <li><a href="/tags/nix/"><span class="t">Nix</span><span class="track"><span class="fill" style="--w:57%"></span></span><span class="n">43</span></a></li>
+      <li><a href="/tags/nixos/"><span class="t">NixOS</span><span class="track"><span class="fill" style="--w:44%"></span></span><span class="n">33</span></a></li>
+      <li><a href="/tags/gitlab/"><span class="t">GitLab</span><span class="track"><span class="fill" style="--w:28%"></span></span><span class="n">21</span></a></li>
+      <li><a href="/tags/python/"><span class="t">Python</span><span class="track"><span class="fill" style="--w:21%"></span></span><span class="n">16</span></a></li>
+      <li><a href="/tags/neovim/"><span class="t">Neovim</span><span class="track"><span class="fill" style="--w:17%"></span></span><span class="n">13</span></a></li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="ab-stack">
+    <div class="lab-section-head"><h2 id="ab-stack">Daily stack</h2><a href="/uses/">Full setup ↗</a></div>
+    <dl class="ab-stack">
+      <dt>OS</dt><dd>NixOS with the Niri window manager</dd>
+      <dt>Editor</dt><dd>Neovim</dd>
+      <dt>Terminal</dt><dd>Ghostty, fish, Starship</dd>
+      <dt>Keyboard</dt><dd>ZSA Voyager</dd>
+      <dt>Languages</dt><dd>Go, Python, Nix</dd>
+    </dl>
+  </section>
+
+  <section aria-labelledby="ab-stages">
+    <div class="lab-section-head"><h2 id="ab-stages">Where I&rsquo;ve spoken</h2><a href="/talks/">All talks ↗</a></div>
+    <ul class="ab-stages">
+      <li>GopherCon UK <span>2025, 2026</span></li>
+      <li>GoLab <span>2024, 2025</span></li>
+      <li>London Gophers <span>2023 ×2, 2024</span></li>
+      <li>Conf42 Golang <span>2024</span></li>
+      <li>EuroPython <span>2022</span></li>
+    </ul>
+  </section>
+</div>
+</div>

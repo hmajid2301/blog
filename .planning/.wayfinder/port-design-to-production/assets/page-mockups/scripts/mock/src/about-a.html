@@ -1,0 +1,118 @@
+<div class="mock-about-a">
+<style>
+.main.post:has(.mock-about-a){max-width:1156px}
+.mock-about-a{--gutter:clamp(28px,6vw,88px);font-family:var(--lab-body);color:var(--lab-text)}
+.mock-about-a :is(h1,h2,h3){font-family:var(--lab-heading);font-weight:700;color:var(--lab-text)}
+.mock-about-a a{color:inherit;text-decoration:none}
+.mock-about-a .ph{font-family:var(--lab-mono);font-size:.82em;color:var(--lab-muted);border:1px dashed var(--lab-rule);border-radius:6px;padding:1px 7px;white-space:nowrap}
+.mock-about-a .aa-head{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:var(--gutter);align-items:end;padding:22px 0 56px;border-bottom:1px solid var(--lab-rule)}
+.mock-about-a h1{font-size:clamp(52px,8vw,112px);line-height:.95;letter-spacing:-.06em;margin:20px 0 28px}
+.mock-about-a h1 span{color:var(--lab-accent)}
+.mock-about-a .aa-lede{font-size:clamp(20px,2vw,24px);line-height:1.55;max-width:34ch;color:var(--lab-muted)}
+.mock-about-a .aa-lede strong{color:var(--lab-text);font-weight:500}
+.mock-about-a figure{margin:0}
+.mock-about-a figure img{display:block;width:100%;height:380px;object-fit:cover;border-radius:24px}
+.mock-about-a figcaption{font-family:var(--lab-mono);font-size:11px;color:var(--lab-muted);margin-top:12px;line-height:1.5}
+.mock-about-a .aa-body{display:grid;grid-template-columns:220px minmax(0,1fr);gap:var(--gutter);padding:56px 0 24px}
+.mock-about-a .aa-aside{position:sticky;top:96px;align-self:start}
+.mock-about-a .aa-aside dl{margin:16px 0 0;display:grid;gap:18px}
+.mock-about-a .aa-aside dt{font-family:var(--lab-mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--lab-muted);margin-bottom:4px}
+.mock-about-a .aa-aside dd{margin:0;font-size:15px;line-height:1.5}
+.mock-about-a .aa-aside dd a{border-bottom:1px solid var(--lab-accent)}
+.mock-about-a .aa-prose{max-width:68ch}
+.mock-about-a .aa-prose p{font-size:19px;line-height:1.8;margin:0 0 22px}
+.mock-about-a .aa-prose p a{border-bottom:1px solid var(--lab-accent)}
+.mock-about-a .aa-prose>p:first-of-type::first-letter{font-family:var(--lab-heading);font-weight:700;float:left;font-size:4.1em;line-height:.82;margin:6px 10px 0 0;color:var(--lab-accent)}
+.mock-about-a blockquote{margin:44px 0 44px calc(-1 * min(var(--gutter),48px));padding:6px 0 6px 32px;border-left:3px solid var(--lab-accent)}
+.mock-about-a blockquote p{font-family:var(--lab-heading)!important;font-weight:700;font-size:clamp(28px,3vw,38px)!important;line-height:1.18!important;letter-spacing:-.035em;margin:0 0 14px!important}
+.mock-about-a blockquote footer{font-family:var(--lab-mono);font-size:11px;color:var(--lab-muted)}
+.mock-about-a blockquote footer a{color:var(--lab-accent)}
+.mock-about-a .aa-section{padding-top:48px}
+.mock-about-a .lab-section-head h2{font-size:30px}
+.mock-about-a .aa-built{list-style:none;margin:0;padding:0}
+.mock-about-a .aa-built li{display:grid;grid-template-columns:150px minmax(0,1fr) auto;gap:24px;align-items:baseline;padding:20px 0;border-bottom:1px solid var(--lab-rule)}
+.mock-about-a .aa-built h3{font-size:21px;letter-spacing:-.02em}
+.mock-about-a .aa-built h3 a:hover{color:var(--lab-accent)}
+.mock-about-a .aa-built p{margin:0;color:var(--lab-muted);font-size:16px;line-height:1.6}
+.mock-about-a .aa-built .tag{font-family:var(--lab-mono);font-size:11px;color:var(--lab-muted);white-space:nowrap}
+.mock-about-a .aa-else{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:32px;margin:0;padding:0;list-style:none}
+.mock-about-a .aa-else a{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:18px 0;border-bottom:1px solid var(--lab-rule);font-size:17px;transition:color .2s cubic-bezier(.25,1,.5,1)}
+.mock-about-a .aa-else a:hover,.mock-about-a .aa-else a:focus-visible{color:var(--lab-accent)}
+.mock-about-a .aa-else span{font-family:var(--lab-mono);font-size:11px;color:var(--lab-muted)}
+.mock-about-a a:focus-visible{outline:2px solid var(--lab-accent);outline-offset:3px;border-radius:4px}
+@media(max-width:860px){
+ .mock-about-a .aa-head{grid-template-columns:1fr;gap:32px;padding-bottom:40px}
+ .mock-about-a figure img{height:300px}
+ .mock-about-a .aa-body{grid-template-columns:1fr;gap:36px;padding-top:36px}
+ .mock-about-a .aa-aside{position:static}
+ .mock-about-a .aa-aside dl{grid-template-columns:1fr 1fr;gap:18px 20px}
+ .mock-about-a .aa-prose p{font-size:17.5px}
+ .mock-about-a blockquote{margin-left:0;padding-left:20px}
+ .mock-about-a .aa-built li{grid-template-columns:1fr;gap:6px}
+ .mock-about-a .aa-else{grid-template-columns:1fr}
+ .mock-about-a .lab-section-head h2{font-size:24px}
+ .mock-about-a .ph{white-space:normal}
+}
+</style>
+
+<header class="aa-head">
+  <div>
+    <p class="lab-eyebrow">About / Haseeb Majid</p>
+    <h1>Hi, I&rsquo;m Haseeb<span>.</span></h1>
+    <p class="aa-lede"><strong>Backend software engineer, Linux enthusiast and village cricketer.</strong> I&rsquo;ve been writing here since 2018, mostly about Go, Nix and the tools I build software with.</p>
+  </div>
+  <figure>
+    <img src="{{PHOTO}}" alt="Haseeb on stage presenting to an audience at GopherCon UK" width="580" height="720">
+    <figcaption>Speaking about Go and HTMX at GopherCon UK, August 2026.</figcaption>
+  </figure>
+</header>
+
+<div class="aa-body">
+  <aside class="aa-aside" aria-label="In short">
+    <p class="lab-eyebrow">In short</p>
+    <dl>
+      <div><dt>Work</dt><dd><span class="ph">[Current role at …]</span></dd></div>
+      <div><dt>Based in</dt><dd><span class="ph">[City, country]</span></dd></div>
+      <div><dt>Writes about</dt><dd>Go, Nix, Neovim, homelab</dd></div>
+      <div><dt>Since</dt><dd>September 2018, <a href="/archive/">225 posts</a></dd></div>
+      <div><dt>Runs on</dt><dd>NixOS, Niri, Neovim, fish</dd></div>
+    </dl>
+  </aside>
+
+  <div>
+    <div class="aa-prose">
+      <p>By day I&rsquo;m a backend software engineer <span class="ph">[at …]</span>. By night, and most weekends, I&rsquo;m usually rebuilding something that already worked: my NixOS config, my homelab, or my Neovim setup.</p>
+      <p>This blog started in September 2018 with a post about running React Native in VirtualBox. Since then it has drifted from Python and React Native towards Go and Nix. It now holds 225 posts, 75 of them short <a href="/tags/til/">TILs</a>: small fixes I wanted to be able to find again.</p>
+      <blockquote>
+        <p>&ldquo;Multiplayer games are hard to test I found out, but it was a good learning experience nonetheless.&rdquo;</p>
+        <footer>On shipping Banter Bus, from <a href="/posts/2026-01-01-my-year-in-review-2025/">My Year in Review 2025</a></footer>
+      </blockquote>
+      <p>I like turning those lessons into talks. Since my first one at EuroPython in 2022 I&rsquo;ve spoken at London Gophers, Conf42 Golang, GoLab and GopherCon UK, most recently about <a href="/talks/python-to-go-concurrency/">Go concurrency for Python developers</a>.</p>
+      <p>Away from the keyboard it&rsquo;s village cricket and, since late 2025, a growing pile of fantasy novels. <span class="ph">[A line on how you got into software]</span></p>
+    </div>
+
+    <section class="aa-section" aria-labelledby="aa-built">
+      <div class="lab-section-head"><h2 id="aa-built">Things I&rsquo;ve built</h2><a href="https://gitlab.com/hmajid2301">All on GitLab ↗</a></div>
+      <ul class="aa-built">
+        <li><h3><a href="/posts/2025-05-03-why-i-build-a-web-app-with-htmx-go-postgres/">Banter Bus</a></h3><p>A browser-based multiplayer game, built with Go, HTMX and Postgres.</p><span class="tag">Go · HTMX</span></li>
+        <li><h3><a href="/posts/2026-08-15-how-i-implemented-authorization-in-my-go-app-with-rls-postgres/">LettuceGo</a></h3><p>My gardening app. Yes, terrible pun.</p><span class="tag">Go · Postgres</span></li>
+        <li><h3><a href="/series/building-a-cli-tool-in-golang/">OptiNix</a></h3><p>A CLI tool to easily find Nix options.</p><span class="tag">Go · Nix</span></li>
+        <li><h3><a href="/series/build-in-public/">Voxicle</a></h3><p>A feedback-collection micro-SaaS I built in public.</p><span class="tag">SaaS</span></li>
+        <li><h3><a href="https://gitlab.com/hmajid2301/nixicle">nixicle</a></h3><p>My NixOS and home-manager configuration.</p><span class="tag">Nix</span></li>
+      </ul>
+    </section>
+
+    <section class="aa-section" aria-labelledby="aa-else">
+      <div class="lab-section-head"><h2 id="aa-else">Elsewhere</h2><a href="/index.xml">RSS feed ↗</a></div>
+      <ul class="aa-else">
+        <li><a href="https://gitlab.com/hmajid2301" rel="me">GitLab <span>hmajid2301 ↗</span></a></li>
+        <li><a href="https://github.com/hmajid2301" rel="me">GitHub <span>hmajid2301 ↗</span></a></li>
+        <li><a href="https://hachyderm.io/@majiy00" rel="me">Mastodon <span>@majiy00 ↗</span></a></li>
+        <li><a href="https://www.youtube.com/@Majiy00" rel="me">YouTube <span>@Majiy00 ↗</span></a></li>
+        <li><a href="https://ko-fi.com/haseeb36616" rel="me">Ko-fi <span>buy me a coffee ↗</span></a></li>
+        <li><a href="/uses/">Uses <span>my setup →</span></a></li>
+      </ul>
+    </section>
+  </div>
+</div>
+</div>

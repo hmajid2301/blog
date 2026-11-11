@@ -1,0 +1,2724 @@
+[
+{
+"dir": "2018-09-03-react-native-expo-with-virtualbox-and-genymotion",
+"title": "React Native/Expo with VirtualBox and Genymotion",
+"date": "2018-09-03",
+"tags": [
+"react-native",
+"android",
+"virtualbox",
+"expo"
+],
+"series": []
+},
+{
+"dir": "2018-09-07-debugging-react-native-apps-in-webstorm-and-visual-studio-code",
+"title": "Debugging React Native apps in WebStorm and Visual Studio Code",
+"date": "2018-09-07",
+"tags": [
+"react-native",
+"debugging",
+"vscode",
+"webstorm"
+],
+"series": []
+},
+{
+"dir": "2018-10-18-inheritance-in-sqlalchemy-with-flask",
+"title": "Inheritance in SQLAlchemy (with Flask)",
+"date": "2018-10-18",
+"tags": [
+"python",
+"sqlalchemy",
+"database"
+],
+"series": []
+},
+{
+"dir": "2018-10-27-debugging-a-react-native-webview",
+"title": "Debugging A React Native WebView",
+"date": "2018-10-27",
+"tags": [
+"react-native",
+"expo",
+"debugging"
+],
+"series": []
+},
+{
+"dir": "2018-10-31-running-expo-react-native-in-docker",
+"title": "Running Expo/React Native in Docker",
+"date": "2018-10-31",
+"tags": [
+"react-native",
+"docker",
+"expo",
+"docker-compose"
+],
+"series": []
+},
+{
+"dir": "2018-11-05-pytest-with-background-thread-fixtures",
+"title": "Pytest with Background Thread Fixtures",
+"date": "2018-11-05",
+"tags": [
+"python",
+"pytest",
+"testing"
+],
+"series": []
+},
+{
+"dir": "2018-11-19-using-multiple-docker-containers-to-setup-nginx-flask-and-postgres",
+"title": "Using Multiple Docker Containers to Setup Nginx, Flask and Postgres",
+"date": "2018-11-19",
+"tags": [
+"docker",
+"python",
+"docker-compose",
+"flask"
+],
+"series": []
+},
+{
+"dir": "2018-11-24-building-a-simple-flask-app-with-sqlalchemy-and-docker",
+"title": "Building A Simple Flask App with SQLalchemy and Docker",
+"date": "2018-11-24",
+"tags": [
+"docker",
+"docker-compose",
+"python",
+"sqlalchemy"
+],
+"series": []
+},
+{
+"dir": "2018-12-15-testing-a-flask-app-with-pytest-mock-and-pytest-flask",
+"title": "Testing a Flask App with pytest-mock and pytest-flask",
+"date": "2018-12-15",
+"tags": [
+"testing",
+"python",
+"pytest",
+"flask"
+],
+"series": []
+},
+{
+"dir": "2018-12-23-theme-your-expo-react-native-app-with-redux-and-react-navigation",
+"title": "Theme your Expo/React Native App with Redux and React Navigation",
+"date": "2018-12-23",
+"tags": [
+"redux",
+"react-native",
+"react-navigation",
+"expo"
+],
+"series": []
+},
+{
+"dir": "2019-03-04-drawernavigator-tabnavigator-and-stacknavigator-with-react-navigation",
+"title": "DrawerNavigator, TabNavigator and StackNavigator with React Navigation",
+"date": "2019-03-04",
+"tags": [
+"react-native",
+"react-navigation",
+"expo"
+],
+"series": []
+},
+{
+"dir": "2019-04-19-how-to-add-your-own-type-definitions-to-definitelytyped",
+"title": "How to add your own type definitions to DefinitelyTyped",
+"date": "2019-04-19",
+"tags": [
+"typescript"
+],
+"series": []
+},
+{
+"dir": "2019-08-16-creating-a-simple-restful-app-using-openapi-flask-connexions",
+"title": "Creating a Simple RESTful App using OpenAPI, Flask & Connexions",
+"date": "2019-08-16",
+"tags": [
+"flask",
+"python",
+"connexion"
+],
+"series": []
+},
+{
+"dir": "2019-09-23-using-gitlab-ci-to-publish-an-android-react-native-app",
+"title": "Using Gitlab CI to Publish an Android React Native App",
+"date": "2019-09-23",
+"tags": [
+"react-native",
+"ci-cd",
+"gitlab",
+"android"
+],
+"series": []
+},
+{
+"dir": "2019-10-09-auto-publish-react-native-app-to-android-play-store-using-gitlab-ci",
+"title": "Auto Publish React Native App to Android Play Store using GitLab CI",
+"date": "2019-10-09",
+"tags": [
+"react-native",
+"ci-cd",
+"gitlab",
+"android"
+],
+"series": []
+},
+{
+"dir": "2019-11-09-add-adaptive-icons-to-your-android-app",
+"title": "Add adaptive icons to your Android app",
+"date": "2019-11-09",
+"tags": [
+"react-native",
+"android"
+],
+"series": []
+},
+{
+"dir": "2019-12-01-better-imports-with-typescript-aliases-babel-and-tspath",
+"title": "Better Imports with Typescript Aliases, Babel and TSPath",
+"date": "2019-12-01",
+"tags": [
+"typescript",
+"javascript"
+],
+"series": []
+},
+{
+"dir": "2020-01-13-using-tox-with-a-makefile-to-automate-python-related-tasks",
+"title": "Using Tox with a Makefile to Automate Python related tasks",
+"date": "2020-01-13",
+"tags": [
+"python",
+"tox",
+"makefile"
+],
+"series": []
+},
+{
+"dir": "2020-01-25-auto-toggle-dark-theme-on-your-react-native-app",
+"title": "Auto Toggle Dark Theme on your React Native App",
+"date": "2020-01-25",
+"tags": [
+"react-native",
+"react",
+"react-hooks"
+],
+"series": []
+},
+{
+"dir": "2020-02-22-using-react-native-with-firebase-cloud-functions-and-gitlab-ci",
+"title": "Using React Native with Firebase Cloud Functions and Gitlab CI",
+"date": "2020-02-22",
+"tags": [
+"react-native",
+"react",
+"firebase",
+"gitlab",
+"ci-cd"
+],
+"series": []
+},
+{
+"dir": "2020-02-23-an-example-gitlab-ci-file-for-react-native-apps",
+"title": "An Example Gitlab CI file for React Native Apps",
+"date": "2020-02-23",
+"tags": [
+"react-native",
+"ci-cd",
+"gitlab"
+],
+"series": []
+},
+{
+"dir": "2020-03-28-how-to-deploy-docz-on-gitlab-pages",
+"title": "How to Deploy Docz on Gitlab Pages",
+"date": "2020-03-28",
+"tags": [
+"gitlab",
+"ci-cd",
+"docz"
+],
+"series": []
+},
+{
+"dir": "2020-04-05-using-react-hooks-context-local-storage",
+"title": "Using React Hooks, Context & Local Storage",
+"date": "2020-04-05",
+"tags": [
+"react",
+"react-hooks",
+"react-context"
+],
+"series": []
+},
+{
+"dir": "2020-05-01-how-to-use-dind-with-gitlab-ci",
+"title": "How to use DinD with Gitlab CI",
+"date": "2020-05-01",
+"tags": [
+"docker",
+"gitlab",
+"ci-cd"
+],
+"series": []
+},
+{
+"dir": "2020-05-10-how-to-make-prismjs-code-blocks-editable",
+"title": "How to make PrismJS code blocks editable",
+"date": "2020-05-10",
+"tags": [
+"ajax",
+"javascript"
+],
+"series": []
+},
+{
+"dir": "2020-05-31-an-example-react-native-project-structure",
+"title": "An example React Native Project Structure",
+"date": "2020-05-31",
+"tags": [
+"react-native",
+"structure"
+],
+"series": []
+},
+{
+"dir": "2020-06-09-testing-a-connexion-flask-application-with-pytest",
+"title": "Testing a Connexion/Flask Application with Pytest",
+"date": "2020-06-09",
+"tags": [
+"python",
+"flask",
+"testing",
+"pytest"
+],
+"series": []
+},
+{
+"dir": "2020-06-22-how-to-use-gitlab-ci-pytest-and-docker-compose-together",
+"title": "How to use Gitlab CI, Pytest and docker-compose together",
+"date": "2020-06-22",
+"tags": [
+"docker",
+"python",
+"pytest",
+"gitlab",
+"ci-cd"
+],
+"series": []
+},
+{
+"dir": "2020-06-29-how-to-use-storybooks-gatsby-babel-tailwind-typescript-together",
+"title": "How to use Storybooks, Gatsby, Babel, Tailwind, Typescript together",
+"date": "2020-06-29",
+"tags": [
+"gatsby",
+"storybook",
+"tailwind",
+"storybook",
+"babel",
+"typescript"
+],
+"series": [
+"StoryBooks with Gatsby"
+]
+},
+{
+"dir": "2020-07-20-how-to-use-storybooks-with-mdx",
+"title": "How to use Storybooks with MDX",
+"date": "2020-07-20",
+"tags": [
+"gatsby",
+"storybook",
+"mdx"
+],
+"series": [
+"StoryBooks with Gatsby"
+]
+},
+{
+"dir": "2020-08-05-tailwindcss-with-css-variables",
+"title": "TailwindCSS with CSS variables",
+"date": "2020-08-05",
+"tags": [
+"tailwindcss",
+"css"
+],
+"series": []
+},
+{
+"dir": "2020-08-20-how-to-add-offline-search-to-a-gatsby-blog",
+"title": "How to add offline search to a Gatsby blog",
+"date": "2020-08-20",
+"tags": [
+"gatsby",
+"react"
+],
+"series": []
+},
+{
+"dir": "2020-08-31-how-to-auto-create-mrs-in-gitlab",
+"title": "How to auto create MRs in Gitlab",
+"date": "2020-08-31",
+"tags": [
+"gitlab",
+"ci-cd"
+],
+"series": []
+},
+{
+"dir": "2020-09-07-add-an-edit-post-button-to-your-gatsby-blog",
+"title": "Add an 'edit post' button to your Gatsby blog",
+"date": "2020-09-07",
+"tags": [
+"gatsby",
+"react",
+"typescript"
+],
+"series": []
+},
+{
+"dir": "2020-09-18-how-to-source-your-gatsby-posts-from-another-repo",
+"title": "How to source your Gatsby posts from another repo",
+"date": "2020-09-18",
+"tags": [
+"gatsby",
+"gitlab",
+"ci-cd"
+],
+"series": []
+},
+{
+"dir": "2020-10-10-how-socks-proxies-work-and-using-proxychains",
+"title": "How SOCKS proxies work and using ProxyChains",
+"date": "2020-10-10",
+"tags": [
+"proxychains",
+"socks",
+"networking",
+"proxy"
+],
+"series": []
+},
+{
+"dir": "2020-10-27-how-dns-works-with-docker",
+"title": "How DNS works with Docker",
+"date": "2020-10-27",
+"tags": [
+"docker",
+"networking",
+"dns"
+],
+"series": []
+},
+{
+"dir": "2020-11-11-how-to-add-a-toc-in-gatsby",
+"title": "How to add a ToC in Gatsby",
+"date": "2020-11-11",
+"tags": [
+"gatsby",
+"react",
+"typescript"
+],
+"series": []
+},
+{
+"dir": "2020-11-30-what-does-yield-do-in-python",
+"title": "What does yield do in Python",
+"date": "2020-11-30",
+"tags": [
+"python",
+"generators",
+"yield",
+"pytest"
+],
+"series": []
+},
+{
+"dir": "2020-12-20-golang-mongodb-with-polymorphism-and-bson-unmarshal",
+"title": "Golang & MongoDB with \"Polymorphism\" and BSON Unmarshal",
+"date": "2020-12-20",
+"tags": [
+"golang",
+"mongodb",
+"bson"
+],
+"series": []
+},
+{
+"dir": "2021-01-19-how-to-create-a-golang-web-application-using-fizz",
+"title": "How to create a Golang Web Application using Fizz",
+"date": "2021-01-19",
+"tags": [
+"golang",
+"fizz",
+"gin",
+"openapi"
+],
+"series": []
+},
+{
+"dir": "2021-03-22-testing-a-gatsby-application-with-cypress-on-gitlab-ci",
+"title": "Testing a Gatsby application with Cypress on Gitlab CI",
+"date": "2021-03-22",
+"tags": [
+"gatsby",
+"testing",
+"react",
+"gitlab",
+"ci-cd"
+],
+"series": []
+},
+{
+"dir": "2021-12-23-testing-a-socketio-web-app-written-in-python",
+"title": "Testing a socketio Web App written in Python",
+"date": "2021-12-23",
+"tags": [
+"python",
+"testing",
+"websockets",
+"pytest",
+"socketsio",
+"uvicorn"
+],
+"series": []
+},
+{
+"dir": "2021-12-25-e2e-tests-with-gitlab-ci-services",
+"title": "E2E tests with Gitlab CI services",
+"date": "2021-12-25",
+"tags": [
+"gitlab",
+"ci-cd",
+"testing",
+"e2e"
+],
+"series": []
+},
+{
+"dir": "2021-12-31-separate-function-handler-modules-when-using-python-socketio",
+"title": "Separate function handler modules when using Python Socketio",
+"date": "2021-12-31",
+"tags": [
+"python",
+"socketsio",
+"websockets",
+"fastapi",
+"code-organisation"
+],
+"series": []
+},
+{
+"dir": "2022-08-08-running-gitlab-ci-jobs-in-docker-using-docker-compose",
+"title": "Running Gitlab CI jobs in Docker using docker-compose",
+"date": "2022-08-08",
+"tags": [
+"docker",
+"docker-compose",
+"gitlab",
+"ci-cd"
+],
+"series": []
+},
+{
+"dir": "2022-10-15-how-to-manage-your-dotfiles-with-dotbot",
+"title": "How to Manage Your Dotfiles With Dotbot",
+"date": "2022-10-15",
+"tags": [
+"dotfiles",
+"dotbot",
+"git"
+],
+"series": [
+"Dotfiles management with Dotbot"
+]
+},
+{
+"dir": "2022-10-16-my-current-vscode-setup-extensions-and-settings",
+"title": "My current VSCode Setup (Extensions and Settings)",
+"date": "2022-10-16",
+"tags": [
+"vscode",
+"setup"
+],
+"series": []
+},
+{
+"dir": "2022-11-01-how-to-manage-dotfiles-with-dotbot-across-devices",
+"title": "How to Manage your Dotfiles with DotBot across Devices",
+"date": "2022-11-01",
+"tags": [
+"dot",
+"dotfiles",
+"git"
+],
+"series": [
+"Dotfiles management with Dotbot"
+]
+},
+{
+"dir": "2022-11-08-using-dotbot-with-plugins",
+"title": "Using Dotbot with plugins",
+"date": "2022-11-08",
+"tags": [
+"dotbot",
+"dotfiles",
+"git"
+],
+"series": [
+"Dotfiles management with Dotbot"
+]
+},
+{
+"dir": "2022-11-11-what-is-a-til-post",
+"title": "What is a TIL Post?",
+"date": "2022-11-11",
+"tags": [],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2022-11-12-til-about-conditional-gitconfigs",
+"title": "TIL: About Conditional Gitconfigs",
+"date": "2022-11-12",
+"tags": [
+"git"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2022-11-15-til-you-can-hash-none-in-python-what",
+"title": "TIL: You can Hash `None` in Python? What?",
+"date": "2022-11-15",
+"tags": [
+"python"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2022-11-17-til-you-can-use-yq-to-mass-edit-markdown-files",
+"title": "TIL: You can use Use `yq` to Mass Edit Markdown Files",
+"date": "2022-11-17",
+"tags": [
+"frontmatter",
+"markdown",
+"yq"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2022-11-17-why-i-moved-from-gatsby-to-hugo-for-this-blog",
+"title": "Why I moved from Gatsby to Hugo for this blog?",
+"date": "2022-11-17",
+"tags": [
+"hugo",
+"gatsby",
+"blog",
+"me"
+],
+"series": []
+},
+{
+"dir": "2022-11-20-til-how-you-can-add-goatcounter-to-your-hugo-blog",
+"title": "TIL: How you can add goatcounter to your Hugo blog",
+"date": "2022-11-20",
+"tags": [
+"hugo",
+"blog",
+"goatcounter"
+],
+"series": [
+"TIL",
+"Goatcounter with Hugo"
+]
+},
+{
+"dir": "2022-11-21-til-how-you-can-zoom-in-on-photos-in-your-hugo-posts",
+"title": "TIL: How You Can Zoom in on Photos in your Hugo Posts",
+"date": "2022-11-21",
+"tags": [
+"hugo",
+"blog",
+"markdown"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2022-11-22-til-you-can-add-a-custom-domain-to-your-goatcounter-site",
+"title": "TIL: You can add a custom domain to your Goatcounter site",
+"date": "2022-11-22",
+"tags": [
+"goatcounter",
+"hugo",
+"blog"
+],
+"series": [
+"TIL",
+"Goatcounter with Hugo"
+]
+},
+{
+"dir": "2022-11-23-til-you-can-schedule-posts-on-your-hugo-blog-using-netlify-and-gitlab-ci",
+"title": "TIL: You Can Schedule Posts on Your Hugo Blog using Netlify and Gitlab CI",
+"date": "2022-11-23",
+"tags": [
+"netlify",
+"gitlab",
+"ci-cd",
+"hugo",
+"blog"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2022-11-25-how-to-add-page-views-to-your-hugo-blog-posts-using-goatcounter",
+"title": "How to Add Page Views to your Hugo Blog Posts Using Goatcounter",
+"date": "2022-11-25",
+"tags": [
+"goatcounter",
+"hugo",
+"blog"
+],
+"series": [
+"Goatcounter with Hugo"
+]
+},
+{
+"dir": "2022-11-26-til-how-to-add-hugo-shortcode-snippets-in-vscode",
+"title": "TIL: How to Add Hugo Shortcode Snippets in VSCode",
+"date": "2022-11-26",
+"tags": [
+"hugo",
+"blog",
+"vscode"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2022-11-27-til-how-to-fix-overflowing-highlights-in-hugo-code-blocks",
+"title": "TIL: How to Fix \"Overflowing\" Highlights in Hugo Code Blocks",
+"date": "2022-11-27",
+"tags": [
+"hugo",
+"blog"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2022-11-30-til-how-you-can-verify-your-hugo-blog-on-mastodon",
+"title": "TIL: How you can Verify Your Hugo Blog on Mastodon",
+"date": "2022-11-30",
+"tags": [
+"blog",
+"mastodon",
+"hugo"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2022-12-01-how-to-use-copier-to-create-project-templates",
+"title": "How to use copier to create project templates",
+"date": "2022-12-01",
+"tags": [
+"python",
+"copier",
+"templating"
+],
+"series": [
+"Templates with copier"
+]
+},
+{
+"dir": "2022-12-02-my-useful-vim-commands-with-vs-code",
+"title": "My Useful Vim Commands (with VS Code)",
+"date": "2022-12-02",
+"tags": [
+"vim",
+"vscode"
+],
+"series": [
+"Vim with VS Code"
+]
+},
+{
+"dir": "2022-12-03-my-workflow-to-create-a-new-post-using-hugo,-netlifycms,-netlify-and-gitlab-together",
+"title": "My Workflow To Create a New Post Using Hugo, NetlifyCMS, Netlify and Gitlab Together",
+"date": "2022-12-03",
+"tags": [
+"hugo",
+"netlify",
+"gitlab",
+"netlifycms",
+"vscode"
+],
+"series": []
+},
+{
+"dir": "2022-12-04-til-how-to-separate-our-golang-tests",
+"title": "TIL: How to Separate our Golang Tests",
+"date": "2022-12-04",
+"tags": [
+"golang",
+"test",
+"vscode"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2022-12-09-how-to-update-a-project-using-a-copier-template",
+"title": "How to Update a Project using a Copier Template",
+"date": "2022-12-08",
+"tags": [
+"copier",
+"templating",
+"python"
+],
+"series": [
+"Templates with copier"
+]
+},
+{
+"dir": "2022-12-10-til-how-to-deploy-a-sveltekit-site-on-netlify",
+"title": "TIL: How to Deploy a SvelteKit site on Netlify",
+"date": "2022-12-10",
+"tags": [
+"netlify",
+"sveltekit",
+"svelte"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2022-12-12-til-how-to-use-prettier-with-hugo-golang-templates",
+"title": "TIL: How to Use Prettier with Hugo/Golang Templates",
+"date": "2022-12-12",
+"tags": [
+"hugo",
+"golang",
+"prettier"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2022-12-15-how-to-use-dotbot-to-personalise-your-vscode-devcontainers",
+"title": "How to use DotBot to personalise your VSCode Devcontainers",
+"date": "2022-12-15",
+"tags": [
+"dotbot",
+"dotfiles",
+"devcontainers",
+"docker",
+"vscode"
+],
+"series": [
+"Dotfiles management with Dotbot"
+]
+},
+{
+"dir": "2022-12-20-how-to-setup-oauth2-with-sveltekit-and-pocketbase",
+"title": "How to Setup OAuth2 with SvelteKit and Pocketbase",
+"date": "2022-12-20",
+"tags": [
+"svelte",
+"sveltekit",
+"auth",
+"pocketbase"
+],
+"series": []
+},
+{
+"dir": "2022-12-21-til-how-to-use-dind-localhost-gitlab-ci",
+"title": "TIL: How to Use DinD, localhost & Gitlab CI",
+"date": "2022-12-21",
+"tags": [
+"gitlab",
+"ci-cd",
+"docker",
+"dind"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2022-12-26-til-how-to-connect-pocketbase-and-backblaze-s3",
+"title": "TIL: How to Connect PocketBase and BackBlaze S3",
+"date": "2022-12-26",
+"tags": [
+"pocketbase",
+"s3",
+"backblaze"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2022-12-27-til-how-to-add-custom-syntax-highlighting-rules-in-vs-code",
+"title": "TIL: How To Add Custom Syntax Highlighting Rules in VS Code",
+"date": "2022-12-27",
+"tags": [
+"vscode",
+"golang"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2022-12-29-til-how-to-setup-netlify-gitlab-and-sentry",
+"title": "TIL: How to Setup Netlify, Gitlab And Sentry",
+"date": "2022-12-29",
+"tags": [
+"gitlab",
+"sentry",
+"netlify"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2022-12-30-how-to-remote-debug-your-sveltekit-on-an-android-device-in-firefox",
+"title": "How to Remote Debug your SvelteKit on an Android Device in Firefox",
+"date": "2022-12-30",
+"tags": [
+"sveltekit",
+"debugging",
+"firefox",
+"android"
+],
+"series": []
+},
+{
+"dir": "2023-01-08-how-to-add-have-i-been-pwned-to-your-registration-flow-in-sveltekit",
+"title": "How to add Have I Been Pwned to Your Registration Flow in SvelteKit",
+"date": "2023-01-08",
+"tags": [
+"sveltekit",
+"ux",
+"zod"
+],
+"series": []
+},
+{
+"dir": "2023-01-10-how-to-autosort-our-sveltekit-imports",
+"title": "How to Autosort our SvelteKit Imports",
+"date": "2023-01-10",
+"tags": [
+"sveltekit",
+"svelte",
+"eslint",
+"typescript",
+"automated"
+],
+"series": []
+},
+{
+"dir": "2023-01-14-til-how-includes-extends-work-with-ts-config-with-sveltekit",
+"title": "TIL: How Includes, Extends work with TS Config (with SvelteKit)",
+"date": "2023-01-14",
+"tags": [
+"sveltekit",
+"typescript"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2023-01-17-how-can-we-update-gitlab-ci-on-the-status-of-the-netlify-deploy-part-i",
+"title": "How Can We Update GitLab CI on the Status of the Netlify Deploy Part I",
+"date": "2023-01-17",
+"tags": [
+"netlify",
+"sveltekit",
+"gitlab",
+"ci/cd"
+],
+"series": [
+"Netlify Gitlab Deploy Notification"
+]
+},
+{
+"dir": "2023-01-19-til-how-to-autofocus-on-inputs-in-svelte",
+"title": "TIL: How to Autofocus on Inputs in Svelte",
+"date": "2023-01-19",
+"tags": [
+"svelte",
+"sveltekit"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2023-01-23-til-how-to-fix-structuredclone-to-work-on-netlify-sveltekit-site",
+"title": "TIL: How to fix `structuredClone` to work on Netlify SvelteKit Site",
+"date": "2023-01-23",
+"tags": [
+"netlify",
+"sveltekit"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2023-01-26-how-to-setup-netlify-deployment-notifications-on-discord-with-pipedream",
+"title": "How to Setup Netlify Deployment Notifications on Discord with Pipedream",
+"date": "2023-01-26",
+"tags": [
+"netlify",
+"monitoring",
+"pipedream"
+],
+"series": []
+},
+{
+"dir": "2023-03-03-til-how-to-run-parallel-jobs-on-gitlab-ci",
+"title": "TIL: How to Run Parallel Jobs on Gitlab CI (Different Stages)",
+"date": "2023-03-03",
+"tags": [
+"gitlab",
+"ci/cd"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2023-03-08--til-how-to-set-a-relationship-on-golang-pocketbase-",
+"title": "TIL: How to Set a Relationship on Golang Pocketbase",
+"date": "2023-03-08",
+"tags": [
+"golang",
+"pocketbase"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2023-03-20--how-to-create-new-posts-on-hugo-using-archetypes-",
+"title": "How to Create New Posts on Hugo Using Archetypes",
+"date": "2023-03-20",
+"tags": [
+"hugo",
+"automation"
+],
+"series": []
+},
+{
+"dir": "2023-03-22--til-how-to-use-multiple-auth-in-playwright-",
+"title": "TIL: How to Use Multiple Auth Files in Playwright",
+"date": "2023-03-22",
+"tags": [
+"playwright",
+"testing",
+"sveltekit"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2023-04-01--til-mock-classes-using-vitest-",
+"title": "TIL: How to Mock Classes Using Vitest",
+"date": "2023-04-01",
+"tags": [
+"vitest",
+"testing"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2023-04-06-til-how-to-deploy-multiple-sites-on-one-gitlab-page-site",
+"title": "TIL: How to Deploy 'Multiple' Sites on One GitLab Page Site",
+"date": "2023-04-06",
+"tags": [
+"gitlab",
+"CI/CD"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2023-04-09--til-how-to-get-vscode-eslint-to-sort-imports-",
+"title": "TIL: How to Get VSCode ESLint to Sort Imports",
+"date": "2023-04-09",
+"tags": [
+"vscode",
+"eslint"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2023-04-15--how-to-get-code-coverage-from-playwright-tests-in-a-sveltekit-app-",
+"title": "How to Get Code Coverage From Playwright Tests in a Sveltekit App",
+"date": "2023-04-15",
+"tags": [
+"sveltekit",
+"playwright",
+"testing",
+"ci/cd"
+],
+"series": []
+},
+{
+"dir": "2023-04-30-my-dotfiles",
+"title": "My Dotfiles",
+"date": "2023-04-30",
+"tags": [
+"dotfiles"
+],
+"series": [
+"My Development Workflow"
+]
+},
+{
+"dir": "2023-05-02-my-development-workflow-with-alacritty-fish-tmux-nvim",
+"title": "My Development Workflow With Alacritty Fish Tmux Nvim",
+"date": "2023-05-02",
+"tags": [
+"dotfiles",
+"nvim",
+"tmux",
+"fish"
+],
+"series": [
+"My Development Workflow"
+]
+},
+{
+"dir": "2023-05-04-my-dotfiles-ii",
+"title": "My Dotfiles II",
+"date": "2023-05-04",
+"tags": [
+"dotfiles"
+],
+"series": [
+"My Development Workflow"
+]
+},
+{
+"dir": "2023-05-08-my-development-workflow-with-linux",
+"title": "My Development Workflow With Linux",
+"date": "2023-05-08",
+"tags": [
+"linux",
+"gnome",
+"arch"
+],
+"series": [
+"My Development Workflow"
+]
+},
+{
+"dir": "2023-05-25-til-how-to-change-fish-greeter",
+"title": "TIL: How to change the fish greeter",
+"date": "2023-05-25",
+"tags": [
+"fish",
+"nixos"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2023-05-30-til-how-to-vim-navigation-to-fzf",
+"title": "TIL: How to Add Vim Navigation FZF",
+"date": "2023-05-30",
+"tags": [
+"fish"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2023-06-20-til-how-to-declaratively-setup-mullvad-with-nixos",
+"title": "TIL: How to Declaratively Setup Mullvad VPN with NixOS",
+"date": "2023-06-20",
+"tags": [
+"nix",
+"nixos",
+"mullvad"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2023-06-22-til-use-nur-with-home-manager-flake",
+"title": "TIL: How to use NUR with Home-Manager & Nix Flakes",
+"date": "2023-06-22",
+"tags": [
+"nix",
+"home-manager",
+"nur"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2023-06-25-why-i-moved-to-nixos",
+"title": "Why I moved to NixOS",
+"date": "2023-06-25",
+"tags": [
+"nixos",
+"nix",
+"linux"
+],
+"series": []
+},
+{
+"dir": "2023-07-10-setting-up-tmux-with-nix-home-manager",
+"title": "Setting Up Tmux With Nix Home Manager",
+"date": "2023-07-10",
+"tags": [
+"nixos",
+"nix",
+"tmux",
+"dotfiles"
+],
+"series": []
+},
+{
+"dir": "2023-07-13-updating-nix-packages-using-update-nix-fetchgit",
+"title": "Update Nix Packages Using update-nix-fetchgit",
+"date": "2023-07-13",
+"tags": [
+"nixos",
+"nix"
+],
+"series": []
+},
+{
+"dir": "2023-07-15-my-dotfiles-iii",
+"title": "My Dotfiles III",
+"date": "2023-07-15",
+"tags": [
+"dotfiles"
+],
+"series": [
+"My Development Workflow"
+]
+},
+{
+"dir": "2023-07-18-my-hardware-as-part-of-my-development-workflow",
+"title": "Part 0: Hardware as Part of Your Development Workflow",
+"date": "2023-07-18",
+"tags": [
+"hardware",
+"framework"
+],
+"series": [
+"Setup Your Development Workflow"
+]
+},
+{
+"dir": "2023-07-20-nixos-as-part-of-your-development-workflow",
+"title": "Part 1: NixOS as part of your Development Workflow",
+"date": "2023-07-20",
+"tags": [
+"nix",
+"nixos",
+"dotfiles"
+],
+"series": [
+"Setup Your Development Workflow"
+]
+},
+{
+"dir": "2023-07-25-nixos-kanshi-and-hyprland",
+"title": "TIL: How to get Kanshi to work on NixOS and Hyprland",
+"date": "2023-07-25",
+"tags": [
+"nix",
+"nixos",
+"hyprland"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2023-07-31-how-to-use-neotest-dap-with-lazyvim-for-golang-development",
+"title": "How to Use Neotest Dap With Lazyvim for Golang Development",
+"date": "2023-07-31",
+"tags": [
+"nvim",
+"lazyvim",
+"golang",
+"testing",
+"debugging"
+],
+"series": []
+},
+{
+"dir": "2023-08-02-til-how-to-fix-via-permission-issues-on-linux",
+"title": "TIL: How to Fix VIA Permission Issues on Linux",
+"date": "2023-08-02",
+"tags": [
+"VIA"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2023-08-06-til-how-to-setup-neovim-for-nixlang",
+"title": "TIL: How to Setup Neovim for Nixlang",
+"date": "2023-08-06",
+"tags": [
+"nixlang",
+"nvim"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2023-08-12-how-sync-your-shell-history-with-atuin-in-nix",
+"title": "How Sync Your Shell History With Atuin in Nix",
+"date": "2023-08-12",
+"tags": [
+"atuin",
+"shell",
+"nix"
+],
+"series": [
+"Atuin with NixOS"
+]
+},
+{
+"dir": "2023-08-16-how-self-host-your-own-atuin-server",
+"title": "How To Self Host Your Own Atuin Server",
+"date": "2023-08-16",
+"tags": [
+"atuin",
+"shell",
+"fly.io"
+],
+"series": [
+"Atuin with NixOS"
+]
+},
+{
+"dir": "2023-08-24-til-how-to-colour-neovim-line-numbers",
+"title": "TIL: How to Colour Neovim Line Numbers",
+"date": "2023-08-24",
+"tags": [
+"neovim"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2023-08-26-how-to-use-cachix-devenv-to-setup-developer-environments",
+"title": "How to Use Cachix Devenv to Setup Developer Environments",
+"date": "2023-08-26",
+"tags": [
+"nix",
+"devenv",
+"devex"
+],
+"series": []
+},
+{
+"dir": "2023-09-01-til-how-to-fix-tmux-resurrect-on-nixos",
+"title": "TIL: How to Fix tmux-resurrect on NixOS",
+"date": "2023-09-01",
+"tags": [
+"tmux",
+"nix"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2023-09-05-til-how-to-access-system-in-home-manager-using-flakes",
+"title": "TIL: How to Access System in Home Manager Using Flakes",
+"date": "2023-09-05",
+"tags": [
+"nix",
+"home-manager",
+"flakes"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2023-09-10-til-how-to-check-if-another-option-is-set-in-home-manager-nix",
+"title": "TIL: How to Check if Another Option Is Set in Home Manager (Nix)",
+"date": "2023-09-10",
+"tags": [
+"nix",
+"home-manager"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2023-09-12-how-i-configure-nixos-as-part-of-my-development-workflow",
+"title": "My NixOS Dotfiles Explained",
+"date": "2023-09-12",
+"tags": [
+"nix",
+"nixos",
+"home-manager",
+"dotfiles"
+],
+"series": [
+"My Development Workflow"
+]
+},
+{
+"dir": "2023-09-19-til-how-to-use-fzf-fish-history-search",
+"title": "TIL: How to Use fzf.fish History Search",
+"date": "2023-09-19",
+"tags": [
+"fish",
+"fzf",
+"nix"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2023-09-29-setup-ventoy-on-nixos",
+"title": "Setup Ventoy on Nixos",
+"date": "2023-09-29",
+"tags": [
+"nixos",
+"nix",
+"ventoy"
+],
+"series": []
+},
+{
+"dir": "2023-10-02-til-how-to-fix-package-binary-collisions-on-nix",
+"title": "TIL: How to Fix Package Binary Collisions on Nix",
+"date": "2023-10-02",
+"tags": [
+"nix"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2023-10-07-til-how-to-colour-dap-breakpointed-line-in-neovim",
+"title": "TIL: How to Colour Dap Breakpointed Line in Neovim",
+"date": "2023-10-07",
+"tags": [
+"neovim",
+"dap"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2023-10-08-how-to-create-systemd-services-in-nix-home-manager",
+"title": "How to Create Systemd Services in Nix Home Manager",
+"date": "2023-10-08",
+"tags": [
+"nix",
+"home-manager",
+"systemd"
+],
+"series": []
+},
+{
+"dir": "2023-10-10-til-how-to-disable-linters-in-golangci-lint-for-test-files",
+"title": "TIL: How to Disable Linters in Golangci Lint for Test Files",
+"date": "2023-10-10",
+"tags": [
+"go",
+"golang",
+"golangci-lint"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2023-10-21-til-how-to-fix-networking-issues-in-a-libvirt-vm-and-mullvad-vpn",
+"title": "TIL: How to Fix Networking Issues in a Libvirt VM and Mullvad VPN",
+"date": "2023-10-21",
+"tags": [
+"libvirt",
+"mullvad",
+"vm"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2023-10-24-part-2-how-to-setup-nixos-as-part-of-your-development-workflow",
+"title": "Part 2: How to Setup Nixos as Part of Your Development Workflow",
+"date": "2023-10-24",
+"tags": [
+"nixos",
+"nix",
+"home-manager"
+],
+"series": [
+"Setup Your Development Workflow"
+]
+},
+{
+"dir": "2023-10-26-how-to-setup-a-go-development-shell-with-nix-flakes",
+"title": "How to Setup a Go Development Shell With Nix Flakes",
+"date": "2023-10-26",
+"tags": [
+"nix",
+"nixos",
+"flake",
+"devshells",
+"go"
+],
+"series": []
+},
+{
+"dir": "2023-11-01-til-how-to-use-clipboard-data-as-file-input-in-bash",
+"title": "TIL: How to Use Clipboard Data as File Input in Bash",
+"date": "2023-11-01",
+"tags": [
+"bash"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2023-11-05-how-can-you-export-your-atuin-history-to-fish-history",
+"title": "How Can You Export Your Atuin History to Fish History?",
+"date": "2023-11-05",
+"tags": [
+"nixos",
+"nix",
+"atuin",
+"fish"
+],
+"series": []
+},
+{
+"dir": "2023-11-06-a-simple-way-to-convert-json-to-nix-attribute-sets",
+"title": "A Simple Way to Convert JSON to Nix Attribute Sets",
+"date": "2023-11-06",
+"tags": [
+"nix"
+],
+"series": []
+},
+{
+"dir": "2023-11-10-how-to-set-network-manager-priority-to-use-wired-connection-over-wifi",
+"title": "TIL: How to Set Network Manager Priority to Use Wired Connection Over WIFI",
+"date": "2023-11-10",
+"tags": [
+"network-manager",
+"linux"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2023-11-15-part-3-hyprland-as-part-of-your-development-workflow",
+"title": "Part 3: Hyprland as Part of Your Development Workflow",
+"date": "2023-11-15",
+"tags": [
+"hyprland",
+"nix",
+"nixos",
+"home-manager"
+],
+"series": [
+"Setup Your Development Workflow"
+]
+},
+{
+"dir": "2023-11-15-til-how-to-install-neovim-nightly-using-nix-home-manager",
+"title": "TIL: How to Install Neovim Nightly Using Nix Home Manager (and NixVim)",
+"date": "2023-11-15",
+"tags": [
+"nix",
+"neovim",
+"home-manager",
+"nixvim"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2023-11-16-til-how-to-debug-a-test-in-golang-with-build-tags-in-neovim",
+"title": "TIL: How to Debug a Test in Golang With Build Tags in Neovim",
+"date": "2023-11-16",
+"tags": [
+"golang",
+"neovim",
+"debugging",
+"testing",
+"nixvim"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2023-11-18-how-i-setup-my-raspberry-pi-cluster-with-nixos",
+"title": "How I Setup My Raspberry Pi Cluster With Nixos",
+"date": "2023-11-18",
+"tags": [
+"rpi",
+"nixos"
+],
+"series": [
+"Setup Raspberry Pi Cluster with K3S and NixOS"
+]
+},
+{
+"dir": "2023-11-21-til-how-to-start-gnome-wayland-session-from-tty",
+"title": "TIL: How to Start Gnome Wayland Session From TTY",
+"date": "2023-11-21",
+"tags": [
+"gnome",
+"tty",
+"wayland"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2023-11-22-til-how-to-title-your-terminals-when-running-tmux",
+"title": "TIL: How to Title Your Terminals When Running Tmux",
+"date": "2023-11-22",
+"tags": [
+"tmux"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2023-11-24-how-to-install-hyprland-on-ubuntu-22-04",
+"title": "How to Install Hyprland on Ubuntu (22.04)",
+"date": "2023-11-24",
+"tags": [
+"hyprland",
+"ubuntu"
+],
+"series": []
+},
+{
+"dir": "2023-11-25-til-how-to-set-the-path-variable-when-using-ubuntu-with-nix-home-manager",
+"title": "TIL: How to Set the Path Variable When Using Ubuntu With Nix (Home Manager)",
+"date": "2023-11-25",
+"tags": [
+"nix",
+"home-manager",
+"ubuntu",
+"hyprland"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2023-11-28-how-to-manage-my-raspberry-pi-cluster-using-colmena",
+"title": "How I Manage My Raspberry Pi Cluster Using Colmena",
+"date": "2023-11-28",
+"tags": [
+"rpi",
+"nixos",
+"colmena"
+],
+"series": [
+"Setup Raspberry Pi Cluster with K3S and NixOS"
+]
+},
+{
+"dir": "2023-11-30-til-how-to-use-sops-nix-with-colmena",
+"title": "TIL: How to Use Sops Nix With Colmena",
+"date": "2023-11-30",
+"tags": [
+"rpi",
+"nixos",
+"colmena",
+"sops-nix"
+],
+"series": [
+"Setup Raspberry Pi Cluster with K3S and NixOS"
+]
+},
+{
+"dir": "2023-12-01-til-how-to-append-to-a-config-option-string-in-nix",
+"title": "TIL: How to Append to a Config Option String in Nix",
+"date": "2023-12-01",
+"tags": [
+"nix"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2023-12-06-til-how-to-ntfs-drive-on-nixos",
+"title": "TIL: How to Fix a NTFS Drive on NixOS",
+"date": "2023-12-06",
+"tags": [
+"ntfs",
+"nixos"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2023-12-16-how-to-deploy-k3s-with-colmena-on-pi-cluster",
+"title": "How to Deploy K3s With Colmena on Pi Cluster",
+"date": "2023-12-16",
+"tags": [
+"rpi",
+"nixos",
+"colmena",
+"k3s"
+],
+"series": [
+"Setup Raspberry Pi Cluster with K3S and NixOS"
+]
+},
+{
+"dir": "2023-12-20-til-how-to-use-tailscale-to-connect-to-k3s-pi-cluster",
+"title": "TIL: How to Use Tailscale to Connect to K3S PI Cluster",
+"date": "2023-12-20",
+"tags": [
+"rpi",
+"nixos",
+"colmena",
+"k3s",
+"tailscale"
+],
+"series": [
+"Setup Raspberry Pi Cluster with K3S and NixOS"
+]
+},
+{
+"dir": "2023-12-24-til-how-to-use-open-buffers-when-debugging-with-neovim-dap-plugin",
+"title": "TIL: How to Use Open Buffers When Debugging With Neovim's DAP Plugin",
+"date": "2023-12-24",
+"tags": [
+"DAP",
+"neovim",
+"nvim"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2023-12-30-til-how-to-use-default-values-in-docker-compose-yml",
+"title": "TIL: How to Use Default Values in docker-compose.yml",
+"date": "2023-12-30",
+"tags": [
+"docker-compose",
+"bash"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2023-12-31-2023-in-summary-my-year-of-the-terminal",
+"title": "2023 In Summary, My Year of The Terminal",
+"date": "2023-12-31",
+"tags": [
+"review",
+"neovim",
+"tmux"
+],
+"series": [
+"Year Summary"
+]
+},
+{
+"dir": "2024-01-01-how-to-use-the-media-keys-on-a-zsa-keyboard-with-hyprland",
+"title": "TIL: Show to Use the Media Keys on a ZSA Keyboard With Hyprland",
+"date": "2024-01-01",
+"tags": [
+"hyprland",
+"zsa"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2024-01-05-part-4-wezterm-terminal-as-part-of-your-development-workflow",
+"title": "Part 4: Wezterm Terminal as Part of Your Development Workflow",
+"date": "2024-01-05",
+"tags": [
+"wezterm",
+"terminal"
+],
+"series": [
+"Setup Your Development Workflow"
+]
+},
+{
+"dir": "2024-01-09-til-how-to-fix-verification-failed-with-ventoy-usb",
+"title": "TIL: How to Fix `Verification Failed` With Ventoy USB",
+"date": "2024-01-09",
+"tags": [
+"ventoy",
+"secure-boot"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2024-01-14-til-how-to-fix-unable-to-change-locations-in-mullvad-on-nixos",
+"title": "TIL: How to fix being unable to change locations in Mullvad VPN on NixOS",
+"date": "2024-01-14",
+"tags": [
+"mullvad",
+"nixos"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2024-01-28-how-to-get-sops-nix-working-with-home-manager-modules",
+"title": "How to Get sops-nix Working with home-manager Modules",
+"date": "2024-01-28",
+"tags": [
+"sops",
+"home-manager",
+"nix"
+],
+"series": []
+},
+{
+"dir": "2024-02-04-how-to-create-a-custom-nixos-iso",
+"title": "How To Create A Custom NixOS ISO",
+"date": "2024-02-04",
+"tags": [
+"nixos",
+"iso"
+],
+"series": []
+},
+{
+"dir": "2024-02-11-til-how-to-move-a-file-between-repos-and-keep-its-git-history",
+"title": "How to Move Files Between Two Git Repositories and Keep its History",
+"date": "2024-02-11",
+"tags": [
+"git"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2024-02-15-til-how-to-fix-firefox-rendering-bug-in-hyprland",
+"title": "TIL: How to Fix Firefox Rendering Bug in Hyprland",
+"date": "2024-02-15",
+"tags": [
+"hyprland",
+"firefox",
+"bug"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2024-02-20-til-how-to-add-new-vim-plugins-to-nixpkgs-repository",
+"title": "TIL: How to Add New Vim Plugins to nixpkgs Repository",
+"date": "2024-02-20",
+"tags": [
+"vim",
+"neovim",
+"nix"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2024-02-28-how-to-load-secret-environment-variables-in-fish-shell",
+"title": "How to Load Secret Environment Variables in Fish Shell",
+"date": "2024-02-28",
+"tags": [
+"fish",
+"env"
+],
+"series": []
+},
+{
+"dir": "2024-03-02-til-how-to-run-android-emulator-using-avd-on-hyprland",
+"title": "TIL: How to Run Android Emulator Using avd on Hyprland",
+"date": "2024-03-02",
+"tags": [
+"emulator",
+"android",
+"hyprland"
+],
+"series": []
+},
+{
+"dir": "2024-03-10-til-clean-up-tmux-service-when-removed-by-home-manager",
+"title": "TIL: Clean Up Tmux Service When Removed by Home Manager",
+"date": "2024-03-10",
+"tags": [
+"nix",
+"home-manager",
+"tmux"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2024-03-15-til-how-to-get-swaync-to-play-nice-with-waybar",
+"title": "TIL: How to Get Sway Notification Center to Play Nice With Waybar",
+"date": "2024-03-15",
+"tags": [
+"swaync",
+"waybar"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2024-03-18-til-how-to-setup-layouts-in-zellij-that-use-direnv-and-nix",
+"title": "TIL: How to Set up Layouts in Zellij That Use Direnv and Nix",
+"date": "2024-03-18",
+"tags": [
+"zellij",
+"direnv",
+"nix"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2024-04-06-my-favourite-neovim-plugins",
+"title": "My Favourite Neovim Plugins",
+"date": "2024-04-06",
+"tags": [
+"neovim",
+"nvim"
+],
+"series": []
+},
+{
+"dir": "2024-04-21-til-how-to-fix-neorg-metadata-treesitter-issues-with-nixvim",
+"title": "TIL: How to Fix Neorg Metadata Treesitter Issues With Nixvim",
+"date": "2024-04-21",
+"tags": [
+"nix",
+"nvim",
+"nixvim"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2024-04-25-part-4b-foot-terminal-as-part-of-your-development-workflow",
+"title": "Part 4b Foot Terminal as Part of Your Development Workflow",
+"date": "2024-04-25",
+"tags": [
+"foot",
+"terminal"
+],
+"series": [
+"Setup Your Development Workflow"
+]
+},
+{
+"dir": "2024-04-28-part-5-nix-as-part-of-your-development-workflow",
+"title": "Part 5: Nix as Part of Your Development Workflow",
+"date": "2024-04-28",
+"tags": [
+"nix",
+"dotfiles",
+"snowfall"
+],
+"series": [
+"Setup Your Development Workflow"
+]
+},
+{
+"dir": "2024-05-02-part-5b-installing-our-nix-configuration-as-part-of-your-workflow",
+"title": "Part 5B: Installing Our Nix Configuration (NixOS Anywhere) as Part of Your Workflow",
+"date": "2024-05-02",
+"tags": [
+"nix",
+"nixos-anywhere"
+],
+"series": [
+"Setup Your Development Workflow"
+]
+},
+{
+"dir": "2024-05-12-til-how-to-pull-submodules-in-a-nix-derivation",
+"title": "TIL: How to Pull Submodules in a Nix Derivation",
+"date": "2024-05-12",
+"tags": [
+"nix"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2024-05-19-how-to-use-env-variables-with-viper-config-library-in-go",
+"title": "How to Use Env Variables With Viper Config Library in Go",
+"date": "2024-05-19",
+"tags": [
+"viper",
+"config",
+"go"
+],
+"series": [
+"Building a CLI tool in Golang"
+]
+},
+{
+"dir": "2024-05-24-how-to-deploy-kubernetes-dashboard-using-pulumi-to-a-k3s-cluster",
+"title": "How to Deploy Kubernetes Dashboard Using Pulumi to a K3s Cluster",
+"date": "2024-05-24",
+"tags": [
+"k3s",
+"pulumi",
+"go"
+],
+"series": [
+"Setup Raspberry Pi Cluster with K3S and NixOS"
+]
+},
+{
+"dir": "2024-05-26-how-to-add-hugo-revealjs-to-a-hugo-site",
+"title": "How to Add reveal-hugo to a Hugo Site",
+"date": "2024-05-26",
+"tags": [
+"hugo",
+"revealjs"
+],
+"series": []
+},
+{
+"dir": "2024-05-27-how-i-fixed-hibernation-on-my-nixos-machine",
+"title": "How I Fixed Hibernate on My NixOS Machine",
+"date": "2024-05-27",
+"tags": [
+"hibernate",
+"drivers",
+"nixos"
+],
+"series": []
+},
+{
+"dir": "2024-06-02-til-how-to-fix-dns-resolution-issues-in-k3s-related-to-flannel-networking",
+"title": "TIL: How to Fix DNS Resolution Issues in K3s Related to Flannel Networking",
+"date": "2024-06-02",
+"tags": [
+"k3s",
+"flannel"
+],
+"series": [
+"Setup Raspberry Pi Cluster with K3S and NixOS",
+"TIL"
+]
+},
+{
+"dir": "2024-06-15-til-how-to-fix-did-no-resolve-alias-errors-in-podman",
+"title": "TIL: How to Fix Did No Resolve Alias Errors in Podman",
+"date": "2024-06-15",
+"tags": [
+"podman",
+"linux"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2024-06-17-migrating-my-homelab-to-flux",
+"title": "Migrating My Homelab to Flux",
+"date": "2024-06-17",
+"tags": [
+"homelab",
+"flux",
+"kubernetes"
+],
+"series": [
+"My Home Lab"
+]
+},
+{
+"dir": "2024-06-30-rewriting-a-python-script-as-a-bash-one-liner",
+"title": "Rewriting a Python script as a Bash one-liner",
+"date": "2024-06-30",
+"tags": [
+"bash",
+"python"
+],
+"series": []
+},
+{
+"dir": "2024-07-01-part-6-fish-shell-as-part-of-your-development-workflow",
+"title": "Part 6: Fish Shell as Part of Your Development Workflow",
+"date": "2024-07-01",
+"tags": [
+"fish",
+"shell"
+],
+"series": [
+"Setup Your Development Workflow"
+]
+},
+{
+"dir": "2024-07-26-how-i-configured-zellij-status-bar",
+"title": "How I Configured Zellij Status Bar",
+"date": "2024-07-26",
+"tags": [
+"zellij",
+"nix",
+"home-manager"
+],
+"series": []
+},
+{
+"dir": "2024-07-30-how-i-setup-btrfs-and-luks-on-nixos-using-disko",
+"title": "How I Set up BTRFS and LUKS on NixOS Using Disko",
+"date": "2024-07-30",
+"tags": [
+"disko",
+"btrfs",
+"luks",
+"nixos"
+],
+"series": []
+},
+{
+"dir": "2024-08-06-how-to-configure-kitty-on-nix-to-show-emojis",
+"title": "How to Configure Kitty on Nix to Show Emojis",
+"date": "2024-08-06",
+"tags": [
+"kitty",
+"nix",
+"stylix"
+],
+"series": []
+},
+{
+"dir": "2024-08-19-setup-tls-certificate-with-traefik-tailscale-on-nixos",
+"title": "Setup TLS Certificate With Traefik & Tailscale on NixOS",
+"date": "2024-08-19",
+"tags": [
+"traefik",
+"homelab",
+"nixos",
+"tailscale"
+],
+"series": []
+},
+{
+"dir": "2024-09-06-how-to-setup-authentik-forward-auth-with-traefik-on-nixos",
+"title": "How to Set up Authentik Forward Auth With Traefik on NixOS",
+"date": "2024-09-06",
+"tags": [
+"home lab",
+"traefik",
+"NixOS",
+"authentik"
+],
+"series": []
+},
+{
+"dir": "2024-09-12-til-how-to-get-shell-completions-in-nix-shell-with-direnv",
+"title": "TIL: How to Get Shell Completions in Nix Shell With Direnv",
+"date": "2024-09-12",
+"tags": [
+"nix",
+"direnv"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2024-09-15-til-how-to-cancel-stale-pipelines-in-gitlab-ci",
+"title": "TIL: How to Cancel Stale Pipelines in GitLab CI",
+"date": "2024-09-15",
+"tags": [
+"gitlab-ci",
+"gitlab"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2024-09-30-how-to-setup-cloudflare-tunnels-to-point-to-service-behind-traefik",
+"title": "How to Set up Cloudflare Tunnels With Traefik (In NixOS)",
+"date": "2024-09-30",
+"tags": [
+"nixos",
+"traefik",
+"cloudflare"
+],
+"series": []
+},
+{
+"dir": "2024-10-15-how-to-wrap-nixgl-around-package-in-home-manager",
+"title": "How to Wrap NixGL Around Package in Home Manager",
+"date": "2024-10-15",
+"tags": [
+"nixgl",
+"nix"
+],
+"series": []
+},
+{
+"dir": "2024-12-15-speaking-tips-i-ve-learnt",
+"title": "Speaking Tips I Have Learnt From Conferences",
+"date": "2024-12-15",
+"tags": [
+"conference",
+"speaking"
+],
+"series": []
+},
+{
+"dir": "2024-12-18-part-7-zellij-as-part-of-your-development-workflow",
+"title": "Part 7: Zellij as Part of Your Development Workflow",
+"date": "2024-12-18",
+"tags": [
+"zellij",
+"multiplexer"
+],
+"series": [
+"Setup Your Development Workflow"
+]
+},
+{
+"dir": "2025-01-01-my-year-in-review-2024",
+"title": "My Year in Review 2024",
+"date": "2025-01-02",
+"tags": [
+"review",
+"nixos"
+],
+"series": [
+"Year Summary"
+]
+},
+{
+"dir": "2025-01-15-til-how-to-fix-pipewire-wireplumber-issues-on-nixos",
+"title": "TIL: How to Fix PipeWire/WirePlumber Issues on NixOS",
+"date": "2025-01-15",
+"tags": [
+"nixos",
+"audio",
+"pipewire"
+],
+"series": []
+},
+{
+"dir": "2025-01-20-how-to-fix-firefox-rendering-emoji-font-black-bold-numbers-issue",
+"title": "How to Fix Firefox Rendering Emoji Font (NixOS)",
+"date": "2025-01-20",
+"tags": [
+"firefox",
+"nixos"
+],
+"series": []
+},
+{
+"dir": "2025-03-03-go-feedback-my-new-side-project",
+"title": "Go Feedback My New Side Project",
+"date": "2025-03-03",
+"tags": [
+"gofeedback",
+"buildinpublic",
+"micro-saas"
+],
+"series": [
+"Build In Public"
+]
+},
+{
+"dir": "2025-03-10-go-feedback-week-3",
+"title": "Go Feedback Week 3",
+"date": "2025-03-10",
+"tags": [
+"gofeedback",
+"buildinpublic",
+"micro-saas"
+],
+"series": [
+"Build In Public"
+]
+},
+{
+"dir": "2025-03-17-go-feedback-week-4",
+"title": "Go Feedback Week 4",
+"date": "2025-03-17",
+"tags": [
+"gofeedback",
+"buildinpublic",
+"micro-saas"
+],
+"series": [
+"Build In Public"
+]
+},
+{
+"dir": "2025-03-22-til-fix-issue-with-dropbar-and-auto-session",
+"title": "TIL: How to Fix Issue With Dropbar and Auto Session",
+"date": "2025-03-22",
+"tags": [
+"neovim",
+"dropbar",
+"autosession"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2025-03-24-voxicle-week-5",
+"title": "Voxicle Week 5",
+"date": "2025-03-24",
+"tags": [
+"gofeedback",
+"voxicle",
+"buildinpublic",
+"micro-saas"
+],
+"series": [
+"Build In Public"
+]
+},
+{
+"dir": "2025-03-31-voxicle-week-6",
+"title": "Voxicle Week 6",
+"date": "2025-03-31",
+"tags": [
+"gofeedback",
+"voxicle",
+"buildinpublic",
+"micro-saas"
+],
+"series": [
+"Build In Public"
+]
+},
+{
+"dir": "2025-04-12-til-how-to-get-dropbar-and-auto-session-to-work",
+"title": "TIL - How to Get Dropbar and Auto Session to Work",
+"date": "2025-04-12",
+"tags": [
+"neovim",
+"dropbar",
+"autosession"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2025-04-14-voxicle-week-7-week-8",
+"title": "Voxicle Week 7 & Week 8",
+"date": "2025-04-14",
+"tags": [
+"voxicle",
+"buildinpublic",
+"micro-saas"
+],
+"series": [
+"Build In Public"
+]
+},
+{
+"dir": "2025-04-28-til-fix-telescope-ignoring-env-files",
+"title": "TIL - Fix Telescope Ignoring Env Files",
+"date": "2025-04-28",
+"tags": [
+"neovim",
+"ripgrep"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2025-04-28-voxicle-week-9-week-10",
+"title": "Voxicle Week 9 & Week 10",
+"date": "2025-04-28",
+"tags": [
+"voxicle",
+"buildinpublic",
+"micro-saas"
+],
+"series": [
+"Build In Public"
+]
+},
+{
+"dir": "2025-04-29-til-set-dynamic-url-with-htmx-and-alpinejs",
+"title": "TIL - How to Set Dynamic URL With HTMX and AlpineJS",
+"date": "2025-04-29",
+"tags": [
+"alpinejs",
+"htmx"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2025-05-03-why-i-build-a-web-app-with-htmx-go-postgres",
+"title": "Why I Built a Web App With HTMX, Go & Postgres",
+"date": "2025-05-05",
+"tags": [
+"voxicle",
+"htmx",
+"go",
+"postgres"
+],
+"series": []
+},
+{
+"dir": "2025-05-05-voxicle-week-11",
+"title": "Voxicle Week 11",
+"date": "2025-05-05",
+"tags": [
+"voxicle",
+"buildinpublic",
+"micro-saas"
+],
+"series": [
+"Build In Public"
+]
+},
+{
+"dir": "2025-05-06-how-i-setup-tailwindcss-lsp-with-neovim-nix-with-daisyui-",
+"title": "How I Setup Tailwindcss LSP With Neovim & Nix (With DaisyUI)",
+"date": "2025-05-06",
+"tags": [
+"tailwindcss",
+"lsp",
+"neovim",
+"nvim",
+"nix"
+],
+"series": []
+},
+{
+"dir": "2025-05-12-voxicle-build-log-week-12",
+"title": "Voxicle Build Log Week 12",
+"date": "2025-05-12",
+"tags": [
+"voxicle",
+"buildinpublic",
+"micro-saas",
+"build-log"
+],
+"series": [
+"Build In Public"
+]
+},
+{
+"dir": "2025-05-15-part-8-neovim-as-part-of-your-development-workflow",
+"title": "Part 8: Neovim as Part of Your Development Workflow",
+"date": "2025-05-15",
+"tags": [
+"neovim",
+"nvim"
+],
+"series": [
+"Setup Your Development Workflow"
+]
+},
+{
+"dir": "2025-05-19-voxicle-build-log-week-13",
+"title": "Voxicle Build Log 13",
+"date": "2025-05-19",
+"tags": [
+"voxicle",
+"buildinpublic",
+"micro-saas",
+"build-log"
+],
+"series": [
+"Build In Public"
+]
+},
+{
+"dir": "2025-06-02-voxicle-build-log-14",
+"title": "Voxicle Build Log 14",
+"date": "2025-06-09",
+"tags": [
+"voxicle",
+"buildinpublic",
+"micro-saas",
+"build-log"
+],
+"series": [
+"Build In Public"
+]
+},
+{
+"dir": "2025-06-18-how-to-use-the-gitlab-proxy-in-ci",
+"title": "How to Use the GitLab Proxy in CI",
+"date": "2025-06-18",
+"tags": [
+"gitlab",
+"ci"
+],
+"series": []
+},
+{
+"dir": "2025-06-23-voxicle-build-log-15",
+"title": "Voxicle Build Log 15",
+"date": "2025-06-23",
+"tags": [
+"voxicle",
+"buildinpublic",
+"micro-saas",
+"build-log"
+],
+"series": [
+"Build In Public"
+]
+},
+{
+"dir": "2025-07-02-how-to-fix-shell-completions-when-using-nix-direnv",
+"title": "How to Fix Shell Completions When Using Nix Direnv and Fish Shell",
+"date": "2025-07-02",
+"tags": [
+"nix",
+"fish"
+],
+"series": []
+},
+{
+"dir": "2025-07-07-voxicle-build-log-16",
+"title": "Voxicle Build Log 16",
+"date": "2025-08-04",
+"tags": [
+"voxicle",
+"buildinpublic",
+"micro-saas",
+"build-log"
+],
+"series": [
+"Build In Public"
+]
+},
+{
+"dir": "2025-07-10-how-to-use-tailscale-gitlab-ci-to-deploy-to-our-nix-homelab",
+"title": "How to Use Tailscale GitLab CI to Deploy to Our Nix Home lab",
+"date": "2025-07-10",
+"tags": [
+"nix",
+"homelab",
+"tailscale"
+],
+"series": []
+},
+{
+"dir": "2025-08-10-til-how-to-change-emojis-in-nh",
+"title": "TIL - How to Change Emojis in nh",
+"date": "2025-08-10",
+"tags": [
+"nh",
+"nix",
+"emoji"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2025-11-02-yak-shaving-neotest-edition",
+"title": "Yak Shaving: Neotest Edition",
+"date": "2025-11-02",
+"tags": [
+"nix",
+"nvim",
+"neotest"
+],
+"series": []
+},
+{
+"dir": "2025-11-06-til-how-to-enable-video-thumbnails-for-smb-share-on-nixos",
+"title": "TIL - How to Enable Video Thumbnails for SMB Share on Nixos and Nautilus",
+"date": "2025-11-06",
+"tags": [
+"nixos",
+"nautilus"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2025-12-12-how-to-fix-pam-issues-with-home-manager-on-non-nixos-setups",
+"title": "How to Fix PAM Issues With Home Manager on Non-NixOS Setups",
+"date": "2025-12-12",
+"tags": [
+"pam",
+"home-manager",
+"nix",
+"ubuntu"
+],
+"series": []
+},
+{
+"dir": "2025-12-28-til-how-to-fix-app-lounge-updates-getting-stuck-murenaos-eos-",
+"title": "TIL - How to Fix App Lounge Updates Getting Stuck (MurenaOS/eOS)",
+"date": "2025-12-28",
+"tags": [
+"eos",
+"murenaos"
+],
+"series": [
+"til"
+]
+},
+{
+"dir": "2025-12-29-til-how-to-fix-tailscale-using-mullvad-as-exit-nodes-on-nixos",
+"title": "TIL - How to Fix Tailscale Using Mullvad as Exit Nodes on NixOS",
+"date": "2025-12-29",
+"tags": [
+"tailscale",
+"mullvad",
+"nixos"
+],
+"series": [
+"til"
+]
+},
+{
+"dir": "2025-12-31-how-to-setup-a-new-pc-with-lanzaboote-tpm-decryption-sops-nix-impermanence-nixos-anywhere",
+"title": "How to Setup a New PC With Lanzaboote, TPM Decryption, sops-nix, Impermanence and nixos-anywhere",
+"date": "2025-12-31",
+"tags": [
+"nixos",
+"lanzaboote",
+"nixos-anywhere",
+"impermanence",
+"sops-nix"
+],
+"series": []
+},
+{
+"dir": "2026-01-01-my-year-in-review-2025",
+"title": "My Year in Review 2025",
+"date": "2026-01-01",
+"tags": [
+"review"
+],
+"series": [
+"Year Summary"
+]
+},
+{
+"dir": "2026-03-09-til-how-to-git-push-to-multiple-repositories",
+"title": "TIL - How to Git Push to Multiple Repositories",
+"date": "2026-03-09",
+"tags": [
+"git"
+],
+"series": [
+"TIL"
+]
+},
+{
+"dir": "2026-08-15-how-i-implemented-authorization-in-my-go-app-with-rls-postgres",
+"title": "How I Implemented Authorization in My Go App With RLS (Postgres)",
+"date": "2026-08-15",
+"tags": [
+"go",
+"authorization",
+"rls",
+"postgres",
+"pgx"
+],
+"series": []
+},
+{
+"dir": "2026-08-25-why-i-migrated-from-authentik-to-pocketid",
+"title": "Why I Migrated From Authentik to PocketID",
+"date": "2026-08-25",
+"tags": [
+"homelab",
+"traefik",
+"nixos",
+"pocketid",
+"tinyauth",
+"opentofu"
+],
+"series": []
+}
+]

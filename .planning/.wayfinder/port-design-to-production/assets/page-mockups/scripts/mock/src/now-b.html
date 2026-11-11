@@ -1,0 +1,144 @@
+<div class="mock-now-b">
+<style>
+.main.post:has(.mock-now-b){max-width:1156px}
+.mock-now-b{font-family:var(--lab-body);color:var(--lab-text)}
+.mock-now-b :is(h1,h2,h3){font-family:var(--lab-heading);font-weight:700;color:var(--lab-text)}
+.mock-now-b a{color:inherit;text-decoration:none}
+.mock-now-b a:focus-visible{outline:2px solid var(--lab-accent);outline-offset:3px;border-radius:4px}
+.mock-now-b .ph{font-family:var(--lab-mono);font-size:12.5px;font-weight:400;letter-spacing:0;color:var(--lab-muted);border:1px dashed var(--lab-rule);border-radius:6px;padding:1px 7px}
+.mock-now-b .nb-head{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;padding:16px 0 36px}
+.mock-now-b .nb-head h1{font-size:clamp(34px,4.4vw,56px);line-height:1.08;letter-spacing:-.045em;margin:16px 0 0;max-width:20ch}
+.mock-now-b .nb-head h1 em{font-style:normal;color:var(--lab-accent)}
+.mock-now-b .nb-updated{flex:none;display:flex;align-items:center;gap:10px;font-family:var(--lab-mono);font-size:12px;color:var(--lab-muted);border:1px solid var(--lab-rule);border-radius:999px;padding:8px 14px 8px 12px}
+.mock-now-b .nb-updated::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--lab-accent);box-shadow:0 0 0 4px color-mix(in srgb,var(--lab-accent) 20%,transparent)}
+.mock-now-b .nb-bento{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:16px}
+.mock-now-b .card{background:var(--lab-surface);border:1px solid var(--lab-rule);border-radius:24px;padding:28px 30px;display:flex;flex-direction:column;min-width:0}
+.mock-now-b .card .lab-eyebrow{margin:0 0 14px;display:flex;justify-content:space-between;gap:12px}
+.mock-now-b .card .lab-eyebrow span{color:var(--lab-muted)}
+.mock-now-b .card h2{font-size:28px;line-height:1.15;letter-spacing:-.035em}
+.mock-now-b .card p:not(.lab-eyebrow){margin:12px 0 0;font-size:16px;line-height:1.65;color:var(--lab-muted)}
+.mock-now-b .card p.go{margin-top:auto;padding-top:22px;font-family:var(--lab-mono);font-size:11.5px;color:var(--lab-accent)}
+.mock-now-b .card .go a{border-bottom:1px solid currentColor}
+.mock-now-b .c-build{grid-column:span 7;grid-row:span 2}
+.mock-now-b .c-build h2{font-size:clamp(30px,3.4vw,44px)}
+.mock-now-b .c-build ul{list-style:none;margin:22px 0 0;padding:0;border-top:1px solid var(--lab-rule)}
+.mock-now-b .c-build li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:baseline;padding:16px 0;border-bottom:1px solid var(--lab-rule)}
+.mock-now-b .c-build li a{font-size:18px;font-weight:500}
+.mock-now-b .c-build li a:hover{color:var(--lab-accent)}
+.mock-now-b .c-build li span{font-family:var(--lab-mono);font-size:11px;color:var(--lab-muted);white-space:nowrap}
+.mock-now-b .c-speak{grid-column:span 5;background:color-mix(in srgb,var(--lab-accent) 13%,var(--lab-surface));border-color:color-mix(in srgb,var(--lab-accent) 30%,var(--lab-rule))}
+.mock-now-b .c-speak h2{font-size:24px}
+.mock-now-b .c-speak p.when{font-family:var(--lab-mono);font-size:12px;color:var(--lab-text);margin-top:12px}
+.mock-now-b .c-read{grid-column:span 5}
+.mock-now-b .c-read h2{font-size:22px}
+.mock-now-b .meter{margin-top:18px}
+.mock-now-b .meter .track{display:grid;grid-template-columns:repeat(20,1fr);gap:3px}
+.mock-now-b .meter .track i{height:18px;border-radius:3px;border:1px dashed var(--lab-rule)}
+.mock-now-b .meter .lbl{display:flex;justify-content:space-between;margin-top:8px;font-family:var(--lab-mono);font-size:11px;color:var(--lab-muted)}
+.mock-now-b .c-learn{grid-column:span 4}
+.mock-now-b .c-setup{grid-column:span 4}
+.mock-now-b .c-lab{grid-column:span 4}
+.mock-now-b .c-setup dl{margin:14px 0 0;display:grid;grid-template-columns:auto 1fr;gap:8px 16px;font-size:15px}
+.mock-now-b .c-setup dt{font-family:var(--lab-mono);font-size:11px;color:var(--lab-muted);padding-top:3px}
+.mock-now-b .c-setup dd{margin:0}
+.mock-now-b .c-learn h2,.mock-now-b .c-setup h2,.mock-now-b .c-lab h2{font-size:22px}
+.mock-now-b .nb-goals{margin-top:64px}
+.mock-now-b .lab-section-head h2{font-size:30px}
+.mock-now-b .goals{list-style:none;margin:0;padding:0}
+.mock-now-b .goals li{display:grid;grid-template-columns:130px minmax(0,1fr) auto;gap:24px;align-items:baseline;padding:18px 0;border-bottom:1px solid var(--lab-rule);font-size:17px}
+.mock-now-b .goals .st{font-family:var(--lab-mono);font-size:11px;text-transform:uppercase;letter-spacing:.08em;justify-self:start;border-radius:999px;padding:3px 10px}
+.mock-now-b .goals .done{color:var(--lab-bg);background:var(--lab-accent)}
+.mock-now-b .goals .wip{color:var(--lab-accent);background:color-mix(in srgb,var(--lab-accent) 14%,transparent)}
+.mock-now-b .goals .unk{color:var(--lab-muted);border:1px dashed var(--lab-rule)}
+.mock-now-b .goals small{font-family:var(--lab-mono);font-size:11px;color:var(--lab-muted);text-align:right}
+.mock-now-b .goals small a{color:var(--lab-accent)}
+.mock-now-b .nb-src{margin:18px 0 0;font-size:14px;color:var(--lab-muted)}
+.mock-now-b .nb-src a{color:var(--lab-text);border-bottom:1px solid var(--lab-accent)}
+@media(max-width:960px){
+ .mock-now-b .c-build,.mock-now-b .c-speak,.mock-now-b .c-read{grid-column:1/-1;grid-row:auto}
+ .mock-now-b .c-learn,.mock-now-b .c-setup,.mock-now-b .c-lab{grid-column:span 6}
+ .mock-now-b .c-lab{grid-column:1/-1}
+}
+@media(max-width:640px){
+ .mock-now-b .nb-head{flex-direction:column;align-items:flex-start;gap:20px}
+ .mock-now-b .nb-bento{gap:12px}
+ .mock-now-b .card{padding:22px 20px;border-radius:20px}
+ .mock-now-b .c-learn,.mock-now-b .c-setup{grid-column:1/-1}
+ .mock-now-b .c-build li{grid-template-columns:1fr;gap:4px}
+ .mock-now-b .goals li{grid-template-columns:1fr;gap:6px}
+ .mock-now-b .goals small{text-align:left}
+ .mock-now-b .lab-section-head h2{font-size:24px}
+}
+</style>
+
+<header class="nb-head">
+  <div>
+    <p class="lab-eyebrow">Now / a nownownow.com page</p>
+    <h1>Mostly: <em>rebuilding my homelab</em>, writing Go, and giving talks.</h1>
+  </div>
+  <p class="nb-updated">Updated <span class="ph">[11 Nov 2026]</span></p>
+</header>
+
+<div class="nb-bento">
+  <article class="card c-build" aria-labelledby="nb-build">
+    <p class="lab-eyebrow">Building <span>latest: Aug 2026</span></p>
+    <h2 id="nb-build">A homelab and VPS rebuilt from scratch, on NixOS.</h2>
+    <p>As declarative as I can make it, with as few manual steps as possible. Authentik is out; Pocket ID and TinyAuth handle auth. Alongside it: LettuceGo, my gardening app in Go.</p>
+    <ul>
+      <li><a href="/posts/2026-08-25-why-i-migrated-from-authentik-to-pocketid/">Why I migrated from Authentik to Pocket ID</a><span>25 Aug</span></li>
+      <li><a href="/posts/2026-08-15-how-i-implemented-authorization-in-my-go-app-with-rls-postgres/">Authorization in LettuceGo with Postgres RLS</a><span>15 Aug</span></li>
+      <li><a href="/posts/2026-03-09-til-how-to-git-push-to-multiple-repositories/">Pushing to tangled.sh and GitLab at once</a><span>9 Mar</span></li>
+    </ul>
+    <p class="go"><a href="/series/my-home-lab/">The homelab series ↗</a></p>
+  </article>
+
+  <article class="card c-speak" aria-labelledby="nb-speak">
+    <p class="lab-eyebrow">Just spoke</p>
+    <h2 id="nb-speak"><a href="/talks/python-to-go-concurrency/">From Python to Go: Concurrency Without the Surprises</a></h2>
+    <p class="when">2 Nov 2026</p>
+    <p>Goroutines, channels and cancellation for Python developers. Next up: <span class="ph">[upcoming talk …]</span></p>
+    <p class="go"><a href="/slides/python-to-go-concurrency/">Slides ↗</a></p>
+  </article>
+
+  <article class="card c-read" aria-labelledby="nb-read">
+    <p class="lab-eyebrow">Reading</p>
+    <h2 id="nb-read"><span class="ph">[Current book, author]</span></h2>
+    <div class="meter" role="img" aria-label="Reading goal: 20 books in 2026, progress not yet filled in">
+      <div class="track"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="lbl"><span>[n] read</span><span>goal: 20 in 2026</span></div>
+    </div>
+  </article>
+
+  <article class="card c-learn" aria-labelledby="nb-learn">
+    <p class="lab-eyebrow">Learning</p>
+    <h2 id="nb-learn"><span class="ph">[What you&rsquo;re learning …]</span></h2>
+    <p>Something I&rsquo;m picking up outside of work.</p>
+  </article>
+
+  <article class="card c-setup" aria-labelledby="nb-setup">
+    <p class="lab-eyebrow">Running</p>
+    <h2 id="nb-setup">Today&rsquo;s setup</h2>
+    <dl><dt>os</dt><dd>NixOS + Niri</dd><dt>editor</dt><dd>Neovim</dd><dt>shell</dt><dd>fish in Ghostty</dd></dl>
+    <p class="go"><a href="/uses/">Full /uses ↗</a></p>
+  </article>
+
+  <article class="card c-lab" aria-labelledby="nb-work">
+    <p class="lab-eyebrow">Day job</p>
+    <h2 id="nb-work"><span class="ph">[Current role at …]</span></h2>
+    <p>Backend engineering. <span class="ph">[One line on what you&rsquo;re working on]</span></p>
+  </article>
+</div>
+
+<section class="nb-goals" aria-labelledby="nb-goals">
+  <div class="lab-section-head"><h2 id="nb-goals">2026 goals, so far</h2><a href="/posts/2026-01-01-my-year-in-review-2025/">Where they came from ↗</a></div>
+  <ul class="goals">
+    <li><span class="st done">Done</span><span>Do one conference talk this year</span><small>talks in <a href="/talks/gophercon-htmx-go-web-app/">Aug</a>, <a href="/talks/python-to-go-concurrency/">Nov</a></small></li>
+    <li><span class="st wip">Going</span><span>Keep expanding the homelab with new self-hosted services</span><small><a href="/posts/2026-08-25-why-i-migrated-from-authentik-to-pocketid/">Pocket ID, Aug</a></small></li>
+    <li><span class="st unk">[status]</span><span>Read at least 20 books</span><small>[n]/20</small></li>
+    <li><span class="st unk">[status]</span><span>Go back to making YouTube videos</span><small>&nbsp;</small></li>
+    <li><span class="st unk">[status]</span><span>Find another couple of personal projects</span><small>&nbsp;</small></li>
+    <li><span class="st unk">[status]</span><span>Play Banter Bus with people at work</span><small>&nbsp;</small></li>
+  </ul>
+  <p class="nb-src">This page follows the <a href="https://nownownow.com/about">now page</a> idea: what I&rsquo;d tell a friend I hadn&rsquo;t seen in a year.</p>
+</section>
+</div>
