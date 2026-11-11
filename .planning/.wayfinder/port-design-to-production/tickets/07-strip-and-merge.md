@@ -4,7 +4,7 @@ Labels: `wayfinder:task`
 Status: resolved
 Parent: `../map.md`
 Blocks: none
-Blocked by: `01-port-architecture.md`, `02-code-presentation.md`, `03-palette-toggle.md`, `04-page-layout-variants.md`, `05-search.md`, `06-content-and-config.md`
+Blocked by: `01-port-architecture.md`, `02-code-presentation.md`, `03-palette-toggle.md`, `04-page-layout-variants.md`, `05-search.md`, `06-content-and-config.md`, `09-og-card-redesign.md`, `10-fix-shipping-blockers.md`, `11-rewrite-or-strip.md`, `12-visual-fixes.md`, `13-colour-system-and-accent.md`, `14-neovim-and-terminal-blocks.md`
 
 ## Question
 
