@@ -1,3 +1,8 @@
 {{- define "main" }}
-<div class="not-found">404</div>
-{{- end }}{{/* end main */ -}}
+<section class="post-content error-page" aria-labelledby="error-title">
+  <p class="lab-eyebrow">404 / path not found</p>
+  <h1 id="error-title">This page isn't here.</h1>
+  {{ .RenderString "```terminal\n❯ cd /this-page\ncd: no such file or directory\n```" }}
+  <p>Try <a href="{{ "posts/" | relURL }}">Posts</a> or <a href="{{ "talks/" | relURL }}">Talks</a>, or use the search button above.</p>
+</section>
+{{- end }}

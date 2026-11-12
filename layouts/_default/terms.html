@@ -1,27 +1,31 @@
 {{- define "main" }}
-
-{{- if .Title }}
 <header class="page-header">
-    <h1>{{ .Title }}</h1>
-    {{- if .Description }}
-    <div class="post-description">
-        {{ .Description }}
-    </div>
-    {{- end }}
+  <h1>{{ .Title }}</h1>
+  {{- with .Description }}<div class="post-description">{{ . }}</div>{{ end }}
 </header>
+{{- if eq .Type "tags" }}
+  {{- $terms := .Data.Terms.ByCount }}
+  <section class="topic-group" aria-labelledby="top-topics">
+    <h2 id="top-topics">Top topics</h2>
+    <ul class="terms-tags top-topics">
+      {{- range $terms }}{{ if ge .Count 5 }}
+      <li><a href="{{ .Page.RelPermalink }}">#{{ .Page.LinkTitle | lower }} <span>{{ .Count }}</span></a></li>
+      {{- end }}{{ end }}
+    </ul>
+  </section>
+  <section class="topic-group" aria-labelledby="more-topics">
+    <h2 id="more-topics">More topics</h2>
+    <ul class="terms-tags compact-topics">
+      {{- range .Data.Terms.Alphabetical }}{{ if lt .Count 5 }}
+      <li><a href="{{ .Page.RelPermalink }}">#{{ .Page.LinkTitle | lower }} <span>{{ .Count }}</span></a></li>
+      {{- end }}{{ end }}
+    </ul>
+  </section>
+{{- else }}
+  <ul class="terms-tags">
+    {{- range .Data.Terms.Alphabetical }}
+    <li><a href="{{ .Page.RelPermalink }}">{{ .Page.LinkTitle }} <sup>{{ .Count }}</sup></a></li>
+    {{- end }}
+  </ul>
 {{- end }}
-
-<ul class="terms-tags">
-    {{- $type := .Type }}
-    {{- range $key, $value := .Data.Terms.Alphabetical }}
-    {{- $name := .Name }}
-    {{- $count := .Count }}
-    {{- with site.GetPage (printf "/%s/%s" $type $name) }}
-    <li>
-        <a href="{{ .Permalink }}">{{ .Name }} <sup><strong><sup>{{ $count }}</sup></strong></sup> </a>
-    </li>
-    {{- end }}
-    {{- end }}
-</ul>
-
-{{- end }}{{/* end main */ -}}
+{{- end }}

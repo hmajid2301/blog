@@ -106,9 +106,9 @@ html[data-design] #search-modal { border: 1px solid var(--lab-rule); background:
 html[data-design] .search-title { font-family: var(--lab-heading); }
 html[data-design] .search-date { font-family: var(--lab-mono); }
 html[data-design] .search-item { background: var(--lab-surface); border-radius: var(--radius); }
-html[data-design] .reading-progress-bar { background: var(--lab-accent); }
+html[data-design] .reading-progress-bar { background: transparent; }
 html[data-design] .lab-home-hero { display: grid; grid-template-columns: minmax(0, 1fr) 290px; gap: 70px; padding: 34px 0 62px; border-bottom: 1px solid var(--lab-rule); align-items: center; }
-html[data-design] .lab-eyebrow { font-family: var(--lab-mono); font-size: 11px; text-transform: uppercase; letter-spacing: .1em; color: var(--lab-accent); }
+html[data-design] .lab-eyebrow { font-family: var(--lab-mono); font-size: 11px; text-transform: uppercase; letter-spacing: .1em; color: var(--lab-muted); }
 html[data-design] .lab-home-hero h1 { margin: 22px 0; font-size: clamp(48px, 6.3vw, 80px); font-weight: 700; line-height: 1.08; letter-spacing: -.055em; }
 html[data-design] .lab-intro { font-size: 21px; line-height: 1.7; max-width: 46ch; color: var(--lab-muted); }
 html[data-design] .lab-portrait { margin: 0; }
@@ -124,7 +124,7 @@ html[data-design] .lab-home-bottom .lab-home-links a {
   transition: background-color .15s ease, border-color .15s ease;
 }
 html[data-design] .lab-home-bottom .lab-home-links a:hover {
-  background: color-mix(in srgb, var(--lab-accent) 12%, transparent);
+  background: var(--lab-surface);
   border-color: var(--lab-accent);
 }
 html[data-design] .lab-home-section { margin-top: 52px; }
@@ -135,7 +135,7 @@ html[data-design] .lab-home-entry { display: grid; grid-template-columns: 125px 
 html[data-design] .lab-home-entry time { font-family: var(--lab-mono); font-size: 11px; color: var(--lab-muted); }
 html[data-design] .lab-home-entry h3 { font-size: 24px; line-height: 1.25; }
 html[data-design] .lab-home-entry p { font-size: 15px; color: var(--lab-muted); margin-top: 10px; line-height: 1.7; }
-html[data-design] .lab-home-entry .lab-arrow { font-size: 22px; color: var(--lab-accent); }
+html[data-design] .lab-home-entry .lab-arrow { font-size: 22px; color: var(--lab-muted); }
 html[data-design] .lab-home-entry a:hover { color: var(--lab-accent); }
 html[data-design] .lab-home-bottom { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; }
 html[data-design] .lab-home-bottom h3 { font-size: 24px; margin: 18px 0 10px; }

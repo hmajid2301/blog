@@ -120,7 +120,7 @@
 
 {{- /* Search */}}
 {{ if .Site.Params.enableSearch | default true }}
-<link crossorigin="anonymous" rel="preload" as="fetch" href="{{ "" | absLangURL }}index.json" />
+<link crossorigin="anonymous" rel="preload" as="fetch" href="{{ "index.json" | relLangURL }}" />
 {{- $fusejs := resources.Get "js/fuse.basic.min.js" }}
 {{- $fastsearch := resources.Get "js/fastsearch.js" | js.Build }}
 {{- $search := (slice $fusejs $fastsearch ) | resources.Concat "assets/js/search.js" | minify }}

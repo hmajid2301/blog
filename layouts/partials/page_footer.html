@@ -53,7 +53,7 @@
   // NOTE use closure instead of DOMContentLoaded because of InstantClick,
   // every page loaded by InstantClick should run the <script> tags again.
   (function() {
-    const enableTocScroll = '{{- if (and (eq .Kind "page") (.Content) (.Param "ShowToc") (.Param "TocSide")) }}1{{ end }}' == '1'
+    const enableTocScroll = '{{- if (and (eq .Kind "page") (.Content) (.Param "ShowToc")) }}1{{ end }}' == '1'
     if (!enableTocScroll) {
       return
     }
@@ -66,7 +66,15 @@
     // always get an array here
     const scrollListeners = window.scrollListeners || []
     window.scrollListeners = scrollListeners
-    const headings = document.querySelectorAll('h1[id],h2[id],h3[id],h4[id],h5[id]');
+    const details = document.querySelector('.toc details');
+    const wideScreen = window.matchMedia('(min-width: 1200px)');
+    const syncDisclosure = () => {
+      details.open = wideScreen.matches || {{ if (.Param "TocOpen") }}true{{ else }}false{{ end }};
+    };
+    syncDisclosure();
+    wideScreen.addEventListener('change', syncDisclosure);
+    const headings = Array.from(document.querySelectorAll('.post-content :is(h1,h2,h3,h4,h5,h6)[id]')).filter(getLinkByHeading);
+    if (!headings.length) return;
     const activeClass = 'active';
 
     // Make the first header active
@@ -105,8 +113,8 @@
     scrollListeners.push(scrollListener)
 
     function getLinkByHeading(heading) {
-      const id = encodeURI(heading.getAttribute('id')).toLowerCase();
-      return document.querySelector(`.toc ul li a[href="#${id}"]`);
+      return Array.from(document.querySelectorAll('.toc a[href]')).find(link =>
+        decodeURIComponent(link.hash.slice(1)) === heading.id);
     }
 
     function getOffsetTop(heading) {

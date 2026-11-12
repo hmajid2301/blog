@@ -1,0 +1,6 @@
+{{- $summary := .Description | default .Params.summary -}}
+{{- if not $summary -}}
+  {{- /* Leading section headings are navigation, not the start of an excerpt. */ -}}
+  {{- $summary = replaceRE `(?s)^(?:\s*<h[1-6][^>]*>.*?</h[1-6]>\s*)+` "" .Content -}}
+{{- end -}}
+{{- return ($summary | plainify | htmlUnescape | strings.TrimSpace) -}}

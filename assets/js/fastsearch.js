@@ -42,7 +42,12 @@ function highlightTerms(value, terms, maxMarks) {
     const lowerTerm = term.toLowerCase();
     let pos = 0;
     while ((pos = lowerText.indexOf(lowerTerm, pos)) !== -1) {
-      intervals.push([pos, pos + lowerTerm.length]);
+      let start = pos;
+      let end = pos + lowerTerm.length;
+      const wordCharacter = /[\p{L}\p{N}_]/u;
+      while (start > 0 && wordCharacter.test(text[start - 1])) start--;
+      while (end < text.length && wordCharacter.test(text[end])) end++;
+      intervals.push([start, end]);
       pos += 1;
     }
   });
@@ -71,8 +76,18 @@ function highlightTerms(value, terms, maxMarks) {
   return html;
 }
 
-function highlightField(item, _matches, key, terms, maxMarks) {
-  return highlightTerms(item[key], terms, maxMarks);
+function searchSnippet(value, terms) {
+  const text = String(value || '').replace(/\s+/g, ' ').trim();
+  const positions = terms.map(term => text.toLowerCase().indexOf(term.toLowerCase())).filter(pos => pos >= 0);
+  const match = positions.length ? Math.min(...positions) : 0;
+  let start = Math.max(0, match - 60);
+  if (start > 0) start = text.lastIndexOf(' ', start) + 1;
+  let end = Math.min(text.length, start + 200);
+  if (end < text.length) {
+    const boundary = text.lastIndexOf(' ', end);
+    if (boundary > start) end = boundary;
+  }
+  return (start > 0 ? '… ' : '') + text.slice(start, end) + (end < text.length ? ' …' : '');
 }
 
 function setStatus(message) {
@@ -102,7 +117,7 @@ function hideSearch() {
   output.innerHTML = '';
   resultLinks = [];
   setStatus('');
-  if (document.activeElement && modal.contains(document.activeElement)) document.activeElement.blur();
+  if (showButton) showButton.focus();
 }
 
 function moveFocus(dir) {
@@ -135,8 +150,7 @@ function fetchJSON(path, callback) {
 }
 
 function buildIndex() {
-  const baseURL = (wrapper.getAttribute('data-url') || '/').replace(/\/?$/, '/');
-  fetchJSON(baseURL + 'index.json', function (data) {
+  fetchJSON(wrapper.getAttribute('data-url') || '/index.json', function (data) {
     fuse = new Fuse(data, fuseOptions);
     indexed = true;
     setStatus('');
@@ -171,7 +185,7 @@ function renderResults(results, term) {
 
     const title = document.createElement('div');
     title.className = 'search-title';
-    title.innerHTML = highlightField(item, result.matches, 'title', highlightTermsList);
+    title.innerHTML = highlightTerms(item.title, highlightTermsList);
 
     const meta = document.createElement('div');
     meta.className = 'search-meta';
@@ -183,7 +197,7 @@ function renderResults(results, term) {
     if (item.content) {
       const summary = document.createElement('div');
       summary.className = 'search-summary';
-      summary.innerHTML = highlightField(item, result.matches, 'content', highlightTermsList, 3);
+      summary.innerHTML = highlightTerms(searchSnippet(item.content, highlightTermsList), highlightTermsList, 3);
       card.appendChild(summary);
     }
 
@@ -211,7 +225,10 @@ if (showButton) showButton.addEventListener('click', displaySearch);
 if (hideButton) hideButton.addEventListener('click', hideSearch);
 if (wrapper) wrapper.addEventListener('click', function (event) { if (event.target === wrapper) hideSearch(); });
 if (modal) modal.addEventListener('click', function (event) { event.stopPropagation(); });
-if (input) input.addEventListener('input', function () { executeQuery(input.value); });
+if (input) {
+  input.addEventListener('input', function () { executeQuery(input.value); });
+  input.form.addEventListener('submit', function (event) { event.preventDefault(); });
+}
 
 document.addEventListener('keydown', function (event) {
   const mod = event.metaKey || event.ctrlKey;

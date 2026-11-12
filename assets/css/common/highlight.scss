@@ -1,16 +1,28 @@
-@import '../lib/catppuccin-latte';
-
-/* Dark Catppuccin — Mocha (and the playground's Frappé/Macchiato). */
-html[data-theme^='cat-mocha'],
-html[data-theme^='cat-frappe'],
-html[data-theme^='cat-macchiato'] {
+/* Scope every syntax sheet: tokens omitted by Gruvbox must inherit its text,
+   not fall through to the light Catppuccin sheet. */
+html[data-theme='cat'][data-mode='light'] {
+  @import '../lib/catppuccin-latte';
+}
+html[data-theme='cat'][data-mode='dark'] {
   @import '../lib/catppuccin-mocha';
 }
-
-/* Fireside palette — warm Gruvbox, light and dark. */
-html[data-theme='fireside-light'] {
+html[data-theme='fireside'][data-mode='light'] {
   @import '../lib/gruvbox-light';
 }
-html[data-theme='fireside-dark'] {
+html[data-theme='fireside'][data-mode='dark'] {
   @import '../lib/gruvbox-dark';
+}
+
+html[data-theme][data-mode] {
+  .chroma, .bg {
+    color: var(--lab-text);
+    background-color: var(--lab-code-bg);
+  }
+  .chroma :is(.x, .cl, .nx, .ld, .go, .gp, .gs) { color: var(--lab-text); }
+  .chroma :is(.c, .ch, .cm, .c1, .cs, .cp, .cpf, .sd, .sh) {
+    color: var(--lab-code-comment);
+    font-style: italic;
+  }
+  .chroma :is(.ln, .lnt) { color: var(--lab-code-comment); }
+  .chroma .hl { background-color: var(--lab-code-highlight); }
 }

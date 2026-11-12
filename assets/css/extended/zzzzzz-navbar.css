@@ -77,7 +77,7 @@ html[data-design][data-navbar='pill'] #menu a:hover {
 html[data-design][data-navbar='pill'] #menu .active,
 html[data-design][data-navbar='pill'] #menu a.active:hover {
   color: var(--lab-accent);
-  background: color-mix(in srgb, var(--lab-accent) 12%, transparent);
+  background: var(--lab-surface);
 }
 
 /* Underline — bare links, animated accent underline on hover, full underline when active. */
@@ -189,7 +189,13 @@ html[data-design][data-navbar='ruler'] #menu .active,
 html[data-design][data-navbar='ruler'] #menu a.active:hover { color: var(--lab-accent); background: transparent; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; }
 
 @media (max-width: 700px) {
-  html[data-design] .nav-end { width: 100%; flex-wrap: wrap; row-gap: 10px; }
+  html[data-design] .nav { flex-wrap: nowrap; gap: 8px; padding: 12px 16px; min-height: 64px; }
+  html[data-design] .logo .logo-name { display: none; }
+  html[data-design] .logo a { gap: 0; }
+  html[data-design] .nav-end { width: auto; flex-wrap: nowrap; gap: 6px; margin-inline-start: auto; }
+  html[data-design] #menu { overflow-x: auto; }
+  html[data-design] #menu a { padding: 7px 8px; font-size: 14px; }
+  html[data-design][data-navbar='pill'] #menu { gap: 0; }
   html[data-design] #menu { flex: 1 1 auto; width: auto; }
   html[data-design] .logo-switches { margin-inline-start: auto; border-inline-start: 0; padding-inline-start: 0; }
   html[data-design][data-navbar='centered'] .nav-end { justify-content: center; }
@@ -198,9 +204,13 @@ html[data-design][data-navbar='ruler'] #menu a.active:hover { color: var(--lab-a
 
 /* Logo mark injected beside the site name. */
 html[data-design] .logo a { display: inline-flex; align-items: center; gap: 10px; }
-html[data-design] .logo a .lab-mark { display: inline-flex; flex: none; color: var(--lab-accent); }
+html[data-design] .logo a .lab-mark { display: inline-flex; flex: none; color: var(--lab-muted); }
 html[data-design] .logo a .lab-mark[hidden] { display: none; }
 html[data-design] .logo a .lab-mark svg { width: 26px; height: 26px; display: block; }
+
+html[data-design] #mode-toggle svg { display: block; width: 18px; height: 18px; }
+html[data-mode='light'] .mode-moon,
+html[data-mode='dark'] .mode-sun { display: none; }
 
 /* Palette switcher — Catppuccin ↔ Fireside segmented control + light/dark button. */
 html[data-design] .palette-switch {
@@ -223,8 +233,9 @@ html[data-design] .palette-switch button {
   white-space: nowrap;
 }
 html[data-design] .palette-switch button[aria-pressed="true"] {
-  background: var(--lab-accent);
-  color: var(--lab-bg);
+  background: var(--lab-code-highlight);
+  color: var(--lab-text);
+  box-shadow: inset 0 0 0 1px var(--lab-muted);
 }
 html[data-design] .logo-switches button#mode-toggle {
   border: 1px solid var(--lab-rule);

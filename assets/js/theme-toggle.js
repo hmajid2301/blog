@@ -5,12 +5,6 @@
   const PALETTE_KEY = "pref-palette";
   const MODE_KEY = "pref-mode";
 
-  // One palette, two flavours: the theme name carries the flavour.
-  const themes = {
-    cat: { light: "cat-latte-mauve", dark: "cat-mocha-mauve" },
-    fireside: { light: "fireside-light", dark: "fireside-dark" }
-  };
-
   const read = (k) => { try { return localStorage.getItem(k); } catch { return null; } };
   const write = (k, v) => { try { localStorage.setItem(k, v); } catch {} };
 
@@ -27,14 +21,13 @@
   function apply() {
     const p = palette();
     const m = mode();
-    root.dataset.theme = themes[p][m];
+    root.dataset.theme = p;
     root.dataset.mode = m;
     root.style.colorScheme = m;
     document.querySelectorAll("[data-palette]").forEach((b) =>
       b.setAttribute("aria-pressed", String(b.dataset.palette === p)));
     const toggle = document.getElementById("mode-toggle");
     if (toggle) {
-      toggle.textContent = m === "dark" ? "🌙" : "☀️";
       toggle.setAttribute("aria-label", m === "dark" ? "Switch to light mode" : "Switch to dark mode");
     }
   }

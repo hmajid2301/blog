@@ -9,6 +9,7 @@ html[data-design] .main a {
 }
 html[data-design] .main a:hover {
   color: var(--lab-accent);
-  background-color: color-mix(in srgb, var(--lab-accent) 14%, transparent);
+  background-color: transparent;
   text-decoration-color: var(--lab-accent);
+  text-decoration-thickness: 2px;
 }

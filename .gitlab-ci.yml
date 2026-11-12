@@ -22,7 +22,7 @@ check:og:
   extends:
     - .task
   script:
-    - nix develop -c task generate:og
+    - nix develop -c task og:base
     - git diff --exit-code
 
 pages:

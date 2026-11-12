@@ -7,7 +7,7 @@
         <span class="lab-mark" aria-hidden="true">
           <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 9l8 7-8 7"/><path d="M21 23h5"/></svg>
         </span>
-        {{- $label_text -}}
+        <span class="logo-name">{{- $label_text -}}</span>
       </a>
       {{- end }}
     </div>
@@ -38,8 +38,11 @@
       {{- end }}
       </ul>
       <div class="logo-switches">
-        <button type="button" id="mode-toggle" aria-label="Switch to dark mode">☀️</button>
-        <button id="search-button" class="icon-hover" title="Search (press / or Ctrl+K)">
+        <button type="button" id="mode-toggle" aria-label="Switch to dark mode">
+          <span class="mode-sun" aria-hidden="true">{{ safeHTML (index hugo.Data.svg "sun") }}</span>
+          <span class="mode-moon" aria-hidden="true">{{ safeHTML (index hugo.Data.svg "moon") }}</span>
+        </button>
+        <button id="search-button" class="icon-hover" aria-label="Search" title="Search (press / or Ctrl+K)">
           {{ safeHTML (index hugo.Data.svg "search") }}
         </button>
       </div>

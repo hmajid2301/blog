@@ -1,7 +1,7 @@
 # Ticket: Prototype a nicer OG card that matches the Studio design
 
 Labels: `wayfinder:prototype`
-Status: unclaimed
+Status: resolved
 Parent: `../map.md`
 Blocks: `07-strip-and-merge.md` (the card should be final before the merge PR)
 Blocked by: none (needs the accent decision from `13-colour-system-and-accent.md`, which the Phase 2 checkpoint can also ask directly)
@@ -41,3 +41,17 @@ Verified Hugo 0.164 facts (spiked in a throwaway site):
 - `alignx: "right"` treats `x` as the **right edge** (`x: 1120` = 80px margin). `aligny` exists too.
 - Hugo **cannot measure the height of rendered text**. Use a top-anchored layout, not one that is vertically centred around the title.
 - `magick` is on PATH and `playwright` is in the devshell. `resvg` / `rsvg-convert` are not installed (they can be added to `flake.nix`).
+
+## Resolution
+
+User chose **E: editorial + Neovim statusline**, lavender `#b4befe`, keeping the gopher, and approved using it for production. This changes the production generator on the design branch; deployment/merge is separate.
+
+- Hugo composes 1200×630 cards with pixel-wrapped full titles, page-kind eyebrows, a 270px gopher and the statusline. Taxonomies/terms use their own titles, including series rather than labelling every taxonomy as tags.
+- Footer icon tiles are 36×36 with 10px icon-to-label and 14px between-group spacing. Vector calendar/clock icons avoid font fallback; a bundled build-time Nerd Font supplies document/microphone/tag/branch glyphs.
+- OG and Twitter share `partialCached`, alt text and versioned `md5(RelPermalink|title|version)` URLs. BlogPosting JSON-LD uses the same image URL without double JSON encoding.
+- `task og:base` renders the two SVG chrome sources with `resvg`, added to the devshell. The CI `check:og` caller uses the renamed task. Bundled font subsets retain license metadata and are not published to visitors.
+- Kept original title hyphens: the existing Schibsted font does not contain the plan's proposed non-breaking-hyphen glyph. No ellipsis or title truncation is used.
+
+Verified: production Hugo build succeeds (warm build 553ms; 12 pre-existing missing-image warnings). All **474** cards are **1200×630**, with changed social URLs. All **487** HTML pages with OG titles have matching OG/Twitter images and alt text; **238** BlogPosting image URLs match OG. All **487** JSON-LD documents parse. Reviewed 12 fixture cards (home, section, tags, term, series, talk, page, longest/shortest posts) and 20 random posts for clipping and missing glyphs. Temporary sheets: `/tmp/blog-og-e-review/{sheet,random-20}.png` (ephemeral). Pinned `resvg` reproduces both static PNGs byte-for-byte; Nix devshell evaluation and offline GitLab CI lint/graphs pass. Independent review's stale CI-task reference was fixed, and JSON-LD image equality was confirmed after the encoding fix. No tests or test infrastructure added.
+
+Follow-ups: legacy tcardgen covers belong to ticket 08. Broader existing JSON-LD fields still have redundant JSON encoding; only the OG image field was corrected here.

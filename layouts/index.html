@@ -1,7 +1,7 @@
 {{- define "main" }}
   <section class="lab-home-hero" aria-labelledby="home-title">
     <div>
-      <p class="lab-eyebrow">{{ site.Title }} / a personal corner of the web</p>
+      <p class="lab-eyebrow">{{ site.Title }}<span class="lab-eyebrow-tail"> / a personal corner of the web</span></p>
       <h1 id="home-title">Backend engineer.<br><span class="lab-heading-tail">Always tinkering.</span></h1>
       <p class="lab-intro">{{ site.Params.profileMode.subtitle | markdownify }}</p>
       <p class="lab-intro">Notes on Go, Nix, developer tools, and the things I learn while building software.</p>
@@ -19,7 +19,7 @@
   <section class="lab-featured" data-home-section="featured" aria-labelledby="featured-title">
     <p class="lab-eyebrow">Latest from the notebook / {{ .Date.Format "02 Jan 2006" }}</p>
     <h2 id="featured-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
-    <p>{{ .Description | default (.Summary | plainify | htmlUnescape) | truncate 260 }}</p>
+    <p>{{ partial "entry-summary.html" . | truncate 260 }}</p>
     <div class="lab-home-links"><span>{{ .ReadingTime }} min read</span></div>
   </section>
   {{- end }}
@@ -45,7 +45,7 @@
     {{- range $index, $post := first 12 (where site.RegularPages "Section" "posts").ByDate.Reverse }}
     <article class="lab-home-entry" data-home-post{{ if ge $index 6 }} hidden{{ end }}>
       <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "02 Jan 2006" }}</time>
-      <div><h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3><p>{{ .Description | default (.Summary | plainify | htmlUnescape) | truncate 160 }}</p></div>
+      <div><h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3><p>{{ partial "entry-summary.html" . | truncate 160 }}</p></div>
       <span class="lab-arrow" aria-hidden="true">↗</span>
     </article>
     {{- end }}

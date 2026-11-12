@@ -57,7 +57,7 @@ html[data-design] .page-lab-entry-timeline { position: relative; display: grid; 
 html[data-design] .page-lab-entry-timeline:hover { transform: translateY(-2px); box-shadow: 0 8px 22px color-mix(in srgb, var(--lab-text) 8%, transparent); border-color: color-mix(in srgb, var(--lab-accent) 35%, var(--lab-rule)); }
 html[data-design] .page-lab-entry-timeline .page-lab-entry-node { display: flex; align-items: center; gap: 12px; }
 html[data-design] .page-lab-entry-timeline time { font: 12px/1.5 var(--lab-mono); color: var(--lab-muted); text-align: right; min-width: 60px; }
-html[data-design] .page-lab-entry-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--lab-accent); border: 2px solid var(--lab-bg); box-shadow: 0 0 0 2px var(--lab-accent); flex-shrink: 0; }
+html[data-design] .page-lab-entry-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--lab-muted); border: 2px solid var(--lab-bg); box-shadow: 0 0 0 2px var(--lab-muted); flex-shrink: 0; }
 html[data-design] .page-lab-entry-timeline .page-lab-entry-dot { position: absolute; left: -26px; top: 22px; width: 14px; height: 14px; border-width: 3px; box-shadow: 0 0 0 3px var(--lab-bg); background: var(--lab-bg); }
 html[data-design] .page-lab-entry-timeline h3 { font: 500 19px/1.35 var(--lab-heading); margin: 0 0 6px; }
 html[data-design] .page-lab-entry-timeline .page-lab-entry-event { font: 13px/1.5 var(--lab-mono); color: var(--lab-muted); margin: 0 0 10px; }
@@ -173,7 +173,7 @@ html[data-design][data-page-variant='watch'] body[data-lab-page='talk'] .entry-c
 html[data-design][data-page-variant='reading'] body[data-lab-page='article'] .post-single { max-width: 68ch; margin-inline: auto; }
 html[data-design][data-page-variant='reading'] body[data-lab-page='article'] .post-content { font-size: var(--lab-text-size); line-height: 1.9; }
 html[data-design][data-page-variant='editorial'] body[data-lab-page='article'] .post-header { border-block: 1px solid var(--lab-rule); padding-block: 32px; margin-bottom: 36px; }
-html[data-design][data-page-variant='editorial'] body[data-lab-page='article'] .post-title { font-size: clamp(34px, 5vw, 64px); max-width: 22ch; line-height: 1.12; }
+html[data-design][data-page-variant='editorial'] body[data-lab-page='article'] .post-title { font-size: clamp(2.25rem, 4vw, 3.5rem); max-width: 24ch; line-height: 1.12; }
 html[data-design][data-page-variant='editorial'] body[data-lab-page='article'] .post-description { font-size: 23px; line-height: 1.6; }
 html[data-design][data-page-variant='contents'] body[data-lab-page='article'] .page-lab-contents { display: block; padding: 20px; background: var(--lab-surface); border: 1px solid var(--lab-rule); margin-bottom: 28px; }
 html[data-design] .page-lab-contents a { display: inline-block; min-height: 28px; text-decoration: underline; }

@@ -148,16 +148,16 @@ html[data-design][data-builder-active='true'] body:not(.layout-design-builder) .
 html[data-neovim='true'] .lab-neovim {
   position: relative; min-width: 0; overflow: hidden;
   border: 1px solid var(--lab-rule); border-radius: 8px;
-  background: var(--lab-bg); color: var(--lab-text);
+  background: var(--lab-code-bg); color: var(--lab-text);
 }
 html[data-neovim='true'] .lab-neovim .lab-code-tab {
   display: block; width: fit-content; max-width: calc(100% - 75px);
-  padding: 10px 16px; border-top: 2px solid var(--lab-accent);
-  background: var(--lab-surface); color: var(--lab-accent);
+  padding: 10px 16px; border-top: 2px solid var(--lab-rule);
+  background: var(--lab-surface); color: var(--lab-muted);
   font: 12px/1.5 var(--lab-mono); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 html[data-neovim='true'] .lab-neovim pre {
-  margin: 0; border: 0; border-radius: 0; background: var(--lab-bg); overflow-x: auto;
+  margin: 0; border: 0; border-radius: 0; background: var(--lab-code-bg); overflow-x: auto;
 }
 html[data-neovim='true'] .lab-neovim pre code {
   width: max-content; min-width: 100%; box-sizing: border-box;
@@ -171,13 +171,13 @@ html[data-neovim='true'] .lab-neovim code > .line::before {
   position: absolute; left: 0; width: 2.5ch; text-align: right;
   color: var(--lab-muted); user-select: none;
 }
-html[data-neovim='true'] .lab-neovim code > .line:first-child { background: var(--lab-surface); }
-html[data-neovim='true'] .lab-neovim code > .line:first-child::before { color: var(--lab-accent); }
+html[data-neovim='true'] .lab-neovim code > .line:first-child { background: var(--lab-code-highlight); }
+html[data-neovim='true'] .lab-neovim code > .line:first-child::before { color: var(--lab-muted); }
 html[data-neovim='true'] .lab-neovim .lab-code-status {
   display: flex; align-items: center; gap: 12px; padding-right: 12px;
   background: var(--lab-surface); color: var(--lab-muted); font: 11px/30px var(--lab-mono);
 }
-html[data-neovim='true'] .lab-code-status strong { padding: 0 12px; background: var(--lab-accent); color: var(--lab-bg); }
+html[data-neovim='true'] .lab-code-status strong { padding: 0 12px; background: var(--lab-code-highlight); color: var(--lab-text); }
 html[data-neovim='true'] .lab-code-language { margin-right: auto; }
 html[data-neovim='true'] .lab-neovim .copy-code {
   display: block; position: absolute; inset: 7px 9px auto auto; opacity: 1; margin: 0; padding: 4px 8px;

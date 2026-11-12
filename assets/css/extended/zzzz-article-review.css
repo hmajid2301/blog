@@ -1,17 +1,90 @@
 /* Article-page review fixes (baked design tweaks). */
 
+html[data-design] body :is(.lab-eyebrow, .page-lab-kicker, .lab-home-entry time, .lab-related-entry time, .page-lab-entry time, .archive-meta, .lab-portrait figcaption) { font-size: 12px; color: var(--lab-muted); }
+html[data-design] .lab-entry-list .lab-home-entry h2 { font-size: 24px; line-height: 1.25; }
+html[data-design] .lab-entry-list .lab-home-entry p { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+html[data-design] .lab-entry-list .lab-home-entry > div { min-width: 0; }
+html[data-design] .page-header h1 { text-transform: none; }
+html[data-design] .page-header h1 small { font: 400 18px var(--lab-mono); color: var(--lab-muted); white-space: nowrap; }
+html[data-design] .topic-group { margin-block: 32px; }
+html[data-design] .topic-group h2 { font-size: 24px; }
+html[data-design] .topic-group .terms-tags { display: flex; flex-wrap: wrap; justify-content: flex-start; gap: 8px; padding: 0; margin: 16px 0; list-style: none; }
+html[data-design] .topic-group .terms-tags li { margin: 0; }
+html[data-design] .topic-group .terms-tags a { margin: 0; font-size: 17px; }
+html[data-design] .topic-group .terms-tags span { color: var(--lab-muted); font: 12px var(--lab-mono); margin-inline-start: 6px; }
+html[data-design] .topic-group .compact-topics a { padding: 4px 8px; border: 0; font-size: 14px; }
+html[data-design] .page-lab-timeline h3 a { text-decoration: none; }
+html[data-design] .page-lab-timeline h3 a:hover { text-decoration: underline; }
+/* Repeated references still share one return link, to the first mention. */
+html[data-design] .footnote-backref ~ .footnote-backref { display: none; }
+html[data-design] body.kind-404 { display: flex; flex-direction: column; min-height: 100vh; }
+html[data-design] body.kind-404 .main { flex: 1; width: 100%; }
+html[data-design] body.kind-404 .footer { width: 100%; }
+html[data-design] .error-page { margin-inline: auto; }
+html[data-design='studio'] body.kind-home .lab-home-hero { padding: 28px; align-items: start; gap: 28px; }
+@media (max-width: 700px) {
+  html[data-design] .lab-eyebrow-tail { display: none; }
+  html[data-design='studio'] body.kind-home .lab-home-hero { padding: 24px; }
+}
+
 /* Hide the heading ¶ anchor link — was revealed on hover. */
 html[data-design] .post-content .anchor { display: none !important; }
 
-/* Larger table-of-contents text. */
-html[data-design] .toc { font-size: 15px; }
+/* Plain disclosure on small screens; a sticky right column on wide screens. */
+html[data-design] .post-body { min-width: 0; }
+html[data-design] .post-body > .toc {
+  position: static;
+  width: auto;
+  max-height: none;
+  margin: 0 0 30px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  font-size: 15px;
+}
+html[data-design] .toc details summary { margin-inline-start: 0; }
+html[data-design] .toc .inner { padding: 12px 0 0 20px; }
+html[data-design] .post-content {
+  max-width: 68ch;
+  font-weight: 450;
+  line-height: 1.7;
+}
+html[data-design] .post-content :is(h1, h2, h3, h4) { font-family: var(--lab-heading); }
+html[data-design] .post-single .post-title { font-size: clamp(2.25rem, 4vw, 3.5rem); }
+html[data-design] .post-meta-line { display: flex; flex-wrap: wrap; gap: 4px 0; }
+html[data-design] .post-meta-line > * { white-space: nowrap; }
+html[data-design] .post-meta-line > * + *::before { content: '·'; margin-inline: 8px; }
+html[data-design] .post-edit a { display: inline-flex; align-items: center; gap: 8px; font: 13px var(--lab-mono); }
+html[data-design] .post-edit svg { width: 14px; height: 14px; }
+@media (min-width: 1200px) {
+  html[data-design] .main.post:has(.post-body > .toc) { max-width: 1100px; }
+  html[data-design] .post-body:has(> .toc) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 240px;
+    gap: 48px;
+    align-items: start;
+  }
+  html[data-design] .post-body > .toc {
+    grid-column: 2;
+    grid-row: 1;
+    position: sticky;
+    top: 24px;
+    max-height: calc(100vh - 48px);
+    overflow-y: auto;
+    border-inline-start: 1px solid var(--lab-rule);
+    padding-inline-start: 20px;
+  }
+  html[data-design] .post-body > .post-content { grid-column: 1; grid-row: 1; min-width: 0; }
+  html[data-design] .post-body > .toc summary { list-style: none; }
+  html[data-design] .post-body > .toc summary::-webkit-details-marker { display: none; }
+}
 
 /* Larger, tidier post meta + breadcrumbs. */
 html[data-design] .post-meta,
 html[data-design] .breadcrumbs { font-size: 13px; }
 
 /* Tidy tag chips. */
-html[data-design] .post-tags { display: inline-flex; flex-wrap: wrap; gap: 6px; }
+html[data-design] .post-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
 html[data-design] .post-tags a {
   display: inline-block;
   padding: 2px 10px;
@@ -57,14 +130,14 @@ html[data-neovim='true'] .lab-code-tab .lab-code-language {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  color: var(--lab-accent);
+  color: var(--lab-muted);
 }
 html[data-neovim='true'] .lab-code-tab .lab-code-language::before {
   content: '';
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: var(--lab-accent);
+  background: var(--lab-muted);
 }
 html[data-neovim='true'] .lab-code-tab .lab-code-lines {
   color: var(--lab-muted);
@@ -81,8 +154,8 @@ html[data-neovim='true'] .lab-neovim .lab-code-status {
 }
 html[data-neovim='true'] .lab-code-status strong {
   padding: 0 12px;
-  background: var(--lab-accent);
-  color: var(--lab-bg);
+  background: var(--lab-code-highlight);
+  color: var(--lab-text);
 }
 html[data-neovim='true'] .lab-code-status .lab-code-language { margin-right: auto; }
 html[data-neovim='true'] .lab-neovim .copy-code { top: 42px; }
@@ -210,7 +283,7 @@ html[data-design] .lab-related-entry time {
 html[data-design] .lab-related-entry h3 { font-size: 19px; font-weight: 500; line-height: 1.3; }
 html[data-design] .lab-related-entry a { color: var(--lab-text); }
 html[data-design] .lab-related-entry a:hover { color: var(--lab-accent); }
-html[data-design] .lab-related-entry .lab-arrow { color: var(--lab-accent); font-size: 20px; }
+html[data-design] .lab-related-entry .lab-arrow { color: var(--lab-muted); font-size: 20px; }
 @media (max-width: 600px) {
   html[data-design] .lab-related-entry { grid-template-columns: minmax(0, 1fr) 24px; }
   html[data-design] .lab-related-entry time { display: none; }

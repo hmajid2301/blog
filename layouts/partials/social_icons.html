@@ -5,6 +5,7 @@
     {{- if (eq .url "email") }}
       <a
         href="mailto:{{ $.MaskedEmail | default $.Email }}"
+        aria-label="{{ .name | title }}"
         title="{{ .name | title }}"
       >
         {{ safeHTML (index $.svg $icon_name | default $.svg.default) }}
@@ -13,6 +14,7 @@
       <a
         href="{{ trim .url " " }}"
         target="_blank"
+        aria-label="{{ .name | title }} (opens in a new tab)"
         rel="noopener noreferrer me"
         title="{{ .name | title }}"
       >

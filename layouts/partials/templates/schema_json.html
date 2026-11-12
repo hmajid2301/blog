@@ -72,7 +72,7 @@
   ],
   "wordCount" : "{{ .WordCount }}",
   "inLanguage": {{ .Language.Lang | default "en-us" | jsonify }},
-  "image": {{ (partialCached "og-image.html" . .RelPermalink).Permalink | absURL | jsonify }},
+  "image": {{ (partialCached "og-image.html" . .RelPermalink).Permalink | absURL }},
   "datePublished": {{ .PublishDate | jsonify }},
   "dateModified": {{ .Lastmod | jsonify }},
   {{- with (.Params.author | default site.Params.author) }}

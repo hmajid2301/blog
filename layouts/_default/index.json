@@ -1,14 +1,14 @@
-{{- $.Scratch.Add "index" slice -}}
+{{- $.Scratch.Set "index" slice -}}
 {{- range site.RegularPages -}}
     {{- if and (not .Params.searchHidden) (ne .Layout `archives`) }}
     {{- $.Scratch.Add "index" (dict
-        "title" .Title
+        "title" (.Title | htmlUnescape)
         "permalink" .Permalink
         "section" (.Section | humanize)
-        "summary" .Summary
+        "summary" (partial "entry-summary.html" . | truncate 200 | htmlUnescape)
         "date" (.Date.Format "02 Jan 2006")
         "tags" (delimit (.Params.tags | default slice) " ")
-        "content" (htmlUnescape (htmlUnescape (htmlUnescape (strings.Truncate 500 .Plain))))
+        "content" (.Plain | truncate 500 | htmlUnescape | htmlUnescape | htmlUnescape)
     ) -}}
     {{- end }}
 {{- end -}}

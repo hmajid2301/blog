@@ -17,6 +17,7 @@ Known candidates to verify (from config + the partial reference graph):
 - **Orphaned partials** — `translation_list.html` (single-language site), `layout/javascript.html` (verify against the rewritten `footer.html`), and anything unreferenced after the rewrite.
 - **Duplicate/leftover JS** — `instantclick.js` vs `instantclick.min.js` (one is redundant); confirm `license.js` is still wired or drop it.
 - **Dead config** — PaperMod params the new templates no longer read (e.g. `profileMode` buttons, `homeInfoParams`, unused `fuseOpts` keys, unused `Show*`/`editPost` fields).
+- **Legacy OG covers** — verify tcardgen `content/posts/*/images/cover.png`, `cover:` front matter and `cover.html` now that JSON-LD uses ticket 09's Hugo OG image; remove only after checking remaining in-page cover use.
 
 The work: verify each candidate against the greenfield templates (grep the reference graph), keep what's actually exercised (search, TOC, breadcrumbs, RSS, opengraph/schema, page views, medium-zoom, progress bar, analytics, edit links, prev/next, code copy), and delete the rest — templates, JS, and the now-unread `hugo.toml` keys.
 

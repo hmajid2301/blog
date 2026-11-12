@@ -1,7 +1,8 @@
 # Ticket: Decide the accent colour and fix the colour system
 
 Labels: `wayfinder:grilling`
-Status: unclaimed
+Status: resolved
+Assignee: pi (current session)
 Parent: `../map.md`
 Blocks: `07-strip-and-merge.md`
 Blocked by: `11-rewrite-or-strip.md`
@@ -18,10 +19,35 @@ The accent decision is also needed by ticket 09 (OG card). Settle it here and re
 
 ## To fix after the decision
 
-- [ ] **Code comments fail contrast in all four palettes** (2.14–3.76:1). Use `subtext0`, or the Fireside equivalent, so they reach at least 4.5:1.
-- [ ] **Fireside dark code:** plain identifiers render in dark slate blue on brown, because Latte colours leak in. Map every Chroma token for `fireside-dark`.
-- [ ] **Code editor surface:** the code body uses the page background in all four palettes. Use `mantle` (light) or `crust` (dark), and the Fireside equivalents.
-- [ ] **Elevation:** pick one rule for dark-mode cards (lighter than the page) for both palettes.
-- [ ] **Palette file:** replace the 49 rules in `zzz-playground-palettes.css` with four explicit `[data-theme=cat|fireside][data-mode=light|dark]` blocks, and switch `theme-toggle.js` to `cat`/`fireside`, as ticket 03 decided.
-- [ ] **Accent usage:** limit the accent to links, the current nav item and one highlight per screen. Eyebrows and arrows use `muted`.
-- [ ] If lavender: Latte uses `#4a5ad8` (4.96:1 on `#eff1f5`) and Mocha uses `#b4befe` (9.17:1).
+- [x] **Code comments:** reach at least 4.5:1 on actual code and highlighted-line surfaces in all four states.
+- [x] **Fireside code:** scope each generated syntax sheet by palette and mode; omitted tokens inherit readable theme text rather than Latte colours. No generated token-library rewrite needed.
+- [x] **Code editor surface:** distinct mantle/crust or Fireside equivalent in every state.
+- [x] **Elevation:** dark-mode cards are lighter than the page in both palettes.
+- [x] **Palette file:** four explicit `[data-theme=cat|fireside][data-mode=light|dark]` blocks; `theme-toggle.js` uses `cat`/`fireside`, as the palette-toggle decision specified.
+- [x] **Accent usage:** decorative chrome is neutral; links, current navigation, focus/action feedback and progress retain the accent.
+- [x] **Lavender:** Latte uses `#4a5ad8`; Mocha uses `#b4befe`.
+
+## Resolution
+
+The user approved lavender for Catppuccin and the colour-system fixes. Fireside retains its warm accent. Implementation is in the design worktree, uncommitted and undeployed; the separate Neovim/terminal chrome proposals were not approved or implemented here.
+
+- `assets/css/extended/zzz-playground-palettes.css` now defines the same ten-token contract in four explicit states. `assets/js/theme-toggle.js` and `layouts/_default/baseof.html` use `data-theme=cat|fireside` × `data-mode=light|dark`. Existing `pref-palette`/`pref-mode` storage values remain compatible; no migration is needed.
+- Cat light/dark accents are `#4a5ad8` / `#b4befe`. Cat dark cards use `#313244`, with code crust `#11111b`; light code uses mantle `#e6e9ef`. Fireside code uses `#f1e3d3` / `#201914`, and dark cards remain `#382a22`.
+- Comments use Cat light `#5c5f77`, Cat dark `#a6adc8`, Fireside light `#72584b`, and Fireside dark `#cbb6a2`. Suggested Latte `#6c6f85` failed 4.5:1 on the actual editor surface, so the darker neutral was retained.
+- `assets/css/common/highlight.scss` scopes all four existing generated syntax sheets and supplies shared comment, identifier, line-number and output overrides. Unspecified Gruvbox tokens inherit readable theme text rather than global Latte colours.
+- Decorative logo, eyebrows, arrows, timeline dots, NORMAL pill and footer palette selection are neutral. Hovered main links use a stronger underline without a tint; selected pills use neutral surfaces and search marks are transparent, preserving light-lavender contrast.
+- Neovim work is colour-only: filename tabs, relative numbers, winbar, annotations, terminal redesign and Nerd Font changes remain for [Prototype code and terminal blocks that match the real Neovim setup](14-neovim-and-terminal-blocks.md).
+
+## Verification
+
+Browser evidence from the implementation session is retained under `/tmp/blog-colour-review/` (disposable local artifacts, not committed):
+
+- `capture.js`, `before.log`, `after.log` and 40 before/40 after screenshots cover both palettes and modes at 1440px and 390px across home, post, talks, uses and code views. Eight state/viewport measurements report no horizontal overflow; representative desktop/mobile screenshots were visually inspected.
+- Minimum comment contrast, including highlighted lines, was **4.73:1 Cat light**, **5.65:1 Cat dark**, **4.57:1 Fireside light**, **7.06:1 Fireside dark** at both widths. Fireside identifiers resolve to theme text (`rgb(60,43,38)` light / `rgb(244,232,218)` dark).
+- `interactions.log` confirms palette switching preserves mode, mode switching preserves palette, both survive reload/navigation, and cleared preferences default to Cat with the OS mode. Both dark card surfaces are lighter than the page; all four code surfaces differ from the page.
+- Normal accent contrast on page/card: Cat light **4.96/4.61**, Cat dark **9.17/7.03**, Fireside light **5.86/5.16**, Fireside dark **8.26/7.06**. `hover-contrast.log` and `after-search-hover-*.png` also verify hovered links, active navigation and hovered search marks, minimum **4.61:1**.
+- First-paint script runs before styles; root fallback is Cat light. Production uses `data-theme=cat`, all four palette blocks have matching token names, and production home contains no dev notes-widget URL.
+- `build.log` records a successful production Hugo build in **581ms**. A fresh continuation-session production build also passed in **2233ms** (`build-final.log`), with the same **12 pre-existing missing-image warnings**. `git diff --check` passed.
+- Independent read-only reviewer `colour-system-review` reported no actionable introduced regressions in the initial colour patch. Subsequent hover/nav/search declarations were browser-verified by the implementer, not independently re-reviewed.
+
+This is not a full syntax-token accessibility certification: other pre-existing generated syntax-colour limitations remain outside the comment/identifier fixes. No tests or test infrastructure were added. Browser checks used `--noHTTPCache` and a fresh context to avoid stale theme scripts; unrelated dev-widget/analytics resource errors were not treated as new page exceptions.

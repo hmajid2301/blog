@@ -5,8 +5,6 @@
     const progressBar = document.querySelector('.reading-progress-bar');
     if (!progressBar) return;
 
-    const progressFill = progressBar.querySelector('::before') || progressBar;
-
     // Calculate scroll progress
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
@@ -23,15 +21,6 @@
   function initProgressBar() {
     const progressBar = document.querySelector('.reading-progress-bar');
     if (!progressBar) return;
-
-    // Use CSS custom property for smoother animation
-    const style = document.createElement('style');
-    style.textContent = `
-      .reading-progress-bar::before {
-        width: var(--progress, 0%);
-      }
-    `;
-    document.head.appendChild(style);
 
     // Update on scroll
     let ticking = false;

@@ -6,7 +6,7 @@
     <p class="page-lab-kicker">{{ if eq $kind "talks" }}Speaking &amp; resources{{ else }}The complete index{{ end }}</p>
     <h1>{{ $page.Title }}</h1>
     {{- with $page.Description }}<p>{{ . }}</p>{{ end -}}
-    {{- if eq $kind "talks" }}<p>Talks, slides and recordings. Years below refer to publication, not event dates.</p>{{ end -}}
+    {{- if eq $kind "talks" }}<p>Talks, slides and recordings, grouped by the year they were published.</p>{{ end -}}
   </header>
   {{- if eq $kind "talks" -}}
     {{- $pages := where $page.Pages "Params.hidden" "!=" true -}}

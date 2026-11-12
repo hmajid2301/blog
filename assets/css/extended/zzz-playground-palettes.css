@@ -1,127 +1,27 @@
-/* Theme owns colours only; changing it never changes typography or structure. */
-html[data-theme] {
-  --lab-bg: #f7f5f0; --lab-surface: #eeece6; --lab-text: #1d2232;
-  --lab-muted: #626571; --lab-rule: #d4d2cc; --lab-theme-accent: #a43b54;
-  --lab-accent: var(--lab-theme-accent);
-  --lab-selection: color-mix(in srgb, var(--lab-accent) 25%, var(--lab-bg));
-}
-html[data-theme][data-mode='dark'] {
-  --lab-bg: #1e1e2e; --lab-surface: #29293d; --lab-text: #cdd6f4;
-  --lab-muted: #a6adc8; --lab-rule: #45475a; --lab-theme-accent: #f38ba8;
-}
-html[data-theme='journal'], html[data-theme='workshop'], html[data-theme='studio'] {
+/* Four supported states; palettes change colours, never typography or layout.
+   Light lavender is darkened for AA links on both base and mantle. */
+html[data-theme='cat'][data-mode='light'] {
   --lab-bg: #eff1f5; --lab-surface: #e6e9ef; --lab-text: #4c4f69;
-  --lab-muted: #62657b; --lab-rule: #bcc0cc;
+  --lab-muted: #5c5f77; --lab-rule: #bcc0cc; --lab-accent: #4a5ad8;
+  --lab-code-bg: #e6e9ef; --lab-code-highlight: #dce0e8; --lab-code-comment: #5c5f77;
+  --lab-selection: #ccd0f4;
 }
-html[data-theme='journal'] { --lab-theme-accent: #8839a0; }
-html[data-theme='workshop'] { --lab-theme-accent: #28751c; }
-html[data-theme='studio'] { --lab-theme-accent: #a34c0c; }
-html[data-theme='journal'][data-mode='dark'] { --lab-theme-accent: #cba6f7; }
-html[data-theme='workshop'][data-mode='dark'] { --lab-theme-accent: #a6e3a1; }
-html[data-theme='notebook'] {
-  --lab-bg: #faf8f3; --lab-surface: #efede6; --lab-text: #323630;
-  --lab-muted: #63685e; --lab-rule: #d6d6cc; --lab-theme-accent: #3e6a52;
+html[data-theme='cat'][data-mode='dark'] {
+  --lab-bg: #1e1e2e; --lab-surface: #313244; --lab-text: #cdd6f4;
+  --lab-muted: #bac2de; --lab-rule: #585b70; --lab-accent: #b4befe;
+  --lab-code-bg: #11111b; --lab-code-highlight: #313244; --lab-code-comment: #a6adc8;
+  --lab-selection: #45476a;
 }
-html[data-theme='notebook'][data-mode='dark'] {
-  --lab-bg: #202521; --lab-surface: #2b322c; --lab-text: #e0e4d9;
-  --lab-muted: #b0b8ab; --lab-rule: #4e574e; --lab-theme-accent: #a6c9a8;
-}
-html[data-theme='swiss'] {
-  --lab-bg: #fff; --lab-surface: #f1f3f5; --lab-text: #171d28;
-  --lab-muted: #616673; --lab-rule: #c2c6cc; --lab-theme-accent: #1e66f5;
-}
-html[data-theme='swiss'][data-mode='dark'] { --lab-bg: #191c24; --lab-surface: #232936; --lab-theme-accent: #89b4fa; }
-html[data-theme='studio'][data-mode='dark'] {
-  --lab-bg: #24273a; --lab-surface: #363a4f; --lab-text: #cad3f5;
-  --lab-rule: #494d64; --lab-theme-accent: #f5a97f;
-}
-html[data-theme='nord'] {
-  --lab-bg: #eceff4; --lab-surface: #e5e9f0; --lab-text: #2e3440;
-  --lab-muted: #596579; --lab-rule: #b8c2cf; --lab-theme-accent: #35697d;
-}
-html[data-theme='nord'][data-mode='dark'] {
-  --lab-bg: #2e3440; --lab-surface: #3b4252; --lab-text: #eceff4;
-  --lab-muted: #b4bfce; --lab-rule: #5a6577; --lab-theme-accent: #88c0d0;
-}
-html[data-theme='gruvbox'] {
-  --lab-bg: #fbf1c7; --lab-surface: #f2e5bc; --lab-text: #3c3836;
-  --lab-muted: #665c54; --lab-rule: #c4b78e; --lab-theme-accent: #af3a03;
-}
-html[data-theme='gruvbox'][data-mode='dark'] {
-  --lab-bg: #282828; --lab-surface: #3c3836; --lab-text: #ebdbb2;
-  --lab-muted: #bdae93; --lab-rule: #665c54; --lab-theme-accent: #fe8019;
-}
-html[data-theme='terminal'] {
-  --lab-bg: #f2f5ef; --lab-surface: #e2e8dc; --lab-text: #213b2c;
-  --lab-muted: #49614f; --lab-rule: #b2c5ae; --lab-theme-accent: #276a38;
-}
-html[data-theme='terminal'][data-mode='dark'] {
-  --lab-bg: #111916; --lab-surface: #1b2921; --lab-text: #d1e8d4;
-  --lab-muted: #9ab7a1; --lab-rule: #3a5544; --lab-theme-accent: #9ce6ac;
-}
-html[data-theme='ink'] {
-  --lab-bg: #fffaf0; --lab-surface: #f0ece2; --lab-text: #171717;
-  --lab-muted: #5d5a54; --lab-rule: #b5b0a4; --lab-theme-accent: #b1242a;
-}
-html[data-theme='ink'][data-mode='dark'] {
-  --lab-bg: #171717; --lab-surface: #242424; --lab-text: #f4f0e7;
-  --lab-muted: #b7b1a6; --lab-rule: #5e5a53; --lab-theme-accent: #ff9499;
-}
-html[data-theme^='fireside-'] {
+html[data-theme='fireside'][data-mode='light'] {
   --lab-bg: #faf2e8; --lab-surface: #f1e3d3; --lab-text: #3c2b26;
-  --lab-muted: #72584b; --lab-rule: #c8ad98; --lab-theme-accent: #a13e25; --lab-selection: #f0cdb8;
+  --lab-muted: #72584b; --lab-rule: #c8ad98; --lab-accent: #a13e25;
+  --lab-code-bg: #f1e3d3; --lab-code-highlight: #e7d5c2; --lab-code-comment: #72584b;
+  --lab-selection: #f0cdb8;
 }
-html[data-theme^='fireside-'][data-mode='dark'] {
+html[data-theme='fireside'][data-mode='dark'] {
   --lab-bg: #281f1a; --lab-surface: #382a22; --lab-text: #f4e8da;
-  --lab-muted: #cbb6a2; --lab-rule: #896a54; --lab-theme-accent: #f0aa7d; --lab-selection: #4c3326;
+  --lab-muted: #cbb6a2; --lab-rule: #896a54; --lab-accent: #f0aa7d;
+  --lab-code-bg: #201914; --lab-code-highlight: #382a22; --lab-code-comment: #cbb6a2;
+  --lab-selection: #4c3326;
 }
-/* Catppuccin neutrals and dark accents use the official palette.
-   Latte accents are darkened for readable links on both base and mantle. */
-html[data-theme^='cat-'] {
-  --lab-bg: #eff1f5; --lab-surface: #e6e9ef; --lab-text: #4c4f69;
-  --lab-muted: #5c5f77; --lab-rule: #bcc0cc;
-  --cat-mauve: #8031e0; --cat-teal: #246f73; --cat-peach: #a34c0c;
-  --cat-blue: #185bd9; --cat-rose: #bf1034; --cat-green: #28751c;
-  --lab-theme-accent: var(--cat-mauve);
-}
-html[data-theme^='cat-latte-'][data-mode='dark'], html[data-theme^='cat-mocha-'][data-mode='dark'] {
-  --lab-bg: #1e1e2e; --lab-surface: #181825; --lab-text: #cdd6f4;
-  --lab-muted: #bac2de; --lab-rule: #45475a;
-  --cat-mauve: #cba6f7; --cat-teal: #94e2d5; --cat-peach: #fab387;
-  --cat-blue: #89b4fa; --cat-rose: #f38ba8; --cat-green: #a6e3a1;
-}
-html[data-theme^='cat-frappe-'][data-mode='dark'] {
-  --lab-bg: #303446; --lab-surface: #292c3c; --lab-text: #c6d0f5;
-  --lab-muted: #b5bfe2; --lab-rule: #51576d;
-  --cat-mauve: #ca9ee6; --cat-teal: #81c8be; --cat-peach: #ef9f76;
-  --cat-blue: #8caaee; --cat-rose: #e78284; --cat-green: #a6d189;
-}
-html[data-theme^='cat-macchiato-'][data-mode='dark'] {
-  --lab-bg: #24273a; --lab-surface: #1e2030; --lab-text: #cad3f5;
-  --lab-muted: #b8c0e0; --lab-rule: #494d64;
-  --cat-mauve: #c6a0f6; --cat-teal: #8bd5ca; --cat-peach: #f5a97f;
-  --cat-blue: #8aadf4; --cat-rose: #ed8796; --cat-green: #a6da95;
-}
-html[data-theme^='cat-'][data-mode] { --lab-theme-accent: var(--cat-mauve); }
-html[data-theme^='cat-'][data-theme$='-teal'] { --lab-theme-accent: var(--cat-teal); }
-html[data-theme^='cat-'][data-theme$='-peach'] { --lab-theme-accent: var(--cat-peach); }
-/* Explicit accents are independent of theme and style. */
-html[data-theme][data-accent='rose'] { --lab-accent: #a43b54; }
-html[data-theme][data-accent='blue'] { --lab-accent: #1e66c2; }
-html[data-theme][data-accent='green'] { --lab-accent: #28751c; }
-html[data-theme][data-accent='peach'] { --lab-accent: #a34c0c; }
-html[data-theme][data-accent='mauve'] { --lab-accent: #8839ef; }
-html[data-theme][data-accent='teal'] { --lab-accent: #287a7d; }
-html[data-theme][data-mode='dark'][data-accent='rose'] { --lab-accent: #f38ba8; }
-html[data-theme][data-mode='dark'][data-accent='blue'] { --lab-accent: #89b4fa; }
-html[data-theme][data-mode='dark'][data-accent='green'] { --lab-accent: #a6e3a1; }
-html[data-theme][data-mode='dark'][data-accent='peach'] { --lab-accent: #fab387; }
-html[data-theme][data-mode='dark'][data-accent='mauve'] { --lab-accent: #cba6f7; }
-html[data-theme][data-mode='dark'][data-accent='teal'] { --lab-accent: #94e2d5; }
-html[data-theme^='cat-'][data-mode][data-accent='mauve'] { --lab-accent: var(--cat-mauve); }
-html[data-theme^='cat-'][data-mode][data-accent='teal'] { --lab-accent: var(--cat-teal); }
-html[data-theme^='cat-'][data-mode][data-accent='peach'] { --lab-accent: var(--cat-peach); }
-html[data-theme^='cat-'][data-mode][data-accent='blue'] { --lab-accent: var(--cat-blue); }
-html[data-theme^='cat-'][data-mode][data-accent='rose'] { --lab-accent: var(--cat-rose); }
-html[data-theme^='cat-'][data-mode][data-accent='green'] { --lab-accent: var(--cat-green); }
 html[data-theme] ::selection { background: var(--lab-selection); color: var(--lab-text); }

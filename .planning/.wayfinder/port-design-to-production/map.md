@@ -72,6 +72,21 @@ The production Hugo blog (`/home/haseeb/projects/blog`) ships the design-lab's c
 - Deleted 15 files (comment backends `comments`/`disqus`/`giscus`/`remark42`/`static_comments`/`telegram_widget`; likes/share/social `likes`/`share_icons`/`social_links`/`social_quote_tweet` + shortcode; orphaned `translation_list`; dead `instantclick.min.js`/`license.js`/`license.css`) and pruned `[params.fuseOpts]` + `comments = false`.
 - Kept (verified live): `author.html`, `extend_head.html`, `extend_footer.html`, `layout/javascript.html` (slides), `page-lab-*`, `templates/opengraph.html` + `schema_json.html`.
 
+### 09 — OG card (resolved): editorial + statusline, Hugo-composed
+
+- User chose concept E, lavender `#b4befe` and the gopher, with uniform footer icon padding.
+- 1200×630 cards use pixel-wrapped full titles, page-kind eyebrows and versioned filenames; post/talk date and duration share the statusline.
+- OG, Twitter and BlogPosting JSON-LD share the cached generated image. `task og:base` rebuilds the static SVG chrome; build-time subset fonts are not published.
+- Production generator updated on the design branch; merge/deployment remains separate. See ticket 09 for verification and follow-ups.
+
+### [Fix the visual bugs found in the 2026-11-11 review](tickets/12-visual-fixes.md) (resolved)
+
+- Post typography/meta/TOC, lists/topics, search and responsive chrome corrected and browser-verified on the retained Studio/PaperMod design; verification and scope boundaries live in the ticket.
+
+### [Decide the accent colour and fix the colour system](tickets/13-colour-system-and-accent.md) (resolved)
+
+- Catppuccin uses lavender; Fireside keeps its warm accent. Four-state palette/syntax scoping, readable comments, distinct code surfaces and neutral decorative chrome are implemented and verified; evidence and scope boundaries live in the ticket.
+
 ## Not yet specified
 
 (none — the way to the destination is clear)
