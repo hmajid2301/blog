@@ -1,7 +1,8 @@
 # Ticket: Fix image weight, RSS links, analytics and fonts
 
 Labels: `wayfinder:task`
-Status: unclaimed
+Status: in progress
+Assignee: pi
 Parent: `../map.md`
 Blocks: none
 Blocked by: none

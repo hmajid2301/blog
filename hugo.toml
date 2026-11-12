@@ -39,7 +39,6 @@ images = ["cover.png"]
 DateFormat = "02 Jan 2006"
 defaultTheme = "auto"
 ShowReadingTime = true
-ShowPageViews = true
 ShowLikes = false
 ShowShareButtons = false
 ShowPostNavLinks = true
@@ -57,9 +56,6 @@ hideSummary = false
 showtoc = true
 tocopen = false
 SeriesOpen = false
-goatcounter = "haseebmajid"
-plausibleDomain = "haseebmajid.dev"
-plausibleScript = "https://plausible.haseebmajid.dev/js/script.js"
 favicon = "/favicon-32x32.png"
 appleTouchIcon = "/favicon-32x32.png"
 

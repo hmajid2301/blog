@@ -91,6 +91,10 @@ The production Hugo blog (`/home/haseeb/projects/blog`) ships the design-lab's c
 
 - Selected Screenshot-style code blocks and Floating terminal are applied and verified on the design branch. The ticket holds the current terminal/coloured-shortcode contract and licensed font-packaging evidence, superseding the earlier Ghostty/plain `/uses` treatment. Shipping remains separate.
 
+### [Remove the dev leftovers that would ship to visitors](tickets/10-fix-shipping-blockers.md) (resolved)
+
+- Deleted the remaining notes widget entirely; confirmed the earlier prune removed playground pages and cover-exploration markup. Production HTML, sitemap and search-index audit is clean; verification lives in the ticket.
+
 ## Not yet specified
 
 (none — the way to the destination is clear)

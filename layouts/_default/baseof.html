@@ -38,13 +38,9 @@
         {{- block "main" . }}{{ end }}
         {{- end }}
     </main>
-    {{- if .Site.Params.goatcounter }}
-    {{ partial "analytics.html" . -}}
-    {{- end }}
     {{ partial "footer.html" . -}}
     {{- partial "search.html" . -}}
     {{- block "body_end" . }}{{ end }}
-    {{- partial "notes-widget.html" . -}}
 </body>
 
 </html>
