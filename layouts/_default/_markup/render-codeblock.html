@@ -1,26 +1,29 @@
 {{- $lang := default "text" .Type -}}
-{{- $title := "" -}}
-{{- with .Attributes.title }}{{ $title = . }}{{ end -}}
+{{- $extensions := dict "bash" "sh" "shell" "sh" "text" "txt" "typescript" "ts" "javascript" "js" "python" "py" "yml" "yaml" "go-html-template" "html" -}}
+{{- $extension := index $extensions $lang | default $lang -}}
+{{- $file := .Attributes.file | default .Attributes.title | default (printf "snippet.%s" $extension) -}}
+{{- $filename := path.Base $file -}}
 {{- $opts := dict -}}
 {{- if not (transform.CanHighlight .Type) -}}
   {{- $opts = dict "type" "text" -}}
 {{- end -}}
 {{- $result := transform.HighlightCodeBlock . $opts -}}
-{{- $n := len (split (trim .Inner "\n") "\n") -}}
-{{- $label := upper $lang -}}
-{{- if $title }}{{ $label = $title }}{{ end -}}
-<div class="lab-neovim">
-  <div class="lab-code-tab" aria-hidden="true">
-    <span class="lab-code-language">{{ $label }}</span>
-    <span class="lab-code-lines">{{ $n }} {{ if eq $n 1 }}line{{ else }}lines{{ end }}</span>
+{{- $source := strings.TrimSuffix "\n" .Inner -}}
+{{- $n := len (split $source "\n") -}}
+<div class="lab-neovim" data-code-lines="{{ $n }}">
+  <div class="lab-code-tab">
+    <span class="nv-top-mode" aria-hidden="true">NORMAL</span>
+    <span class="nv-tab" title="{{ $file }}"><b aria-hidden="true">1</b>{{ partial "code-icon.html" "file" }}<span>{{ $filename }}</span></span>
   </div>
   {{ $result.Wrapped | safeHTML }}
+  {{- /* Static end-of-snippet metadata, not a simulated editor cursor. */}}
   <div class="lab-code-status" aria-hidden="true">
-    <strong>NORMAL</strong>
-    <span class="lab-code-language">{{ $lang }}</span>
-    <span>{{ $n }} {{ if eq $n 1 }}line{{ else }}lines{{ end }}</span>
+    <span class="nv-status-mode">{{ partial "code-icon.html" "mode" }}NORMAL</span>
+    <span class="nv-status-file">{{ partial "code-icon.html" "file" }}<span>{{ $filename }}</span></span>
+    <span class="nv-status-space"></span>
+    <span class="nv-stat nv-language"><span class="nv-stat-icon">{{ partial "code-icon.html" "language" }}</span>{{ $lang }}</span>
+    <span class="nv-stat nv-position" title="End of snippet"><span class="nv-stat-icon">{{ partial "code-icon.html" "position" }}</span>{{ $n }}:1</span>
+    <span class="nv-stat nv-percent"><span class="nv-stat-icon">{{ partial "code-icon.html" "percent" }}</span>100%</span>
   </div>
-  <div class="lab-code-collapse" aria-hidden="true">
-    <button type="button">Show code</button>
-  </div>
+  <div class="lab-code-command" role="status">"{{ $filename }}" {{ $n }}L, {{ len $source }}B</div>
 </div>

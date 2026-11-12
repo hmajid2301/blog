@@ -1,66 +1,126 @@
-/* Ghostty-themed fake terminal (nitch output on /uses).
-   Mirrors the user's actual Ghostty: borderless GTK window, rounded corners,
-   Catppuccin Mocha (Stylix) background. Always dark, like the real terminal. */
+/* Floating terminal: always dark, with palette-specific output colours. */
+@font-face {
+  font-family: 'Terminal Mono';
+  src: url('/fonts/terminal-mono.woff2') format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Terminal Symbols';
+  src: url('/fonts/terminal-symbols.woff2') format('woff2');
+  font-display: swap;
+}
 
 .lab-terminal {
-  --term-bg: #1e1e2e;     /* catppuccin mocha base   */
-  --term-border: #313244; /* surface0                */
-  --term-text: #cdd6f4;   /* text                    */
-
-  background: var(--term-bg);
-  border: 1px solid var(--term-border);
-  border-radius: 14px;
-  color: var(--term-text);
-  font-family: var(--lab-mono), 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
-  font-size: 14px;
-  line-height: 1.55;
-  overflow-x: auto;
-  padding: 20px 24px 24px;
-  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.35);
+  --term-bg: #1e1e2e;
+  --term-text: #cdd6f4;
+  --term-muted: #a6adc8;
+  --term-accent: #cba6f7;
+  --term-red: #f38ba8;
+  --term-green: #a6e3a1;
+  --term-yellow: #f9e2af;
+  --term-blue: #89b4fa;
+  --term-mauve: #cba6f7;
+  --term-teal: #94e2d5;
+  --term-peach: #fab387;
+  --term-black: #585b70;
+  position: relative;
+  min-width: 0;
   max-width: 100%;
-}
-
-.lab-terminal-head {
-  margin-bottom: 16px;
-  user-select: none;
-}
-
-.lab-terminal-head-second {
-  margin-top: 22px;
-}
-
-.lab-terminal-prompt {
+  margin: 32px 0 0;
+  border: 1px solid var(--term-accent);
+  border-radius: 8px;
+  background: var(--term-bg);
   color: var(--term-text);
+  font: 13px/1.6 'MonoLisa', 'Terminal Mono', monospace;
 }
 
-.lab-terminal-prompt .prompt-caret {
-  color: #a6e3a1; /* catppuccin green, starship/fish */
+html[data-theme='fireside'] .lab-terminal {
+  --term-bg: #201914;
+  --term-text: #f4e8da;
+  --term-muted: #cbb6a2;
+  --term-accent: #f0aa7d;
+  --term-red: #eea08a;
+  --term-green: #b8ca91;
+  --term-yellow: #e8c58b;
+  --term-blue: #a9c5cd;
+  --term-mauve: #d7b1ca;
+  --term-teal: #9dc6b1;
+  --term-peach: #f0aa7d;
+  --term-black: #896a54;
 }
 
-.lab-terminal-body {
-  margin: 0;
-  font: inherit;
-  white-space: pre;
+.lab-terminal-title {
+  position: absolute;
+  top: -9px;
+  left: 14px;
+  padding: 0 8px;
+  background: var(--term-bg);
+  color: var(--term-accent);
+  font: 11px/1.4 'Terminal Mono', monospace;
+}
+
+.lab-terminal-scroll {
+  min-width: 0;
   overflow-x: auto;
+  padding: 23px 20px 18px;
+  border-radius: inherit;
 }
 
-/* Catppuccin Mocha palette, mirroring nitch's 16-colour output */
-.lab-terminal .t-wordmark { color: #94e2d5; font-weight: 700; } /* teal    */
-.lab-terminal .t-bd        { color: #cdd6f4; font-weight: 700; } /* text    */
-.lab-terminal .t-red       { color: #f38ba8; }                   /* red     */
-.lab-terminal .t-green     { color: #a6e3a1; }                   /* green   */
-.lab-terminal .t-yellow    { color: #f9e2af; }                   /* yellow  */
-.lab-terminal .t-blue      { color: #89b4fa; }                   /* blue    */
-.lab-terminal .t-mauve     { color: #cba6f7; }                   /* mauve   */
-.lab-terminal .t-teal      { color: #94e2d5; }                   /* teal    */
-.lab-terminal .t-peach     { color: #fab387; }                   /* peach   */
-.lab-terminal .t-text      { color: #cdd6f4; }                   /* text    */
-.lab-terminal .t-dim       { color: #a6adc8; }                   /* subtext0*/
-.lab-terminal .t-black     { color: #45475a; }                   /* surface1*/
+.lab-terminal-scroll:focus-visible {
+  outline: 2px solid var(--term-accent);
+  outline-offset: 3px;
+}
+
+/* Override article pre styling: one frame, one keyboard-scrollable region. */
+html[data-design] .lab-terminal .lab-terminal-body {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--term-text);
+  font: inherit;
+  font-variant-ligatures: none;
+  font-kerning: none;
+  white-space: pre;
+  overflow: visible;
+  min-width: max-content;
+}
+
+.lab-terminal .lab-terminal-head {
+  margin: 0 0 12px;
+  color: var(--term-text);
+  white-space: normal;
+}
+
+.lab-terminal .lab-terminal-body + .lab-terminal-head { margin-top: 26px; }
+.lab-terminal .lab-terminal-prompt { color: var(--term-text); }
+.lab-terminal .prompt-caret { color: var(--term-green); }
+
+/* A glyph gets one text cell; the inner font cannot change row height. */
+.terminal-glyph {
+  display: inline-block;
+  width: 1ch;
+  line-height: 1;
+  text-align: center;
+}
+.terminal-glyph > span { font-family: 'Terminal Symbols'; font-weight: 400; }
+
+.lab-terminal .t-wordmark { color: var(--term-teal); font-weight: 700; }
+.lab-terminal .t-bd { font-weight: 700; }
+.lab-terminal :is(.t-bd, .t-text) { color: var(--term-text); }
+.lab-terminal .t-red { color: var(--term-red); }
+.lab-terminal .t-green { color: var(--term-green); }
+.lab-terminal .t-yellow { color: var(--term-yellow); }
+.lab-terminal .t-blue { color: var(--term-blue); }
+.lab-terminal .t-mauve { color: var(--term-mauve); }
+.lab-terminal .t-teal { color: var(--term-teal); }
+.lab-terminal .t-peach { color: var(--term-peach); }
+.lab-terminal .t-dim { color: var(--term-muted); }
+.lab-terminal .t-black { color: var(--term-black); }
 
 @media (max-width: 600px) {
-  .lab-terminal {
-    padding: 16px;
-    font-size: 12.5px;
-  }
+  .lab-terminal { font-size: 11px; }
+  .lab-terminal-scroll { padding-left: 13px; padding-right: 13px; }
 }

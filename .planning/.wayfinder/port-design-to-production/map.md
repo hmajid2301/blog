@@ -74,7 +74,7 @@ The production Hugo blog (`/home/haseeb/projects/blog`) ships the design-lab's c
 
 ### 09 — OG card (resolved): editorial + statusline, Hugo-composed
 
-- User chose concept E, lavender `#b4befe` and the gopher, with uniform footer icon padding.
+- User chose concept E and the gopher, with uniform footer icon padding. Accent now follows the [colour-system decision](tickets/13-colour-system-and-accent.md).
 - 1200×630 cards use pixel-wrapped full titles, page-kind eyebrows and versioned filenames; post/talk date and duration share the statusline.
 - OG, Twitter and BlogPosting JSON-LD share the cached generated image. `task og:base` rebuilds the static SVG chrome; build-time subset fonts are not published.
 - Production generator updated on the design branch; merge/deployment remains separate. See ticket 09 for verification and follow-ups.
@@ -85,7 +85,11 @@ The production Hugo blog (`/home/haseeb/projects/blog`) ships the design-lab's c
 
 ### [Decide the accent colour and fix the colour system](tickets/13-colour-system-and-accent.md) (resolved)
 
-- Catppuccin uses lavender; Fireside keeps its warm accent. Four-state palette/syntax scoping, readable comments, distinct code surfaces and neutral decorative chrome are implemented and verified; evidence and scope boundaries live in the ticket.
+- Catppuccin uses mauve (replacing the initial lavender choice); Fireside keeps its warm accent. Four-state palette/syntax scoping, readable comments, distinct code surfaces and neutral decorative chrome are implemented and verified; evidence and scope boundaries live in the ticket.
+
+### [Prototype code and terminal blocks that match the real Neovim setup](tickets/14-neovim-and-terminal-blocks.md) (resolved)
+
+- Selected Screenshot-style code blocks and Floating terminal are applied and verified on the design branch. The ticket holds the current terminal/coloured-shortcode contract and licensed font-packaging evidence, superseding the earlier Ghostty/plain `/uses` treatment. Shipping remains separate.
 
 ## Not yet specified
 

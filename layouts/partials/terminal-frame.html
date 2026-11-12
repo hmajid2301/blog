@@ -1,0 +1,8 @@
+{{- /* Content is trusted shortcode markup or escaped terminal-fence output, never raw fence HTML. */ -}}
+{{- $content := replaceRE `([\x{E000}-\x{F8FF}\x{F0000}-\x{FFFFD}\x{100000}-\x{10FFFD}])` `<span class="terminal-glyph"><span>$1</span></span>` .Content -}}
+<div class="lab-terminal">
+  <span class="lab-terminal-title" aria-hidden="true">terminal</span>
+  <div class="lab-terminal-scroll" tabindex="0" role="region" aria-label="Terminal output">
+    {{ $content | safeHTML }}
+  </div>
+</div>

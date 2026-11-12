@@ -1,4 +1,4 @@
-{{- /* Ghostty-chrome terminal render hook: ```terminal fences.
+{{- /* Floating terminal render hook: ```terminal fences.
      Plain markdown — no colour markup. A line beginning with ❯ starts a
      command section; following lines are its output, rendered monochrome
      in the terminal chrome. */ -}}
@@ -27,6 +27,4 @@
 {{- if $s.Get "termInBody" -}}
   {{- $s.Set "termOut" (printf "%s</pre>" ($s.Get "termOut")) -}}
 {{- end -}}
-<div class="lab-terminal" role="img" aria-label="terminal output">
-{{ $s.Get "termOut" | safeHTML }}
-</div>
+{{- partial "terminal-frame.html" (dict "Content" ($s.Get "termOut")) -}}

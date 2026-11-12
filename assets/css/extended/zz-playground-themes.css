@@ -143,46 +143,88 @@ html[data-design] .lab-swatch-humanist { font-family: 'IBM Plex Sans', sans-seri
 html[data-design] .lab-swatch-compact { font-family: 'Manrope', sans-serif; }
 /* Builder weight overrides treatment defaults, not the workbench's own typography. */
 html[data-design][data-builder-active='true'] body:not(.layout-design-builder) .main :is(h1, h2, h3, h4, h5, h6) { font-weight: var(--lab-heading-weight, 500); }
-/* Manual mode keeps the one-post preview; the builder explicitly chooses plain or Neovim. */
-.lab-code-tab, .lab-code-status { display: none; }
+/* Screenshot-style Neovim frame; the site accent remains independent of editor chrome. */
+.lab-neovim {
+  --nv-blue: #89b4fa; --nv-green: #a6e3a1; --nv-pink: #f5c2e7; --nv-peach: #fab387;
+  --nv-on: #11111b; --nv-bar: #181825;
+}
+html[data-mode='light'] .lab-neovim {
+  --nv-blue: #1e66f5; --nv-green: #29661c; --nv-pink: #8839ef; --nv-peach: #983c07;
+  --nv-on: #fff; --nv-bar: #dce0e8;
+}
+html[data-theme='fireside'][data-mode='dark'] .lab-neovim {
+  --nv-blue: #a9c5cd; --nv-green: #b8ca91; --nv-pink: #e6b4ae; --nv-peach: #f0aa7d;
+  --nv-on: #201914; --nv-bar: #281f1a;
+}
+html[data-theme='fireside'][data-mode='light'] .lab-neovim {
+  --nv-blue: #285b68; --nv-green: #48622c; --nv-pink: #884a67; --nv-peach: #a13e25;
+  --nv-on: #fff; --nv-bar: #e7d5c2;
+}
+.lab-code-tab, .lab-code-status, .lab-code-command { display: none; }
 html[data-neovim='true'] .lab-neovim {
-  position: relative; min-width: 0; overflow: hidden;
-  border: 1px solid var(--lab-rule); border-radius: 8px;
-  background: var(--lab-code-bg); color: var(--lab-text);
+  position: relative; min-width: 0; overflow: hidden; margin: 24px 0;
+  border: 0; border-radius: 3px; background: var(--lab-code-bg); color: var(--lab-text);
 }
 html[data-neovim='true'] .lab-neovim .lab-code-tab {
-  display: block; width: fit-content; max-width: calc(100% - 75px);
-  padding: 10px 16px; border-top: 2px solid var(--lab-rule);
-  background: var(--lab-surface); color: var(--lab-muted);
-  font: 12px/1.5 var(--lab-mono); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  display: flex; align-items: center; gap: 6px; min-height: 29px; padding: 0 9px;
+  background: var(--lab-code-bg); font: 10px/1 var(--lab-mono);
 }
+.nv-top-mode { flex-shrink: 0; background: var(--nv-green); color: var(--nv-on); font-weight: 700; padding: 2px 5px; }
+.nv-tab { display: inline-flex; align-items: center; gap: 6px; min-width: 0; padding: 3px 7px 3px 0; background: var(--nv-bar); }
+.nv-tab b { background: var(--nv-peach); color: var(--nv-on); padding: 2px 5px; margin: -3px 0; font-weight: 500; }
+.nv-tab svg { width: 11px; height: 11px; flex-shrink: 0; color: var(--nv-blue); }
+.nv-tab > span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+html[data-neovim='true'] .lab-neovim > .highlight { margin: 0; }
 html[data-neovim='true'] .lab-neovim pre {
-  margin: 0; border: 0; border-radius: 0; background: var(--lab-code-bg); overflow-x: auto;
+  margin: 0; padding: 0; border: 0; border-radius: 0; background: var(--lab-code-bg); overflow-x: auto;
 }
 html[data-neovim='true'] .lab-neovim pre code {
-  width: max-content; min-width: 100%; box-sizing: border-box;
-  padding: 16px; overflow: visible; font-size: 14px; line-height: 1.7; counter-reset: lab-code-line;
+  display: block; width: max-content; min-width: 100%; box-sizing: border-box;
+  padding: 12px 16px 17px 8px; overflow: visible; font-size: 13px; line-height: 1.65; counter-reset: lab-code-line;
 }
 html[data-neovim='true'] .lab-neovim code > .line {
-  display: block; position: relative; min-height: 1.7em; padding-left: 4ch;
+  display: block; position: relative; min-height: 1.65em; padding-left: 4ch;
 }
 html[data-neovim='true'] .lab-neovim code > .line::before {
   counter-increment: lab-code-line; content: counter(lab-code-line);
   position: absolute; left: 0; width: 2.5ch; text-align: right;
-  color: var(--lab-muted); user-select: none;
+  color: var(--lab-muted); font-size: 10px; line-height: 2.145; user-select: none;
 }
-html[data-neovim='true'] .lab-neovim code > .line:first-child { background: var(--lab-code-highlight); }
-html[data-neovim='true'] .lab-neovim code > .line:first-child::before { color: var(--lab-muted); }
+html[data-neovim='true'] .lab-neovim code > .line.hl { background: var(--lab-code-highlight); }
 html[data-neovim='true'] .lab-neovim .lab-code-status {
-  display: flex; align-items: center; gap: 12px; padding-right: 12px;
-  background: var(--lab-surface); color: var(--lab-muted); font: 11px/30px var(--lab-mono);
+  display: flex; align-items: center; flex-wrap: nowrap; height: 23px; gap: 0; padding: 0;
+  background: var(--nv-bar); color: var(--lab-text); font: 10px/23px var(--lab-mono); white-space: nowrap;
 }
-html[data-neovim='true'] .lab-code-status strong { padding: 0 12px; background: var(--lab-code-highlight); color: var(--lab-text); }
-html[data-neovim='true'] .lab-code-language { margin-right: auto; }
+.nv-status-mode { display: inline-flex; align-items: center; flex-shrink: 0; gap: 5px; height: 19px; margin-left: 4px; padding: 0 7px 0 4px; background: var(--nv-blue); color: var(--nv-on); font-weight: 700; border-radius: 1px; }
+.nv-status-mode svg { width: 11px; height: 12px; }
+.nv-status-file { display: flex; align-items: center; gap: 6px; min-width: 0; padding: 0 14px; }
+.nv-status-file svg { width: 11px; height: 12px; flex-shrink: 0; color: var(--nv-blue); }
+.nv-status-file span { overflow: hidden; text-overflow: ellipsis; }
+.nv-status-space { flex: 1; min-width: 8px; }
+.nv-stat { display: inline-flex; align-items: center; flex-shrink: 0; gap: 6px; padding-right: 8px; }
+.nv-stat-icon { display: inline-flex; align-items: center; justify-content: center; border-radius: 7px 1px 1px 7px; width: 24px; height: 17px; background: var(--nv-blue); color: var(--nv-on); }
+.nv-stat-icon svg { width: 12px; height: 12px; }
+.nv-position .nv-stat-icon { background: var(--nv-pink); }
+.nv-percent .nv-stat-icon { background: var(--nv-green); }
+html[data-neovim='true'] .lab-code-command { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 3px 9px 5px; min-height: 23px; color: var(--lab-muted); font: 10px/1.5 var(--lab-mono); }
 html[data-neovim='true'] .lab-neovim .copy-code {
-  display: block; position: absolute; inset: 7px 9px auto auto; opacity: 1; margin: 0; padding: 4px 8px;
-  border: 1px solid var(--lab-rule); border-radius: 3px; background: var(--lab-surface);
-  color: var(--lab-text); font: 11px/1.5 var(--lab-mono);
+  display: block; position: static; flex-shrink: 0; opacity: 1; margin: 0 0 0 auto; padding: 4px 2px;
+  border: 0; border-radius: 0; background: transparent; color: var(--lab-muted); font: 10px var(--lab-mono);
+}
+html[data-neovim='true'] .lab-neovim .copy-code:hover { color: var(--lab-text); }
+html[data-neovim='true'] .lab-neovim .copy-code:focus-visible { outline: 2px solid var(--lab-accent); outline-offset: 3px; }
+@media (max-width: 600px) {
+  html[data-neovim='true'] .lab-neovim pre code { font-size: 12px; padding-right: 10px; }
+  html[data-neovim='true'] .lab-neovim .lab-code-status { font-size: 9px; }
+  .nv-language { display: none; }
+  /* Keep copy announcements accessible while hiding the command row visually. */
+  html[data-neovim='true'] .lab-code-command {
+    position: absolute; width: 1px; height: 1px; min-height: 0; padding: 0; margin: -1px;
+    overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+  }
+  .nv-status-file { padding: 0 8px; }
+  .nv-stat { gap: 4px; padding-right: 5px; }
+  .nv-stat-icon { width: 19px; }
 }
 .lab-art-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 10px 16px; }
 .lab-art-replay { font: inherit; color: var(--lab-accent, #1e66f5); border: 1px solid var(--lab-rule, #bcc0cc); background: transparent; padding: 4px 9px; border-radius: var(--radius, 2px); cursor: pointer; }

@@ -2,23 +2,35 @@
 <script>
   document.querySelectorAll('pre > code').forEach((codeblock) => {
     const container = codeblock.parentNode.parentNode;
+    const frame = codeblock.closest('.lab-neovim');
+    const tab = document.documentElement.dataset.neovim === 'true' && frame?.querySelector('.lab-code-tab');
+    const command = frame?.querySelector('.lab-code-command');
+    const originalCommand = command?.textContent;
+    let resetTimer;
 
     const copybutton = document.createElement('button');
+    copybutton.type = 'button';
     copybutton.classList.add('copy-code');
     copybutton.innerText = '{{- i18n "code_copy" | default "copy" }}';
+    copybutton.setAttribute('aria-label', 'Copy code');
 
-    function copyingDone() {
-      copybutton.innerText = '{{- i18n "code_copied" | default "copied!" }}';
-      setTimeout(() => {
+    function copyingDone(copied) {
+      clearTimeout(resetTimer);
+      copybutton.innerText = copied ? '{{- i18n "code_copied" | default "copied!" }}' : 'Copy failed';
+      if (command) command.textContent = copied ? `${frame.dataset.codeLines} ${frame.dataset.codeLines === '1' ? 'line' : 'lines'} yanked` : 'Copy unavailable';
+      resetTimer = setTimeout(() => {
         copybutton.innerText = '{{- i18n "code_copy" | default "copy" }}';
+        if (command) command.textContent = originalCommand;
       }, 2000);
     }
 
-    copybutton.addEventListener('click', (cb) => {
-      if ('clipboard' in navigator) {
-        navigator.clipboard.writeText(codeblock.textContent);
-        copyingDone();
-        return;
+    copybutton.addEventListener('click', async () => {
+      if (navigator.clipboard) {
+        try {
+          await navigator.clipboard.writeText(codeblock.textContent);
+          copyingDone(true);
+          return;
+        } catch (e) { /* Try selection-based copying if clipboard access is denied. */ }
       }
 
       const range = document.createRange();
@@ -26,14 +38,17 @@
       const selection = window.getSelection();
       selection.removeAllRanges();
       selection.addRange(range);
+      let copied = false;
       try {
-        document.execCommand('copy');
-        copyingDone();
-      } catch (e) { };
+        copied = document.execCommand('copy');
+      } catch (e) { /* Keep failure feedback truthful. */ }
       selection.removeRange(range);
+      copyingDone(copied);
     });
 
-    if (container.classList.contains("highlight")) {
+    if (tab) {
+      tab.appendChild(copybutton);
+    } else if (container.classList.contains("highlight")) {
       container.appendChild(copybutton);
     } else if (container.parentNode.firstChild == container) {
       // td containing LineNos

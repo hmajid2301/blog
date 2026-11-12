@@ -1,4 +1,4 @@
-<div class="lab-terminal" role="img" aria-label="nitch and atuin stats output">
+{{- $output := `
   <div class="lab-terminal-head">
     <span class="lab-terminal-prompt"><span class="prompt-caret">❯</span> nitch</span>
   </div>
@@ -38,4 +38,5 @@
 Total commands:   172619
 Unique commands:  34346
 </pre>
-</div>
+` -}}
+{{- partial "terminal-frame.html" (dict "Content" $output) -}}

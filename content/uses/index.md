@@ -13,41 +13,7 @@ You can read more about my own workflow [here](/series/setup-your-development-wo
 
 For more details about my [dotfiles click here](https://gitlab.com/hmajid2301/dotfiles).
 
-```terminal
-❯ nitch
-   _  ___      ____  ____
-  / |/ (_)_ __/ __ \/ __/
- /    / /\ \ / /_/ /\ \  
-/_/|_/_//_\_\\____/___/  
-
-  ╭───────────╮
-  │   user   │ haseeb
-  │   hname  │ desktop
-  │ 󰻀  distro │ NixOS
-  │ 󰌢  kernel │ Linux
-  │   uptime │ 13h 53m
-  │   shell  │ fish
-  │ 󰘈  mux    │ tuios, herdr
-  │ 󰏖  pkgs   │ 1454
-  │ 󰍛  memory │ 20568 | 63432 MiB
-  ├───────────┤
-  │ 󰏘  colors │        
-  ╰───────────╯
-
-❯ atuin stats
-[▮▮▮▮▮▮▮▮▮▮] 13525 󰊢 git add
-[▮▮▮▮▮▮]  8335 󰊢 git status
-[▮▮▮▮▮]  7046  nvim
-[▮▮▮▮]  6157  z
-[▮▮▮▮]  5901 󰊢 git checkout
-[▮▮▮▮]  5853  task
-[▮▮▮▮]  5529  nh
-[▮▮▮]  4649 󰊢 git pull
-[▮▮]  3757  home-manager
-[▮▮]  3621  eza
-Total commands:   172619
-Unique commands:  34346
-```
+{{< nitch >}}
 
 ## Hardware
 
