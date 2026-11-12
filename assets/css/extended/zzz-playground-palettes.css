@@ -1,16 +1,16 @@
 /* Four supported states; palettes change colours, never typography or layout.
-   Light lavender is darkened for AA links on both base and mantle. */
+   Light mauve is darkened for AA links on both base and mantle. */
 html[data-theme='cat'][data-mode='light'] {
   --lab-bg: #eff1f5; --lab-surface: #e6e9ef; --lab-text: #4c4f69;
-  --lab-muted: #5c5f77; --lab-rule: #bcc0cc; --lab-accent: #4a5ad8;
+  --lab-muted: #5c5f77; --lab-rule: #bcc0cc; --lab-accent: #8031e0;
   --lab-code-bg: #e6e9ef; --lab-code-highlight: #dce0e8; --lab-code-comment: #5c5f77;
-  --lab-selection: #ccd0f4;
+  --lab-selection: #e6d5f4;
 }
 html[data-theme='cat'][data-mode='dark'] {
   --lab-bg: #1e1e2e; --lab-surface: #313244; --lab-text: #cdd6f4;
-  --lab-muted: #bac2de; --lab-rule: #585b70; --lab-accent: #b4befe;
+  --lab-muted: #bac2de; --lab-rule: #585b70; --lab-accent: #cba6f7;
   --lab-code-bg: #11111b; --lab-code-highlight: #313244; --lab-code-comment: #a6adc8;
-  --lab-selection: #45476a;
+  --lab-selection: #49395f;
 }
 html[data-theme='fireside'][data-mode='light'] {
   --lab-bg: #faf2e8; --lab-surface: #f1e3d3; --lab-text: #3c2b26;

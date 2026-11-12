@@ -25,9 +25,23 @@ The accent decision is also needed by ticket 09 (OG card). Settle it here and re
 - [x] **Elevation:** dark-mode cards are lighter than the page in both palettes.
 - [x] **Palette file:** four explicit `[data-theme=cat|fireside][data-mode=light|dark]` blocks; `theme-toggle.js` uses `cat`/`fireside`, as the palette-toggle decision specified.
 - [x] **Accent usage:** decorative chrome is neutral; links, current navigation, focus/action feedback and progress retain the accent.
-- [x] **Lavender:** Latte uses `#4a5ad8`; Mocha uses `#b4befe`.
+- [x] **Accent:** reverted to mauve on user request; Latte uses `#8031e0`, Mocha uses `#cba6f7` (supersedes the initial lavender choice).
 
 ## Resolution
+
+### Current accent: mauve (supersedes the initial lavender choice)
+
+The user subsequently requested “move back to mauve from lavender”. Catppuccin now uses darkened Latte mauve `#8031e0` and Mocha mauve `#cba6f7`; selection surfaces use mauve tints `#e6d5f4` / `#49395f`. Fireside and all contrast/surface/syntax fixes remain unchanged. The OG template accent and static statusline base also use `#cba6f7`; `assets/og/base.png` was regenerated with `task og:base` through the Nix development shell. Talk-specific peach accents remain intact.
+
+Fresh browser measurements on the served home page:
+
+- Cat light accent: **5.41:1 page / 5.03:1 card**, selected text **5.78:1**.
+- Cat dark accent: **8.07:1 page / 6.19:1 card**, selected text **7.14:1**.
+- Fireside accents remain **5.86/5.16** light and **8.26/7.06** dark. No horizontal overflow in the four desktop states.
+
+Production Hugo build passed in **16819ms** with the same 12 pre-existing missing-image warnings (`/tmp/blog-colour-review/build-mauve.log`). The home OG image was regenerated with a new versioned path. The disposable in-post Neovim preview was refreshed from the served page so it loads the current mauve stylesheet. `git diff --check` passed. No new commit, push or deployment was performed for this follow-up.
+
+### Initial lavender implementation (historical verification)
 
 The user approved lavender for Catppuccin and the colour-system fixes. Fireside retains its warm accent. Implementation is in the design worktree, uncommitted and undeployed; the separate Neovim/terminal chrome proposals were not approved or implemented here.
 
