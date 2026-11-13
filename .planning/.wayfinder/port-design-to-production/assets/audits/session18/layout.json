@@ -1,0 +1,1090 @@
+[
+  {
+    "width": 390,
+    "theme": "cat",
+    "mode": "light",
+    "name": "home",
+    "path": "/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 292,
+    "viewport": 390
+  },
+  {
+    "width": 390,
+    "theme": "cat",
+    "mode": "light",
+    "name": "posts",
+    "path": "/posts/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 292,
+    "viewport": 390
+  },
+  {
+    "width": 390,
+    "theme": "cat",
+    "mode": "light",
+    "name": "til",
+    "path": "/til/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 292,
+    "viewport": 390
+  },
+  {
+    "width": 390,
+    "theme": "cat",
+    "mode": "light",
+    "name": "projects",
+    "path": "/projects/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 292,
+    "viewport": 390
+  },
+  {
+    "width": 390,
+    "theme": "cat",
+    "mode": "light",
+    "name": "subscribe",
+    "path": "/subscribe/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 292,
+    "viewport": 390
+  },
+  {
+    "width": 390,
+    "theme": "cat",
+    "mode": "light",
+    "name": "series",
+    "path": "/series/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 292,
+    "viewport": 390
+  },
+  {
+    "width": 390,
+    "theme": "cat",
+    "mode": "light",
+    "name": "sitehistory",
+    "path": "/site-history/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 292,
+    "viewport": 390
+  },
+  {
+    "width": 390,
+    "theme": "cat",
+    "mode": "light",
+    "name": "article",
+    "path": "/posts/2024-09-06-how-to-setup-authentik-forward-auth-with-traefik-on-nixos/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 292,
+    "viewport": 390
+  },
+  {
+    "width": 390,
+    "theme": "cat",
+    "mode": "dark",
+    "name": "home",
+    "path": "/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 292,
+    "viewport": 390
+  },
+  {
+    "width": 390,
+    "theme": "cat",
+    "mode": "dark",
+    "name": "posts",
+    "path": "/posts/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 292,
+    "viewport": 390
+  },
+  {
+    "width": 390,
+    "theme": "cat",
+    "mode": "dark",
+    "name": "til",
+    "path": "/til/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 292,
+    "viewport": 390
+  },
+  {
+    "width": 390,
+    "theme": "cat",
+    "mode": "dark",
+    "name": "projects",
+    "path": "/projects/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 292,
+    "viewport": 390
+  },
+  {
+    "width": 390,
+    "theme": "cat",
+    "mode": "dark",
+    "name": "subscribe",
+    "path": "/subscribe/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 292,
+    "viewport": 390
+  },
+  {
+    "width": 390,
+    "theme": "cat",
+    "mode": "dark",
+    "name": "series",
+    "path": "/series/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 292,
+    "viewport": 390
+  },
+  {
+    "width": 390,
+    "theme": "cat",
+    "mode": "dark",
+    "name": "sitehistory",
+    "path": "/site-history/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 292,
+    "viewport": 390
+  },
+  {
+    "width": 390,
+    "theme": "cat",
+    "mode": "dark",
+    "name": "article",
+    "path": "/posts/2024-09-06-how-to-setup-authentik-forward-auth-with-traefik-on-nixos/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 292,
+    "viewport": 390
+  },
+  {
+    "width": 390,
+    "theme": "fireside",
+    "mode": "light",
+    "name": "home",
+    "path": "/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 292,
+    "viewport": 390
+  },
+  {
+    "width": 390,
+    "theme": "fireside",
+    "mode": "light",
+    "name": "posts",
+    "path": "/posts/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 292,
+    "viewport": 390
+  },
+  {
+    "width": 390,
+    "theme": "fireside",
+    "mode": "light",
+    "name": "til",
+    "path": "/til/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 292,
+    "viewport": 390
+  },
+  {
+    "width": 390,
+    "theme": "fireside",
+    "mode": "light",
+    "name": "projects",
+    "path": "/projects/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 292,
+    "viewport": 390
+  },
+  {
+    "width": 390,
+    "theme": "fireside",
+    "mode": "light",
+    "name": "subscribe",
+    "path": "/subscribe/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 292,
+    "viewport": 390
+  },
+  {
+    "width": 390,
+    "theme": "fireside",
+    "mode": "light",
+    "name": "series",
+    "path": "/series/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 292,
+    "viewport": 390
+  },
+  {
+    "width": 390,
+    "theme": "fireside",
+    "mode": "light",
+    "name": "sitehistory",
+    "path": "/site-history/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 292,
+    "viewport": 390
+  },
+  {
+    "width": 390,
+    "theme": "fireside",
+    "mode": "light",
+    "name": "article",
+    "path": "/posts/2024-09-06-how-to-setup-authentik-forward-auth-with-traefik-on-nixos/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 292,
+    "viewport": 390
+  },
+  {
+    "width": 390,
+    "theme": "fireside",
+    "mode": "dark",
+    "name": "home",
+    "path": "/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 292,
+    "viewport": 390
+  },
+  {
+    "width": 390,
+    "theme": "fireside",
+    "mode": "dark",
+    "name": "posts",
+    "path": "/posts/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 292,
+    "viewport": 390
+  },
+  {
+    "width": 390,
+    "theme": "fireside",
+    "mode": "dark",
+    "name": "til",
+    "path": "/til/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 292,
+    "viewport": 390
+  },
+  {
+    "width": 390,
+    "theme": "fireside",
+    "mode": "dark",
+    "name": "projects",
+    "path": "/projects/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 292,
+    "viewport": 390
+  },
+  {
+    "width": 390,
+    "theme": "fireside",
+    "mode": "dark",
+    "name": "subscribe",
+    "path": "/subscribe/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 292,
+    "viewport": 390
+  },
+  {
+    "width": 390,
+    "theme": "fireside",
+    "mode": "dark",
+    "name": "series",
+    "path": "/series/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 292,
+    "viewport": 390
+  },
+  {
+    "width": 390,
+    "theme": "fireside",
+    "mode": "dark",
+    "name": "sitehistory",
+    "path": "/site-history/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 292,
+    "viewport": 390
+  },
+  {
+    "width": 390,
+    "theme": "fireside",
+    "mode": "dark",
+    "name": "article",
+    "path": "/posts/2024-09-06-how-to-setup-authentik-forward-auth-with-traefik-on-nixos/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 292,
+    "viewport": 390
+  },
+  {
+    "width": 1440,
+    "theme": "cat",
+    "mode": "light",
+    "name": "home",
+    "path": "/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 1161,
+    "viewport": 1440
+  },
+  {
+    "width": 1440,
+    "theme": "cat",
+    "mode": "light",
+    "name": "posts",
+    "path": "/posts/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 1161,
+    "viewport": 1440
+  },
+  {
+    "width": 1440,
+    "theme": "cat",
+    "mode": "light",
+    "name": "til",
+    "path": "/til/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 1161,
+    "viewport": 1440
+  },
+  {
+    "width": 1440,
+    "theme": "cat",
+    "mode": "light",
+    "name": "projects",
+    "path": "/projects/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 1161,
+    "viewport": 1440
+  },
+  {
+    "width": 1440,
+    "theme": "cat",
+    "mode": "light",
+    "name": "subscribe",
+    "path": "/subscribe/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 1161,
+    "viewport": 1440
+  },
+  {
+    "width": 1440,
+    "theme": "cat",
+    "mode": "light",
+    "name": "series",
+    "path": "/series/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 1161,
+    "viewport": 1440
+  },
+  {
+    "width": 1440,
+    "theme": "cat",
+    "mode": "light",
+    "name": "sitehistory",
+    "path": "/site-history/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 1161,
+    "viewport": 1440
+  },
+  {
+    "width": 1440,
+    "theme": "cat",
+    "mode": "light",
+    "name": "article",
+    "path": "/posts/2024-09-06-how-to-setup-authentik-forward-auth-with-traefik-on-nixos/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 1161,
+    "viewport": 1440
+  },
+  {
+    "width": 1440,
+    "theme": "cat",
+    "mode": "dark",
+    "name": "home",
+    "path": "/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 1161,
+    "viewport": 1440
+  },
+  {
+    "width": 1440,
+    "theme": "cat",
+    "mode": "dark",
+    "name": "posts",
+    "path": "/posts/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 1161,
+    "viewport": 1440
+  },
+  {
+    "width": 1440,
+    "theme": "cat",
+    "mode": "dark",
+    "name": "til",
+    "path": "/til/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 1161,
+    "viewport": 1440
+  },
+  {
+    "width": 1440,
+    "theme": "cat",
+    "mode": "dark",
+    "name": "projects",
+    "path": "/projects/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 1161,
+    "viewport": 1440
+  },
+  {
+    "width": 1440,
+    "theme": "cat",
+    "mode": "dark",
+    "name": "subscribe",
+    "path": "/subscribe/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 1161,
+    "viewport": 1440
+  },
+  {
+    "width": 1440,
+    "theme": "cat",
+    "mode": "dark",
+    "name": "series",
+    "path": "/series/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 1161,
+    "viewport": 1440
+  },
+  {
+    "width": 1440,
+    "theme": "cat",
+    "mode": "dark",
+    "name": "sitehistory",
+    "path": "/site-history/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 1161,
+    "viewport": 1440
+  },
+  {
+    "width": 1440,
+    "theme": "cat",
+    "mode": "dark",
+    "name": "article",
+    "path": "/posts/2024-09-06-how-to-setup-authentik-forward-auth-with-traefik-on-nixos/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 1161,
+    "viewport": 1440
+  },
+  {
+    "width": 1440,
+    "theme": "fireside",
+    "mode": "light",
+    "name": "home",
+    "path": "/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 1161,
+    "viewport": 1440
+  },
+  {
+    "width": 1440,
+    "theme": "fireside",
+    "mode": "light",
+    "name": "posts",
+    "path": "/posts/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 1161,
+    "viewport": 1440
+  },
+  {
+    "width": 1440,
+    "theme": "fireside",
+    "mode": "light",
+    "name": "til",
+    "path": "/til/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 1161,
+    "viewport": 1440
+  },
+  {
+    "width": 1440,
+    "theme": "fireside",
+    "mode": "light",
+    "name": "projects",
+    "path": "/projects/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 1161,
+    "viewport": 1440
+  },
+  {
+    "width": 1440,
+    "theme": "fireside",
+    "mode": "light",
+    "name": "subscribe",
+    "path": "/subscribe/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 1161,
+    "viewport": 1440
+  },
+  {
+    "width": 1440,
+    "theme": "fireside",
+    "mode": "light",
+    "name": "series",
+    "path": "/series/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 1161,
+    "viewport": 1440
+  },
+  {
+    "width": 1440,
+    "theme": "fireside",
+    "mode": "light",
+    "name": "sitehistory",
+    "path": "/site-history/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 1161,
+    "viewport": 1440
+  },
+  {
+    "width": 1440,
+    "theme": "fireside",
+    "mode": "light",
+    "name": "article",
+    "path": "/posts/2024-09-06-how-to-setup-authentik-forward-auth-with-traefik-on-nixos/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 1161,
+    "viewport": 1440
+  },
+  {
+    "width": 1440,
+    "theme": "fireside",
+    "mode": "dark",
+    "name": "home",
+    "path": "/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 1161,
+    "viewport": 1440
+  },
+  {
+    "width": 1440,
+    "theme": "fireside",
+    "mode": "dark",
+    "name": "posts",
+    "path": "/posts/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 1161,
+    "viewport": 1440
+  },
+  {
+    "width": 1440,
+    "theme": "fireside",
+    "mode": "dark",
+    "name": "til",
+    "path": "/til/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 1161,
+    "viewport": 1440
+  },
+  {
+    "width": 1440,
+    "theme": "fireside",
+    "mode": "dark",
+    "name": "projects",
+    "path": "/projects/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 1161,
+    "viewport": 1440
+  },
+  {
+    "width": 1440,
+    "theme": "fireside",
+    "mode": "dark",
+    "name": "subscribe",
+    "path": "/subscribe/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 1161,
+    "viewport": 1440
+  },
+  {
+    "width": 1440,
+    "theme": "fireside",
+    "mode": "dark",
+    "name": "series",
+    "path": "/series/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 1161,
+    "viewport": 1440
+  },
+  {
+    "width": 1440,
+    "theme": "fireside",
+    "mode": "dark",
+    "name": "sitehistory",
+    "path": "/site-history/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 1161,
+    "viewport": 1440
+  },
+  {
+    "width": 1440,
+    "theme": "fireside",
+    "mode": "dark",
+    "name": "article",
+    "path": "/posts/2024-09-06-how-to-setup-authentik-forward-auth-with-traefik-on-nixos/",
+    "overflowX": 0,
+    "navItems": [
+      "Posts",
+      "Projects",
+      "TIL",
+      "Talks"
+    ],
+    "navRows": 1,
+    "navRight": 1161,
+    "viewport": 1440
+  }
+]

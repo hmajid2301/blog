@@ -1,0 +1,493 @@
+[
+  {
+    "id": "posts-run1",
+    "path": "/posts/",
+    "categories": {
+      "performance": 0.97,
+      "accessibility": 1,
+      "best-practices": 1,
+      "seo": 1
+    },
+    "metrics": {
+      "first-contentful-paint": 1951.3617,
+      "largest-contentful-paint": 1951.3617,
+      "cumulative-layout-shift": 0.0002291768923814067,
+      "total-blocking-time": 132,
+      "speed-index": 1951.3617
+    },
+    "cls_elements": [
+      {
+        "score": 0.0002291768923814067,
+        "node": "body#top > header.header > nav.nav > div.nav-end",
+        "snippet": "<div class=\"nav-end\">"
+      }
+    ],
+    "unsized": [],
+    "tap_targets": [],
+    "contrast": [],
+    "failed": [
+      "first-contentful-paint=0.85",
+      "largest-contentful-paint=0.97",
+      "total-blocking-time=0.96",
+      "max-potential-fid=0.73",
+      "interactive=0.91",
+      "unused-css-rules=0",
+      "cache-insight=0",
+      "document-latency-insight=0.5",
+      "forced-reflow-insight=0",
+      "network-dependency-tree-insight=0",
+      "render-blocking-insight=0"
+    ]
+  },
+  {
+    "id": "til-run1",
+    "path": "/til/",
+    "categories": {
+      "performance": 0.96,
+      "accessibility": 1,
+      "best-practices": 1,
+      "seo": 1
+    },
+    "metrics": {
+      "first-contentful-paint": 2101.3518,
+      "largest-contentful-paint": 2101.3518,
+      "cumulative-layout-shift": 0.01155718518901923,
+      "total-blocking-time": 111,
+      "speed-index": 2101.3518
+    },
+    "cls_elements": [
+      {
+        "score": 0.01155718518901923,
+        "node": "body#top > main.main > article.lab-home-entry",
+        "snippet": "<article class=\"lab-home-entry lab-til-entry\">"
+      }
+    ],
+    "unsized": [],
+    "tap_targets": [],
+    "contrast": [],
+    "failed": [
+      "first-contentful-paint=0.81",
+      "largest-contentful-paint=0.96",
+      "speed-index=0.99",
+      "total-blocking-time=0.97",
+      "max-potential-fid=0.8",
+      "interactive=0.91",
+      "unused-css-rules=0",
+      "cache-insight=0",
+      "document-latency-insight=0.5",
+      "forced-reflow-insight=0",
+      "network-dependency-tree-insight=0",
+      "render-blocking-insight=0"
+    ]
+  },
+  {
+    "id": "projects-run1",
+    "path": "/projects/",
+    "categories": {
+      "performance": 0.97,
+      "accessibility": 1,
+      "best-practices": 1,
+      "seo": 1
+    },
+    "metrics": {
+      "first-contentful-paint": 1951.6812,
+      "largest-contentful-paint": 1951.6812,
+      "cumulative-layout-shift": 0.01309036736488945,
+      "total-blocking-time": 106,
+      "speed-index": 1951.6812
+    },
+    "cls_elements": [
+      {
+        "score": 0.01309036736488945,
+        "node": "body#top > main.main > div.lab-project-grid > article.lab-project-card",
+        "snippet": "<article class=\"lab-project-card\">"
+      }
+    ],
+    "unsized": [],
+    "tap_targets": [],
+    "contrast": [],
+    "failed": [
+      "first-contentful-paint=0.85",
+      "largest-contentful-paint=0.97",
+      "total-blocking-time=0.98",
+      "max-potential-fid=0.82",
+      "interactive=0.92",
+      "unused-css-rules=0",
+      "cache-insight=0",
+      "document-latency-insight=0.5",
+      "forced-reflow-insight=0",
+      "network-dependency-tree-insight=0",
+      "render-blocking-insight=0"
+    ]
+  },
+  {
+    "id": "subscribe-run1",
+    "path": "/subscribe/",
+    "categories": {
+      "performance": 0.96,
+      "accessibility": 1,
+      "best-practices": 1,
+      "seo": 1
+    },
+    "metrics": {
+      "first-contentful-paint": 2101.0697,
+      "largest-contentful-paint": 2101.0697,
+      "cumulative-layout-shift": 0.0002291768923814067,
+      "total-blocking-time": 115,
+      "speed-index": 2101.0697
+    },
+    "cls_elements": [
+      {
+        "score": 0.0002291768923814067,
+        "node": "body#top > header.header > nav.nav > div.nav-end",
+        "snippet": "<div class=\"nav-end\">"
+      }
+    ],
+    "unsized": [],
+    "tap_targets": [],
+    "contrast": [],
+    "failed": [
+      "first-contentful-paint=0.81",
+      "largest-contentful-paint=0.96",
+      "speed-index=0.99",
+      "total-blocking-time=0.97",
+      "max-potential-fid=0.79",
+      "interactive=0.91",
+      "unused-css-rules=0",
+      "cache-insight=0",
+      "document-latency-insight=0.5",
+      "forced-reflow-insight=0",
+      "network-dependency-tree-insight=0",
+      "render-blocking-insight=0"
+    ]
+  },
+  {
+    "id": "series-run1",
+    "path": "/series/",
+    "categories": {
+      "performance": 0.94,
+      "accessibility": 1,
+      "best-practices": 1,
+      "seo": 1
+    },
+    "metrics": {
+      "first-contentful-paint": 2102.0203,
+      "largest-contentful-paint": 2102.0203,
+      "cumulative-layout-shift": 0.02820477047429318,
+      "total-blocking-time": 181,
+      "speed-index": 2102.0203
+    },
+    "cls_elements": [
+      {
+        "score": 0.02820477047429318,
+        "node": "body#top > main.main > ul.lab-series-index > li.lab-series-card",
+        "snippet": "<li class=\"lab-series-card\">"
+      }
+    ],
+    "unsized": [],
+    "tap_targets": [],
+    "contrast": [],
+    "failed": [
+      "first-contentful-paint=0.81",
+      "largest-contentful-paint=0.96",
+      "speed-index=0.99",
+      "total-blocking-time=0.91",
+      "max-potential-fid=0.56",
+      "interactive=0.9",
+      "unused-css-rules=0",
+      "cache-insight=0",
+      "document-latency-insight=0.5",
+      "forced-reflow-insight=0",
+      "network-dependency-tree-insight=0",
+      "render-blocking-insight=0"
+    ]
+  },
+  {
+    "id": "sitehistory-run1",
+    "path": "/site-history/",
+    "categories": {
+      "performance": 0.81,
+      "accessibility": 1,
+      "best-practices": 1,
+      "seo": 1
+    },
+    "metrics": {
+      "first-contentful-paint": 1952.0104,
+      "largest-contentful-paint": 4503.015600000001,
+      "cumulative-layout-shift": 0.02296130291338392,
+      "total-blocking-time": 142.5025999999998,
+      "speed-index": 1952.0104
+    },
+    "cls_elements": [
+      {
+        "score": 0.02296130291338392,
+        "node": "article.post-single > div.post-body > div.post-content > p",
+        "snippet": "<p>"
+      }
+    ],
+    "unsized": [],
+    "tap_targets": [],
+    "contrast": [],
+    "failed": [
+      "first-contentful-paint=0.85",
+      "largest-contentful-paint=0.37",
+      "total-blocking-time=0.95",
+      "max-potential-fid=0.55",
+      "interactive=0.82",
+      "unused-css-rules=0",
+      "cache-insight=0",
+      "document-latency-insight=0.5",
+      "forced-reflow-insight=0",
+      "network-dependency-tree-insight=0",
+      "render-blocking-insight=0"
+    ]
+  },
+  {
+    "id": "posts-run2",
+    "path": "/posts/",
+    "categories": {
+      "performance": 0.96,
+      "accessibility": 1,
+      "best-practices": 1,
+      "seo": 1
+    },
+    "metrics": {
+      "first-contentful-paint": 2101.5819,
+      "largest-contentful-paint": 2101.5819,
+      "cumulative-layout-shift": 0.0002291768923814067,
+      "total-blocking-time": 136,
+      "speed-index": 2101.5819
+    },
+    "cls_elements": [
+      {
+        "score": 0.0002291768923814067,
+        "node": "body#top > header.header > nav.nav > div.nav-end",
+        "snippet": "<div class=\"nav-end\">"
+      }
+    ],
+    "unsized": [],
+    "tap_targets": [],
+    "contrast": [],
+    "failed": [
+      "first-contentful-paint=0.81",
+      "largest-contentful-paint=0.96",
+      "speed-index=0.99",
+      "total-blocking-time=0.96",
+      "max-potential-fid=0.71",
+      "interactive=0.91",
+      "unused-css-rules=0",
+      "cache-insight=0",
+      "document-latency-insight=0.5",
+      "forced-reflow-insight=0",
+      "network-dependency-tree-insight=0",
+      "render-blocking-insight=0"
+    ]
+  },
+  {
+    "id": "til-run2",
+    "path": "/til/",
+    "categories": {
+      "performance": 0.96,
+      "accessibility": 1,
+      "best-practices": 1,
+      "seo": 1
+    },
+    "metrics": {
+      "first-contentful-paint": 2101.4286,
+      "largest-contentful-paint": 2101.4286,
+      "cumulative-layout-shift": 0.010951346753417655,
+      "total-blocking-time": 130,
+      "speed-index": 2101.4286
+    },
+    "cls_elements": [
+      {
+        "score": 0.01072216986103625,
+        "node": "body#top > main.main > article.lab-home-entry",
+        "snippet": "<article class=\"lab-home-entry lab-til-entry\">"
+      },
+      {
+        "score": 0.0002291768923814067,
+        "node": "body#top > header.header > nav.nav > div.nav-end",
+        "snippet": "<div class=\"nav-end\">"
+      }
+    ],
+    "unsized": [],
+    "tap_targets": [],
+    "contrast": [],
+    "failed": [
+      "first-contentful-paint=0.81",
+      "largest-contentful-paint=0.96",
+      "speed-index=0.99",
+      "total-blocking-time=0.96",
+      "max-potential-fid=0.74",
+      "interactive=0.91",
+      "unused-css-rules=0",
+      "cache-insight=0",
+      "document-latency-insight=0.5",
+      "forced-reflow-insight=0",
+      "network-dependency-tree-insight=0",
+      "render-blocking-insight=0"
+    ]
+  },
+  {
+    "id": "projects-run2",
+    "path": "/projects/",
+    "categories": {
+      "performance": 0.97,
+      "accessibility": 1,
+      "best-practices": 1,
+      "seo": 1
+    },
+    "metrics": {
+      "first-contentful-paint": 1951.8618,
+      "largest-contentful-paint": 1951.8618,
+      "cumulative-layout-shift": 0.01309036736488945,
+      "total-blocking-time": 105,
+      "speed-index": 1951.8618
+    },
+    "cls_elements": [
+      {
+        "score": 0.01309036736488945,
+        "node": "body#top > main.main > div.lab-project-grid > article.lab-project-card",
+        "snippet": "<article class=\"lab-project-card\">"
+      }
+    ],
+    "unsized": [],
+    "tap_targets": [],
+    "contrast": [],
+    "failed": [
+      "first-contentful-paint=0.85",
+      "largest-contentful-paint=0.97",
+      "total-blocking-time=0.98",
+      "max-potential-fid=0.82",
+      "interactive=0.92",
+      "unused-css-rules=0",
+      "cache-insight=0",
+      "document-latency-insight=0.5",
+      "forced-reflow-insight=0",
+      "network-dependency-tree-insight=0",
+      "render-blocking-insight=0"
+    ]
+  },
+  {
+    "id": "subscribe-run2",
+    "path": "/subscribe/",
+    "categories": {
+      "performance": 0.97,
+      "accessibility": 1,
+      "best-practices": 1,
+      "seo": 1
+    },
+    "metrics": {
+      "first-contentful-paint": 1951.6778,
+      "largest-contentful-paint": 1951.6778,
+      "cumulative-layout-shift": 0.0002291768923814067,
+      "total-blocking-time": 103,
+      "speed-index": 1951.6778
+    },
+    "cls_elements": [
+      {
+        "score": 0.0002291768923814067,
+        "node": "body#top > header.header > nav.nav > div.nav-end",
+        "snippet": "<div class=\"nav-end\">"
+      }
+    ],
+    "unsized": [],
+    "tap_targets": [],
+    "contrast": [],
+    "failed": [
+      "first-contentful-paint=0.85",
+      "largest-contentful-paint=0.97",
+      "total-blocking-time=0.98",
+      "max-potential-fid=0.83",
+      "interactive=0.91",
+      "unused-css-rules=0",
+      "cache-insight=0",
+      "document-latency-insight=0.5",
+      "forced-reflow-insight=0",
+      "network-dependency-tree-insight=0",
+      "render-blocking-insight=0"
+    ]
+  },
+  {
+    "id": "series-run2",
+    "path": "/series/",
+    "categories": {
+      "performance": 0.95,
+      "accessibility": 1,
+      "best-practices": 1,
+      "seo": 1
+    },
+    "metrics": {
+      "first-contentful-paint": 2101.9092,
+      "largest-contentful-paint": 2101.9092,
+      "cumulative-layout-shift": 0.02820477047429318,
+      "total-blocking-time": 164,
+      "speed-index": 2101.9092
+    },
+    "cls_elements": [
+      {
+        "score": 0.02820477047429318,
+        "node": "body#top > main.main > ul.lab-series-index > li.lab-series-card",
+        "snippet": "<li class=\"lab-series-card\">"
+      }
+    ],
+    "unsized": [],
+    "tap_targets": [],
+    "contrast": [],
+    "failed": [
+      "first-contentful-paint=0.81",
+      "largest-contentful-paint=0.96",
+      "speed-index=0.99",
+      "total-blocking-time=0.93",
+      "max-potential-fid=0.61",
+      "interactive=0.91",
+      "unused-css-rules=0",
+      "cache-insight=0",
+      "document-latency-insight=0.5",
+      "forced-reflow-insight=0",
+      "network-dependency-tree-insight=0",
+      "render-blocking-insight=0"
+    ]
+  },
+  {
+    "id": "sitehistory-run2",
+    "path": "/site-history/",
+    "categories": {
+      "performance": 0.8,
+      "accessibility": 1,
+      "best-practices": 1,
+      "seo": 1
+    },
+    "metrics": {
+      "first-contentful-paint": 1952.9344,
+      "largest-contentful-paint": 4579.4016,
+      "cumulative-layout-shift": 0.02296130291338392,
+      "total-blocking-time": 179,
+      "speed-index": 1952.9344
+    },
+    "cls_elements": [
+      {
+        "score": 0.02296130291338392,
+        "node": "article.post-single > div.post-body > div.post-content > p",
+        "snippet": "<p>"
+      }
+    ],
+    "unsized": [],
+    "tap_targets": [],
+    "contrast": [],
+    "failed": [
+      "first-contentful-paint=0.85",
+      "largest-contentful-paint=0.35",
+      "total-blocking-time=0.92",
+      "max-potential-fid=0.56",
+      "interactive=0.81",
+      "unused-css-rules=0",
+      "cache-insight=0",
+      "document-latency-insight=0.5",
+      "forced-reflow-insight=0",
+      "network-dependency-tree-insight=0",
+      "render-blocking-insight=0"
+    ]
+  }
+]

@@ -144,6 +144,7 @@ The production Hugo blog (`/home/haseeb/projects/blog`) ships the design-lab's c
 ### [Choose which missing pages to add](tickets/17-missing-pages.md) (resolved)
 
 - Narrow scope: pages that re-present repo data ship (`/projects/`, `/til/`, `/subscribe/`, card-based `/series/`, colophon on `/site-history/`), authored prose pages do not. Nav becomes Posts · Projects · TIL · Talks with Stats and Subscribe in the footer; front-matter-only edits are allowed. Implementation is tickets 33–39, with project tagging gated on the candidate table in ticket 17.
+- Implemented as tickets 33–39 and verified: [session 18 report](assets/audits/session18/REPORT.md) — 64 palette/width loads with no overflow, affected-route Lighthouse with all routes at accessibility 1.00, and the two issues it found fixed (link-in-text-block, lazy LCP image).
 
 ## Not yet specified
 
