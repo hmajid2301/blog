@@ -1,11 +1,15 @@
 {{- $url := urls.Parse .Destination -}}
+{{- /* The first image on a page is usually its LCP candidate, so it must not be lazy. */ -}}
+{{- $loading := cond (eq .Ordinal 0) "eager" "lazy" -}}
+{{- $priority := cond (eq .Ordinal 0) "high" "auto" -}}
 {{- if or $url.Scheme $url.Host -}}
   {{/* third party image */}}
   {{- if and $url.Scheme (not (in (slice "http" "https") $url.Scheme)) -}}
     {{- errorf "Unsupported image URL scheme %q in %s" $url.Scheme .Page.File -}}
   {{- end -}}
   <img
-    loading="lazy"
+    loading="{{ $loading }}"
+    fetchpriority="{{ $priority }}"
     src="{{ .Destination | safeURL }}"
     alt="{{ $.Text }}"
     {{ with $.Title }}title="{{ . }}"{{ end }}
@@ -47,7 +51,8 @@
       {{- with $url.RawQuery }}{{ $src = printf "%s?%s" $src . }}{{ end -}}
       {{- with $url.Fragment }}{{ $src = printf "%s#%s" $src . }}{{ end -}}
       <img
-        loading="lazy"
+        loading="{{ $loading }}"
+        fetchpriority="{{ $priority }}"
         decoding="async"
         src="{{ $src }}"
         {{ if $sources }}srcset="{{ delimit $sources ", " }}" sizes="(max-width: 800px) calc(100vw - 40px), 760px" data-zoom-src="{{ $original }}"{{ end }}
