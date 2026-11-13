@@ -150,6 +150,10 @@ The production Hugo blog (`/home/haseeb/projects/blog`) ships the design-lab's c
 
 - Deferred as debt: remaining CLS is lab-only (font-swap glyph widths, the remote unsized Giphy GIF, the pre-existing `/uses/` terminal shift); no safe minimal fix without regressing ticket 16 or making non-hermetic build-time changes. Per-route attribution lives in the ticket.
 
+### [Record the shipped redesign in site history](tickets/27-site-history-release-entry.md) (resolved)
+
+- 5.0.0 "Hugo custom theme · current" entry added with a captured cat-light home screenshot; 4.0.0 de-marked current. The `5.0.0` GitLab tag is created at release, so the tag link is forward-looking until then.
+
 ## Not yet specified
 
 (none — the way to the destination is clear)

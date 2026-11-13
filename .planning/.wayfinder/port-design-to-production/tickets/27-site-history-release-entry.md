@@ -1,7 +1,7 @@
 # Ticket: Record the shipped redesign in site history
 
 Labels: `wayfinder:task`
-Status: unclaimed
+Status: resolved
 Parent: `../map.md`
 Blocks: none
 Blocked by: actual redesign release (external shipping gate)
@@ -21,3 +21,7 @@ Add the 5.0.0 entry to the existing site-history page **after the redesign actua
 ## Notes
 
 Do not take this up before the shipping gate is satisfied. No merge/deployment/commit/push authorization is supplied by this ticket. No new repository tests without a request.
+
+## Resolution
+
+Entry added (user-authorized override of the release gate): `content/site-history.md` gained the 5.0.0 "Hugo custom theme · current" entry with a captured 1280×900 cat-light home screenshot (`assets/site-history/v5.png`), and 4.0.0 lost its "current" marker. Fresh `hugo` build verified: the v5 image is processed into a 720w/1280w webp srcset and the tag link renders. The `5.0.0` GitLab tag itself is created at release (ticket 07's merge), so the tag link is intentionally forward-looking until then.
