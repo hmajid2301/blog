@@ -161,18 +161,22 @@ url = "/posts/"
 weight = 10
 
 [[menu.main]]
-identifier = "talks"
-name = "Talks"
-url = "/talks/"
+identifier = "projects"
+name = "Projects"
+url = "/projects/"
 weight = 20
 
 [[menu.main]]
-identifier = "stats"
-name = "Stats"
-url = "https://stats.haseebmajid.dev/"
-weight = 50
-[menu.main.params]
-external = true
+identifier = "til"
+name = "TIL"
+url = "/til/"
+weight = 30
+
+[[menu.main]]
+identifier = "talks"
+name = "Talks"
+url = "/talks/"
+weight = 40
 
 [outputs]
 home = ["HTML", "RSS", "JSON"]

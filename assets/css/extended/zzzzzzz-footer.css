@@ -45,3 +45,10 @@ html[data-design][data-footer='stacked'] .footer { flex-direction: column; gap: 
 @media (max-width: 700px) {
   html[data-design][data-footer='split'] .footer { justify-content: center; text-align: center; }
 }
+
+/* Subscribe + Stats, moved out of the nav. */
+html[data-design] .footer .footer-links {
+  display: inline-flex;
+  gap: 14px;
+  align-items: center;
+}

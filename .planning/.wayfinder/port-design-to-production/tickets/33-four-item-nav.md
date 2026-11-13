@@ -1,7 +1,7 @@
 # Ticket: Four-item nav, Stats and Subscribe in the footer
 
 Labels: `wayfinder:task`
-Status: unclaimed
+Status: resolved
 Parent: `../map.md`
 Blocks: none
 Blocked by: 17
@@ -25,3 +25,16 @@ joins it there. No "More" disclosure.
 ## Notes
 
 Front matter policy from ticket 17 applies: no post metadata changes needed here.
+
+## Resolution — nav and footer links applied
+
+`hugo.toml` menu is now Posts (10) · Projects (20) · TIL (30) · Talks (40); the external Stats item is gone
+from the menu. The footer gained a `footer-links` group holding Subscribe (`/subscribe/`) and Stats
+(`https://stats.haseebmajid.dev/`), plus 6 lines of scoped CSS in `zzzzzzz-footer.css`.
+
+Active-state logic is untouched and still correct: `/projects/` and `/til/` highlight only their own pages, and
+a TIL post lives under `/posts/`, so it does not light up `/til/`.
+
+Verification: `hugo` exits 0 with both configs (`hugo.toml` and `hugo-slides.toml`); the rendered menu has
+exactly the four items in order, and the footer renders both links. Width behaviour at 320/390 is checked in
+the affected-pages verification pass.

@@ -7,6 +7,10 @@
     <span class="footer-copy">&copy; {{ now.Year }} <a href="{{ "" | absURL }}">{{ site.Title }}</a></span>
     {{- end -}}
     <span class="footer-tagline">Deploys <em>code 💻</em>. Bowls a few <em>overs 🏏</em>.</span>
+    <span class="footer-links">
+        <a href="{{ "/subscribe/" | relLangURL }}">Subscribe</a>
+        <a href="https://stats.haseebmajid.dev/">Stats ↗</a>
+    </span>
     <div class="palette-switch footer-palette" role="group" aria-label="Colour palette">
         <button type="button" data-palette="cat" aria-pressed="true">Catppuccin</button>
         <button type="button" data-palette="fireside" aria-pressed="false">Fireside</button>
