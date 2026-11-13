@@ -1,16 +1,16 @@
 <div id="search-wrapper" data-url="{{ "index.json" | relLangURL }}">
   <div id="search-modal" role="dialog" aria-modal="true" aria-label="Search the site">
+    <div class="search-label">Search <span>/ writing, talks, topics</span></div>
     <header class="search-header">
       <form class="search-form">
-        <div class="search-icon">
-          {{ safeHTML (index hugo.Data.svg "search") }}
-        </div>
+        <div class="search-icon" aria-hidden="true">❯</div>
         <input
           type="text"
           aria-label="Search posts, talks and topics"
           id="search-query"
           class="search-input"
           placeholder="Search posts, talks and topics…"
+          aria-controls="search-results"
           autocomplete="off"
           spellcheck="false"
           tabindex="0"
@@ -26,9 +26,12 @@
       </button>
     </header>
     <p id="search-status" class="search-status" role="status" aria-live="polite" hidden></p>
-    <section class="search-section">
-      <ul id="search-results"></ul>
-    </section>
+    <div class="search-columns">
+      <section class="search-section" aria-label="Search results">
+        <ul id="search-results"></ul>
+      </section>
+      <aside id="search-preview" aria-label="Selected result preview" hidden></aside>
+    </div>
     <footer class="search-footer" aria-hidden="true">
       <span><kbd>↑</kbd> <kbd>↓</kbd> navigate</span>
       <span><kbd>↵</kbd> open</span>

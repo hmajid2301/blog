@@ -5,7 +5,7 @@ canonicalURL: https://haseebmajid.dev/posts/2023-10-26-how-to-setup-a-go-develop
 tags:
   - nix
   - nixos
-  - flake
+  - flakes
   - devshells
   - go
 cover:

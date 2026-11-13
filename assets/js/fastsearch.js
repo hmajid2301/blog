@@ -17,6 +17,10 @@ const fuseOptions = {
 
 let fuse = null;
 let indexed = false;
+let indexing = false;
+let invoker = null;
+let previousOverflow = '';
+let selectedLink = null;
 let searchVisible = false;
 let resultLinks = [];
 
@@ -27,6 +31,7 @@ const modal = document.getElementById('search-modal');
 const input = document.getElementById('search-query');
 const output = document.getElementById('search-results');
 const status = document.getElementById('search-status');
+const preview = document.getElementById('search-preview');
 
 function escapeHtml(value) {
   return String(value).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -97,27 +102,30 @@ function setStatus(message) {
 }
 
 function displaySearch() {
-  if (!indexed) {
-    buildIndex();
-    setStatus('Indexing posts…');
-  }
   if (searchVisible) return;
+  invoker = document.activeElement;
+  previousOverflow = document.body.style.overflow;
   document.body.style.overflow = 'hidden';
   wrapper.classList.add('search-open');
   searchVisible = true;
-  requestAnimationFrame(() => input.focus());
+  if (!indexed) {
+    setStatus('Indexing posts…');
+    buildIndex();
+  } else executeQuery(input.value);
+  requestAnimationFrame(() => { if (searchVisible) input.focus(); });
 }
 
 function hideSearch() {
   if (!searchVisible) return;
-  document.body.style.overflow = '';
+  document.body.style.overflow = previousOverflow;
   wrapper.classList.remove('search-open');
   searchVisible = false;
   input.value = '';
   output.innerHTML = '';
   resultLinks = [];
+  selectResult(null);
   setStatus('');
-  if (showButton) showButton.focus();
+  if (invoker && invoker.isConnected) invoker.focus();
 }
 
 function moveFocus(dir) {
@@ -138,27 +146,42 @@ function trapFocus(event) {
   else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
 }
 
-function fetchJSON(path, callback) {
-  const request = new XMLHttpRequest();
-  request.onreadystatechange = function () {
-    if (request.readyState === 4 && request.status === 200) {
-      try { callback(JSON.parse(request.responseText)); } catch (_) { callback([]); }
-    }
-  };
-  request.open('GET', path);
-  request.send();
-}
-
-function buildIndex() {
-  fetchJSON(wrapper.getAttribute('data-url') || '/index.json', function (data) {
+async function buildIndex() {
+  if (indexing || indexed) return;
+  indexing = true;
+  setStatus('Indexing posts…');
+  try {
+    const response = await fetch(wrapper.getAttribute('data-url') || '/index.json');
+    if (!response.ok) throw new Error('Search index unavailable');
+    const data = await response.json();
+    if (!Array.isArray(data)) throw new Error('Invalid search index');
     fuse = new Fuse(data, fuseOptions);
     indexed = true;
-    setStatus('');
     if (searchVisible) executeQuery(input.value);
-  });
+  } catch (_) {
+    if (searchVisible) setStatus('Search is unavailable. Close and reopen to retry.');
+  } finally {
+    indexing = false;
+  }
+}
+
+function selectResult(link) {
+  if (selectedLink) selectedLink.classList.remove('search-selected');
+  selectedLink = link;
+  preview.replaceChildren();
+  preview.hidden = !link;
+  if (!link) return;
+  link.classList.add('search-selected');
+  // The preview reuses only text already present in the local search index.
+  const source = link.querySelector('.search-item');
+  const card = source.cloneNode(true);
+  const meta = card.querySelector('.search-meta');
+  if (meta && source.dataset.date) meta.textContent = [meta.textContent, source.dataset.date].filter(Boolean).join(' / ');
+  preview.appendChild(card);
 }
 
 function renderResults(results, term) {
+  selectResult(null);
   output.innerHTML = '';
   resultLinks = [];
   if (!results.length) {
@@ -189,15 +212,16 @@ function renderResults(results, term) {
 
     const meta = document.createElement('div');
     meta.className = 'search-meta';
-    meta.textContent = [item.section, item.date].filter(Boolean).join(' · ');
+    meta.textContent = item.section || '';
+    if (item.date) card.dataset.date = item.date;
 
-    card.appendChild(title);
     card.appendChild(meta);
+    card.appendChild(title);
 
-    if (item.content) {
+    if (item.content || item.summary) {
       const summary = document.createElement('div');
       summary.className = 'search-summary';
-      summary.innerHTML = highlightTerms(searchSnippet(item.content, highlightTermsList), highlightTermsList, 3);
+      summary.innerHTML = highlightTerms(searchSnippet(item.content || item.summary, highlightTermsList), highlightTermsList, 3);
       card.appendChild(summary);
     }
 
@@ -205,16 +229,17 @@ function renderResults(results, term) {
     li.appendChild(link);
     output.appendChild(li);
     resultLinks.push(link);
+    link.addEventListener('focus', () => selectResult(link));
+    link.addEventListener('pointerenter', () => selectResult(link));
   });
+  selectResult(resultLinks[0]);
 }
 
 function executeQuery(term) {
   if (!indexed) return;
   const query = (term || '').trim();
   if (!query) {
-    output.innerHTML = '';
-    resultLinks = [];
-    setStatus('');
+    renderResults([], '');
     return;
   }
   const results = fuse.search(query);
@@ -227,7 +252,10 @@ if (wrapper) wrapper.addEventListener('click', function (event) { if (event.targ
 if (modal) modal.addEventListener('click', function (event) { event.stopPropagation(); });
 if (input) {
   input.addEventListener('input', function () { executeQuery(input.value); });
-  input.form.addEventListener('submit', function (event) { event.preventDefault(); });
+  input.form.addEventListener('submit', function (event) {
+    event.preventDefault();
+    if (selectedLink) selectedLink.click();
+  });
 }
 
 document.addEventListener('keydown', function (event) {

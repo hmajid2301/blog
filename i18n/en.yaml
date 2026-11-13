@@ -39,6 +39,3 @@
     open_button_title: "Search (/)"
     close_button_title: "Close (Esc)"
     input_placeholder: "Search"
-
-- article:
-    page_views: "Views"

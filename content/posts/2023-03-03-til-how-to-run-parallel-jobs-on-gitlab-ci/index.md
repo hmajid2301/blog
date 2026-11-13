@@ -4,7 +4,7 @@ canonicalURL: https://haseebmajid.dev/posts/2023-03-03-til-how-to-run-concurrent
 date: 2023-03-03
 tags:
   - gitlab
-  - ci/cd
+  - ci-cd
 series:
   - TIL
 cover:

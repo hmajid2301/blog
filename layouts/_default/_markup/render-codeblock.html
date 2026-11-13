@@ -1,7 +1,7 @@
 {{- $lang := default "text" .Type -}}
 {{- $extensions := dict "bash" "sh" "shell" "sh" "text" "txt" "typescript" "ts" "javascript" "js" "python" "py" "yml" "yaml" "go-html-template" "html" -}}
 {{- $extension := index $extensions $lang | default $lang -}}
-{{- $file := .Attributes.file | default .Attributes.title | default (printf "snippet.%s" $extension) -}}
+{{- $file := .Attributes.file | default .Attributes.filename | default .Attributes.title | default (printf "snippet.%s" $extension) -}}
 {{- $filename := path.Base $file -}}
 {{- $opts := dict -}}
 {{- if not (transform.CanHighlight .Type) -}}
@@ -10,12 +10,18 @@
 {{- $result := transform.HighlightCodeBlock . $opts -}}
 {{- $source := strings.TrimSuffix "\n" .Inner -}}
 {{- $n := len (split $source "\n") -}}
-<div class="lab-neovim" data-code-lines="{{ $n }}">
+{{- $isDiff := or .Attributes.added .Attributes.removed -}}
+<div class="lab-neovim{{ if $isDiff }} lab-code-diff{{ end }}" data-code-lines="{{ $n }}" data-code-filename="{{ $filename }}">
   <div class="lab-code-tab">
     <span class="nv-top-mode" aria-hidden="true">NORMAL</span>
     <span class="nv-tab" title="{{ $file }}"><b aria-hidden="true">1</b>{{ partial "code-icon.html" "file" }}<span>{{ $filename }}</span></span>
   </div>
+  {{- if $isDiff }}
+  <p class="lab-diff-key">Changes: <span>+ added</span> · <span>− removed (struck through)</span></p>
+  {{ partial "code-diff.html" (dict "html" $result.Wrapped "attributes" .Attributes "lines" $n "position" .Position) }}
+  {{- else }}
   {{ $result.Wrapped | safeHTML }}
+  {{- end }}
   {{- /* Static end-of-snippet metadata, not a simulated editor cursor. */}}
   <div class="lab-code-status" aria-hidden="true">
     <span class="nv-status-mode">{{ partial "code-icon.html" "mode" }}NORMAL</span>

@@ -1,31 +1,43 @@
-<div class="toc">
-  <details
-    {{ if .Params.seriesOpen | default (.Site.Params.seriesOpen | default false) }}
-      open
-    {{ end }}
-  >
-    <summary>
-      <b>{{ index .Params.series 0 }} - This post is part of a series.</b>
-    </summary>
-    <div class="inner">
-      <ul>
-        {{ range $post := sort (index .Site.Taxonomies.series (index .Params.series 0 | lower)) "Params.series_order" }}
-          {{ if eq $post.Permalink $.Page.Permalink }}
-            <li class="post">
-              {{ .Date.Format "Jan 02, 2006" }} -
-              {{ $post.Params.title }}
-              &nbsp; &nbsp; 👈🏼 You are here
-            </li>
-          {{ else }}
-            <li class="post">
-              <a href="{{ $post.Permalink }}">
-                {{ .Date.Format "Jan 02, 2006" }} -
-                {{ $post.Params.title }}
-              </a>
-            </li>
-          {{ end }}
-        {{ end }}
-      </ul>
+{{- $page := .page -}}
+{{- $position := .position | default "top" -}}
+{{- range $page.GetTerms "series" -}}
+  {{- $term := . -}}
+  {{- /* Date then path breaks missing/tied explicit order values deterministically. */ -}}
+  {{- $fallback := sort (sort .Pages "RelPermalink") "PublishDate" -}}
+  {{- $explicit := slice -}}
+  {{- $unordered := slice -}}
+  {{- range $fallback -}}
+    {{- if isset .Params "series_order" -}}
+      {{- $explicit = $explicit | append . -}}
+    {{- else -}}
+      {{- $unordered = $unordered | append . -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $posts := (sort $explicit "Params.series_order") | append $unordered -}}
+  {{- $current := -1 -}}
+  {{- range $i, $post := $posts -}}
+    {{- if eq $post.RelPermalink $page.RelPermalink -}}{{- $current = $i -}}{{- end -}}
+  {{- end -}}
+  {{- if ge $current 0 -}}
+  <nav class="series-nav" aria-label="{{ $term.Title }} series ({{ $position }})">
+    <details{{ if $page.Params.seriesOpen | default (site.Params.seriesOpen | default false) }} open{{ end }}>
+      <summary class="series-head"><span>{{ $term.Title }}</span><span class="series-count">{{ add $current 1 }} / {{ len $posts }}</span></summary>
+      <ol class="series-parts">
+        {{- range $i, $post := $posts }}
+        <li><a href="{{ $post.RelPermalink }}"{{ if eq $i $current }} aria-current="page"{{ end }}><span class="series-number" aria-hidden="true">{{ printf "%02d" (add $i 1) }}</span><span>{{ $post.Title }}</span>{{ if eq $i $current }}<span class="series-reading">reading</span>{{ end }}</a></li>
+        {{- end }}
+      </ol>
+    </details>
+    {{- if gt (len $posts) 1 }}
+    <div class="series-actions">
+      {{- if gt $current 0 -}}
+        {{- with index $posts (sub $current 1) -}}<a href="{{ .RelPermalink }}" rel="prev" aria-label="Previous in {{ $term.Title }}: {{ .Title }}">← Previous</a>{{- end -}}
+      {{- else -}}<span>First part</span>{{- end -}}
+      {{- if lt (add $current 1) (len $posts) -}}
+        {{- with index $posts (add $current 1) -}}<a href="{{ .RelPermalink }}" rel="next" aria-label="Next in {{ $term.Title }}: {{ .Title }}">Next →</a>{{- end -}}
+      {{- else -}}<span>Last part</span>{{- end -}}
     </div>
-  </details>
-</div>
+    {{- end }}
+  </nav>
+  {{- end -}}
+{{- end -}}

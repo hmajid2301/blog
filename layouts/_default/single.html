@@ -25,9 +25,7 @@
   </aside>
   {{- end }}
 
-  {{ if .Params.series }}
-  {{- partial "series.html" . }}
-  {{end}}
+  {{- partial "series.html" (dict "page" . "position" "top") }}
 
   {{- $isHidden := .Params.cover.hidden | default site.Params.cover.hiddenInSingle | default site.Params.cover.hidden }}
   {{- partial "cover.html" (dict "cxt" . "IsHome" false "isHidden" $isHidden) }}
@@ -50,14 +48,17 @@
 
   </div>
 
+  {{- partial "series.html" (dict "page" . "position" "bottom") }}
+
   {{- if .Params.ShowRelated | default true }}
   {{- partial "related.html" . }}
   {{- end }}
 
   <footer class="post-footer">
+    {{ partial "git_last_edited.html" . }}
     {{ partial "edit_post.html" . }}
     {{ partial "post_canonical.html" . }}
-    {{- if (.Param "ShowPostNavLinks") }}
+    {{- if and (.Param "ShowPostNavLinks") (not (.GetTerms "series")) }}
     {{- partial "post_nav_links.html" . }}
     {{- end }}
   </footer>

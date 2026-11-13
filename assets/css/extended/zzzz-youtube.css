@@ -1,0 +1,49 @@
+html[data-design] .lite-youtube { margin: 30px 0; }
+.lite-youtube-shell {
+  aspect-ratio: 16 / 9;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--lab-rule);
+  border-radius: 8px;
+  background: var(--lab-code-bg);
+}
+.lite-youtube-poster {
+  height: 100%;
+  padding: 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 12px;
+  background: linear-gradient(135deg, transparent, color-mix(in srgb, var(--lab-accent) 12%, transparent));
+}
+.lite-youtube-tag, .lite-youtube-credit { font: 10px/1.5 var(--lab-mono); color: var(--lab-muted); }
+.lite-youtube-title { max-width: 90%; font: 700 clamp(17px, 3vw, 36px)/1.15 var(--lab-heading); letter-spacing: -.035em; color: var(--lab-text); overflow-wrap: anywhere; }
+.lite-youtube-load {
+  position: absolute;
+  right: 5%;
+  bottom: 7%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border: 1px solid var(--lab-rule);
+  border-radius: 6px;
+  background: var(--lab-bg);
+  color: var(--lab-text);
+  font: 12px/1.5 var(--lab-mono);
+  cursor: pointer;
+}
+.lite-youtube-load[hidden] { display: none; }
+.lite-youtube-load > [aria-hidden] { color: var(--lab-accent); }
+.lite-youtube-load:focus-visible { outline: 3px solid var(--lab-accent); outline-offset: 3px; }
+.lite-youtube-shell iframe { width: 100%; height: 100%; border: 0; }
+html[data-design] .post-content .lite-youtube figcaption { margin-top: 12px; font: 12px/1.7 var(--lab-mono); color: var(--lab-muted); }
+.lite-youtube figcaption a { display: inline-block; }
+.lite-youtube-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+@media (max-width: 600px) {
+  .lite-youtube-poster { gap: 6px; justify-content: flex-start; padding-bottom: 48px; }
+  .lite-youtube-credit { display: none; }
+  .lite-youtube-tag { font-size: 9px; }
+  .lite-youtube-title { font-size: clamp(16px, 4vw, 23px); }
+  .lite-youtube-load { font-size: 10px; bottom: 6%; padding: 6px 9px; }
+}

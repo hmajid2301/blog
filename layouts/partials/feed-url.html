@@ -1,0 +1,9 @@
+{{- $url := .url | htmlUnescape -}}
+{{- $base := urls.Parse .page.Permalink -}}
+{{- /* Historical ./posts links were authored relative to the site root. */ -}}
+{{- if hasPrefix $url "./posts/" -}}
+  {{- $url = strings.TrimPrefix "./" $url | absURL -}}
+{{- else -}}
+  {{- $url = ($base.ResolveReference (urls.Parse $url)).String -}}
+{{- end -}}
+{{- return $url -}}

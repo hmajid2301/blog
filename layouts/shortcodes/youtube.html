@@ -1,0 +1,27 @@
+{{- $id := "" -}}
+{{- $title := printf "%s — recording" .Page.Title -}}
+{{- $start := 0 -}}
+{{- if .IsNamedParams -}}
+  {{- $id = .Get "id" -}}
+  {{- with .Get "title" -}}{{- $title = . -}}{{- end -}}
+  {{- with .Get "start" -}}
+    {{- if findRE `^\d+$` (printf "%v" .) -}}{{- $start = int . -}}{{- end -}}
+  {{- end -}}
+{{- else -}}
+  {{- $id = .Get 0 -}}
+{{- end -}}
+{{- if not (findRE `^[A-Za-z0-9_-]{11}$` $id) -}}
+  {{- errorf "Invalid YouTube video ID %q at %s" $id .Position -}}
+{{- end -}}
+{{- .Page.Store.Set "hasLiteYoutube" true -}}
+<figure class="lite-youtube" data-video-id="{{ $id }}" data-video-start="{{ $start }}" data-video-title="{{ $title }}">
+  <div class="lite-youtube-shell">
+    <div class="lite-youtube-poster">
+      <span class="lite-youtube-tag">TALK RECORDING</span>
+      <span class="lite-youtube-title">{{ $title }}</span>
+      <span class="lite-youtube-credit">Haseeb Majid</span>
+    </div>
+    <button class="lite-youtube-load" type="button" hidden><span aria-hidden="true">▶</span> Load YouTube player<span class="lite-youtube-sr">: {{ $title }}</span></button>
+  </div>
+  <figcaption><span class="lite-youtube-status" role="status">Loading the player connects to YouTube. No autoplay.</span> <a href="https://www.youtube.com/watch?v={{ $id }}{{ if gt $start 0 }}&amp;t={{ $start }}s{{ end }}">Watch on YouTube</a></figcaption>
+</figure>

@@ -6,7 +6,7 @@ series:
   - TIL
 tags:
   - gitlab
-  - CI/CD
+  - ci-cd
 cover:
   image: images/cover.png
 ---

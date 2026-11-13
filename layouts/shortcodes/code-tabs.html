@@ -1,0 +1,4 @@
+{{- /* Wrap ordinary fenced blocks using {{< code-tabs label="Configuration files" >}}. */ -}}
+<div class="lab-code-tabs" data-code-tabs role="group" aria-label="{{ .Get "label" | default "Related files" }}">
+  {{ .Page.RenderString (dict "display" "block") .Inner }}
+</div>

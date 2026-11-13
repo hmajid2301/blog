@@ -93,49 +93,6 @@ html[data-design] .post-tags a {
   font-size: 12px;
 }
 
-/* Admonition icons — the bundled iconfont.ttf is empty, so use Unicode glyphs. */
-html[data-design] .notice .notice-title:before,
-html[data-design] details.notice summary:after {
-  font-family: inherit;
-  -webkit-text-stroke-width: 0;
-}
-html[data-design] .notice .notice-title:before { content: "ℹ"; }
-html[data-design] .notice.note .notice-title:before { content: "✎"; }
-html[data-design] .notice.abstract .notice-title:before { content: "❝"; }
-html[data-design] .notice.info .notice-title:before { content: "ℹ"; }
-html[data-design] .notice.tip .notice-title:before { content: "✦"; }
-html[data-design] .notice.success .notice-title:before { content: "✓"; }
-html[data-design] .notice.question .notice-title:before { content: "?"; }
-html[data-design] .notice.warning .notice-title:before { content: "⚠"; }
-html[data-design] .notice.failure .notice-title:before,
-html[data-design] .notice.danger .notice-title:before,
-html[data-design] .notice.bug .notice-title:before { content: "✕"; }
-html[data-design] .notice.example .notice-title:before { content: "»"; }
-html[data-design] .notice.quote .notice-title:before { content: "❝"; }
-/* Undefined notice types used in content — style as warning. */
-html[data-design] .notice.caution,
-html[data-design] .notice.important,
-html[data-design] .notice.warn,
-html[data-design] .notice.warnings {
-  border-left-color: #ff9100;
-  background-color: rgba(255, 145, 0, 0.1);
-}
-html[data-design] .notice.caution .notice-title,
-html[data-design] .notice.important .notice-title,
-html[data-design] .notice.warn .notice-title,
-html[data-design] .notice.warnings .notice-title {
-  background-color: rgba(255, 145, 0, 0.1);
-  border-bottom-color: rgba(255, 145, 0, 0.1);
-}
-html[data-design] .notice.caution .notice-title:before,
-html[data-design] .notice.important .notice-title:before,
-html[data-design] .notice.warn .notice-title:before,
-html[data-design] .notice.warnings .notice-title:before {
-  content: "⚠";
-  color: #ff9100;
-}
-html[data-design] details.notice summary:after { content: "▾"; }
-
 /* Related posts — "You might also like" on single pages. */
 html[data-design] .lab-related { margin-top: 48px; }
 html[data-design] .lab-related .lab-section-head {

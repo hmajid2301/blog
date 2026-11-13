@@ -4,7 +4,6 @@ date: 2023-10-10
 canonicalURL: https://haseebmajid.dev/posts/2023-10-10-til-how-to-disable-linters-in-golangci-lint-for-test-files
 tags:
   - go
-  - golang
   - golangci-lint
 series:
   - TIL

@@ -1,300 +1,128 @@
-/* Polished search modal + popup animations — scoped to the design-lab demo. */
+/* Approved picker search: presentation only; results remain ordinary links. */
 html[data-design] #search-wrapper {
   visibility: hidden;
   opacity: 0;
-  background: color-mix(in srgb, var(--lab-bg) 55%, transparent);
-  backdrop-filter: blur(8px);
-  transition: opacity .22s ease, visibility 0s linear .22s;
-}
-html[data-design] #search-wrapper.search-open {
-  visibility: visible;
-  opacity: 1;
-  transition: opacity .22s ease, visibility 0s;
-}
-
-html[data-design] #search-modal {
-  max-width: 44rem;
-  border-radius: 18px;
-  border: 1px solid var(--lab-rule);
-  background: var(--lab-bg);
-  box-shadow: 0 24px 60px -24px color-mix(in srgb, var(--lab-text) 45%, transparent);
-  overflow: hidden;
-  opacity: 0;
-  transform: scale(.96);
-  transition: opacity .28s ease, transform .28s ease, filter .28s ease;
-  display: flex;
-  flex-direction: column;
-  max-height: min(80vh, 52rem);
-}
-html[data-design] #search-wrapper.search-open #search-modal {
-  opacity: 1;
-  transform: none;
-  filter: none;
-}
-html[data-design] .search-section {
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  padding: 8px 10px 12px;
-}
-html[data-design] .search-header,
-html[data-design] .search-footer {
-  flex-shrink: 0;
-}
-
-/* Popup treatments — each has a distinct layout AND entrance. */
-
-/* Spotlight: centred card that scales up and unblurs. */
-html[data-design][data-search-popup='spotlight'] #search-wrapper {
-  justify-content: center;
-  padding: 1.5rem;
-  backdrop-filter: blur(8px);
-}
-html[data-design][data-search-popup='spotlight'] #search-modal {
-  max-width: 44rem;
-  border-radius: 18px;
-  opacity: 0;
-  transform: scale(.88);
-  filter: blur(5px);
-}
-
-/* Drop down: wide bar attached to the top, slides down. */
-html[data-design][data-search-popup='dropdown'] #search-wrapper {
-  justify-content: flex-start;
-  padding: 1rem;
-  backdrop-filter: blur(4px);
-}
-html[data-design][data-search-popup='dropdown'] #search-modal {
-  max-width: 60rem;
-  border-radius: 0 0 18px 18px;
-  border-top: 0;
-  opacity: 0;
-  transform: translateY(-52px);
-}
-
-/* Rise up: bottom sheet that slides up. */
-html[data-design][data-search-popup='riseup'] #search-wrapper {
-  justify-content: flex-end;
-  padding: 1rem;
-  backdrop-filter: blur(4px);
-}
-html[data-design][data-search-popup='riseup'] #search-modal {
-  max-width: 60rem;
-  border-radius: 18px 18px 0 0;
-  border-bottom: 0;
-  opacity: 0;
-  transform: translateY(52px);
-}
-
-/* Fade: quiet centred card, opacity only. */
-html[data-design][data-search-popup='fade'] #search-wrapper {
-  justify-content: center;
-  padding: 1.5rem;
-  backdrop-filter: blur(2px);
-}
-html[data-design][data-search-popup='fade'] #search-modal {
-  max-width: 40rem;
-  border-radius: 12px;
-  box-shadow: none;
-  opacity: 0;
-  transform: none;
-}
-
-/* Scale + blur: centred card over a heavily blurred backdrop. */
-html[data-design][data-search-popup='scaleblur'] #search-wrapper {
-  justify-content: center;
-  padding: 1.5rem;
-  backdrop-filter: blur(16px);
-}
-html[data-design][data-search-popup='scaleblur'] #search-modal {
-  max-width: 44rem;
-  border-radius: 24px;
-  opacity: 0;
-  transform: scale(1.12);
-  filter: blur(12px);
-}
-
-/* Side drawer: full-height panel on the right, slides in from the edge. */
-html[data-design][data-search-popup='sidebar'] #search-wrapper {
-  justify-content: flex-start;
-  align-items: flex-end;
-  padding: 0;
-  backdrop-filter: blur(4px);
-}
-html[data-design][data-search-popup='sidebar'] #search-modal {
-  margin: 0;
-  width: 26rem;
-  max-width: 92vw;
-  height: 100%;
-  border-radius: 0;
-  border-top: 0;
-  border-bottom: 0;
-  border-right: 0;
-  opacity: 0;
-  transform: translateX(100%);
-}
-html[data-design][data-search-popup='sidebar'] .search-footer { display: none; }
-
-/* Frosted glass: translucent card with a frosted, saturated backdrop. */
-html[data-design][data-search-popup='glass'] #search-wrapper {
-  justify-content: center;
-  padding: 1.5rem;
-  backdrop-filter: blur(2px);
-}
-html[data-design][data-search-popup='glass'] #search-modal {
-  max-width: 44rem;
-  border-radius: 20px;
-  border: 1px solid color-mix(in srgb, var(--lab-text) 14%, transparent);
-  background: color-mix(in srgb, var(--lab-bg) 68%, transparent);
-  backdrop-filter: blur(22px) saturate(1.5);
-  opacity: 0;
-  transform: scale(.96);
-}
-
-/* Fullscreen: search takes over the whole viewport, no card chrome. */
-html[data-design][data-search-popup='fullscreen'] #search-wrapper {
-  justify-content: flex-start;
-  padding: 0;
-  backdrop-filter: none;
-  background: var(--lab-bg);
-}
-html[data-design][data-search-popup='fullscreen'] #search-modal {
-  margin: 0;
-  width: 100%;
-  max-width: none;
-  height: 100%;
-  border-radius: 0;
-  border: 0;
-  box-shadow: none;
-  opacity: 0;
-  transform: none;
-}
-html[data-design][data-search-popup='fullscreen'] .search-input { height: 4rem; font-size: 22px; }
-
-/* Command bar: compact palette near the top, titles only. */
-html[data-design][data-search-popup='command'] #search-wrapper {
   justify-content: flex-start;
   align-items: center;
-  padding: 4rem 1.5rem 1.5rem;
+  padding: min(10vh, 5rem) 16px 16px;
+  height: 100dvh;
+  background: color-mix(in srgb, var(--lab-bg) 65%, transparent);
   backdrop-filter: blur(4px);
+  transition: opacity .15s ease;
 }
-html[data-design][data-search-popup='command'] #search-modal {
-  max-width: 36rem;
-  border-radius: 14px;
-  opacity: 0;
-  transform: translateY(-14px) scale(.98);
+html[data-design] #search-wrapper.search-open { visibility: visible; opacity: 1; }
+html[data-design] #search-modal {
+  width: 100%;
+  max-width: 58rem;
+  max-height: 100%;
+  border: 1px solid var(--lab-accent);
+  border-radius: 8px;
+  background: var(--lab-code-bg, var(--lab-bg));
+  color: var(--lab-text);
+  overflow: hidden;
 }
-html[data-design][data-search-popup='command'] .search-summary { display: none; }
-html[data-design][data-search-popup='command'] .search-input { height: 2.5rem; font-size: 15px; }
-
+html[data-design] .search-label {
+  padding: 12px 18px;
+  border-bottom: 1px solid var(--lab-rule);
+  font: 12px/1.5 var(--lab-mono);
+  color: var(--lab-accent);
+}
+html[data-design] .search-label span { color: var(--lab-muted); }
 html[data-design] .search-header {
-  padding: 8px 10px;
+  padding: 10px 14px;
   border-bottom: 1px solid var(--lab-rule);
 }
-html[data-design] .search-icon {
-  color: var(--lab-muted);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-html[data-design] .search-icon svg,
-html[data-design] #close-search-button svg {
-  width: 18px;
-  height: 18px;
-  display: block;
-}
+html[data-design] .search-icon { color: var(--lab-accent); font: 18px var(--lab-mono); flex-shrink: 0; }
 html[data-design] .search-input {
+  min-width: 0;
+  width: 100%;
+  height: 2.5rem;
+  padding: 5px 8px;
   border: 0;
+  border-radius: 0;
   background: transparent;
-  height: 3rem;
-  font-size: 18px;
-  font-family: var(--lab-body);
   color: var(--lab-text);
-  padding-left: 8px;
+  font: 16px/1.6 var(--lab-mono);
 }
 html[data-design] .search-input::placeholder { color: var(--lab-muted); }
-html[data-design] .search-input:focus { outline: none; box-shadow: none; }
 html[data-design] #close-search-button {
-  width: 34px;
-  height: 34px;
-  border-radius: 999px;
-  border: 0;
-  background: transparent;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
   color: var(--lab-muted);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
 }
-html[data-design] #close-search-button:hover {
-  background: color-mix(in srgb, var(--lab-accent) 10%, transparent);
-  color: var(--lab-text);
-}
+html[data-design] #close-search-button svg { width: 18px; height: 18px; }
+html[data-design] #search-modal :focus-visible { outline: 2px solid var(--lab-accent); outline-offset: -2px; }
 html[data-design] .search-status {
   margin: 0;
-  padding: 10px 18px 2px;
-  font-family: var(--lab-mono);
-  font-size: 12px;
+  padding: 10px 18px;
+  font: 12px/1.5 var(--lab-mono);
   color: var(--lab-muted);
 }
-
-html[data-design] #search-results { display: grid; gap: 2px; margin: 0; padding: 0; list-style: none; }
-html[data-design] .search-item {
-  border: 1px solid transparent;
-  border-radius: 12px;
-  background: transparent;
-  padding: 12px 14px;
-  margin: 0;
-  transition: background-color .15s ease, border-color .15s ease;
+html[data-design] .search-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 0;
+  overflow: hidden;
 }
+html[data-design] .search-section {
+  min-width: 0;
+  min-height: 220px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 8px;
+}
+html[data-design] #search-results { margin: 0; padding: 0; list-style: none; }
+html[data-design] .search-item-link { display: block; border-radius: 4px; color: var(--lab-text); }
+html[data-design] .search-item {
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  margin: 0;
+  padding: 10px;
+  transform: none;
+}
+html[data-design] .search-selected .search-item,
 html[data-design] .search-item-link:hover .search-item,
 html[data-design] .search-item-link:focus-visible .search-item {
   background: var(--lab-surface);
   border-color: var(--lab-rule);
-}
-html[data-design] .search-title { font-size: 17px; font-weight: 600; font-family: var(--lab-heading); }
-html[data-design] .search-meta { font-family: var(--lab-mono); font-size: 12px; color: var(--lab-muted); margin-top: 3px; }
-html[data-design] .search-summary { font-size: 14px; color: var(--lab-muted); font-style: normal; margin-top: 6px; line-height: 1.6; }
-html[data-design] .search-title mark,
-html[data-design] .search-summary mark {
-  background: transparent;
   color: var(--lab-accent);
-  font-weight: 800;
-  padding: 0;
-  margin: 0;
-  border-radius: 3px;
-  text-decoration: underline;
-  text-decoration-color: color-mix(in srgb, var(--lab-accent) 55%, transparent);
-  text-decoration-thickness: 2px;
-  text-underline-offset: 3px;
-  text-decoration-skip-ink: none;
 }
-html[data-design] .search-empty {
-  padding: 28px 16px;
-  text-align: center;
-  color: var(--lab-muted);
-  font-size: 14px;
-  list-style: none;
+html[data-design] .search-title { margin: 4px 0 0; font: 600 16px/1.5 var(--lab-heading); overflow-wrap: anywhere; }
+html[data-design] .search-meta { font: 10px/1.8 var(--lab-mono); color: var(--lab-muted); text-transform: uppercase; }
+html[data-design] .search-summary { font: 16px/1.7 var(--lab-body); color: var(--lab-text); margin-top: 16px; }
+html[data-design] #search-results .search-summary { display: none; }
+html[data-design] #search-preview {
+  min-width: 0;
+  padding: 18px;
+  border-left: 1px solid var(--lab-rule);
+  overflow-y: auto;
 }
+html[data-design] #search-preview .search-item { padding: 0; }
+html[data-design] #search-preview .search-title { font-size: 20px; margin-top: 14px; }
+html[data-design] #search-modal mark { background: transparent; color: var(--lab-accent); text-decoration: underline; text-underline-offset: 3px; padding: 0; margin: 0; }
+html[data-design] .search-empty { padding: 24px 12px; color: var(--lab-muted); font-size: 14px; }
 html[data-design] .search-footer {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px 18px;
-  padding: 10px 18px;
+  flex-shrink: 0;
+  gap: 8px 18px;
+  padding: 12px 18px;
   border-top: 1px solid var(--lab-rule);
-  font-family: var(--lab-mono);
-  font-size: 11px;
   color: var(--lab-muted);
+  font: 11px/1.5 var(--lab-mono);
 }
-html[data-design] .search-footer kbd {
-  display: inline-block;
-  min-width: 18px;
-  padding: 2px 5px;
-  border: 1px solid var(--lab-rule);
-  border-bottom-width: 2px;
-  border-radius: 5px;
-  font-family: var(--lab-mono);
-  font-size: 10px;
-  line-height: 1.4;
-  text-align: center;
-  background: var(--lab-surface);
-  color: var(--lab-text);
+html[data-design] .search-footer kbd { font: inherit; color: var(--lab-text); }
+html[data-design] #search-modal [hidden] { display: none; }
+@media (max-width: 650px) {
+  html[data-design] #search-wrapper { padding: 16px 8px; }
+  html[data-design] .search-columns { grid-template-columns: 1fr; }
+  html[data-design] #search-preview { display: none; }
+  html[data-design] .search-label span { display: none; }
+  html[data-design] .search-header { padding: 8px; }
+  html[data-design] .search-input { font-size: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-design] #search-wrapper { transition: none; }
 }

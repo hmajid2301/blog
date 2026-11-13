@@ -48,7 +48,7 @@
 }
 
 .entry-link {
-  font-family: "Jost", serif;
+  font-family: "Jost", "Jost Fallback", sans-serif;
   position: absolute;
   left: 0;
   right: 0;

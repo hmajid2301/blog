@@ -15,7 +15,7 @@
     data-home-corners="round"
     data-home-writing-summaries="full"
     data-home-talk-details="resources"
-    style="--lab-body: 'Jost', serif; --lab-heading: 'Schibsted Grotesk', sans-serif; --lab-mono: 'MonoLisa', monospace; --lab-heading-weight: 700; color-scheme: light;"
+    style="--lab-body: 'Jost', 'Jost Fallback', sans-serif; --lab-heading: 'Schibsted Grotesk', 'Schibsted Grotesk Fallback', sans-serif; --lab-mono: 'MonoLisa', monospace; --lab-heading-weight: 700; color-scheme: light;"
     {{ if eq $labKind "talk" }} data-page-variant="briefing"{{ else if eq $labKind "article" }} data-page-variant="editorial"{{ end }}>
 
 <head>

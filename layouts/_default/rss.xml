@@ -15,7 +15,7 @@
   <channel>
     <title>{{ if eq  .Title  site.Title }}{{ site.Title }}{{ else }}{{ with .Title }}{{.}} on {{ end }}{{ site.Title }}{{ end }}</title>
     <link>{{ .Permalink }}</link>
-    <description>Recent content {{ if ne  .Title  site.Title }}{{ with .Title }}in {{.}} {{ end }}{{ end }}on {{ site.Title }}</description>
+    <description>{{ with .Description }}{{ . }}{{ else }}{{ site.Params.description }}{{ end }}</description>
     {{- with site.Params.logo }}
     <image>
       <url>{{ .icon | absURL }}</url>
@@ -37,9 +37,10 @@
       <pubDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</pubDate>
       {{ with site.Params.author }}<author>{{ . }}</author>{{ end }}
       <guid>{{ .Permalink }}</guid>
-      <description>{{ with .Description | html }}{{ . }}{{ else }}{{ .Summary | html }}{{ end -}}</description>
+      <description>{{ with .Description }}{{ . | html }}{{ else }}{{ partial "feed-content.html" (dict "content" .Summary "page" .) | html }}{{ end -}}</description>
       {{- if not site.Params.RSSNoContent}}
-      <content:encoded>{{ (printf "<![CDATA[%s]]>" .Content) | safeHTML }}</content:encoded>
+      {{- $content := partial "feed-content.html" (dict "content" .Content "page" .) -}}
+      <content:encoded>{{ (printf "<![CDATA[%s]]>" (replace $content "]]>" "]]]]><![CDATA[>")) | safeHTML }}</content:encoded>
       {{- end }}
     </item>
     {{- end }}

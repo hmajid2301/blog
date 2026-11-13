@@ -6,7 +6,7 @@ tags:
   - sveltekit
   - playwright
   - testing
-  - ci/cd
+  - ci-cd
 cover:
   image: images/cover.png
 ---

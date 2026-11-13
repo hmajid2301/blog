@@ -1,0 +1,7 @@
+# Preserve subscriptions to merged tag feeds (HTML paths use Hugo aliases).
+/tags/golang/index.xml /tags/go/index.xml 301
+/tags/flake/index.xml /tags/flakes/index.xml 301
+/tags/home-lab/index.xml /tags/homelab/index.xml 301
+/tags/ci/cd/index.xml /tags/ci-cd/index.xml 301
+/tags/ci/index.xml /tags/ci-cd/index.xml 301
+/tags/cd/index.xml /tags/ci-cd/index.xml 301

@@ -1,0 +1,34 @@
+/* Related fences retain their existing editor chrome and scrolling. */
+.lab-code-tabs { min-width: 0; margin-block: 24px; }
+.lab-code-tabs[data-tabs-ready] { border: 1px solid var(--lab-rule); border-radius: 3px; overflow: hidden; }
+.lab-code-tablist { display: flex; overflow-x: auto; background: var(--lab-code-bg); border-bottom: 1px solid var(--lab-rule); }
+.lab-code-tablist > [role='tab'] {
+  flex: 0 0 auto; padding: 12px 16px; border: 0; border-bottom: 2px solid transparent;
+  border-radius: 0; color: var(--lab-muted); background: transparent;
+  font: 12px/1.5 var(--lab-mono); white-space: nowrap; cursor: pointer;
+}
+.lab-code-tablist > [aria-selected='true'] { color: var(--lab-text); border-bottom-color: var(--lab-accent); }
+.lab-code-tabs :is([role='tab'], [role='tabpanel']):focus-visible { outline: 2px solid var(--lab-accent); outline-offset: -3px; }
+html[data-neovim='true'] .lab-code-tabs[data-tabs-ready] > .lab-neovim { margin: 0; border-radius: 0; }
+.lab-code-tabs > [hidden] { display: none !important; }
+.lab-code-diff .lab-diff-key {
+  margin: 0; padding: 5px 10px; font: 11px/1.6 var(--lab-mono);
+  color: var(--lab-muted); background: var(--lab-code-bg);
+}
+/* Generated signs live in the gutter, never in source text or clipboard data. */
+.lab-code-diff .line { position: relative; }
+.lab-code-diff .cl:is(.diff-added, .diff-removed)::before {
+  position: absolute; left: 0; width: 2ch; text-align: center; user-select: none; font-weight: 700;
+}
+html[data-neovim='true'] .lab-code-diff code > .line { padding-left: 5ch; }
+html[data-neovim='true'] .lab-code-diff .cl:is(.diff-added, .diff-removed)::before { left: 2.5ch; }
+.lab-code-diff .cl.diff-added::before { content: '+'; color: var(--nv-green); }
+.lab-code-diff .cl.diff-removed::before { content: '−'; color: var(--nv-peach); }
+.lab-code-diff .line:has(> .diff-added) { background: color-mix(in srgb, var(--nv-green) 8%, var(--lab-code-bg)); }
+.lab-code-diff .line:has(> .diff-removed) { background: color-mix(in srgb, var(--nv-peach) 8%, var(--lab-code-bg)); }
+.lab-code-diff .diff-removed { text-decoration: line-through; }
+html:not([data-neovim='true']) .lab-code-diff .line { display: block; padding-left: 3ch; }
+@media print {
+  .lab-code-tablist { display: none; }
+  .lab-code-tabs > [role='tabpanel'][hidden] { display: block !important; }
+}

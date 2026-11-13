@@ -1,0 +1,33 @@
+{{- /* Fence attributes use one-based source lines: added="3-4,7" removed="2". */ -}}
+{{- $changes := dict -}}
+{{- range $kind := slice "added" "removed" -}}
+  {{- with index $.attributes $kind -}}
+    {{- range split (string .) "," -}}
+      {{- $range := trim . " " -}}
+      {{- if not (findRE `^[1-9][0-9]*(-[1-9][0-9]*)?$` $range) -}}
+        {{- errorf "Invalid code diff %s range %q at %s" $kind $range $.position -}}
+      {{- else -}}
+        {{- $bounds := split $range "-" -}}
+        {{- $start := int (index $bounds 0) -}}
+        {{- $end := int (index $bounds (sub (len $bounds) 1)) -}}
+        {{- if or (gt $start $end) (gt $end $.lines) -}}
+          {{- errorf "Code diff range %q exceeds source lines at %s" $range $.position -}}
+        {{- else -}}
+          {{- range seq $start $end -}}
+            {{- $key := string . -}}
+            {{- if isset $changes $key -}}{{- errorf "Overlapping code diff line %s at %s" $key $.position -}}{{- end -}}
+            {{- $changes = merge $changes (dict $key $kind) -}}
+          {{- end -}}
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- /* Chroma's cl spans contain source only, including when table line numbers are enabled. */ -}}
+{{- range $index, $part := split $.html `<span class="cl` -}}
+  {{- if $index -}}
+    {{- $kind := index $changes (string $index) -}}
+    {{- printf `<span class="cl%s` (cond (ne $kind nil) (printf " diff-%s" $kind) "") | safeHTML -}}
+  {{- end -}}
+  {{- $part | safeHTML -}}
+{{- end -}}

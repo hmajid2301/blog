@@ -3,7 +3,7 @@ title: How to create a Golang Web Application using Fizz
 canonicalURL: https://haseebmajid.dev/posts/2021-01-19-how-to-create-a-golang-web-application-using-fizz/
 date: 2021-01-19
 tags:
-  - golang
+  - go
   - fizz
   - gin
   - openapi

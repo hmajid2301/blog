@@ -1,6 +1,8 @@
 {{- if (and (eq .Kind "page") (ne .Layout "archives") (ne .Layout "search") (.Param "ShowCodeCopyButtons")) }}
 <script>
   document.querySelectorAll('pre > code').forEach((codeblock) => {
+    // Chroma table gutters are separate code elements, not source blocks.
+    if (codeblock.querySelector('.lnt') && !codeblock.querySelector('.cl')) return;
     const container = codeblock.parentNode.parentNode;
     const frame = codeblock.closest('.lab-neovim');
     const tab = document.documentElement.dataset.neovim === 'true' && frame?.querySelector('.lab-code-tab');
@@ -25,24 +27,29 @@
     }
 
     copybutton.addEventListener('click', async () => {
+      const source = codeblock.cloneNode(true);
+      source.querySelectorAll('.ln, .lnt').forEach(number => number.remove());
+      const text = source.textContent;
       if (navigator.clipboard) {
         try {
-          await navigator.clipboard.writeText(codeblock.textContent);
+          await navigator.clipboard.writeText(text);
           copyingDone(true);
           return;
         } catch (e) { /* Try selection-based copying if clipboard access is denied. */ }
       }
 
-      const range = document.createRange();
-      range.selectNodeContents(codeblock);
-      const selection = window.getSelection();
-      selection.removeAllRanges();
-      selection.addRange(range);
+      const previousFocus = document.activeElement;
+      const selection = document.createElement('textarea');
+      selection.value = text;
+      selection.style.cssText = 'position:fixed;opacity:0;pointer-events:none';
+      document.body.appendChild(selection);
+      selection.select();
       let copied = false;
       try {
         copied = document.execCommand('copy');
       } catch (e) { /* Keep failure feedback truthful. */ }
-      selection.removeRange(range);
+      selection.remove();
+      previousFocus?.focus({ preventScroll: true });
       copyingDone(copied);
     });
 
@@ -140,9 +147,13 @@
       return rect.top
     }
   })();
-  </script> {{- if (.Param "EnableImageZoom") }}
+  </script> {{- if ne (.Param "EnableImageZoom") false }}
   <script>
-    mediumZoom(".entry-cover img");
-    mediumZoom(".post-content img:not([no-zoom])");
+    mediumZoom(".entry-cover img, .post-content img:not([no-zoom])", {
+      background: "rgba(0, 0, 0, 0.8)",
+    }).on("open", (event) => {
+      // Detached HD clones cannot load lazily; keep normal images lazy until opened.
+      event.target.removeAttribute("loading");
+    });
   </script>
 {{- end }}

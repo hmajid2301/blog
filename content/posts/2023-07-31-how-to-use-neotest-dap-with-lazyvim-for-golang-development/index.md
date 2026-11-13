@@ -5,7 +5,7 @@ canonicalURL: https://haseebmajid.dev/posts/2023-07-29-how-to-use-neotest-dap-wi
 tags:
   - nvim
   - lazyvim
-  - golang
+  - go
   - testing
   - debugging
 cover:

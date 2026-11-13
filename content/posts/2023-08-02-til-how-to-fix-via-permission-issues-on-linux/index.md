@@ -3,7 +3,7 @@ title: "TIL: How to Fix VIA Permission Issues on Linux"
 date: 2023-08-02
 canonicalURL: https://haseebmajid.dev/posts/2023-08-02-til-how-to-fix-via-permission-issues-on-linux
 tags:
-  - VIA
+  - via
 series:
   - TIL
 cover:

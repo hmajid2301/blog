@@ -1,0 +1,11 @@
+{{- /* No Git info means no claim: never substitute build time or front matter. */ -}}
+{{- with .GitInfo -}}
+  {{- $repository := replaceRE `/-/blob/.*$` "" site.Params.editPost.URL -}}
+  {{- if $repository -}}
+  <div class="git-last-edited">
+    <span>Last edited</span>
+    <time datetime="{{ .CommitDate.Format "2006-01-02" }}">{{ .CommitDate.Format "02 Jan 2006" }}</time>
+    <a href="{{ $repository }}/-/commit/{{ .Hash }}" aria-label="Source commit {{ .AbbreviatedHash }}">{{ .AbbreviatedHash }} ↗</a>
+  </div>
+  {{- end -}}
+{{- end -}}

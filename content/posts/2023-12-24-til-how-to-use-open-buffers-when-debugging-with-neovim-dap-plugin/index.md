@@ -3,7 +3,7 @@ title: "TIL: How to Use Open Buffers When Debugging With Neovim's DAP Plugin"
 date: 2023-12-24
 canonicalURL: https://haseebmajid.dev/posts/2023-12-24-til-how-to-use-open-buffers-when-debugging-with-neovim-dap-plugin
 tags:
-  - DAP
+  - dap
   - neovim
   - nvim
 series:

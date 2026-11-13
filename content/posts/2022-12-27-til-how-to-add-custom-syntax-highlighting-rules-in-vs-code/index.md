@@ -4,7 +4,7 @@ canonicalURL: https://haseebmajid.dev/posts/2022-12-27-til-how-to-add-custom-syn
 date: 2022-12-27
 tags:
   - vscode
-  - golang
+  - go
 series:
   - TIL
 cover:

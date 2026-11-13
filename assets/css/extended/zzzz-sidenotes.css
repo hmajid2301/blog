@@ -1,0 +1,59 @@
+/* Scoped to articles actually enhanced by sidenotes.js; native endnotes are untouched. */
+.post-content.sidenotes-enhanced { position: relative; }
+.post-content.sidenotes-enhanced .sidenote-group {
+  box-sizing: border-box;
+  margin: 18px 0 26px;
+  padding: 10px 16px;
+  border: 1px solid var(--lab-rule, var(--border));
+  border-radius: 5px;
+  background: var(--lab-surface, var(--code-bg));
+  color: var(--lab-text, var(--content));
+  font: 16px/1.7 var(--lab-body, sans-serif);
+  overflow-wrap: anywhere;
+}
+.post-content.sidenotes-enhanced .sidenote-group[hidden],
+.post-content.sidenotes-enhanced .footnotes[hidden] { display: none !important; }
+.post-content.sidenotes-enhanced .sidenote-group ol { margin: 0; padding-inline-start: 24px; list-style: decimal; }
+.post-content.sidenotes-enhanced .sidenote-group li { margin: 0; padding-block: 4px; scroll-margin-block: 30px; }
+.post-content.sidenotes-enhanced .sidenote-group p { margin: 7px 0; font: inherit; }
+.post-content.sidenotes-enhanced .sidenote-group li::marker { font: 12px var(--lab-mono, monospace); color: var(--lab-accent, var(--primary)); }
+.post-content.sidenotes-enhanced .sidenote-group a { overflow-wrap: anywhere; text-decoration: underline; text-underline-offset: 3px; }
+/* Only enhanced notes need every repeated-reference return link exposed. */
+html[data-design] .post-content.sidenotes-enhanced .footnote-backref ~ .footnote-backref,
+.post-content.sidenotes-enhanced .sidenote-group .footnote-backref { display: inline-flex; }
+.post-content.sidenotes-enhanced .sidenote-group .footnote-backref { align-items: center; justify-content: center; min-width: 32px; min-height: 32px; margin-inline-start: 5px; }
+.post-content.sidenotes-enhanced .footnote-ref {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 26px;
+  min-height: 28px;
+  border: 1px solid var(--lab-rule, var(--border));
+  border-radius: 4px;
+  background: var(--lab-surface, var(--code-bg));
+  font: 12px/1 var(--lab-mono, monospace);
+  text-decoration: none;
+  vertical-align: middle;
+}
+.post-content.sidenotes-enhanced :is(.footnote-ref:focus-visible, .sidenote-group :focus-visible, .sidenote-group li:target) { outline: 2px solid var(--lab-accent, var(--primary)); outline-offset: 3px; }
+html[data-design] .post-body.sidenotes-margin > .toc,
+.sidenotes-margin > .toc { position: static; max-height: none; overflow: visible; }
+.sidenotes-margin .post-content.sidenotes-enhanced .sidenote-group {
+  position: absolute;
+  left: calc(100% + 48px);
+  width: 240px;
+  margin: 0;
+  padding: 10px 0 0;
+  border: 0;
+  border-top: 1px solid var(--lab-rule, var(--border));
+  border-radius: 0;
+  background: transparent;
+  color: var(--lab-muted, var(--secondary));
+  font-size: 15px;
+}
+.sidenotes-margin .post-content.sidenotes-enhanced .sidenote-group ol { padding-inline-start: 21px; }
+@media print {
+  /* beforeprint restores original nodes; this also guards the brief media-change frame. */
+  .post-content.sidenotes-enhanced .sidenote-group { position: static !important; width: auto !important; }
+  .post-content.sidenotes-enhanced .sidenote-group[hidden] { display: block !important; }
+}
