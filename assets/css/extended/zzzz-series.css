@@ -49,3 +49,52 @@ html[data-design] .series-nav {
   .series-parts a { grid-template-columns: 22px minmax(0, 1fr); }
   .series-reading { grid-column: 2; }
 }
+
+/* Series index cards — the /series/ taxonomy page. */
+html[data-design] .lab-series-index {
+  list-style: none;
+  margin: 28px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+html[data-design] .lab-series-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 18px 20px;
+  border: 1px solid var(--lab-rule);
+  border-radius: 8px;
+  background: var(--lab-surface);
+}
+html[data-design] .lab-series-card h2 { margin: 0; font-size: 21px; line-height: 1.25; }
+html[data-design] .lab-series-card h2 a { text-decoration: none; }
+html[data-design] .lab-series-meta {
+  margin: 0;
+  font: 12px/1.7 var(--lab-mono);
+  color: var(--lab-muted);
+}
+html[data-design] .lab-series-start { margin: 0; font-size: 14px; line-height: 1.5; }
+html[data-design] .lab-series-start a { color: var(--lab-accent); }
+
+html[data-design] .lab-series-til {
+  margin: 24px 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 10px;
+  font-size: 15px;
+}
+html[data-design] .lab-series-til-label {
+  padding: 1px 9px;
+  border: 1px solid var(--lab-rule);
+  border-radius: 999px;
+  font: 11px/1.8 var(--lab-mono);
+  letter-spacing: 0.06em;
+  color: var(--lab-muted);
+}
+
+@media (max-width: 700px) {
+  html[data-design] .lab-series-index { grid-template-columns: minmax(0, 1fr); }
+}

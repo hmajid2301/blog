@@ -21,6 +21,27 @@
       {{- end }}{{ end }}
     </ul>
   </section>
+{{- else if eq .Type "series" }}
+  {{- $rows := slice }}
+  {{- range .Data.Terms.Alphabetical }}
+    {{- if ne (lower .Page.LinkTitle) "til" }}
+      {{- $rows = $rows | append (dict "page" .Page "count" .Count "parts" (sort .Page.Pages "Date")) }}
+    {{- end }}
+  {{- end }}
+  {{- $rows = sort $rows "count" "desc" }}
+  <ul class="lab-series-index">
+    {{- range $rows }}
+      {{- $first := index .parts 0 }}
+      {{- $last := index .parts (sub (len .parts) 1) }}
+      <li class="lab-series-card">
+        <h2><a href="{{ .page.RelPermalink }}">{{ .page.LinkTitle }}</a></h2>
+        <p class="lab-series-meta">{{ .count }} {{ if eq .count 1 }}part{{ else }}parts{{ end }} · {{ $first.Date.Format "Jan 2006" }} – {{ $last.Date.Format "Jan 2006" }}</p>
+        <p class="lab-series-start">Starts with <a href="{{ $first.RelPermalink }}">{{ $first.Title }}</a></p>
+      </li>
+    {{- end }}
+  </ul>
+  {{- $til := partial "til-pages.html" . }}
+  <p class="lab-series-til"><span class="lab-series-til-label">TIL</span> {{ len $til }} short posts have <a href="{{ "/til/" | relLangURL }}">their own page ↗</a></p>
 {{- else }}
   <ul class="terms-tags">
     {{- range .Data.Terms.Alphabetical }}

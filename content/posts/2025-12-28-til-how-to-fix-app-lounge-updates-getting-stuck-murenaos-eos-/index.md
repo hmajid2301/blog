@@ -6,7 +6,7 @@ tags:
   - eos
   - murenaos
 series:
-  - til
+  - TIL
 cover:
   image: images/cover.png
 ---
