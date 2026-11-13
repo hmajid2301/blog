@@ -1,0 +1,74 @@
+/* Projects — one card per entry in data/projects.yaml. */
+
+html[data-design] .lab-project-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 24px;
+}
+
+html[data-design] .lab-project-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  border: 1px solid var(--lab-rule);
+  border-radius: 8px;
+  background: var(--lab-surface);
+}
+
+html[data-design] .lab-project-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+html[data-design] .lab-project-head h2 { margin: 0; font-size: 21px; line-height: 1.25; }
+html[data-design] .lab-project-head h2 a { text-decoration: none; }
+
+/* Status reads as text, not colour alone. */
+html[data-design] .lab-project-status {
+  flex: none;
+  padding: 1px 9px;
+  border: 1px solid var(--lab-rule);
+  border-radius: 999px;
+  font: 11px/1.8 var(--lab-mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--lab-muted);
+}
+html[data-design] .lab-project-status[data-status='active'] { color: var(--lab-accent); }
+
+html[data-design] .lab-project-desc { margin: 0; font-size: 15px; line-height: 1.6; }
+
+html[data-design] .lab-project-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+html[data-design] .lab-project-stack li {
+  padding: 1px 9px;
+  border: 1px solid var(--lab-rule);
+  border-radius: 999px;
+  font: 11px/1.8 var(--lab-mono);
+  color: var(--lab-muted);
+}
+
+html[data-design] .lab-project-foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 1px solid var(--lab-rule);
+  font: 12px/1.7 var(--lab-mono);
+}
+html[data-design] .lab-project-foot .lab-project-posts { margin-left: auto; color: var(--lab-accent); }
+
+@media (max-width: 700px) {
+  html[data-design] .lab-project-grid { grid-template-columns: minmax(0, 1fr); }
+  html[data-design] .lab-project-foot .lab-project-posts { margin-left: 0; }
+}

@@ -1,0 +1,43 @@
+# Projects shown on /projects/. Edit this file, not the template.
+# status: active | paused | archived — rendered as text, never colour alone.
+- name: Nixicle
+  description: NixOS and Home Manager config for my machines.
+  status: active
+  stack:
+    - Nix
+    - NixOS
+  site: ""
+  repo: https://gitlab.com/hmajid2301/nixicle
+  tag: nixicle
+
+- name: Banter Bus
+  description: Browser multiplayer card game, built with HTMX, Go and Postgres and deployed on k3s.
+  status: active
+  stack:
+    - Go
+    - HTMX
+    - Postgres
+    - k3s
+  site: https://banterbus.games
+  repo: https://gitlab.com/hmajid2301/banterbus
+  tag: banterbus
+
+- name: LettuceGo
+  description: Gardening app, and the subject of my row-level-security and authorization write-ups.
+  status: active
+  stack:
+    - Go
+    - Postgres
+    - HTMX
+  site: ""
+  repo: https://gitlab.com/hmajid2301/lettucego
+  tag: lettucego
+
+- name: OptiNix
+  description: CLI tool written in Go for searching options in Nix.
+  status: archived
+  stack:
+    - Go
+  site: ""
+  repo: https://gitlab.com/hmajid2301/optinix
+  tag: optinix

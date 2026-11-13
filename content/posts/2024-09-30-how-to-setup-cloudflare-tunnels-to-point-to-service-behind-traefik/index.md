@@ -6,6 +6,7 @@ tags:
   - nixos
   - traefik
   - cloudflare
+  - nixicle
 cover:
   image: images/cover.png
 ---

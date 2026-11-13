@@ -6,6 +6,7 @@ tags:
   - nix
   - homelab
   - tailscale
+  - nixicle
 cover:
   image: images/cover.png
 ---

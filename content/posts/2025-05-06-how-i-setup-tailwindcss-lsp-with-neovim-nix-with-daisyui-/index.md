@@ -8,6 +8,7 @@ tags:
   - neovim
   - nvim
   - nix
+  - nixicle
 cover:
   image: images/cover.png
 ---

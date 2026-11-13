@@ -7,6 +7,7 @@ tags:
   - traefik
   - nixos
   - authentik
+  - nixicle
 cover:
   image: images/cover.png
 ---

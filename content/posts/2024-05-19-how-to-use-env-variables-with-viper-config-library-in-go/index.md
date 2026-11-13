@@ -6,6 +6,7 @@ tags:
   - viper
   - config
   - go
+  - optinix
 series:
   - Building a CLI tool in Golang
 cover:

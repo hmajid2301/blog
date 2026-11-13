@@ -1,0 +1,33 @@
+{{- define "main" }}
+  <header class="page-header">
+    <h1>{{ .Title }}</h1>
+    {{- with .Content }}<div class="post-description">{{ . }}</div>{{ end }}
+  </header>
+
+  <div class="lab-project-grid">
+    {{- range site.Data.projects }}
+      {{- $primary := cond (ne .site "") .site .repo }}
+      <article class="lab-project-card">
+        <header class="lab-project-head">
+          <h2>{{ with $primary }}<a href="{{ . }}">{{ end }}{{ .name }}{{ with $primary }}</a>{{ end }}</h2>
+          <span class="lab-project-status" data-status="{{ .status }}">{{ .status }}</span>
+        </header>
+        <p class="lab-project-desc">{{ .description }}</p>
+        {{- with .stack }}
+        <ul class="lab-project-stack">
+          {{- range . }}<li>{{ . }}</li>{{ end }}
+        </ul>
+        {{- end }}
+        <footer class="lab-project-foot">
+          {{- with .site }}<a href="{{ . }}">Site ↗</a>{{ end }}
+          {{- with .repo }}<a href="{{ . }}">Repo ↗</a>{{ end }}
+          {{- with .tag }}
+            {{- with site.GetPage (printf "/tags/%s" .) }}
+          <a class="lab-project-posts" href="{{ .RelPermalink }}">{{ len .Pages }} {{ if eq (len .Pages) 1 }}post{{ else }}posts{{ end }} about this ↗</a>
+            {{- end }}
+          {{- end }}
+        </footer>
+      </article>
+    {{- end }}
+  </div>
+{{- end }}

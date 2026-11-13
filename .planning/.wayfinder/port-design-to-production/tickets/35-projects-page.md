@@ -1,7 +1,7 @@
 # Ticket: Add a projects page
 
 Labels: `wayfinder:task`
-Status: unclaimed
+Status: resolved
 Parent: `../map.md`
 Blocks: 33
 Blocked by: 17
@@ -40,3 +40,21 @@ Banter Bus 1, LettuceGo 1, OptiNix 1, plus optional rows if approved.
 ## Notes
 
 Counts are metadata, not prose: adding a tag does not change a post URL.
+
+## Resolution — projects page added, core posts tagged
+
+`data/projects.yaml` holds the four approved entries (Nixicle, Banter Bus, LettuceGo, OptiNix); Voxicle stays
+out. `content/projects/_index.md` + `layouts/_default/projects.html` render the cards, reading everything from
+the data file: name (linking to the site when there is one, otherwise the repo), description, status as
+visible text, stack chips, Site/Repo links and a post count linking to the project's tag page.
+
+Tagging used the eleven **core** rows from the candidate table; the four optional rows were left alone. Each
+tag was appended to the post's existing `tags:` list — no titles, bodies or other front matter touched:
+nixicle 7, banterbus 1, lettucego 1, optinix 1.
+
+Verification: `hugo` exits 0; `/projects/` renders 4 cards with counts "7 posts", and "1 post" singular for
+the other three; the tag pages exist and the project tag pages drive those counts. Adding the project tags
+leaves the existing top-topic order on `/tags/` intact.
+
+Known side effect: the four project slugs are now ordinary tags, so they appear on `/tags/` and take part in
+related-post matching. That is the approved mechanism for the counts, not an accident.
