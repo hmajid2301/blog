@@ -93,4 +93,3 @@ some features I used to have in VSCode and now also have in neovim 💗.
 ## Appendix
 
 - [This video helping me get set up by Elijah Manor (he does great videos btw)](https://www.youtube.com/watch?v=7Nt8n3rjfDY)
-

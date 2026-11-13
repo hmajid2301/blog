@@ -17,10 +17,10 @@ cover:
 **TIL: How to Debug a Test in Golang With Build Tags in Neovim**
 
 I was having issues with my debugger today (well technically yesterday because I am publishing this a day later to spread
-out my blog posts but same difference) and it took me a few hours to realise what was going on. In my case, I was 
+out my blog posts but same difference) and it took me a few hours to realise what was going on. In my case, I was
 trying to debug a test written in Golang using `nvim-dap-go` on Neovim.
 
-The reason the test was failing  because the test file had build tags so delve (the debugger) couldn't compile 
+The reason the test was failing  because the test file had build tags so delve (the debugger) couldn't compile
 the file, i.e. using the unit build tag in the example below.
 
 ```go

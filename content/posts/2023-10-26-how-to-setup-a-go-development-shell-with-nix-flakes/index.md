@@ -39,7 +39,7 @@ See this [PR](https://github.com/nix-community/gomod2nix/pull/133/files) for mor
 
 ### direnv
 
-I would recommend enabling `direnv` which is a tool that allows us to run commands automatically when entering a 
+I would recommend enabling `direnv` which is a tool that allows us to run commands automatically when entering a
 directory there is a version available for [nix](https://github.com/nix-community/nix-direnv). This will cache our Nix
 development shell and make it much faster to run after the first run. Also prevents the garbage collector from removing
 build dependencies we need for our nix shells.
@@ -151,7 +151,7 @@ outputs = { self, nixpkgs, flake-utils, gomod2nix, pre-commit-hooks, ... }: {
 Then in our `shell.nix` file we want it to look something like this:
 
 ```nix
-{ pkgs 
+{ pkgs
 , mkGoEnv ? pkgs.mkGoEnv
 , gomod2nix ? pkgs.gomod2nix
 , pre-commit-hooks
@@ -229,4 +229,3 @@ we can build our Go binary using nix. Leveraging the `gomod2nix` tool.
 [^1]: https://nixos.wiki/wiki/Flakes
 [^2]: https://www.tweag.io/blog/2021-03-04-gomod2nix/
 [^3]: https://github.com/nix-community/gomod2nix/blob/master/docs/nix-reference.md
-

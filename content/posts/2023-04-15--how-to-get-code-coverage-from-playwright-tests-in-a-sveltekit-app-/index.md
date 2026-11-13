@@ -27,7 +27,7 @@ by our tests.
 
 ## vite.config.ts
 
-First, let's update our `vite.config.ts` (or `.js`) file: 
+First, let's update our `vite.config.ts` (or `.js`) file:
 
 ```ts {hl_lines=[11-17]}
 import { sveltekit } from "@sveltejs/kit/vite";
@@ -124,11 +124,11 @@ npx nyc report --report-dir ./coverage --temp-dir .nyc_output --reporter=text --
 
 # output
 --------------|---------|----------|---------|---------|-------------------
-File          | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+File          | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
 --------------|---------|----------|---------|---------|-------------------
-All files     |     100 |        0 |     100 |     100 |                   
- +page.svelte |     100 |        0 |     100 |     100 | 16                
- +page.ts     |     100 |      100 |     100 |     100 |                   
+All files     |     100 |        0 |     100 |     100 |
+ +page.svelte |     100 |        0 |     100 |     100 | 16
+ +page.ts     |     100 |      100 |     100 |     100 |
 --------------|---------|----------|---------|---------|-------------------
 ```
 

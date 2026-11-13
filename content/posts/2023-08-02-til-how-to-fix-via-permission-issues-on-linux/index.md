@@ -45,4 +45,3 @@ sudo chmod 600 /dev/hidraw8
 ## Appendix
 
 - [Arch Forum Post which helped me](https://bbs.archlinux.org/viewtopic.php?id=285709)
-
