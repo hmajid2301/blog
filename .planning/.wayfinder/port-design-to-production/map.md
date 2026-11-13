@@ -2,7 +2,7 @@
 
 ## Destination
 
-The production Hugo blog (`/home/haseeb/projects/blog`) ships the design-lab's chosen design — Studio treatment, Jost/Schibsted Grotesk/MonoLisa typography, pill navbar, terminal logo, Neovim-framed code, rule footer, dropdown search — with a visitor-facing Catppuccin ↔ Fireside palette switcher (plus light/dark), and the four chosen page-layout variants baked in (talks timeline, archive months, talk briefing, article editorial). The design-lab's playground/builder machinery is stripped, not shipped.
+The production Hugo blog (`/home/haseeb/projects/blog`) ships the design-lab's chosen design — Studio treatment, Jost/Schibsted Grotesk/MonoLisa typography, pill navbar, terminal logo, Neovim-framed code, rule footer, picker-style search — with a visitor-facing Catppuccin ↔ Fireside palette switcher (plus light/dark), and the four chosen page-layout variants baked in (talks timeline, archive months, talk briefing, article editorial). The design-lab's playground/builder machinery is stripped, not shipped.
 
 ## Notes
 
@@ -17,6 +17,7 @@ The production Hugo blog (`/home/haseeb/projects/blog`) ships the design-lab's c
 - Skills to consult: `writing-plans`, `executing-plans`, `karpathy-guidelines`. Slide-craft/slidev skills do not apply.
 - Local tracker convention: `.planning/.wayfinder/<map>/map.md` + `tickets/*.md`.
 - Planning only unless a ticket's Notes explicitly override into execution.
+- Before shipping, use reproducible before/after performance and site-health audits, including manual accessibility and interaction checks; no permanent test infrastructure is required.
 
 ## Decisions so far
 
@@ -95,13 +96,64 @@ The production Hugo blog (`/home/haseeb/projects/blog`) ships the design-lab's c
 
 - Deleted the remaining notes widget entirely; confirmed the earlier prune removed playground pages and cover-exploration markup. Production HTML, sitemap and search-index audit is clean; verification lives in the ticket.
 
+### [Choose which new components are in scope for this redesign](tickets/15-feature-backlog.md) (resolved)
+
+- Approved the A + B buffer-style callouts, code tabs/diffs, picker search, series navigator, click-to-load YouTube, keycaps, Git last-edited metadata and responsive sidenotes. The ticket links to focused implementation tasks; picker presentation supersedes the earlier dropdown-only decision, not its working search behaviour. Fonts remain in the existing performance/feed task; the site-history entry follows actual release. The Now line is excluded. Selection is complete; implementation and shipping are not.
+
+### [Apply the approved A + B buffer-style callouts](tickets/19-buffer-style-callouts.md) (resolved)
+
+- Integrated the tinted buffer notes through the existing shortcode/shared CSS, with native disclosure, accessible severity/title, SVG icons and preserved aliases/Markdown. Explicit closed values now work; default-open remains unchanged. Production build and four-state responsive browser evidence, review and limitations live in the ticket. No commit or release performed.
+
+### [Add code tabs and sign-column diffs](tickets/20-code-tabs-and-diffs.md) (resolved)
+
+- `{{< code-tabs >}}` groups related fences into keyboard-operable tabs; diffs author via `removed`/`added` line ranges with generated gutter signs that never contaminate copied source. Wired through the footer; re-verified on a fresh fixture build across all four palette states and three widths.
+
+### [Apply picker-style search without losing existing search behaviour](tickets/21-picker-search.md) (resolved)
+
+- Picker prompt + two-column results/preview surface, section-kind markers and a selected-result snippet cloned from the local `index.json` (no remote fetch); compact mobile results. Preserves the shipped Fuse engine, highlighting, keyboard nav, focus trap, Ctrl/Cmd+K and real navigation. Fresh production-build evidence covers all four palettes, error handling and focus return.
+
+### [Apply the compact series navigator](tickets/22-series-navigator.md) (resolved)
+
+- Top+bottom series navigator with explicit-order-first fallback, part count, `aria-current` and first/last boundaries; single-part series omit prev/next. Verified on series, real posts and a single-part fixture.
+
+### [Load YouTube players only after an explicit click](tickets/23-lite-youtube.md) (resolved)
+
+- Local-poster click-to-load treatment overrides the built-in shortcode with a privacy-enhanced `youtube-nocookie.com` player, no autoplay and an ordinary no-JS link. Zero pre-consent requests; real post-click playback observed.
+
+### [Style keyboard shortcuts as readable keycaps](tickets/24-keyboard-keycaps.md) (resolved)
+
+- Scoped `kbd` keycap styling (mono, visible outline, 3px bottom edge); ordinary inline code untouched.
+
+### [Show the real Git-based last-edited date and commit](tickets/25-git-last-edited.md) (resolved)
+
+- Article-footer line from actual `.GitInfo` (date + abbreviated hash linking to the GitLab commit); emits nothing when Git info is absent.
+
+### [Add desktop sidenotes with mobile tap-to-reveal](tickets/26-responsive-sidenotes.md) (resolved)
+
+- Moves footnote nodes into paragraph-adjacent groups; margin mode requires real spare room (≥1200px viewport + ≥288px actual edge) with a nonsticky TOC only there; tap/Enter/Space disclosure, backlink focus and native hash reveal. Wired re-verified against the live server; no-JS endnotes remain the fallback.
+
+### [Fix image weight, RSS links, analytics and fonts](tickets/16-performance-and-feeds.md) (resolved)
+
+- Media/analytics work is preserved; feeds now use absolute navigation/media URLs and configured descriptions, Jost/Grotesk are self-hosted Latin WOFF2 with matched fallbacks, and duplicate tags are normalized with old-URL compatibility. Measurement, focused verification and limitations live in the ticket; the separate before/after audit remains required before shipping.
+
+### [Audit before/after performance, accessibility and site health](tickets/18-before-after-lighthouse-audit.md) (resolved)
+
+- [Audit evidence and shipping recommendation](assets/audits/session16/REPORT.md); focused follow-ups and limitations live in the ticket.
+- [Post-audit fixes and final-source verification](assets/audits/session17/REPORT.md) — tickets28/29/30/32 resolved; ticket31 deferred with findings; broader release limitations remain.
+
+### [Choose which missing pages to add](tickets/17-missing-pages.md) (resolved)
+
+- Narrow scope: pages that re-present repo data ship (`/projects/`, `/til/`, `/subscribe/`, card-based `/series/`, colophon on `/site-history/`), authored prose pages do not. Nav becomes Posts · Projects · TIL · Talks with Stats and Subscribe in the footer; front-matter-only edits are allowed. Implementation is tickets 33–39, with project tagging gated on the candidate table in ticket 17.
+
 ## Not yet specified
 
 (none — the way to the destination is clear)
 
 ## Out of scope
 
+- A homepage Now/status strip, live activity feed or new Now page (not selected for this redesign).
 - Shipping the full playground (all 22 styles, 30+ themes, builder UI, design-lab/draft pages).
 - Bundling or licensing MonoLisa (it falls back to system mono for visitors).
 - The slides/deck work under `content/slides/*` (separate effort; not part of the blog theme port).
-- New content or copy — this port changes presentation, not posts.
+- New authored content or prose pages — About, Now and Blogroll are out of scope; their absence is a deliberate deferral, not an oversight. Pages that re-present existing repo data are in scope per [ticket 17](tickets/17-missing-pages.md).
+- A Voxicle project card: `gitlab.com/hmajid2301/voxicle` is not publicly visible and the work is paused.
