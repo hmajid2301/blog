@@ -84,9 +84,9 @@ visible, which is why a paused Voxicle card was dropped rather than shipped with
 
 - **`/series/`** — chip list becomes cards (title, part count, date range, first post). The TIL card is
   replaced by a one-line link to `/til/`.
-- **`/til/`** — union rule: TIL-prefixed title **or** TIL series membership = 83 of 225 posts (78 series,
-  80 title, 83 union). Year headings, compact date + title rows, no pagination. Series membership of the 5
-  TIL-titled posts that belong elsewhere stays untouched. `/series/til/` stays live with no canonical and no
+- **`/til/`** — union rule: TIL-prefixed title **or** TIL series membership = 82 of 225 posts (78 in the
+  series, 78 titled, 4 of the titled ones outside the series). Year headings, compact date + title rows, no
+  pagination. Series membership of the TIL-titled posts that belong elsewhere stays untouched. `/series/til/` stays live with no canonical and no
   alias; `/til/` is the curated surface.
 - **`/posts/`** — listing, pagination and feed unchanged. A line under the heading links `/til/`, and TIL
   rows get a small chip.
@@ -95,7 +95,7 @@ visible, which is why a paused Voxicle card was dropped rather than shipped with
 - **`/site-history/`** — "How this site is built" appended, repo-derivable facts only (Hugo 0.164, greenfield
   theme, render hooks, generated OG cards, self-hosted WOFF2, four-state palette, Nix devshell, GitLab Pages).
 - **Structured data** — the two computed pages get dedicated OG eyebrows (`PROJECTS · 5`,
-  `TIL · 83 POSTS`) and `WebPage` instead of `BlogPosting`. As plain pages they would claim to be posts; as
+  `TIL · 82 POSTS`) and `WebPage` instead of `BlogPosting`. As plain pages they would claim to be posts; as
   bare `_index.md` sections they would render `SECTION · 0 ENTRIES`, because their entries live under
   `/posts/`.
 

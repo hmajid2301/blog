@@ -1,0 +1,22 @@
+{{- define "main" }}
+  {{- $pages := partial "til-pages.html" . }}
+  <header class="page-header">
+    <h1>{{ .Title }} <small>· {{ len $pages }} posts</small></h1>
+    {{- with .Content }}<div class="post-description">{{ . }}</div>{{ end }}
+    {{- partial "inline_links.html" . }}
+  </header>
+  {{- $year := -1 }}
+  {{- range $pages }}
+    {{- if ne .Date.Year $year }}
+      {{- $year = .Date.Year }}
+      <h2 class="lab-year-head">{{ $year }}</h2>
+    {{- end }}
+    <article class="lab-home-entry lab-til-entry">
+      <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "02 Jan" }}</time>
+      <div>
+        <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+      </div>
+      <span class="lab-arrow" aria-hidden="true">↗</span>
+    </article>
+  {{- end }}
+{{- end }}

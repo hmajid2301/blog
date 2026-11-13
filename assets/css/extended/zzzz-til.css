@@ -1,0 +1,42 @@
+/* TIL section + the chip that marks TIL rows in /posts/. */
+
+html[data-design] .lab-year-head {
+  margin: 36px 0 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--lab-rule);
+  font: 12px/1.7 var(--lab-mono);
+  letter-spacing: 0.08em;
+  color: var(--lab-muted);
+}
+
+html[data-design] .lab-til-entry time {
+  align-self: start;
+  white-space: nowrap;
+}
+
+html[data-design] .lab-til-entry h3 {
+  font-size: 17px;
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+/* Header note on /posts/ pointing at the TIL page. */
+html[data-design] .lab-list-note {
+  margin-top: 12px;
+  font: 12px/1.7 var(--lab-mono);
+  color: var(--lab-muted);
+}
+html[data-design] .lab-list-note a { color: var(--lab-accent); }
+
+/* Row chip, same treatment as the post's tag chips. */
+html[data-design] .lab-entry-list .lab-chip {
+  display: inline-block;
+  padding: 1px 8px;
+  border: 1px solid var(--lab-rule);
+  border-radius: 999px;
+  font: 11px/1.8 var(--lab-mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--lab-muted);
+  white-space: nowrap;
+}

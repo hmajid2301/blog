@@ -15,7 +15,7 @@ reads `SECTION · 0 ENTRIES`, because their entries live under `/posts/`.
 
 ## Completion
 
-- `partials/og-image.html`: dedicated eyebrows — `PROJECTS · 5` and `TIL · 83 POSTS` — instead of the generic
+- `partials/og-image.html`: dedicated eyebrows — `PROJECTS · 5` and `TIL · 82 POSTS` — instead of the generic
   section branch.
 - `partials/templates/schema_json.html`: both pages emit `WebPage`, never `BlogPosting`. Keep the fix inside
   the existing `safeJS`-piped `jsonify` structure from ticket [32](32-structured-data-encoding.md); do not

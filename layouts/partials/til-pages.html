@@ -1,0 +1,20 @@
+{{- /*
+  The TIL collection: a post qualifies when its title starts with "TIL" or when it
+  belongs to the TIL series. Both sets differ — five TIL-titled posts sit in other
+  series and three sit in none — so the union (83 posts) is the honest TIL surface.
+  Sorted newest first.
+
+  Usage: {{ $til := partial "til-pages.html" . }}
+*/ -}}
+{{- $out := slice -}}
+{{- range where site.RegularPages "Section" "posts" -}}
+  {{- $page := . -}}
+  {{- $inSeries := false -}}
+  {{- range $page.GetTerms "series" -}}
+    {{- if eq (lower .LinkTitle) "til" -}}{{- $inSeries = true -}}{{- end -}}
+  {{- end -}}
+  {{- if or $inSeries (hasPrefix $page.Title "TIL") -}}
+    {{- $out = $out | append $page -}}
+  {{- end -}}
+{{- end -}}
+{{- return sort $out "Date" "desc" -}}
