@@ -146,6 +146,10 @@ The production Hugo blog (`/home/haseeb/projects/blog`) ships the design-lab's c
 - Narrow scope: pages that re-present repo data ship (`/projects/`, `/til/`, `/subscribe/`, card-based `/series/`, colophon on `/site-history/`), authored prose pages do not. Nav becomes Posts · Projects · TIL · Talks with Stats and Subscribe in the footer; front-matter-only edits are allowed. Implementation is tickets 33–39, with project tagging gated on the candidate table in ticket 17.
 - Implemented as tickets 33–39 and verified: [session 18 report](assets/audits/session18/REPORT.md) — 64 palette/width loads with no overflow, affected-route Lighthouse with all routes at accessibility 1.00, and the two issues it found fixed (link-in-text-block, lazy LCP image).
 
+### [Reduce remaining mobile layout shifts](tickets/31-mobile-layout-shifts.md) (resolved)
+
+- Deferred as debt: remaining CLS is lab-only (font-swap glyph widths, the remote unsized Giphy GIF, the pre-existing `/uses/` terminal shift); no safe minimal fix without regressing ticket 16 or making non-hermetic build-time changes. Per-route attribution lives in the ticket.
+
 ## Not yet specified
 
 (none — the way to the destination is clear)

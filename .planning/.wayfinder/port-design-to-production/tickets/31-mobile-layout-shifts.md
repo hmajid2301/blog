@@ -1,7 +1,7 @@
 # Ticket: Reduce remaining mobile layout shifts
 
 Labels: `wayfinder:task`
-Status: unclaimed
+Status: resolved
 Parent: `../map.md`
 Blocks: none
 Blocked by: none
@@ -32,3 +32,7 @@ Why no safe minimal fix was applied:
 - The terminal shift is pre-existing and already improving.
 
 All values are lab CLS, not field CWV; only `/uses/` exceeds0.1. Left as deferred debt rather than an unjustified risky change.
+
+## Resolution
+
+Deferred as debt — no code change. The remaining CLS is lab-only; no safe minimal fix exists without regressing ticket 16's verified font-fallback work or making non-hermetic build-time changes, and the only route above 0.1 (`/uses/`, a pre-existing terminal shift) already improves from baseline. Revisit only if field CWV or a concrete regression surfaces.
