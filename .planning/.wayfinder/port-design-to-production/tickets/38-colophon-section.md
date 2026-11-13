@@ -1,7 +1,7 @@
 # Ticket: Add a colophon section to the site history
 
 Labels: `wayfinder:task`
-Status: unclaimed
+Status: resolved
 Parent: `../map.md`
 Blocks: none
 Blocked by: 17
@@ -25,3 +25,16 @@ GitLab Pages. Every line must be checkable against the repo — no new prose cla
 ## Notes
 
 This is the cheapest page in the set: no new route, no new data file, no nav change.
+
+## Resolution — colophon added
+
+`content/site-history.md` gains a "How this site is built" section below the 1.0.0 entry. Every line was
+checked against the repo first: Hugo 0.164.0+extended (no `theme` key, layouts at repo root, `reveal-hugo`
+the only module import), `flake.nix` devshell running `nix develop -c hugo`, the four markup render hooks,
+`scripts/og/base.svg` + `task og:base` (resvg), `static/fonts` WOFF2 with OFL licences, `data-theme` +
+`data-mode` in `baseof.html`, Fuse.js over `index.json`, and the GitLab Pages job in `.gitlab-ci.yml`.
+
+Not claimed: PaperModX (replaced by this port) and anything about analytics (the partials are dropped).
+
+Verification: `hugo --destination /tmp/blog17-c1` exits 0 and `/site-history/` renders the new heading once,
+below the version list.
