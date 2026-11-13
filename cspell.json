@@ -88,6 +88,20 @@
         "tocopen",
         "twoslash",
         "warnf",
-        "upserts"
+        "upserts",
+        "Schibsted",
+        "Grotesk",
+        "colour",
+        "magick",
+        "linespacing",
+        "lettucego",
+        "coreutils",
+        "procps",
+        "readlink",
+        "gotestsum",
+        "sqlc",
+        "templ",
+        "gcroots",
+        "devshell"
     ]
 }
