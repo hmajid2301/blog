@@ -26,6 +26,14 @@
   {{- with $page.Params.conference -}}
     {{- $eyebrow = printf "%s · %s" $eyebrow . -}}
   {{- end -}}
+{{- else if and $page.IsSection (eq $page.Section "projects") -}}
+  {{- $title = "Projects" -}}
+  {{- $eyebrow = printf "\uf07b PROJECTS · %d" (len site.Data.projects) -}}
+  {{- $filename = "projects/" -}}
+{{- else if and $page.IsSection (eq $page.Section "til") -}}
+  {{- $title = "TIL" -}}
+  {{- $eyebrow = printf "\uf15c TIL · %d POSTS" (len (partial "til-pages.html" $page)) -}}
+  {{- $filename = "til/" -}}
 {{- else if $page.IsSection -}}
   {{- $title = $page.LinkTitle -}}
   {{- $eyebrow = printf "SECTION · %d ENTRIES" (len $page.RegularPagesRecursive) -}}
