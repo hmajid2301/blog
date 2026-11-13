@@ -116,3 +116,30 @@ html[data-design][data-home-custom-order='true'][data-home-section-gap] body.kin
   html[data-design][data-home-writing-dates='false'] body.kind-home .lab-writing .lab-home-entry,
   html[data-design][data-home-talk-dates='false'] body.kind-home .lab-talks .lab-home-entry { grid-template-columns: minmax(0, 1fr); }
 }
+
+/* Full-card click target for writing entries. */
+html[data-design] body.kind-home .lab-home-entry {
+  position: relative;
+  background: var(--lab-card);
+}
+html[data-design] body.kind-home .lab-home-hero {
+  background: var(--lab-card);
+}
+html[data-design] body.kind-home .lab-home-bottom > div {
+  background: var(--lab-card);
+  padding: 28px;
+}
+/* Writing entries are single links; talks entries keep their nested resource links. */
+html[data-design] body.kind-home .lab-home-entry[data-home-post] h3 a::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+/* Subtle accent tint so the full-card link reads as clickable. */
+html[data-design] body.kind-home .lab-home-entry:hover {
+  background: color-mix(in srgb, var(--lab-accent) 8%, var(--lab-card));
+}
+/* Breathing room between the hero tagline and the intro line. */
+html[data-design] body.kind-home .lab-home-hero .lab-intro + .lab-intro {
+  margin-top: 16px;
+}

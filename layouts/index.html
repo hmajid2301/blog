@@ -1,10 +1,10 @@
 {{- define "main" }}
   <section class="lab-home-hero" aria-labelledby="home-title">
     <div>
-      <p class="lab-eyebrow">{{ site.Title }}<span class="lab-eyebrow-tail"> / a personal corner of the web</span></p>
+      <p class="lab-eyebrow">{{ site.Title }}<span class="lab-eyebrow-tail"> / my personal corner of the web</span></p>
       <h1 id="home-title">Backend engineer.<br><span class="lab-heading-tail">Always tinkering.</span></h1>
       <p class="lab-intro">{{ site.Params.profileMode.subtitle | markdownify }}</p>
-      <p class="lab-intro">Notes on Go, Nix, developer tools, and the things I learn while building software.</p>
+      <p class="lab-intro">My thoughts on Go, Nix, developer tools, and the things I learn while building software.</p>
       <div class="lab-home-links"><a href="/posts/">Read the writing ↗</a><a href="/talks/">On stage ↗</a><a href="/uses/">What I use ↗</a></div>
       <div class="lab-socials">{{ partial "social_icons.html" (dict "icons" site.Params.socialIcons "svg" hugo.Data.svg "MaskedEmail" site.Params.maskedemail) }}</div>
     </div>
