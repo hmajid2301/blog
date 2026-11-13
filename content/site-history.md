@@ -7,10 +7,14 @@ showtoc: false
 
 This site has gone through a few incarnations over the years. Each version is tagged in GitLab.
 
-## 4.0.0 — Hugo JamStack · current
+## 5.0.0 — Hugo custom theme · current
+![Version 5 — Hugo home page](site-history/v5.png)
+A ground-up custom **Hugo** theme replacing PaperModX, with a Catppuccin/Fireside palette switcher, self-hosted Jost and Schibsted Grotesk, Neovim-framed code, picker-style search and build-time OG cards. [Tag ↗](https://gitlab.com/hmajid2301/blog/-/tags/5.0.0)
+
+## 4.0.0 — Hugo JamStack
 ![Version 4 — Hugo home page](site-history/v4.png)
 ![Version 4 — Hugo blog post](site-history/v4-post.png)
-Today's site is built with **Hugo** and the **PaperModX** theme, with NetlifyCMS for content. [Tag ↗](https://gitlab.com/hmajid2301/blog/-/tags/4.0.0)
+Built with **Hugo** and the **PaperModX** theme, with NetlifyCMS for content. [Tag ↗](https://gitlab.com/hmajid2301/blog/-/tags/4.0.0)
 
 ## 3.0.0 — Gatsby JamStack
 ![Version 3 — Gatsby home page](site-history/v3.png)
