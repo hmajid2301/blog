@@ -1,7 +1,7 @@
 # Ticket: Add a subscribe page
 
 Labels: `wayfinder:task`
-Status: unclaimed
+Status: resolved
 Parent: `../map.md`
 Blocks: none
 Blocked by: 17
@@ -26,3 +26,18 @@ of these for `hugo`/`go` (14 each) only if asked.
 
 Six old-tag RSS 301 rules in `static/_redirects` are unrelated to this list but must keep working; do not
 rewrite that file.
+
+## Resolution — subscribe page added
+
+`content/subscribe/index.md` (leaf bundle, `layout = "subscribe"`) with `layouts/_default/subscribe.html`
+and `assets/css/extended/zzzz-subscribe.css`. Three groups: everything (all / writing / talks with live
+counts), by topic (the top five tags generated from `site.Taxonomies.tags.ByCount`, each with its feed and a
+browse link), and elsewhere (the Mastodon profile read from `params.socialIcons`, so the address is not
+duplicated in markdown).
+
+Feed URLs are built from each page's own `RelPermalink`, so they follow the taxonomy rather than a hardcoded
+list.
+
+Verification: `hugo` exits 0; `/subscribe/` renders the three groups, the five tag feeds resolve to
+`tags/{nix,nixos,gitlab,ci-cd,python}/index.xml`, the counts read 225 posts / 10 talks / 43+33+21+19+16 tag
+posts, and the Mastodon link is `https://hachyderm.io/@majiy00`.

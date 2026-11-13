@@ -1,0 +1,51 @@
+{{- define "main" }}
+  {{- $topics := first 5 site.Taxonomies.tags.ByCount }}
+  <header class="page-header">
+    <h1>{{ .Title }}</h1>
+    {{- with .Content }}<div class="post-description">{{ . }}</div>{{ end }}
+  </header>
+
+  <section class="lab-subscribe-group" aria-labelledby="subscribe-all">
+    <h2 id="subscribe-all">Everything</h2>
+    <ul class="lab-feed-list">
+      <li>
+        <a href="{{ "index.xml" | relLangURL }}">All posts and talks</a>
+        <span class="lab-feed-note">every entry, newest first</span>
+      </li>
+      <li>
+        <a href="{{ "posts/index.xml" | relLangURL }}">Writing only</a>
+        <span class="lab-feed-note">{{ len (where site.RegularPages "Section" "posts") }} posts</span>
+      </li>
+      <li>
+        <a href="{{ "talks/index.xml" | relLangURL }}">Talks only</a>
+        <span class="lab-feed-note">{{ len (where site.RegularPages "Section" "talks") }} talks</span>
+      </li>
+    </ul>
+  </section>
+
+  <section class="lab-subscribe-group" aria-labelledby="subscribe-topics">
+    <h2 id="subscribe-topics">By topic</h2>
+    <ul class="lab-feed-list">
+      {{- range $topics }}
+      <li>
+        <a href="{{ .Page.RelPermalink }}index.xml">#{{ .Page.LinkTitle | lower }}</a>
+        <span class="lab-feed-note">{{ .Count }} posts · <a href="{{ .Page.RelPermalink }}">browse</a></span>
+      </li>
+      {{- end }}
+    </ul>
+  </section>
+
+  <section class="lab-subscribe-group" aria-labelledby="subscribe-elsewhere">
+    <h2 id="subscribe-elsewhere">Elsewhere</h2>
+    <ul class="lab-feed-list">
+      {{- range site.Params.socialIcons }}
+        {{- if eq .name "mastodon" }}
+      <li>
+        <a href="{{ .url }}" rel="me">{{ strings.TrimPrefix "https://" .url }}</a>
+        <span class="lab-feed-note">Mastodon</span>
+      </li>
+        {{- end }}
+      {{- end }}
+    </ul>
+  </section>
+{{- end }}
