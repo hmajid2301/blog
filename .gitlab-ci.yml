@@ -4,32 +4,94 @@ stages:
 
 default:
   image: nixpkgs/nix-flakes:nixos-26.05-x86_64-linux
+  interruptible: true
+  retry:
+    max: 1
+    when: [runner_system_failure, stuck_or_timeout_failure, scheduler_failure]
 
 variables:
-  GIT_SUBMODULE_STRATEGY: recursive
+  # enableGitInfo needs full history, or .Lastmod falls back to the oldest fetched commit.
+  GIT_DEPTH: 0
   NIX_CONFIG: "experimental-features = nix-command flakes"
 
-.task:
-  stage: test
-  tags: []
+workflow:
+  auto_cancel:
+    on_new_commit: interruptible
   rules:
+    # Run branch pipelines, but not a duplicate one when an MR is open.
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-  before_script:
-    - mkdir -p /etc/nix
-    - echo "experimental-features = nix-command flakes" >>/etc/nix/nix.conf
+    - if: $CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS
+      when: never
+    - if: $CI_COMMIT_BRANCH
+    - if: $CI_PIPELINE_SOURCE == "schedule"
 
-check:og:
-  extends:
-    - .task
+check:build:
+  stage: test
+  rules: &not-main
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH && $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
   script:
-    - nix develop -c task generate:og
-    - git diff --exit-code
+    - nix develop -c hugo -F --destination /tmp/check --printPathWarnings 2>&1 | tee build.log; test ${PIPESTATUS[0]} -eq 0
+    # Fail on template errors and on deprecations that will break a future Hugo.
+    - "! grep -E 'ERROR|deprecated' build.log"
+    - test -s /tmp/check/index.html
+    - test -s /tmp/check/_redirects
 
 pages:
   stage: deploy
-  script:
-    - nix develop -c hugo
-  pages: true
+  interruptible: false
+  resource_group: production
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
     - if: $CI_PIPELINE_SOURCE == "schedule"
+  script:
+    - nix develop -c hugo
+    - test -s public/index.html
+  pages: true
+  environment:
+    name: production
+    url: https://haseebmajid.dev
+
+# Branch preview at https://preview.haseebmajid.dev/<branch-slug>/.
+# Runs on the VPS runner, which mounts /srv/blog-previews at /previews
+# (nixicle: modules/aspects/services/blog-previews.nix). Pruned after 14 days.
+preview:
+  stage: deploy
+  tags: [vps] # only the VPS runner mounts /previews
+  resource_group: preview/$CI_COMMIT_REF_SLUG
+  rules: *not-main
+  variables:
+    PREVIEW_URL: "https://preview.haseebmajid.dev/${CI_COMMIT_REF_SLUG}/"
+    HUGO_PARAMS_ENV: preview # noindex meta + robots.txt
+    HUGO_RELATIVEURLS: "false" # relativeURLs doubles the sub-path on resource URLs
+  script:
+    - nix develop -c hugo -F --environment preview --baseURL "$PREVIEW_URL"
+    - test -s public/index.html
+    - rm -rf "/previews/${CI_COMMIT_REF_SLUG}.new"
+    - cp -r public "/previews/${CI_COMMIT_REF_SLUG}.new"
+    - rm -rf "/previews/${CI_COMMIT_REF_SLUG}"
+    - mv "/previews/${CI_COMMIT_REF_SLUG}.new" "/previews/${CI_COMMIT_REF_SLUG}"
+    - curl -fsS -o /dev/null "$PREVIEW_URL" && echo "Preview at $PREVIEW_URL"
+  environment:
+    name: preview/$CI_COMMIT_REF_SLUG
+    url: $PREVIEW_URL
+    on_stop: preview:stop
+    auto_stop_in: 2 weeks
+
+preview:stop:
+  stage: deploy
+  tags: [vps]
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: manual
+      allow_failure: true
+    - if: $CI_COMMIT_BRANCH && $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
+      when: manual
+      allow_failure: true
+  variables:
+    GIT_STRATEGY: none
+  script:
+    - rm -rf "/previews/${CI_COMMIT_REF_SLUG}"
+  environment:
+    name: preview/$CI_COMMIT_REF_SLUG
+    action: stop
