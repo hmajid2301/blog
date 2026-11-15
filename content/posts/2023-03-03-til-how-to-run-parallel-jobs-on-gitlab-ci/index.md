@@ -7,8 +7,6 @@ tags:
   - ci-cd
 series:
   - TIL
-cover:
-  image: images/cover.png
 ---
 
 **TIL: How to Run Parallel Jobs on Gitlab CI (Different Stages)**

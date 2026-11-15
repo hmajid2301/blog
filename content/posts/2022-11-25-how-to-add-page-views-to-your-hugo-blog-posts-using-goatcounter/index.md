@@ -8,8 +8,6 @@ tags:
   - blog
 series:
   - Goatcounter with Hugo
-cover:
-  image: images/cover.png
 ---
 
 In this post, we will go over how we can add a page view "counter" 👀 to our Hugo blog, so we can see how many views each of our posts

@@ -10,8 +10,6 @@ tags:
   - vscode
 series:
   - Dotfiles management with Dotbot
-cover:
-  image: images/cover.png
 ---
 
 {{< notice type="warning" title="Devcontainers" >}}

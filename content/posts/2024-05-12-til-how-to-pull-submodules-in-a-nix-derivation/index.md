@@ -6,8 +6,6 @@ tags:
   - nix
 series:
   - TIL
-cover:
-  image: images/cover.png
 ---
 
 **TIL: How to Pull Submodules in a Nix Derivation**

@@ -7,8 +7,6 @@ tags:
   - gatsby
   - blog
   - me
-cover:
-  image: images/cover.png
 ---
 # About This Site
 

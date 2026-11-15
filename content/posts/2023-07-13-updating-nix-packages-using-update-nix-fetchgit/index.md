@@ -5,8 +5,6 @@ canonicalURL: https://haseebmajid.dev/posts/2023-07-13-updating-nix-packages-usi
 tags:
   - nixos
   - nix
-cover:
-  image: images/cover.png
 ---
 
 Recently I've been trying to work out how to update packages that I define declaratively in my Nix config.

@@ -8,8 +8,6 @@ tags:
   - micro-saas
 series:
   - Build In Public
-cover:
-  image: images/cover.png
 ---
 
 Cricket is back this week, so I didn't have as much time as I would over the weekend as I was out playing both weekends.

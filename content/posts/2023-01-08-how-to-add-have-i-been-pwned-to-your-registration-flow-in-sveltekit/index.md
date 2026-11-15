@@ -6,8 +6,6 @@ tags:
   - sveltekit
   - ux
   - zod
-cover:
-  image: images/cover.png
 ---
 
 In this post, I will go over how you can use the have I been pwned (hibp) API to improve UX [^1] in our registration flow in our SvelteKit app.

@@ -5,8 +5,6 @@ canonicalURL: https://haseebmajid.dev/posts/2024-06-30-rewriting-a-python-script
 tags:
   - bash
   - python
-cover:
-  image: images/cover.png
 ---
 
 In this post, I will describe how I went about replacing a Python with a bash liner and how it decreased the runtime from 30 seconds to 1 second

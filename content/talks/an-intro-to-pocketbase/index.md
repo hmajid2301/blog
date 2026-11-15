@@ -3,8 +3,6 @@ title: "An Introduction to Pocketbase: A Go Based Backend"
 canonicalURL: https://haseebmajid.dev/talks/an-intro-to-pocketbase/
 date: 2023-05-31
 conference: "London Gophers"
-cover:
-  image: images/cover.png
 ShowToc: false
 ShowReadingTime: false
 ShowWordCount: false

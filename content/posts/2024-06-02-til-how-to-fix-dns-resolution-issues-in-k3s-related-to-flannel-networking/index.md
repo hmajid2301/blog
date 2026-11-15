@@ -8,8 +8,6 @@ tags:
 series:
   - Setup Raspberry Pi Cluster with K3S and NixOS
   - TIL
-cover:
-  image: images/cover.png
 ---
 
 **TIL: How to Fix DNS Resolution Issues in K3s Related to Flannel Networking**

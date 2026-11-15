@@ -6,8 +6,6 @@ tags:
   - docker
   - networking
   - dns
-cover:
-  image: images/cover.png
 ---
 In this article, we will briefly go over what DNS (domain name system) is and explain how it is used in conjunction
 with Docker 🐳.

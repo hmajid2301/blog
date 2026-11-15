@@ -7,8 +7,6 @@ tags:
   - sveltekit
   - auth
   - pocketbase
-cover:
-  image: images/cover.png
 ---
 
 {{< notice type="warning" title="Out of date" >}}

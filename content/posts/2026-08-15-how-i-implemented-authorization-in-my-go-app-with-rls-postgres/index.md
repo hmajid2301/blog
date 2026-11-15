@@ -9,8 +9,6 @@ tags:
   - postgres
   - pgx
   - lettucego
-cover:
-  image: images/cover.png
 ---
 
 ## Introduction

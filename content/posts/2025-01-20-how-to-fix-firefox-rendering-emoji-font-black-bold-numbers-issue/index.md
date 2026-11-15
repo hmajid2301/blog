@@ -6,8 +6,6 @@ tags:
   - firefox
   - nixos
   - nixicle
-cover:
-  image: images/cover.png
 ---
 
 I was some issues with the ways some fonts were rendering in Nix/NixOS machines. It seemed to specifically effect

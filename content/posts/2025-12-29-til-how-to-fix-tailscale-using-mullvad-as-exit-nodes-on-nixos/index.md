@@ -8,8 +8,6 @@ tags:
   - nixos
 series:
   - TIL
-cover:
-  image: images/cover.png
 ---
 
 On NixOS when ever I enabled [mullvad](https://tailscale.com/kb/1258/mullvad-exit-nodes) as exit nodes via tailscale (the [trayscale app](https://github.com/DeedleFake/trayscale)).

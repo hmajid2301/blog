@@ -9,8 +9,6 @@ tags:
   - dind
 series:
   - TIL
-cover:
-  image: images/cover.png
 ---
 
 **TIL: How to Use DinD, localhost & Gitlab CI**

@@ -8,8 +8,6 @@ tags:
   - sveltekit
 series:
   - TIL
-cover:
-  image: images/cover.png
 ---
 
 **TIL: How to Load Authenticate State in Playwright**

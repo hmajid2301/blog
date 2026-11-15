@@ -8,8 +8,6 @@ tags:
   - micro-saas
 series:
   - Build In Public
-cover:
-  image: images/cover.png
 ---
 
 ### This week

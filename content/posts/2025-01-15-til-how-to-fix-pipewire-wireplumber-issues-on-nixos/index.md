@@ -6,8 +6,6 @@ tags:
   - nixos
   - audio
   - pipewire
-cover:
-  image: images/cover.png
 ---
 
 **TIL: How to Fix PipeWire/WirePlumber Issues on NixOS**

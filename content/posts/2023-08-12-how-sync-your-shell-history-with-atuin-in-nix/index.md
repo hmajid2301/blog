@@ -8,8 +8,6 @@ tags:
   - nix
 series:
   - Atuin with NixOS
-cover:
-  image: images/cover.png
 ---
 
 [Atuin](https://atuin.sh/docs/) is a great tool I recently discovered that can be used to sync our shell history across

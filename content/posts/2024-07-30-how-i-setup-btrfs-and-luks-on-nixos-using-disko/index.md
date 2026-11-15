@@ -7,8 +7,6 @@ tags:
   - btrfs
   - luks
   - nixos
-cover:
-  image: images/cover.png
 ---
 
 In this post, I will show you how you can declaratively partition our drives using Nix(OS).

@@ -5,8 +5,6 @@ canonicalURL: https://haseebmajid.dev/posts/2024-05-26-how-to-add-hugo-revealjs-
 tags:
   - hugo
   - revealjs
-cover:
-  image: images/cover.png
 ---
 
 What we are trying to achieve is hosting RevealJS slides on our Hugo blog like

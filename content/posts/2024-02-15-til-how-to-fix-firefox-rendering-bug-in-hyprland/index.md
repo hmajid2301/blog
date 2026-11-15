@@ -8,8 +8,6 @@ tags:
   - bug
 series:
   - TIL
-cover:
-  image: images/cover.png
 ---
 
 **TIL: How to Fix Firefox Rendering Bug in Hyprland**

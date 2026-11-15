@@ -6,8 +6,6 @@ tags:
   - tmux
 series:
   - TIL
-cover:
-  image: images/cover.png
 ---
 
 **TIL: How to Title Your Terminals When Running Tmux**

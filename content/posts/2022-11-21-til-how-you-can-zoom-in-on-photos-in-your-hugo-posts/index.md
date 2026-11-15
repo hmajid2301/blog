@@ -8,8 +8,6 @@ tags:
   - markdown
 series:
   - TIL
-cover:
-  image: images/cover.png
 ---
 
 **TIL: How You Can Zoom in on Photos in your Hugo Posts**

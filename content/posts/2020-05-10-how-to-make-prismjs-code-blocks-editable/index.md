@@ -5,8 +5,6 @@ date: 2020-05-10
 tags:
   - ajax
   - javascript
-cover:
-  image: images/cover.png
 ---
 
 ![demo](images/main.gif)

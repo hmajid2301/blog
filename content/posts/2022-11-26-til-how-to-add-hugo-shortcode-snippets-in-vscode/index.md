@@ -8,8 +8,6 @@ tags:
   - vscode
 series:
   - TIL
-cover:
-  image: images/cover.png
 ---
 
 **TIL: How to Add Hugo Shortcode Snippets in VSCode**

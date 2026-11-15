@@ -9,8 +9,6 @@ tags:
   - sops-nix
 series:
   - Setup Raspberry Pi Cluster with K3S and NixOS
-cover:
-  image: images/cover.png
 ---
 
 **TIL: How to Use Sops Nix With Colmena**

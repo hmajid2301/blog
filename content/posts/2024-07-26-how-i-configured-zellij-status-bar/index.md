@@ -6,8 +6,6 @@ tags:
   - zellij
   - nix
   - home-manager
-cover:
-  image: images/cover.png
 ---
 
 As some of you may know, I moved to Zellij a few months ago from tmux. In this post, I will show you have I configured

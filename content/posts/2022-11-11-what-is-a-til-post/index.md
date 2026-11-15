@@ -5,8 +5,6 @@ date: 2022-11-11
 tags: []
 series:
   - TIL
-cover:
-  image: images/cover.png
 ---
 
 # What is a TIL post?

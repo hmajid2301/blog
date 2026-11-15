@@ -7,8 +7,6 @@ tags:
   - direnv
 series:
   - TIL
-cover:
-  image: images/cover.png
 ---
 
 **TIL: How to Get Shell Completions in Nix Shell With Direnv**

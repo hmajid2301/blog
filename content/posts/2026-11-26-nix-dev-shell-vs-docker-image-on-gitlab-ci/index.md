@@ -7,8 +7,6 @@ tags:
   - docker
   - gitlab
   - ci
-cover:
-  image: images/cover.png
 ---
 
 My GitLab runner runs on a NixOS VPS and mounts the host's Nix store into every job container, to speed up jobs by

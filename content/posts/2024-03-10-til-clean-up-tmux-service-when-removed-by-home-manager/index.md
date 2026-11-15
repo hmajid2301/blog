@@ -8,8 +8,6 @@ tags:
   - tmux
 series:
   - TIL
-cover:
-  image: images/cover.png
 ---
 
 **TIL: Clean Up Tmux Service When Removed by Home Manager**

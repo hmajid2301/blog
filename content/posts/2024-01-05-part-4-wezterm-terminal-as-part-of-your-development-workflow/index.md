@@ -7,8 +7,6 @@ tags:
   - terminal
 series:
   - Setup Your Development Workflow
-cover:
-  image: images/cover.png
 ---
 
 I will preface this article by saying, out of all the tools/apps in this series, this is probably the least important

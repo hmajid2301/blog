@@ -8,8 +8,6 @@ tags:
   - kubernetes
 series:
   - My Home Lab
-cover:
-  image: images/cover.png
 ---
 ## Background
 

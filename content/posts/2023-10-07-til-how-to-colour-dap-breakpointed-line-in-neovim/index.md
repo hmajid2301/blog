@@ -7,8 +7,6 @@ tags:
   - dap
 series:
   - TIL
-cover:
-  image: images/cover.png
 ---
 
 **TIL: How to Colour Dap Breakpointed Line in Neovim**

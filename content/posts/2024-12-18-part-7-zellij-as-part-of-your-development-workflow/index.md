@@ -7,8 +7,6 @@ tags:
   - multiplexer
 series:
   - Setup Your Development Workflow
-cover:
-  image: images/cover.png
 ---
 
 After another 5 months I'm finally back blogging about my development setup. Which since my last post, has been

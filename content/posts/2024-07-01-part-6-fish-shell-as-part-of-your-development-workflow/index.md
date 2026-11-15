@@ -7,8 +7,6 @@ tags:
   - shell
 series:
   - Setup Your Development Workflow
-cover:
-  image: images/cover.png
 ---
 
 After a long break, I am again writing about my workflow. The big issue I have with this series is that my workflow is

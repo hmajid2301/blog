@@ -8,8 +8,6 @@ tags:
   - fly.io
 series:
   - Atuin with NixOS
-cover:
-  image: images/cover.png
 ---
 
 In this article, we will go over how we can [self-host](https://atuin.sh/docs/self-hosting/) our instance of [Atuin](https://atuin.sh/).

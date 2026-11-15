@@ -7,8 +7,6 @@ tags:
   - ripgrep
 series:
   - TIL
-cover:
-  image: images/cover.png
 ---
 
 Recently I noticed when I searched using Telescope in Neovim, that I could see `env.local.template` but not

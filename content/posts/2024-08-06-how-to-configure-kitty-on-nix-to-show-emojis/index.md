@@ -6,8 +6,6 @@ tags:
   - kitty
   - nix
   - stylix
-cover:
-  image: images/cover.png
 ---
 
 

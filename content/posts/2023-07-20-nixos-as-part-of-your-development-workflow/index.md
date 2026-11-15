@@ -8,8 +8,6 @@ tags:
   - dotfiles
 series:
   - Setup Your Development Workflow
-cover:
-  image: images/cover.png
 ---
 
 ## Introduction

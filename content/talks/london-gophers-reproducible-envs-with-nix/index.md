@@ -3,8 +3,6 @@ title: "Using Nix to create reproducible Go development environments"
 canonicalURL: https://haseebmajid.dev/talks/london-gophers-reproducible-envs-with-nix/
 date: 2024-11-20
 conference: "London Gophers"
-cover:
-  image: images/cover.png
 ShowToc: false
 ShowReadingTime: false
 ShowWordCount: false

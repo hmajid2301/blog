@@ -7,8 +7,6 @@ tags:
   - docker
   - expo
   - docker-compose
-cover:
-  image: images/cover.png
 ---
 Running Expo/React Native in a Docker container can sometimes cause issues. In this example, I will be running
 Docker 🐳 within a guest VM (Ubuntu) which will run on my host machine (Windows). My host machine will also

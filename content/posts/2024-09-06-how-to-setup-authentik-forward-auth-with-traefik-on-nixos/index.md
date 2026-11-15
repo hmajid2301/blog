@@ -8,8 +8,6 @@ tags:
   - nixos
   - authentik
   - nixicle
-cover:
-  image: images/cover.png
 ---
 
 In this post, I will show you how you can set up forward auth for a single host in Authentik, with Traefik as our reverse

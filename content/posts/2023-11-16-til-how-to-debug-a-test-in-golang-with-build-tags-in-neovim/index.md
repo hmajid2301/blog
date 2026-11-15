@@ -10,8 +10,6 @@ tags:
   - nixvim
 series:
   - TIL
-cover:
-  image: images/cover.png
 ---
 
 **TIL: How to Debug a Test in Golang With Build Tags in Neovim**

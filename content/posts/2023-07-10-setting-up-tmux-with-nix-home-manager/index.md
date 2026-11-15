@@ -7,8 +7,6 @@ tags:
   - nix
   - tmux
   - dotfiles
-cover:
-  image: images/cover.png
 ---
 
 

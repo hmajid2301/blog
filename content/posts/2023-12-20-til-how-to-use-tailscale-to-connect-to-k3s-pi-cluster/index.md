@@ -10,8 +10,6 @@ tags:
   - tailscale
 series:
   - Setup Raspberry Pi Cluster with K3S and NixOS
-cover:
-  image: images/cover.png
 ---
 
 **TIL: How to Use Tailscale to Connect to K3S PI Cluster**

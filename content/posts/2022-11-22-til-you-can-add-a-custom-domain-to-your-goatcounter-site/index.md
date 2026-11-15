@@ -9,8 +9,6 @@ tags:
 series:
   - TIL
   - Goatcounter with Hugo
-cover:
-  image: images/cover.png
 ---
 
 **TIL: You can add a custom domain to your Goatcounter site**

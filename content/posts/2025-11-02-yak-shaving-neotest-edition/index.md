@@ -6,8 +6,6 @@ tags:
   - nix
   - nvim
   - neotest
-cover:
-  image: images/cover.png
 ---
 
 **TL;DR:** The fix is in this commit: https://gitlab.com/hmajid2301/nixicle/-/commit/cfababc9e3a1dfdd1917d0b87cb17fcdd655bfdc  Fixing stuff is fun! 🥳

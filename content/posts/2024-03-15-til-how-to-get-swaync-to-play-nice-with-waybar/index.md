@@ -7,8 +7,6 @@ tags:
   - waybar
 series:
   - TIL
-cover:
-  image: images/cover.png
 ---
 
 **TIL: How to Get swaync to Play Nice With Waybar**

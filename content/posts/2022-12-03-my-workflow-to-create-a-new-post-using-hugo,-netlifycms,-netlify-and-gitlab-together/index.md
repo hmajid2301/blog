@@ -8,8 +8,6 @@ tags:
   - gitlab
   - netlifycms
   - vscode
-cover:
-  image: images/cover.png
 ---
 
 {{< notice type="warning" title="Netlify CMS Deprecated" >}}

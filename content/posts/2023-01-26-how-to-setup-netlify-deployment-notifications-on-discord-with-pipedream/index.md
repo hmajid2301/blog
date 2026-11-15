@@ -6,8 +6,6 @@ tags:
   - netlify
   - monitoring
   - pipedream
-cover:
-  image: images/cover.png
 ---
 
 Hi everyone, I recently went about setting up notifications about my Netlify deploys in Discord. Netlify does have an official way to do

@@ -10,8 +10,6 @@ tags:
   - blog
 series:
   - TIL
-cover:
-  image: images/cover.png
 ---
 
 **TIL: You Can Schedule Posts on Your Hugo Blog using Netlify and Gitlab CI**

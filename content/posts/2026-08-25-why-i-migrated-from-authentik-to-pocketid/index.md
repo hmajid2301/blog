@@ -9,8 +9,6 @@ tags:
   - pocketid
   - tinyauth
   - opentofu
-cover:
-  image: images/cover.png
 ---
 
 A while back I wrote about [how I set up Authentik forward auth with Traefik on

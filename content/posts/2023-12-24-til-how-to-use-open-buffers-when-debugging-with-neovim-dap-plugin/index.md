@@ -8,8 +8,6 @@ tags:
   - nvim
 series:
   - TIL
-cover:
-  image: images/cover.png
 ---
 
 **TIL: How to Use Open Buffers When Debugging With Neovim's DAP Plugin**

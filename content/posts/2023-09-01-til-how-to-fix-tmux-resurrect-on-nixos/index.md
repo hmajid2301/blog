@@ -7,8 +7,6 @@ tags:
   - nix
 series:
   - TIL
-cover:
-  image: images/cover.png
 ---
 
 **TIL: How to Fix tmux-resurrect on NixOS**

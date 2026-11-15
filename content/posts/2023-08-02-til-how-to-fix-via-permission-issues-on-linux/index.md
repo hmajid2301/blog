@@ -6,8 +6,6 @@ tags:
   - via
 series:
   - TIL
-cover:
-  image: images/cover.png
 ---
 
 **TIL: How to Fix VIA Permission Issues on Linux**

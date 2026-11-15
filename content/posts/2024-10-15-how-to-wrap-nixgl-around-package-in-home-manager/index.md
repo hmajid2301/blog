@@ -6,8 +6,6 @@ tags:
   - nixgl
   - nix
   - nixicle
-cover:
-  image: images/cover.png
 ---
 
 I use Nix mainly with home manager on my Ubuntu laptop, and for the most part, it works fine. However, some apps installed

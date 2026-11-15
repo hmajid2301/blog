@@ -8,8 +8,6 @@ tags:
   - prettier
 series:
   - TIL
-cover:
-  image: images/cover.png
 ---
 
 **TIL: How to Use Prettier with Hugo/Golang Templates**

@@ -7,8 +7,6 @@ tags:
   - android
   - virtualbox
   - expo
-cover:
-  image: images/cover.png
 ---
 My home PC runs Windows for various conveniences, such as gaming. However, for development, I run an Ubuntu virtual
 machine (VM) and Genymotion (on Windows) for testing my app. Genymotion also uses VirtualBox to run its Android

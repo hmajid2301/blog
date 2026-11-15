@@ -9,8 +9,6 @@ tags:
   - build-log
 series:
   - Build In Public
-cover:
-  image: images/cover.png
 ---
 
 I will stop making these weekly I think and produce them when there is actual stuff to share, as not make them

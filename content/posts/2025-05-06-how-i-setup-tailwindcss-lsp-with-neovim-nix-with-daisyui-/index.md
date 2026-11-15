@@ -9,8 +9,6 @@ tags:
   - nvim
   - nix
   - nixicle
-cover:
-  image: images/cover.png
 ---
 
 Recently, I have been building an app (https://voxicle.app #ShamelessPlug), with tailwind and DaisyUI. I have been

@@ -7,8 +7,6 @@ series:
 tags:
   - gitlab
   - ci-cd
-cover:
-  image: images/cover.png
 ---
 
 I have a repo which I use to store all of my conference and similar talks. This repo includes any code examples

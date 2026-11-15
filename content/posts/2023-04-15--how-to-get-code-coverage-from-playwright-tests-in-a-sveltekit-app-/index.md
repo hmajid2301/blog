@@ -7,8 +7,6 @@ tags:
   - playwright
   - testing
   - ci-cd
-cover:
-  image: images/cover.png
 ---
 
 ![Code Coverage Meme](images/code_coverage.jpg)

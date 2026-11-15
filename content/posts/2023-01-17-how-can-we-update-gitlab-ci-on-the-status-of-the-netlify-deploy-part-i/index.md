@@ -9,8 +9,6 @@ tags:
   - ci-cd
 series:
   - Netlify Gitlab Deploy Notification
-cover:
-  image: images/cover.png
 ---
 
 In this post, I will show you how you can update your GitLab CI pipeline with the status of your Netlify deploys.

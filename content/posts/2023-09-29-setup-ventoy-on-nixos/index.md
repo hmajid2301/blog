@@ -6,8 +6,6 @@ tags:
   - nixos
   - nix
   - ventoy
-cover:
-  image: images/cover.png
 ---
 
 ## Introduction

@@ -8,8 +8,6 @@ tags:
   - nix
 series:
   - TIL
-cover:
-  image: images/cover.png
 ---
 
 **TIL: How to Set up Layouts in Zellij That Use Direnv and Nix**

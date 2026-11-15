@@ -7,8 +7,6 @@ tags:
   - typescript
 series:
   - TIL
-cover:
-  image: images/cover.png
 ---
 
 **TIL: How Includes, Extends work with TS Config (with SvelteKit)**

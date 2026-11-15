@@ -7,8 +7,6 @@ tags:
   - pocketbase
 series:
   - TIL
-cover:
-  image: images/cover.png
 ---
 
 **TIL: How to Set a Relationship on Golang Pocketbase**

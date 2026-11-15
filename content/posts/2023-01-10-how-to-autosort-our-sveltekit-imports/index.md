@@ -8,8 +8,6 @@ tags:
   - eslint
   - typescript
   - automated
-cover:
-  image: images/cover.png
 ---
 
 In this post, we will go over how we can auto-sort our imports in our svelte files. To do this we will be using eslint and the

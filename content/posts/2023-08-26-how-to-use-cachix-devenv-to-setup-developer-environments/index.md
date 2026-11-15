@@ -6,8 +6,6 @@ tags:
   - nix
   - devenv
   - devex
-cover:
-  image: images/cover.png
 ---
 
 In this post, I will go over how you can use Cachix's [devenv](https://devenv.sh/) tool to help create/set up consistent

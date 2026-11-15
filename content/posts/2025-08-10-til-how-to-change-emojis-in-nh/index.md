@@ -8,8 +8,6 @@ tags:
   - emoji
 series:
   - TIL
-cover:
-  image: images/cover.png
 ---
 
 **TIL - How to Change Emojis in nh**

@@ -7,8 +7,6 @@ tags:
   - nixos
 series:
   - Year Summary
-cover:
-  image: images/cover.png
 ---
 
 I did one of these last year, and thought why not do another quick year in review. Catch people up with what I've been

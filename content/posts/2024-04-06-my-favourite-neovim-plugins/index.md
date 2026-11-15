@@ -5,8 +5,6 @@ canonicalURL: https://haseebmajid.dev/posts/2024-04-06-my-favourite-neovim-plugi
 tags:
   - neovim
   - nvim
-cover:
-  image: images/cover.png
 ---
 
 In this post, I will go over some of my Neovim plugins I really like that aren't as well known. So I won't really be

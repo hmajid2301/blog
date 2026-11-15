@@ -8,8 +8,6 @@ tags:
   - flakes
 series:
   - TIL
-cover:
-  image: images/cover.png
 ---
 
 **TIL: How to Access System in Home Manager Using Flakes**
