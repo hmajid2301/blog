@@ -6,8 +6,6 @@ tags:
   - emulator
   - android
   - hyprland
-cover:
-  image: images/cover.png
 ---
 
 **TIL: How to Run Android Emulator Using avd on Hyprland**

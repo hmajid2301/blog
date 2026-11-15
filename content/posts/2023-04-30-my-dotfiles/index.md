@@ -6,8 +6,6 @@ tags:
   - dotfiles
 series:
   - My Development Workflow
-cover:
-  image: images/cover.png
 ---
 
 This post is a quick introduction to

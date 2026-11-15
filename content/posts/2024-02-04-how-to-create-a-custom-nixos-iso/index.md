@@ -5,8 +5,6 @@ canonicalURL: https://haseebmajid.dev/posts/2024-02-04-how-to-create-a-custom-ni
 tags:
   - nixos
   - iso
-cover:
-  image: images/cover.png
 ---
 
 ## Introduction

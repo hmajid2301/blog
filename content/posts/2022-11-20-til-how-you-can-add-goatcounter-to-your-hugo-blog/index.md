@@ -9,8 +9,6 @@ tags:
 series:
   - TIL
   - Goatcounter with Hugo
-cover:
-  image: images/cover.png
 ---
 **TIL: How you can add goatcounter to your Hugo blog**
 

@@ -5,8 +5,6 @@ canonicalURL: https://haseebmajid.dev/posts/2024-12-15-speaking-tips-i-ve-learnt
 tags:
   - conference
   - speaking
-cover:
-  image: images/cover.png
 ---
 
 Since 2022 I have tried to speak at least one conference/meetup a year. The main reason for this was it forces to

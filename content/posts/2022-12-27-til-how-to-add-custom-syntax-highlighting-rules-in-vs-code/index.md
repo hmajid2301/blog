@@ -7,8 +7,6 @@ tags:
   - go
 series:
   - TIL
-cover:
-  image: images/cover.png
 ---
 
 **TIL: How To Add Custom Syntax Highlighting Rules in VS Code**

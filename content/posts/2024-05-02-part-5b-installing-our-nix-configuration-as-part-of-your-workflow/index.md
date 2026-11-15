@@ -7,8 +7,6 @@ tags:
   - nixos-anywhere
 series:
   - Setup Your Development Workflow
-cover:
-  image: images/cover.png
 ---
 
 I wanted to do a short article showing you how you can use your Nix config to install NixOS on a new device. Have your

@@ -8,8 +8,6 @@ tags:
   - nix
 series:
   - TIL
-cover:
-  image: images/cover.png
 ---
 
 **TIL: How to Use fzf.fish History Search**

@@ -7,8 +7,6 @@ tags:
   - react-native
   - react-navigation
   - expo
-cover:
-  image: images/cover.png
 ---
 Recently whilst developing a React Native app (with Expo),
 I built a simple tab navigator using React Navigation library.

@@ -4,8 +4,6 @@ date: 2023-11-06
 canonicalURL: https://haseebmajid.dev/posts/2023-11-06-a-simple-way-to-convert-json-to-nix-attribute-sets
 tags:
   - nix
-cover:
-  image: images/cover.png
 ---
 
 In this post, I will show you how you can take some JSON and convert it into a Nix attribute set.

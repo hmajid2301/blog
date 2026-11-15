@@ -6,8 +6,6 @@ tags:
   - nix
   - home-manager
   - systemd
-cover:
-  image: images/cover.png
 ---
 
 I recently learnt in home-manager (Nix) you can run systemd services as your own user. This is nice because we don't need

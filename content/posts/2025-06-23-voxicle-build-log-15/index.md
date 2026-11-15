@@ -9,8 +9,6 @@ tags:
   - build-log
 series:
   - Build In Public
-cover:
-  image: images/cover.png
 ---
 
 

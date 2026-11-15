@@ -8,8 +8,6 @@ tags:
   - snowfall
 series:
   - Setup Your Development Workflow
-cover:
-  image: images/cover.png
 ---
 
 My original plan for this article was to discuss my shell and how I configure it. But I have made some significant changes,

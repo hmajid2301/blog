@@ -7,8 +7,6 @@ tags:
   - homelab
   - tailscale
   - nixicle
-cover:
-  image: images/cover.png
 ---
 
 ## Background

@@ -7,8 +7,6 @@ tags:
   - sveltekit
 series:
   - TIL
-cover:
-  image: images/cover.png
 ---
 
 **TIL: How to Autofocus on Inputs in Svelte**

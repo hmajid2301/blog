@@ -6,8 +6,6 @@ tags:
   - hibernate
   - drivers
   - nixos
-cover:
-  image: images/cover.png
 ---
 
 

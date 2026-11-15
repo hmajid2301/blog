@@ -8,8 +8,6 @@ tags:
   - yq
 series:
   - TIL
-cover:
-  image: images/cover.png
 ---
 
 **TIL you can use `yq` to mass edit markdown files**

@@ -7,8 +7,6 @@ tags:
   - debugging
   - firefox
   - android
-cover:
-  image: images/cover.png
 ---
 
 In this post, we will go over how you can test your SvelteKit app on your Android device in Firefox.

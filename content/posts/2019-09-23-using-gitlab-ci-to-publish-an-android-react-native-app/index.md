@@ -7,8 +7,6 @@ tags:
   - ci-cd
   - gitlab
   - android
-cover:
-  image: images/cover.png
 ---
 In this article I will show how you can use the GitLab CI with React Native to create a binary which can be published to the
 Google Play Store.

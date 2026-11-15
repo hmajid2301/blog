@@ -9,8 +9,6 @@ tags:
   - impermanence
   - sops-nix
   - nixicle
-cover:
-  image: images/cover.png
 ---
 
 ## Background

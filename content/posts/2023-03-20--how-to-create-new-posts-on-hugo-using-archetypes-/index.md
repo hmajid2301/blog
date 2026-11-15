@@ -5,8 +5,6 @@ canonicalURL: https://haseebmajid.dev/posts/2023-03-20--how-to-create-new-posts-
 tags:
   - hugo
   - automation
-cover:
-  image: images/cover.png
 ---
 
 In this post, I will go over how you can use Hugo's archetypes to quickly create new posts.

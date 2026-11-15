@@ -8,8 +8,6 @@ tags:
   - arch
 series:
   - My Development Workflow
-cover:
-  image: images/cover.png
 ---
 
 Following on from my previous post about dotfiles and my development workflow (WIP), in this post I will go over my

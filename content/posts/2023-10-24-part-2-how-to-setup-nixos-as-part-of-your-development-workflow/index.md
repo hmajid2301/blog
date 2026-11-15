@@ -8,8 +8,6 @@ tags:
   - home-manager
 series:
   - Setup Your Development Workflow
-cover:
-  image: images/cover.png
 ---
 
 ## Premable

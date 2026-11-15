@@ -7,8 +7,6 @@ tags:
   - home-manager
   - nix
   - ubuntu
-cover:
-  image: images/cover.png
 ---
 
 > [!WARNING]

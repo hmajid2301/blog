@@ -8,8 +8,6 @@ tags:
   - svelte
 series:
   - TIL
-cover:
-  image: images/cover.png
 ---
 
 **TIL: How to Deploy a SvelteKit site on Netlify**

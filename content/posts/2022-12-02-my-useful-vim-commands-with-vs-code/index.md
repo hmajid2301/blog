@@ -7,8 +7,6 @@ tags:
   - vscode
 series:
   - Vim with VS Code
-cover:
-  image: images/cover.png
 ---
 
 In this post, I will show you some useful and perhaps not as well-known Vim commands I use with VS Code.

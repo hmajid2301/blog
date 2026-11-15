@@ -7,8 +7,6 @@ tags:
   - homelab
   - nixos
   - tailscale
-cover:
-  image: images/cover.png
 ---
 
 Recently I have been playing around with running a homelab directly on a NixOS machine without kubernetes.

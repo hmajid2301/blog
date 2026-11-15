@@ -6,8 +6,6 @@ tags:
   - gatsby
   - gitlab
   - ci-cd
-cover:
-  image: images/cover.png
 ---
 
 In this article, we will go over how you can manage your markdown blog posts from another git repository (repo). Separate to the git repository for your Gatsby site.

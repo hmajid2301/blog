@@ -5,8 +5,6 @@ canonicalURL: https://haseebmajid.dev/posts/2026-11-17-how-i-generate-open-graph
 tags:
   - hugo
   - opengraph
-cover:
-  image: images/cover.png
 ---
 
 I've been using [tcardgen](https://github.com/LordMathis/tcardgen) to generate the cover images for my posts. It

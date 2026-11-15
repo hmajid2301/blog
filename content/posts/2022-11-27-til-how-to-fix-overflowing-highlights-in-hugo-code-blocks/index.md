@@ -7,8 +7,6 @@ tags:
   - blog
 series:
   - TIL
-cover:
-  image: images/cover.png
 ---
 
 **TIL: How to Fix "Overflowing" Highlights in Hugo Code Blocks**

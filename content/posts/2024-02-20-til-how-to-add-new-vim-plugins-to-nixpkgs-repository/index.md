@@ -8,8 +8,6 @@ tags:
   - nix
 series:
   - TIL
-cover:
-  image: images/cover.png
 ---
 
 Recently, I wanted to add a Neovim plugin to nixpkgs, so I can then add it to NixVim. I tried following the guide

@@ -6,8 +6,6 @@ tags:
   - flask
   - python
   - connexion
-cover:
-  image: images/cover.png
 ---
 RESTful APIs are very popular at the moment and Python is a great language to develop
 web APIs with. In this article we will go over a documentation first approach to building APIs.

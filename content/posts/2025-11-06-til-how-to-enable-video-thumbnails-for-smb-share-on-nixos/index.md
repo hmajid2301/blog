@@ -7,8 +7,6 @@ tags:
   - nautilus
 series:
   - TIL
-cover:
-  image: images/cover.png
 ---
 
 So recently I have setup a mini NAS and I connect to it via an SMB share, but on nautilus I noticed that

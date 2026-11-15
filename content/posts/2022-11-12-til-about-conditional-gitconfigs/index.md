@@ -6,8 +6,6 @@ tags:
   - git
 series:
   - TIL
-cover:
-  image: images/cover.png
 ---
 
 **TIL you can have conditional sections in your `.gitconfig`**

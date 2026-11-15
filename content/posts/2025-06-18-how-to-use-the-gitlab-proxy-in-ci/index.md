@@ -5,8 +5,6 @@ canonicalURL: https://haseebmajid.dev/posts/2025-06-18-how-to-use-the-gitlab-pro
 tags:
   - gitlab
   - ci-cd
-cover:
-  image: images/cover.png
 ---
 
 {{< notice type="warning" title="Personal Projects" >}}

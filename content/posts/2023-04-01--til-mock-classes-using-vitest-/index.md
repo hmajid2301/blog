@@ -7,8 +7,6 @@ series:
 tags:
   - vitest
   - testing
-cover:
-  image: images/cover.png
 ---
 
 **TIL: How to Mock Classes Using Vitest**

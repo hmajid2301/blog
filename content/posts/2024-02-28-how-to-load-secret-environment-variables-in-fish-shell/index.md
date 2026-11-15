@@ -5,8 +5,6 @@ canonicalURL: https://haseebmajid.dev/posts/2024-02-28-how-to-load-secret-enviro
 tags:
   - fish
   - env
-cover:
-  image: images/cover.png
 ---
 
 Often you want to load environment variables that are secrets, and you don't want them in your shell history.

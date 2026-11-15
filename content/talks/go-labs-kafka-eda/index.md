@@ -3,8 +3,6 @@ title: "Building Resilient Event-Driven Architectures (EDA) with Go and Kafka"
 canonicalURL: https://haseebmajid.dev/talks/go-labs-kafka-eda/
 date: 2026-11-03
 conference: "GoLab"
-cover:
-  image: images/cover.png
 ShowToc: false
 ShowReadingTime: false
 ShowWordCount: false

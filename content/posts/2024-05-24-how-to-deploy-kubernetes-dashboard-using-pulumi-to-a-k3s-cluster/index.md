@@ -8,8 +8,6 @@ tags:
   - go
 series:
   - Setup Raspberry Pi Cluster with K3S and NixOS
-cover:
-  image: images/cover.png
 ---
 
 {{< notice type="warn" title="Kubernetes Knowledge" >}}

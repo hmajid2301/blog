@@ -3,8 +3,6 @@ title: "Observability Made Painless: Go, OTel & LGTM Stack"
 canonicalURL: https://haseebmajid.dev/talks/gophercon-otel/
 date: 2025-07-15
 conference: "GopherCon UK"
-cover:
-  image: images/cover.png
 ShowToc: false
 ShowReadingTime: false
 ShowWordCount: false

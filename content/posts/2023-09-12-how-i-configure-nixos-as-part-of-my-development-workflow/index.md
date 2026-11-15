@@ -9,8 +9,6 @@ tags:
   - dotfiles
 series:
   - My Development Workflow
-cover:
-  image: images/cover.png
 ---
 
 In this post, we will just go over the basics of how we can configure our setup using a git repo, nix flakes and

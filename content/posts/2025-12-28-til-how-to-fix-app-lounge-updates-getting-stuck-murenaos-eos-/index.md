@@ -7,8 +7,6 @@ tags:
   - murenaos
 series:
   - TIL
-cover:
-  image: images/cover.png
 ---
 
 If you use a FairPhone, or a phone running [eOS/MurenaOS](https://e.foundation/e-os/), which is as degoogled version of

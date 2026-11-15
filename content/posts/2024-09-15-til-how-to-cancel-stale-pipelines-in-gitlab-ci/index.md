@@ -7,8 +7,6 @@ tags:
   - gitlab
 series:
   - TIL
-cover:
-  image: images/cover.png
 ---
 
 **TIL: How to Cancel Stale Pipelines in GitLab CI**

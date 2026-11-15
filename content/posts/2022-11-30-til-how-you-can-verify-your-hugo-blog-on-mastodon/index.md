@@ -8,8 +8,6 @@ tags:
   - hugo
 series:
   - TIL
-cover:
-  image: images/cover.png
 ---
 
 **TIL: How you can Verify Your Hugo Blog on Mastodon**

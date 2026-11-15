@@ -7,8 +7,6 @@ tags:
   - terminal
 series:
   - Setup Your Development Workflow
-cover:
-  image: images/cover.png
 ---
 
 Earlier this year I spoke about using Wezterm as my terminal of choice, however since then, I have swapped back to the

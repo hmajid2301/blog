@@ -8,8 +8,6 @@ tags:
   - netlify
 series:
   - TIL
-cover:
-  image: images/cover.png
 ---
 
 **TIL: How to Setup Netlify, Gitlab And Sentry**

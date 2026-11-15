@@ -6,8 +6,6 @@ tags:
   - git
 series:
   - TIL
-cover:
-  image: images/cover.png
 ---
 
 ## Background

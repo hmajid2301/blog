@@ -7,8 +7,6 @@ tags:
   - ci-cd
   - testing
   - e2e
-cover:
-  image: images/cover.png
 ---
 ## Background
 

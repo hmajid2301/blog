@@ -7,8 +7,6 @@ tags:
   - nvim
 series:
   - TIL
-cover:
-  image: images/cover.png
 ---
 
 **TIL: How to Setup Neovim for Nixlang**

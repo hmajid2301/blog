@@ -7,8 +7,6 @@ tags:
   - htmx
 series:
   - TIL
-cover:
-  image: images/cover.png
 ---
 
 TLDR; Add this attribute to your x-bind:hx-delete `x-effect="currentItemId;htmx.process($el)"` as an example (adjust for your example).

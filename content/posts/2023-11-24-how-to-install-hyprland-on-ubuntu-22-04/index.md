@@ -5,8 +5,6 @@ canonicalURL: https://haseebmajid.dev/posts/2023-11-24-how-to-install-hyprland-o
 tags:
   - hyprland
   - ubuntu
-cover:
-  image: images/cover.png
 ---
 
 As you may know from my previous articles, my work laptop is an Ubuntu (22.04) laptop. However, on the rest of my devices

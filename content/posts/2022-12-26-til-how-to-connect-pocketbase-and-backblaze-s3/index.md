@@ -8,8 +8,6 @@ tags:
   - backblaze
 series:
   - TIL
-cover:
-  image: images/cover.png
 ---
 
 **TIL: How to Connect PocketBase and BackBlaze S3**

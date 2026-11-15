@@ -6,8 +6,6 @@ tags:
   - react-native
   - react
   - react-hooks
-cover:
-  image: images/cover.png
 ---
 In this article, I will show you how you can change the theme of your app depending on
 the time of the day. We will change the theme of the app depending on if the sun has set or risen.

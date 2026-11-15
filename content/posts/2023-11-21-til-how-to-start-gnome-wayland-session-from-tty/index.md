@@ -8,8 +8,6 @@ tags:
   - wayland
 series:
   - TIL
-cover:
-  image: images/cover.png
 ---
 
 **TIL: How to Start Gnome Wayland Session From TTY**

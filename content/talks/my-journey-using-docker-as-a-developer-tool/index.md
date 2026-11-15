@@ -3,8 +3,6 @@ title: My Journey Using Docker as a Development Tool
 canonicalURL: https://haseebmajid.dev/talks/my-journey-using-docker-as-a-developer-tool/
 date: 2022-07-13
 conference: "EuroPython"
-cover:
-  image: images/cover.png
 ShowToc: false
 ShowReadingTime: false
 ShowWordCount: false

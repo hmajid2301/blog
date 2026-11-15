@@ -9,8 +9,6 @@ tags:
   - nixvim
 series:
   - TIL
-cover:
-  image: images/cover.png
 ---
 
 **TIL: How to Install Neovim Nightly Using Nix Home Manager (and NixVim)**

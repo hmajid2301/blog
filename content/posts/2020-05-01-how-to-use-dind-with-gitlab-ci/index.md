@@ -6,8 +6,6 @@ tags:
   - docker
   - gitlab
   - ci-cd
-cover:
-  image: images/cover.png
 ---
 
 Like most developers, we want to be able to automate as many and as much of processes as possible. Pushing Docker

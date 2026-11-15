@@ -5,8 +5,6 @@ canonicalURL: https://haseebmajid.dev/posts/2025-07-02-how-to-fix-shell-completi
 tags:
   - nix
   - fish
-cover:
-  image: images/cover.png
 ---
 
 If you read this [post](/posts/2024-09-12-til-how-to-get-shell-completions-in-nix-shell-with-direnv/#issues),

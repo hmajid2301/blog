@@ -7,8 +7,6 @@ tags:
   - secure-boot
 series:
   - TIL
-cover:
-  image: images/cover.png
 ---
 
 **TIL: How to Fix `Verification Failed` With Ventoy USB**

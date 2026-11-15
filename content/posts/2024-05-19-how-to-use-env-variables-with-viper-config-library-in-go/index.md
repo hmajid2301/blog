@@ -9,8 +9,6 @@ tags:
   - optinix
 series:
   - Building a CLI tool in Golang
-cover:
-  image: images/cover.png
 ---
 
 This is part of a series of where I am going to blog about issues I had building my CLI tool OptiNix and documenting

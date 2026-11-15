@@ -6,8 +6,6 @@ tags:
   - sops
   - home-manager
   - nix
-cover:
-  image: images/cover.png
 ---
 
 ## Introduction

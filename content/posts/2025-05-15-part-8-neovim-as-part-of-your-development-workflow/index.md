@@ -7,8 +7,6 @@ tags:
   - nvim
 series:
   - Setup Your Development Workflow
-cover:
-  image: images/cover.png
 ---
 
 After another 5 months (again) I'm finally back blogging about my development setup, opps!

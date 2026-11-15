@@ -7,8 +7,6 @@ tags:
   - nixos
 series:
   - TIL
-cover:
-  image: images/cover.png
 ---
 
 Recently, I was unable to change the location on my Mullvad VPN from other thing other than sweden. Even using the

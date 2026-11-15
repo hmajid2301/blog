@@ -7,8 +7,6 @@ tags:
   - traefik
   - cloudflare
   - nixicle
-cover:
-  image: images/cover.png
 ---
 
 Recently, I was setting up Navidrome, kind of like a self-hosted Spotify, in my home lab and I wanted to set it up to use

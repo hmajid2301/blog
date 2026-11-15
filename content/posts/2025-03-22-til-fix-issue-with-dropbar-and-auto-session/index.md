@@ -8,8 +8,6 @@ tags:
   - autosession
 series:
   - TIL
-cover:
-  image: images/cover.png
 ---
 
 {{< notice type="danger" title="Actual Fix" >}}

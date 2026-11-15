@@ -6,8 +6,6 @@ tags:
   - git
 series:
   - TIL
-cover:
-  image: images/cover.png
 ---
 
 I have a personal project that I wanted to push to both tangled.sh (self-hosted) and GitLab. In case something

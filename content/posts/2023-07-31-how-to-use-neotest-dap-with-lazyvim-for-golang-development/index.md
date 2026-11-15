@@ -8,8 +8,6 @@ tags:
   - go
   - testing
   - debugging
-cover:
-  image: images/cover.png
 ---
 
 In this blog post, I will show you how you can easily setup Neotest to make testing easier in neovim and DAP to make

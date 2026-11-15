@@ -6,8 +6,6 @@ tags:
   - review
 series:
   - Year Summary
-cover:
-  image: images/cover.png
 ---
 
 Another year has passed, and it's time to reflect on what I accomplished, what I learned, and where I'm

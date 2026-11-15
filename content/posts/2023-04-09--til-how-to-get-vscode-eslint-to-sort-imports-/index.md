@@ -7,8 +7,6 @@ series:
 tags:
   - vscode
   - eslint
-cover:
-  image: images/cover.png
 ---
 
 I use VS Code as my text editor, one of the features I really like about VS Code is that it will format our file on save.

@@ -8,8 +8,6 @@ tags:
   - hyprland
 series:
   - TIL
-cover:
-  image: images/cover.png
 ---
 
 **TIL: How to get Kanshi to work on NixOS and Hyprland**

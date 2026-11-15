@@ -6,8 +6,6 @@ tags:
   - dotfiles
 series:
   - My Development Workflow
-cover:
-  image: images/cover.png
 ---
 
 My latest iteration of my dotfiles, where I am now using a Laptop as my main development machine (Framework).

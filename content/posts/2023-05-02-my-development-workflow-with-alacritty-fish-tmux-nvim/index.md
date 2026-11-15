@@ -9,8 +9,6 @@ tags:
   - fish
 series:
   - My Development Workflow
-cover:
-  image: images/cover.png
 ---
 
 {{< notice type="info" title="Workflows Change" >}}

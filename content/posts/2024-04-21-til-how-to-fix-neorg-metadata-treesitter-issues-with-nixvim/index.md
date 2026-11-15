@@ -8,8 +8,6 @@ tags:
   - nixvim
 series:
   - TIL
-cover:
-  image: images/cover.png
 ---
 
 **TIL: How to Fix Neorg Metadata Tree Sitter Issues With NixVim**

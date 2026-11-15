@@ -7,8 +7,6 @@ tags:
   - home-manager
 series:
   - TIL
-cover:
-  image: images/cover.png
 ---
 
 **TIL: How to Check if Another Option Is Set in Home Manager (Nix)**
