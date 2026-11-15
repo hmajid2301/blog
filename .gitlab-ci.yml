@@ -59,7 +59,13 @@ preview:
   stage: deploy
   tags: [vps] # only the VPS runner mounts /previews
   resource_group: preview/$CI_COMMIT_REF_SLUG
-  rules: *not-main
+  rules: &preview-rules
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: manual
+      allow_failure: true
+    - if: $CI_COMMIT_BRANCH && $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
+      when: manual
+      allow_failure: true
   variables:
     PREVIEW_URL: "https://preview.haseebmajid.dev/${CI_COMMIT_REF_SLUG}/"
     HUGO_PARAMS_ENV: preview # noindex meta + robots.txt
@@ -72,6 +78,12 @@ preview:
     - rm -rf "/previews/${CI_COMMIT_REF_SLUG}"
     - mv "/previews/${CI_COMMIT_REF_SLUG}.new" "/previews/${CI_COMMIT_REF_SLUG}"
     - curl -fsS -o /dev/null "$PREVIEW_URL" && echo "Preview at $PREVIEW_URL"
+    - |
+      if [ -n "$CI_MERGE_REQUEST_IID" ] && [ -n "$GITLAB_API_TOKEN" ]; then
+        curl -fsS -o /dev/null --header "PRIVATE-TOKEN: $GITLAB_API_TOKEN" \
+          --data-urlencode "body=Preview for ${CI_COMMIT_SHORT_SHA}: $PREVIEW_URL" \
+          "$CI_API_V4_URL/projects/$CI_PROJECT_ID/merge_requests/$CI_MERGE_REQUEST_IID/notes"
+      fi
   environment:
     name: preview/$CI_COMMIT_REF_SLUG
     url: $PREVIEW_URL
@@ -81,13 +93,8 @@ preview:
 preview:stop:
   stage: deploy
   tags: [vps]
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: manual
-      allow_failure: true
-    - if: $CI_COMMIT_BRANCH && $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
-      when: manual
-      allow_failure: true
+  resource_group: preview/$CI_COMMIT_REF_SLUG
+  rules: *preview-rules
   variables:
     GIT_STRATEGY: none
   script:
