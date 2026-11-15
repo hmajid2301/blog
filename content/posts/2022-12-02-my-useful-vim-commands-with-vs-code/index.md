@@ -79,7 +79,7 @@ which will allow us to move anywhere in the document.
 }
 ```
 
-![Easymotion](images/easymotion.gif)
+![Easymotion](images/easymotion.mp4)
 
 ## Panel Navigation
 
@@ -130,14 +130,14 @@ Allow us to use `ctrl+j` and `ctrl+k` to navigate auto-suggestions from vscode r
 ]
 ```
 
-![Navigate Panels](images/navigate.gif)
+![Navigate Panels](images/navigate.mp4)
 
 ## File Explorer
 
 Used to navigate across vscode using ctrl and the vim replacement arrow keys.
 Allow us to again not have to use the mouse we can jump to any section of vscode, i.e. terminal to the editor.
 
-![Nerd Tree Navigation](images/nerd_tree.gif)
+![Nerd Tree Navigation](images/nerd_tree.mp4)
 
 ```json
 [
@@ -213,7 +213,7 @@ This means we can access normal mode by pressing `j + j` instead of `<ESC>` key.
 }
 ```
 
-![Normal Mode](images/normal_mode.gif)
+![Normal Mode](images/normal_mode.mp4)
 
 ### "Infinite" Indent
 
@@ -234,7 +234,7 @@ This allows us to ident and outdent without needing to keep reselecting the visu
 }
 ```
 
-![Indent](images/indent_outdent.gif)
+![Indent](images/indent_outdent.mp4)
 
 ## Normal Key Bindings
 

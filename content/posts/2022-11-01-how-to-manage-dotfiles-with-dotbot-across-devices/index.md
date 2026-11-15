@@ -245,10 +245,6 @@ Then we can install the linux specific dotfiles by running `./install-profile li
 In reality you'd have lots of profiles and different configs in those profiles. But I wanted to show a simple example here, to
 make it easier to follow.
 
-Speaking of finishing 😭 .... 
-
-{{< gfycat src="ContentScrawnyGrackle" >}}
-
 ## Appendix
 
 - [My Dotfiles using profiles](https://gitlab.com/hmajid2301/dotfiles/-/tree/6b83e990861654506e8ecc756af75cf431438a4a)

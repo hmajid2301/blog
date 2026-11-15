@@ -82,7 +82,7 @@ RUN pip wheel --wheel-dir=/root/wheels cryptography
 FROM python:3.6-alpine as RELEASE
 
 EXPOSE 8080
-WORKDIR /app 
+WORKDIR /app
 
 ENV POSTGRES_USER="" POSTGRES_PASSWORD="" POSTGRES_HOST=postgres POSTGRES_PORT=5432 POSTGRES_DB=""
 
@@ -176,7 +176,7 @@ services:
     image: postgres:latest
     env_file: docker/database.conf
     ports:
-      - 5432:5432  
+      - 5432:5432
     volumes:
       - db_volume:/var/lib/postgresql
 

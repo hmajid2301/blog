@@ -105,7 +105,7 @@ With a new `index.md`, which looks like:
 
 ```md
 ---
-title: How to Create New Posts on Hugo Using Archetypes 
+title: How to Create New Posts on Hugo Using Archetypes
 date: 2023-03-18
 canonicalURL: https://haseebmajid.dev/posts/2023-03-18--how-to-create-new-posts-on-hugo-using-archetypes-
 tags: []

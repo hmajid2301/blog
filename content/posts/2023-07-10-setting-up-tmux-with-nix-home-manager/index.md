@@ -15,7 +15,7 @@ cover:
 ## Introduction
 
 In this post I will show you how you can setup tmux (plugins) using the nix package manager, specifically using home-manager.
-I will also show you how you can avoid an issue I encountered where tmux resurrect wasn't working properly due to 
+I will also show you how you can avoid an issue I encountered where tmux resurrect wasn't working properly due to
 plugin ordering.
 
 Typically we use the [tmux plugin manager](https://github.com/tmux-plugins/tpm) to manage our tmux plugins.
@@ -26,7 +26,7 @@ system. For example, on my Arch Linux machine I had:
 - lazyvim
 - tpm
 
-However, it wasn't obvious how to do this. In my case, I decided to use [home-manager](https://nixos.wiki/wiki/Home_Manager) 
+However, it wasn't obvious how to do this. In my case, I decided to use [home-manager](https://nixos.wiki/wiki/Home_Manager)
 which is a tool we can use with
 Nix to manage user config including dotfiles. For tmux specifically, there is a module we can leverage. So assuming
 you already have home manager and Nix setup. We can create a new module, say called `tmux.nix`
@@ -83,7 +83,7 @@ Next install tmux plugins available as a
 
 ```
 
-If however the plugin is not available, we can still install it like we did for tmux super fingers. 
+If however the plugin is not available, we can still install it like we did for tmux super fingers.
 
 ```nix
 tmux-super-fingers = pkgs.tmuxPlugins.mkTmuxPlugin
@@ -140,7 +140,7 @@ Like so:
 # must be before continuum edits right status bar
 {
     plugin = tmuxPlugins.catppuccin;
-    extraConfig = '' 
+    extraConfig = ''
     set -g @catppuccin_flavour 'frappe'
     set -g @catppuccin_window_tabs_enabled on
     set -g @catppuccin_date_time "%H:%M"
@@ -172,4 +172,3 @@ Then you should be able to run `home-manager switch` to install the tmux, and it
 `~/.config/tmux/tmux.conf`.
 
 [My tmux file](https://gitlab.com/hmajid2301/dotfiles/-/blob/ccb08009df7e0d884db790bca57317748661e35b/home-manager/programs/tmux.nix)
-

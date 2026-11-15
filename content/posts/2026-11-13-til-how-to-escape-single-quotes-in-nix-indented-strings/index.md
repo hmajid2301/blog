@@ -1,7 +1,6 @@
 ---
 title: TIL - How to Escape Single Quotes in Nix Indented Strings
 date: "2026-11-13"
-draft: true
 canonicalURL: https://haseebmajid.dev/posts/2026-11-13-til-how-to-escape-single-quotes-in-nix-indented-strings
 tags:
   - nix

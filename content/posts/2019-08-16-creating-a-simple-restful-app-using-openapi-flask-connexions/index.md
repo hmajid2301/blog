@@ -276,7 +276,7 @@ def add_pet(body):  # noqa: E501
     """
     if connexion.request.is_json:
         body = Pet.from_dict(connexion.request.get_json())  # noqa: E501
-    
+
     pets.add_pet(body)
     return {}, 201
 
@@ -294,7 +294,7 @@ def get_all_pets():  # noqa: E501
     for pet in pets:
         current_pet = Pet(id=pet["id"], breed=pet["breed"], name=pet["name"], price=pet["price"])
         pets_in_store.append(current_pet)
-    
+
     return pets_in_store, 200
 
 
@@ -343,7 +343,7 @@ def update_pet(pet_id, Pet):  # noqa: E501
 
     :param pet_id: The id of the pet to update from the store
     :type pet_id: str
-    :param Pet: 
+    :param Pet:
     :type Pet: dict | bytes
 
     :rtype: None

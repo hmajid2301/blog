@@ -104,7 +104,7 @@ That we were extending above. Which had defined its own include:
 ```
 
 Turns out we were just replacing all these files above with just `./setupTest.ts`, hence it couldn't find the types that SvelteKit creates
-for us [^2] 🤦‍♂️. 
+for us [^2] 🤦‍♂️.
 
 We were of course now overwriting all these files with just the one we specified. Causing VS Code to throw errors and not type things that
 had types. Removing this line `"include": ["./setupTest.ts"]` fixed the issue more.

@@ -26,14 +26,14 @@ Here we will go over some extensions I find very useful:
 
 ### Better Comments
 
-- Link: [Better Comments](https://marketplace.visualstudio.com/items?itemName=aaron-bond.better-comments) 
+- Link: [Better Comments](https://marketplace.visualstudio.com/items?itemName=aaron-bond.better-comments)
 
 As the name implies it improves your comments. Makes them look nicer if you add certain annotations.
 Such as adding `TODO` to the comment will turn the comment orange. See the image below:
 
 ![Better Comments](images/better-comments.png)
 
-I like this extension because it makes certain comments stand out. 
+I like this extension because it makes certain comments stand out.
 I use the `TODO` comments a lot 😅. You can configure it to change what annotations to use and which colours
 they should be.
 
@@ -378,10 +378,6 @@ These settings allow us to use the keyboard shortcut to do common actions with f
 
 This post has ballooned a lot more than I expected, so I'll stop here. Perhaps I'll do a more in-depth post into how I use vim
 with vscode, and avoid using the mouse as much as possible. But I'm getting a lot better at myself at the moment.
-
-And finally, I will leave you with this:
-
-{{< gfycat src="PlaintiveAdorableBactrian" >}}
 
 ## Appendix
 

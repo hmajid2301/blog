@@ -2,7 +2,7 @@
 title: How to Load Secret Environment Variables in Fish Shell
 date: 2024-02-28
 canonicalURL: https://haseebmajid.dev/posts/2024-02-28-how-to-load-secret-environment-variables-in-fish-shell
-tags: 
+tags:
   - fish
   - env
 cover:
@@ -70,4 +70,3 @@ That's it! We can load environment variables and keep them out of shell history.
 ## Appendix
 
 - Function taken from [here](https://gist.github.com/nikoheikkila/dd4357a178c8679411566ba2ca280fcc)
-

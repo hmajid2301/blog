@@ -19,7 +19,7 @@ right-clicking on the icon. I found that I could not click on anything else on m
 I should be using my keyboard, but sometimes it's just easier to use a mouse.
 
 The fix I found was on [Reddit](https://old.reddit.com/r/swaywm/comments/133cffq/swaync_weird_behavior_on_waybar/).
-I use nix and configure Waybar using home-manager, the on-click actions now have a small sleep, which I don't even 
+I use nix and configure Waybar using home-manager, the on-click actions now have a small sleep, which I don't even
 notice, and this resolves the above issue.
 
 ```nix
@@ -48,5 +48,3 @@ notice, and this resolves the above issue.
 ```
 
 That's it!
-
-

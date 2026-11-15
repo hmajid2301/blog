@@ -237,7 +237,7 @@ services:
     image: postgres:latest
     env_file: database.conf
     ports:
-      - 5432:5432  
+      - 5432:5432
     volumes:
       - db_volume:/var/lib/postgresql
 

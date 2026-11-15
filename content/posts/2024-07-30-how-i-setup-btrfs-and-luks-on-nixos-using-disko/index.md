@@ -297,4 +297,3 @@ You can read more about it [here](https://wiki.archlinux.org/title/Systemd-crypt
 ## Appendix
 
 - [My config for my main machine](https://gitlab.com/hmajid2301/dotfiles/-/blob/73a83021c0747aaeb6d104b3b729513b2ab02d4d/systems/x86_64-linux/workstation/disks.nix)
-

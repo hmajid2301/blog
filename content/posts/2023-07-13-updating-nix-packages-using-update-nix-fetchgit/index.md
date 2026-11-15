@@ -38,7 +38,7 @@ Which will update various functions we use to fetch from git. All we need to do 
 do something like `fd .nix --exec update-nix-fetchgit`. Which will run the `update-nix-fetchgit` on all nix files in
 our directory. The `fd` command (a `find` replacement) will find all nix files recursively in the current directory.
 
-This should save us a lot of time doing it manually. 
+This should save us a lot of time doing it manually.
 
 ## devenv
 
@@ -81,4 +81,3 @@ Or anyone else for that matter, in a new "shell".
 
 - Run the command automatically
 - Use with neovim to update the line under cursor [see here](https://github.com/expipiplus1/update-nix-fetchgit#from-vim)
-

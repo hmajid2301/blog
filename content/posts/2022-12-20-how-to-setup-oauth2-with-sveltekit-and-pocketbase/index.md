@@ -60,7 +60,7 @@ this process will vary from provider to provider. Let's setup up Gitlab in this 
 
 Then set up the Auth provider on PocketBase.
 
-- Go to `http://localhost:8090/_/` 
+- Go to `http://localhost:8090/_/`
 - Go to `Settings > Auth providers`
 - Click on `GitLab` and check `Enable`
 - Copy the `Application ID` (from Gitlab application) to the `CLIENT ID`
@@ -193,8 +193,8 @@ When we type our `data` as `PageData`.
 
 ## Callback
 
-Let's create a new page called `src/routes/callback/+server.ts`, this page will have the 
-logic to authenticate (and create an account if needed). 
+Let's create a new page called `src/routes/callback/+server.ts`, this page will have the
+logic to authenticate (and create an account if needed).
 
 ```ts
 import { redirect } from '@sveltejs/kit';

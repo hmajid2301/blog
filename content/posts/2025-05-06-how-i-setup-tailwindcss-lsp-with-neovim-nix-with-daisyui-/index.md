@@ -8,6 +8,7 @@ tags:
   - neovim
   - nvim
   - nix
+  - nixicle
 cover:
   image: images/cover.png
 ---
@@ -66,6 +67,3 @@ Finally, to get the tailwind LSP to work, we need to create an empty `tailwind.c
 not seem to start correctly. Even though the project is configured using the CSS file (probably will be fixed)
 
 That's it! It took me a while to figure it out, but this seems to work pretty nicely.
-
-
-

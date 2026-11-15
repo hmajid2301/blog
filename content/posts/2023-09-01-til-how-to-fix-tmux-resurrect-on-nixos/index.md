@@ -13,7 +13,7 @@ cover:
 
 **TIL: How to Fix tmux-resurrect on NixOS**
 
-When I moved to NixOS I noticed that [ tmux-resurrect ](https://github.com/tmux-plugins/tmux-resurrect) stop restoring 
+When I moved to NixOS I noticed that [ tmux-resurrect ](https://github.com/tmux-plugins/tmux-resurrect) stop restoring
 some applications such as `man` and `nvim`. Like it used to on my Arch machine. I recently found a solution to my
 problem (thanks to a lovely chap on the nixos discourse).
 

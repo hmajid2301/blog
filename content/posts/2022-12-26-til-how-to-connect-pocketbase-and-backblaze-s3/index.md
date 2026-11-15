@@ -16,7 +16,7 @@ cover:
 
 > By default PocketBase uses the local file system to store uploaded files. If you have limited disk space, you could optionally connect to a S3 compatible storage. - PocketBase
 
-## Why BackBlaze ? 
+## Why BackBlaze ?
 
 Simple the prices are generally cheaper as compared with other S3 compatible storage platforms.
 How can we set up BackBlaze as our S3 bucket to store uploaded files such as user avatars?
@@ -43,7 +43,7 @@ Go to `BackBlaze`
 
 Go to your PocketBase instance:
 
-- Go to Settings 
+- Go to Settings
 - Go to File storage
 
 Add the following details
@@ -54,6 +54,6 @@ Add the following details
 - `ACCESS KEY` is the `keyID` above
 - `SECRET` is the `applicationKey` above
 
-Then click `Save changes` and you should see `S3 connected successfully`. 
+Then click `Save changes` and you should see `S3 connected successfully`.
 
 That's It!

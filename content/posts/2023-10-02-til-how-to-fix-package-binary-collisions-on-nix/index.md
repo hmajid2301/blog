@@ -44,7 +44,7 @@ home.packages = with pkgs; [
 ]
 ```
 
-This tells Nix to increase the priority of this package you can see 
+This tells Nix to increase the priority of this package you can see
 [the code here](https://github.com/NixOS/nixpkgs/blob/efdb9b4ee86a3bf3349efa7a23b42cbc18766b90/lib/meta.nix#L52-L69).
 
 That's it we can still have access to the other binaries moreutils provides like `sponge` and `parallel` from parallel

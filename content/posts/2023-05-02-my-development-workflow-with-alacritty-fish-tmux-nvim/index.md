@@ -125,7 +125,7 @@ Fish also provides some syntax highlighting for our commands which makes them ni
 Some fish plugins I use include:
 
 [PatrickF1/fzf](https://github.com/PatrickF1/fzf.fish) integrates fzf (powerful fuzzy finder) nicely with fish.
-My main use case is improving reverse search seen below. 
+My main use case is improving reverse search seen below.
 
 ![Reverse Search](images/reverse-search.png)
 
@@ -134,7 +134,7 @@ But it can allow you to do lots of other things such as searching for files `ctr
 ![File Search](images/file-search.png)
 
 [edc/bass](https://github.com/edc/bass) allows us to run bash utilities in fish shell.
- 
+
 ### Starship
 
 As my shell prompt, I use [starship prompt](https://starship.rs/) a super customisable font with great defaults.
@@ -157,7 +157,7 @@ We can simply reattach to it later.
 
 [Tmux Panes](images/tmux.png)
 
-In the image above we have 3 panes. 
+In the image above we have 3 panes.
 
 ### Session vs Window vs Pane
 
@@ -210,7 +210,7 @@ This was the plugin that convinced me to start using tmux.
 
 ### Config
 
-Some parts of my config that may be interesting 
+Some parts of my config that may be interesting
 
 ```conf
 set-option -g prefix C-a
@@ -283,7 +283,7 @@ other developers' workflows on Youtube such as [Primeagen](https://www.youtube.c
 [Elijah Manor](https://www.youtube.com/@ElijahManor) and [Dreams of Code](https://www.youtube.com/@dreamsofcode).
 
 Some advantages include it being more lightweight and feels a bit more responsive. If you want to be able to customise
-everything about your editor then neovim is for you. However, there are neovim distributions like LunarVim, 
+everything about your editor then neovim is for you. However, there are neovim distributions like LunarVim,
 Astronvim and Nvchad, which come with a bunch of plugins keybindings all set up for you.
 
 In my case, I ended up using [LazyVim](https://www.lazyvim.org/) which has some nice defaults but is more barebones than

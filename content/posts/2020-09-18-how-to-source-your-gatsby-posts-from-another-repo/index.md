@@ -181,7 +181,7 @@ save the newly created token to your CI/CD variables.
 
 Then also copy the `cURL` command shown and add the following to your `.gitlab-ci.yml`, with the `cURL` command.
 
-{{< highlight yml "hl_lines=10" >}}
+```yml {hl_lines="10"}
 stages:
   - build
 
@@ -192,7 +192,7 @@ rebuild:portfolio-site:
     - master
   script:
     - "curl -X POST -F token=${TRIGGER_TOKEN} -F ref=master https://gitlab.com/api/v4/projects/19260161/trigger/pipeline"
-{{< /highlight >}}
+```
 
 
 Make sure you replace `19260161` with the project ID of your Gatsby blog, as this is the repo we want to trigger a
@@ -203,7 +203,7 @@ This will mean when it runs `yarn build` or `gatsby build` it'll source the mark
 our article git repo and will have the new article or whatever changes were made. The `.gitlab-ci` for our
 Gatsby blog may look something like this:
 
-{{< highlight yml "hl_lines=29-30" >}}
+```yml {hl_lines="29-30"}
 image: node:12.13.0
 cache:
   key: ${CI_COMMIT_REF_SLUG}
@@ -236,7 +236,7 @@ deploy:site:
     - yarn deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_PERSONAL_TOKEN --message "$CI_COMMIT_TITLE"
   dependencies:
     - build:site
-{{< /highlight >}}
+```
 
 {{< notice type="tip" title="Artifcats" >}}
 The `deploy:site` job uses the build artifacts from the previous `build:site` job which has the site data stored in the `public`
@@ -260,7 +260,7 @@ use a webhook to trigger a rebuild of our site on Netlify. To do this select you
 Then `Settings` > `Build & deploy` > `Build hooks`. Add a new build hook. Then copy the `cURL` command,
 so your article repo `.gitlab-ci.yml` now looks something like:
 
-{{< highlight yml "hl_lines=10" >}}
+```yml {hl_lines="10"}
 stages:
   - build
 
@@ -271,7 +271,7 @@ rebuild:portfolio-site:
     - master
   script:
     - curl -X POST -d {} https://api.netlify.com/build_hooks/5f5e9c4f495aebe573c39aef
-{{< /highlight >}}
+```
 
 
 You will want to turn `5f5e9c4f495aebe573c39aef` into a CI/CD variable, else anyone can force a rebuild of your site.

@@ -163,7 +163,7 @@ The same query we use to get other information such as title and contents. All w
 to the `markdownRemark` part of our query. This will return, as the name suggests, the absolute path to the file,
 i.e. `/home/haseeb/projects/personal/articles/34. Gatsby edit button/source_code/content/blog/hello-world/index.md`.
 
-{{< highlight js "hl_lines=11" >}}
+```js {hl_lines="11"}
 export const pageQuery = graphql`
   query BlogPostBySlug($slug: String!) {
     site {
@@ -184,7 +184,7 @@ export const pageQuery = graphql`
     }
   }
 `;
-{{< /highlight >}}
+```
 
 Now we need a way to use this file path to link to this page on Gitlab. Since I know that
 `articles/` is a git repo, we want to remove `/home/haseeb/projects/personal/articles`

@@ -23,8 +23,8 @@ services:
             - 8000:80
 ```
 
-Here we are going to use the GitLab CI dependency proxy to pull our Nginx image, so we can speed up our pipelines but 
-also avoid being rate limited by docker hub. However, when running this locally, we will need to make sure the 
+Here we are going to use the GitLab CI dependency proxy to pull our Nginx image, so we can speed up our pipelines but
+also avoid being rate limited by docker hub. However, when running this locally, we will need to make sure the
 `CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX` env variable is set. Which just adds a bit more work, instead we can leverage
 some of the special syntax docker-compose provides [^1], which I think it inherits from bash.
 
@@ -38,7 +38,7 @@ services:
             - 8000:80
 ```
 
-In this case, `:-` will use docker.io if the env variable is not set or is empty. There are several other variations 
+In this case, `:-` will use docker.io if the env variable is not set or is empty. There are several other variations
 you can find in the footnote below.
 
 [^1]: https://docs.docker.com/compose/environment-variables/env-file/

@@ -69,4 +69,3 @@ Decide which Waybar module to show (sway or Hyprland).
 That's it! How we can check if other expressions can use attributes set in other expression files.
 If you have suggestions to make this cleaner I'm all ears! This is not cleanest way to do something like this.
 But since these are just my own dotfiles I know I will only use one of Sway or Hyprland on my devices.
-

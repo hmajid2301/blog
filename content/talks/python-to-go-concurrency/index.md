@@ -21,4 +21,4 @@ how to avoid races, leaks, and deadlocks. No promise that Go is always faster—
 a practical model for overlapping I/O safely.
 
 - [Slides](https://slides.haseebmajid.dev/python-to-go-concurrency/2026-11-02/)
-- [Runnable Python and Go services, local demo, and existing tests](https://gitlab.com/hmajid2301/slides/-/tree/main/content/slides/python-to-go-concurrency/2026-11-02/examples)
+- [Example service](https://gitlab.com/hmajid2301/slides/-/tree/main/content/slides/python-to-go-concurrency/2026-11-02/examples)

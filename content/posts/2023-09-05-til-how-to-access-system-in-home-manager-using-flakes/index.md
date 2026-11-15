@@ -56,5 +56,5 @@ Where my `flake.nix` looks something like:
 ```
 
 You can see here the system is defined with the pkgs, as I guess we need to know for which architecture we should
-build for i.e. amd, arch etc. But yeh thats it! For use within home-manager it seems we can use `pkgs.system`, to 
+build for i.e. amd, arch etc. But yeh thats it! For use within home-manager it seems we can use `pkgs.system`, to
 access the architecture, so we don't need to hardcode it.

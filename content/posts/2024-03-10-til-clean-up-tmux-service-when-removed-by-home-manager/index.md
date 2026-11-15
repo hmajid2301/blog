@@ -14,7 +14,7 @@ cover:
 
 **TIL: Clean Up Tmux Service When Removed by Home Manager**
 
-Recently I stopped using tmux to try zellij, however I noticed when I removed tmux from my nix config. I was getting 
+Recently I stopped using tmux to try zellij, however I noticed when I removed tmux from my nix config. I was getting
 the following error, when rebuilding my home-manager config:
 
 ```bash
@@ -27,7 +27,7 @@ Legend: LOAD   → Reflects whether the unit definition was properly loaded.
         SUB    → The low-level unit activation state, values depend on unit type.
 ```
 
-I was wondering where this error was coming from, turns it the symlink to tmux.service has not been deleted that 
+I was wondering where this error was coming from, turns it the symlink to tmux.service has not been deleted that
 nix would create.
 
 ```bash
@@ -44,6 +44,5 @@ lrwxrwxrwx     - haseebmajid haseebmajid 20 Feb 17:04   spotifyd.service -> /
 lrwxrwxrwx     - haseebmajid haseebmajid 20 Feb 17:04   swayidle.service -> /nix/store/7v52bpcyi0zqv012rrmd7s2r742hb2cy-home-manager-files/.config/systemd/user/swayidle.service
 ```
 
-So we can simply remove the tmux file, `rm ~/.config/systemd/user/tmux.service`. I should look into why this symlink 
+So we can simply remove the tmux file, `rm ~/.config/systemd/user/tmux.service`. I should look into why this symlink
 is not removed.
-

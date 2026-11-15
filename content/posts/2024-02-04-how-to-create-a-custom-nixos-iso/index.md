@@ -12,12 +12,12 @@ cover:
 ## Introduction
 
 In this post, I will show you how you can create a custom NixOS ISO image, using our normal nix configuration as if it
-another machine/device. Some of you may be wondering why you want to do that vs using the normal ISO. Particular for 
-installing on my machines I would like to have my device setup in one go, rather than previously I would install using the 
-normal ISO, then clone my dot files and build my config again. 
+another machine/device. Some of you may be wondering why you want to do that vs using the normal ISO. Particular for
+installing on my machines I would like to have my device setup in one go, rather than previously I would install using the
+normal ISO, then clone my dot files and build my config again.
 
-Well, we can skip the first step and have it build my config in my one go during with our custom ISO. We can also 
-have some applications available to us in the ISO, like a different terminal, i.e. Wezterm. Which makes the experience 
+Well, we can skip the first step and have it build my config in my one go during with our custom ISO. We can also
+have some applications available to us in the ISO, like a different terminal, i.e. Wezterm. Which makes the experience
 slightly nicer.
 
 For those of you wondering, an ISO archive file system which contains files, which can burn onto a disk or typically
@@ -25,7 +25,7 @@ USB. Which normally is used to install operating systems.
 
 ## Flakes
 
-I will assume you already have your nix config setup and using flakes. I will be adding a new NixOS configuration 
+I will assume you already have your nix config setup and using flakes. I will be adding a new NixOS configuration
 which will then build our ISO.
 
 Within our `nixosConfigurations`, in our `flake.nix` file we will add a new section, which I simply named `iso`.
@@ -50,13 +50,13 @@ nixosConfigurations = {
 }
 ```
 
-You can see `framework` is another device (my laptop) nix config. Above it is the config for my nix ISO. There are a 
+You can see `framework` is another device (my laptop) nix config. Above it is the config for my nix ISO. There are a
 bunch of installers config available [here](https://github.com/NixOS/nixpkgs/tree/master/nixos/modules/installer/cd-dvd).
 
 I will use the graphical gnome config, `${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-graphical-gnome.nix`
 because I am already familiar with gnome and sometimes having a desktop environment can make it
 easier to debug and use it also a recovery media if something goes wrong with my NixOS device. We can access a browser
-for example. But if you want a smaller more minimal ISO, you can use one of the installers without a GUI, i.e. ones 
+for example. But if you want a smaller more minimal ISO, you can use one of the installers without a GUI, i.e. ones
 without `graphical`.
 
 We also provide with some channels `${nixpkgs}/nixos/modules/installer/cd-dvd/channel.nix`, so the user doesn't need
@@ -117,7 +117,7 @@ Then onto the real meat and potatoes, the entry point for our ISO `hosts/iso/con
 ```
 
 First, I import the global NixOS config I share with all of my NixOS configurations, which include things like PAM auth,
-fonts and some common nix settings. I could probably strip out some of the config to trim down the ISO, but I am not 
+fonts and some common nix settings. I could probably strip out some of the config to trim down the ISO, but I am not
 super fused about the total size of the ISO at the moment. I don't even use it very frequently, as I don't need to reinstall
 my system very often, now that my config has stabilised.
 
@@ -130,7 +130,7 @@ To make the above a bit simpler to follow, I removed the pkgs I installed. The m
 script, which uses the very cool [gum](https://github.com/charmbracelet/gum) tool. It makes it effortless to provide
 an interactive script. The main thing the script does, it clones my dot files, asks which host to install. Then apply
 the disko configuration to partition the disk. Where [disko](https://github.com/nix-community/disko/tree/master),
-allows us to declaratively declare how our disk will look, i.e. setting up LUKS, swap file. 
+allows us to declaratively declare how our disk will look, i.e. setting up LUKS, swap file.
 [Here](https://gitlab.com/hmajid2301/dotfiles/-/blob/58ac9dade0114aaa29ed73156e790e3a043ab80c/hosts/framework/disks.nix)
 is a link to an example config for my laptop. Again, I will do a more in-depth post about disko in the future.
 
@@ -190,7 +190,7 @@ sure, I found something similar script and changed it to fit my needs, but I cou
 
 I also set up home-manager, so I can reuse my `home-manager` config for my other devices, such as terminal config. Which
 fonts to use. Again, just a small thing to make my ISO a bit closer to my normal dev setup. I will have a more in-depth
-post about how my home-manager setup works and how I have set up in the future, but for now, I will share briefly 
+post about how my home-manager setup works and how I have set up in the future, but for now, I will share briefly
 what it looks like without going into too much detail.
 
 Where my home-manager config looks like so:
@@ -262,15 +262,14 @@ The interesting bit here is the `foot.desktop` app, which auto-runs and starts t
 
 ## Build
 
-Then to build the config, we can run `nix build ~/dotfiles#nixosConfigurations.iso.config.system.build.isoImage`. 
-Note, you will have to change the path to your nix config `~/dotfiles` to where your nix config actually is. The ISO 
+Then to build the config, we can run `nix build ~/dotfiles#nixosConfigurations.iso.config.system.build.isoImage`.
+Note, you will have to change the path to your nix config `~/dotfiles` to where your nix config actually is. The ISO
 will be located in the `results/` folder in the same folder as your nix config.
 
-That's it! We went over how we can create our own custom ISO. Which you can use to speed up setting new machines 
+That's it! We went over how we can create our own custom ISO. Which you can use to speed up setting new machines
 to use NixOS. If you like, check out my post about [Ventoy](/posts/2023-09-29-setup-ventoy-on-nixos/), which allows us
 to have multiple ISOs on the same USB. A great way to try out multiple OSs.
 
 ## Appendix
 
 - [My nix config](https://gitlab.com/hmajid2301/dotfiles/-/tree/2901e9d2784cdfb27d7cc70a3dae6657722d4abc/hosts/iso)
-

@@ -1,7 +1,6 @@
 ---
 title: Nix Dev Shell vs Docker Image on GitLab CI
 date: "2026-11-26"
-draft: true
 canonicalURL: https://haseebmajid.dev/posts/2026-11-26-nix-dev-shell-vs-docker-image-on-gitlab-ci
 tags:
   - nix

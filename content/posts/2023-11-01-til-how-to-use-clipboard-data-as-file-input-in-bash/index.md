@@ -26,4 +26,3 @@ So `wl-paste` returns the contents of our clipboard (our JSON). Then we pipe tha
 expects a file. We can pretend to have a file by using the `/dev/stdin` [^1]
 
 [^1]: https://jameshfisher.com/2018/03/31/dev-stdout-stdin/
-

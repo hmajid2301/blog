@@ -179,12 +179,12 @@ Some issues I encountered whilst moving to NixOS. Lots of docs still refer to ni
 But from what I've read and my personal preference it seems the preferred way is the declarative way I described above.
 However, when you first get started this is not always clear
 
-Docs are a bit messy in my opinion, I often find myself reading multiple different blog posts to understand what to do. 
+Docs are a bit messy in my opinion, I often find myself reading multiple different blog posts to understand what to do.
 Or looking through [sourcegraph](https://sourcegraph.com) for code examples and working it out that way.
 As I said you will still see references to the imperative way to use nix.
 
 I also think the error messages that home-manager and NixOS configuration can throw, can at times be a bit obtuse and hard to
-understand (at least for me). 
+understand (at least for me).
 
 Overall these are just small issues, which I hope will get better over time. Nix/NixOS can be infuriating at times, when you know
 on another distribution/package manager would be much quicker. However knowing that my builds are more reproducible is worth it!

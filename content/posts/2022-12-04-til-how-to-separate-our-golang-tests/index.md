@@ -3,7 +3,7 @@ title: "TIL: How to Separate our Golang Tests"
 canonicalURL: https://haseebmajid.dev/posts/2022-12-04-til-how-to-separate-our-golang-tests/
 date: 2022-12-04
 tags:
-  - golang
+  - go
   - test
   - vscode
 series:

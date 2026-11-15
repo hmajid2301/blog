@@ -73,5 +73,3 @@ nix config to theme it. Reducing the boilerplate I have to write. Then I set the
 my default shell and that I want to copy selected text to my clipboard automatically.
 
 Not much more to it tbh! Again, as I say, don't need to be super fancy.
-
-

@@ -51,7 +51,7 @@ Because I am using the PaperMod theme I adjusted the above HTML slightly. Which 
 
 ```go-html-template {hl_lines=[1]}
 <span class="meta-item">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-activity"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg> 
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-activity"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
     &nbsp;
     <span id="{{ .File.UniqueID }}" title="{{ i18n "article.page_views" }}">
     </span>
@@ -90,7 +90,7 @@ So I will go to `layouts/_default/single.html` and add the following.
       {{- partial "post_meta.html" . -}}
       {{/* TODO move to footer */}}
       {{- if .Params.ShowLikes | default site.Params.ShowLikes | default false}}
-      {{- partial "likes.html" . }} 
+      {{- partial "likes.html" . }}
       {{- end }}
       {{ if and (.Params.ShowPageViews | default (.Site.Params.ShowPageViews | default true)) }}
         {{- partial "page_views.html" . -}}

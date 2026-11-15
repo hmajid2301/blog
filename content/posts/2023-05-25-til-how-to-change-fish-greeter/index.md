@@ -25,7 +25,7 @@ To something custom, this will run every time you open a new shell!
 ![Fish Greeting](images/greeting.png)
 
 To do this, go to your `fish_greeter.fish` file which can usually be found at `~/.config/fish/functions/fish_greeting.fish`.
-Where mine looks like: 
+Where mine looks like:
 
 ```fish
 function fish_greeting
@@ -54,6 +54,3 @@ If you are using fish to configure your fish shell you can do something like (I 
   }
 }
 ```
-
-
-

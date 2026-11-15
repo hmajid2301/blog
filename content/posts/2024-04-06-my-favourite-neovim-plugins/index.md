@@ -178,5 +178,3 @@ That's 4 plugins I "use" that I think aren't as well known in the vim community,
 do a part 2 at some point.
 
 Thanks for reading, please let me know other plugins you like to use on [mastodon](https://hachyderm.io/@majiy00).
-
-

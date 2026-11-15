@@ -15,7 +15,7 @@ cover:
 I have been tmux with the foot terminal and when trying to share my screen I couldn't work out which terminal to share
 based on the name. Since they are running tmux, all the terminals were titled `terminal - t`.
 
-To fix this and name it after what is running (and where) in tmux, i.e. `foot blog/nvim`. We can do this by adding the 
+To fix this and name it after what is running (and where) in tmux, i.e. `foot blog/nvim`. We can do this by adding the
 following to our tmux config:
 
 ```tmux
@@ -30,4 +30,3 @@ This is enough for me to figure out which window to share.
 
 
 [^1]: https://github.com/tmux/tmux/wiki/Formats
-

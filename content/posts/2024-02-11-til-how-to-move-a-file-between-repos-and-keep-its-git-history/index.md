@@ -12,16 +12,16 @@ cover:
 
 ## Background
 
-Recently, I had to move one of my to-do files from its own repository, `todo`, to my `second-brain` repository. 
-So I could better keep track of my ideas, and tasks to be done. However, I realised just copying the file over I 
+Recently, I had to move one of my to-do files from its own repository, `todo`, to my `second-brain` repository.
+So I could better keep track of my ideas, and tasks to be done. However, I realised just copying the file over I
 would lose all the git history the file had.
 
-Strictly speaking, I don't need the git history of that file, as the most important thing is the current tasks to be 
-completed. I could, also, go look in the older repository if I really needed to see the file history. However, I decided it would be a nice exercise to learn how to copy files over and keep their history. 
+Strictly speaking, I don't need the git history of that file, as the most important thing is the current tasks to be
+completed. I could, also, go look in the older repository if I really needed to see the file history. However, I decided it would be a nice exercise to learn how to copy files over and keep their history.
 
 ## How?
 
-So how can we do just that? In this example, we will copy a file from `todo` to 
+So how can we do just that? In this example, we will copy a file from `todo` to
 `second-brain`.
 
 So clone both repos i.e.
@@ -61,18 +61,18 @@ git log
 # commit 21e6ae42c550b2fdd76a1a7c34f8574eb529175d
 # Author: Haseeb Majid <hello@haseebmajid.dev>
 # Date:   Sun Feb 4 22:46:36 2024 +0000
-# 
+#
 #     chore: Update ToDos
-# 
+#
 # commit c0e125be9bddf6666fc321ad3ea1b51e437e4bfc
 # Author: Haseeb Majid <hello@haseebmajid.dev>
 # Date:   Fri Feb 2 22:53:15 2024 +0000
-# 
+#
 #     chore: Update ToDos
 ```
 
 Then go to our target repo `second-brain`, we will add the `todo` repo as a local source to git. Then merge in the changes
-on the `filter` branch. We also need to pass the --allow-unrelated-histories flag tells Git to allow the merge, 
+on the `filter` branch. We also need to pass the --allow-unrelated-histories flag tells Git to allow the merge,
 even if the histories of the branches don't share a common commit.
 
 ```bash
@@ -100,4 +100,3 @@ git log, we would see all those commits updating the to-do file.
 - Useful Links:
     - https://www.johno.com/move-directory-between-repos-with-git-history
     - https://blog.billyc.io/how-to-copy-one-or-more-files-from-one-git-repo-to-another-and-keep-the-git-history/
-

@@ -33,7 +33,7 @@ keys:
     - &mango age16tskx6gle6v4v0hzhm5fvj0yd29mmn0s47d8q0h3tgcj9wej53uquv98cn
 ```
 
-To get this file, we need to log in to our rpi host and run 
+To get this file, we need to log in to our rpi host and run
 `nix-shell -p ssh-to-age --run 'cat /etc/ssh/ssh_host_ed25519_key.pub | ssh-to-age'`. Then we add our secrets file:
 
 ```yaml
@@ -63,7 +63,7 @@ these secrets in our colmena config. Let's add sops to our common config:
   };
 }
 ```
-For example, if we take look at `common.nix` we can use sops like we normally would: 
+For example, if we take look at `common.nix` we can use sops like we normally would:
 
 ```nix
 {
@@ -81,4 +81,3 @@ sops.secrets.k3s_token = {
 
 Then, we can run `colmena switch` like we usually would. Then the secret is made available at `/run/secrets/k3s_token`
 on the rpis like it normally would be.
-

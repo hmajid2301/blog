@@ -26,7 +26,7 @@ I installed fzf using nix and home-manager:
 }
 ```
 
-It adds `fzf-history-widget` script, which is bound to `ctrl+r`, shell reverse history search. 
+It adds `fzf-history-widget` script, which is bound to `ctrl+r`, shell reverse history search.
 Which we can see when we run this: `bind | grep -e fzf-history-widget -e fzf-file-widget`
 
 Whereas I wanted to use the `_fzf_search_history` which is made available by that fish fzf plugin.

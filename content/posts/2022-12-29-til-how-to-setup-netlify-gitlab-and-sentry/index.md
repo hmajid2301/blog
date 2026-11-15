@@ -39,7 +39,7 @@ Such as if it was a deploy preview or a deploy to production.
 
 ![Sentry Releases](images/sentry_releases.png)
 
-To do this we will be using the `sentry-netlify-build-plugin` [^1]. 
+To do this we will be using the `sentry-netlify-build-plugin` [^1].
 First, let's follow the guide in the [README](https://github.com/getsentry/sentry-netlify-build-plugin#create-a-sentry-internal-integration).
 
 We can install this via the GUI in Netlify however I prefer to keep as much of

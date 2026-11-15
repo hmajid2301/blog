@@ -6,6 +6,7 @@ tags:
   - nixos
   - traefik
   - cloudflare
+  - nixicle
 cover:
   image: images/cover.png
 ---
@@ -204,4 +205,3 @@ Client → Cloudflare →Traefik → Navidrome.
 
 [^1]: https://gitlab.com/hmajid2301/nixicle/-/blob/39654a157bc95d02ad24b4fd9bb2379d3173f53b/modules/nixos/services/cloudflared/default.nix
 [^2]: https://gitlab.com/hmajid2301/nixicle/-/blob/39654a157bc95d02ad24b4fd9bb2379d3173f53b/modules/nixos/services/traefik/default.nix
-

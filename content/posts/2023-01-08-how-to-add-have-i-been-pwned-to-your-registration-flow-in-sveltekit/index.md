@@ -14,7 +14,7 @@ In this post, I will go over how you can use the have I been pwned (hibp) API to
 When the user signs up we can check if that password has been compromised in a previous data breach (on another site).
 Then we can prompt the user to enter another password. This will help avoid users using simple & common passwords like `password11`.
 Ideally, our user would be using a password manager to generate secure and strong passwords. You can see us using the hibp website below,
-of course, in our case, we will want to use the API. 
+of course, in our case, we will want to use the API.
 
 ![hibn](images/hibp.png)
 
@@ -269,7 +269,7 @@ the validation fails and returns the error with the message we specified.
 
 ## That's It!
 
-That's it, we've added a simple check to see if the password a user tries to register with has been 
+That's it, we've added a simple check to see if the password a user tries to register with has been
 previously compromised and also show this error back to the user.
 
 Some other things to look into are progressive enhancement to improve UX [^5].

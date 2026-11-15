@@ -35,4 +35,3 @@ Next week I want to;
 - Figure out duplication bug
 - Filter on search
 - More filter options
-

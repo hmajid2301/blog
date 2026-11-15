@@ -580,4 +580,3 @@ We can view all of our tests here using the test summary and run them like that.
 
 It's taken a long time, but I think in terms of my developer workflow, that's about it. In terms of the tooling, I use.
 I may do another one how I work on a project and my day-to-day coding. Maybe as a YouTube video!
-

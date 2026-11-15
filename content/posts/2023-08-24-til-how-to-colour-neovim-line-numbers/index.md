@@ -12,7 +12,7 @@ cover:
 
 **TIL: How to Colour Neovim Line Numbers**
 
-Recently I was trying to configure my own neovim config. I wanted the current line I was onto be coloured slighty 
+Recently I was trying to configure my own neovim config. I wanted the current line I was onto be coloured slighty
 differently and also the line number to be white. So it's easier to see the line number and which line I was on.
 
 ![Highlight](images/highlight.png)

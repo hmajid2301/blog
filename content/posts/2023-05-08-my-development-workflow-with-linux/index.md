@@ -21,7 +21,7 @@ operating system.
 ## Arch
 
 As the name implies I use Linux as my main operating system. I am a big fan of Linux because not only is free and
-open-source, it provides a great developer experience where I find tools that just work on Linux. It also is a lot more 
+open-source, it provides a great developer experience where I find tools that just work on Linux. It also is a lot more
 customisable as compared with Windows or MacOS. Finally, I tend to find it more lightweight as well and takes fewer
 resources to run especially if you are using Docker.
 
@@ -60,10 +60,10 @@ Some shortcuts I use:
 
 ### Extensions
 
-The main way I customise gnome is by using extensions 
+The main way I customise gnome is by using extensions
 
 [Pop Shell](https://github.com/pop-os/shell) is used for tiling I tried a tiling window manager in the past and to be honest
-this extension is good enough for me whilst not being as powerful as say Qtile or AwesomeWM. For my use case, it is 
+this extension is good enough for me whilst not being as powerful as say Qtile or AwesomeWM. For my use case, it is
 absolutely fine.
 
 I can navigate windows just using my keyboard `super + h j k l` to move between windows similar to how we would in vim.
@@ -86,7 +86,7 @@ It is a bit more powerful and I think it looks better.
 
 Some other extensions I use include:
 
-- [Rounded Window Corners](https://extensions.gnome.org/extension/5237/rounded-window-corners/): Purely for 
+- [Rounded Window Corners](https://extensions.gnome.org/extension/5237/rounded-window-corners/): Purely for
 aethestic purposes
 - [Pano](https://extensions.gnome.org/extension/5279/pano/): A better clipboard manager
 - [Just Perfection](https://extensions.gnome.org/extension/3843/just-perfection/): Allows you to tweak almost everything in gnome

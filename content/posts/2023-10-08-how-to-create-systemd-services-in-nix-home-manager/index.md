@@ -11,12 +11,12 @@ cover:
 ---
 
 I recently learnt in home-manager (Nix) you can run systemd services as your own user. This is nice because we don't need
-"sudo" permissions to do so. I also prefer to have as much of my config as possible in home-manager, again I don't 
+"sudo" permissions to do so. I also prefer to have as much of my config as possible in home-manager, again I don't
 need to run "sudo". Which is probably safer running apps in the least privileged mode.
 
 In my case, I wanted to run an `attic`, a binary cache, watch store command which uploads any changes to `/nix/store`
 to my binary cache. Previously I had this running as a systemd service running as root i.e. managed my NixOS.
-However, I wanted to run the same service, on my non-NixOS machine. So I decided to have a look and see if I could 
+However, I wanted to run the same service, on my non-NixOS machine. So I decided to have a look and see if I could
 run it in my home-manager config so I could run it the same way across all my machines. Whilst researching I came across
 the `systemd.user.services` option which allows us to do exactly this.
 
@@ -44,7 +44,7 @@ You can see how I set it below:
 }
 ```
 
-One thing I liked was I didn't need to create an extra binary/shell script for `ExecStart` to run. i.e. 
+One thing I liked was I didn't need to create an extra binary/shell script for `ExecStart` to run. i.e.
 `ExecStart = watch-store.sh`. We can simply create a bash script inline and give it a name. home-manager will work out
 creating this file and updating the systemd config to point to it for us. One fewer file in our config.
 
@@ -105,6 +105,3 @@ ATTIC_TOKEN=$(cat %r/secrets/attic_auth_token)
 ```
 
 That's about it! How you can manage systemd services via home-manager running as your own user.
-
-
-

@@ -13,15 +13,15 @@ cover:
 ## Introduction
 
 In this article, I will go over how to get [sops-nix](https://github.com/Mic92/sops-nix) to work properly with
-home-manager. One issue I noticed was that when I used with home-manager modules/options, I would see a string 
-like "%r/secrets/haseeb/...". The `%r` would not be replaced. 
+home-manager. One issue I noticed was that when I used with home-manager modules/options, I would see a string
+like "%r/secrets/haseeb/...". The `%r` would not be replaced.
 
 Relevant Issue: https://github.com/Mic92/sops-nix/issues/28
 
 ## Assumption
 
 I will assume you have already setup sops-nix and are using it. In the sense, you have a `.sops.yaml` file and are already
-using it with NixOS. The instructions in the README is mostly pretty clear how to get setup, but I may in future 
+using it with NixOS. The instructions in the README is mostly pretty clear how to get setup, but I may in future
 create another article how I set up sops-nix. But in this post, we will simply go over how we can make it work with
 home-manager. I will also assume you are using nix flakes and have passed sops-nix as an input.
 
@@ -64,7 +64,7 @@ Permissions Size User   Group Date Modified Name
 .r--------   146 haseeb users 28 Jan 09:26   /run/user/1000/secrets/atuin_key
 ```
 
-Other than that, we install sops so we can use the CLI tool to edit our sops files and add secrets. Where I have 
+Other than that, we install sops so we can use the CLI tool to edit our sops files and add secrets. Where I have
 a `home-manager/secrets.yaml` file for storing all secrets related to home-manager.
 
 ### Atuin

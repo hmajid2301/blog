@@ -15,7 +15,7 @@ This series has been inspired by [Dev Workflow Intro by Josh Medeski](https://ww
 
 This is sort of a precursor to my series about how I have set up my development workflow. Hopefully, you will be able to
 pick a few tips and tricks you can add to your development workflow to make it more efficient. Or even give me tips
-on how I can make my workflow more efficient. 
+on how I can make my workflow more efficient.
 
 In this post we will go over arguably the least important, but at the same time quite important, part of our workflow.
 Because in theory, we can run the same development workflow on lots of different types of hardware. I don't
@@ -44,7 +44,7 @@ a while,  using just my laptop I could solve this problem.
 ## Laptop Setup
 
 At the moment I am using a 12th-generation framework laptop as my main development machine, alongside a 2019 MacBook for
-work. However, if I had it my way I wouldn't be using that :cry:! 
+work. However, if I had it my way I wouldn't be using that :cry:!
 
 I like to use my laptops in a way that still gives me a "desktop-style experience", what this means is I dock my laptop
 in a stand (closed lid). I then connect it to a Thunderbolt dock, where the dock is connected to my monitors,
@@ -81,14 +81,14 @@ better viewing angles. My two monitors are
 
 Please ignore the mess of cables, I'd like to pretend my desk is tidier most of the time :rolling_on_the_floor_laughing:
 
-### Keyboard 
+### Keyboard
 
 I am using a mechanical keyboard like most other developers, I think they provide a better typing experience as compared
 with normal membrane keyboards. However, if you want a cheap keyboard that works really well I really like the Logitech
 k120.
 
 However, I am currently using the [Keychron Q1 Pro](https://www.keychron.com/products/keychron-q1-pro-qmk-via-wireless-custom-mechanical-keyboard)
-with Kalih Box White switches and Dracula GMK keycaps. 
+with Kalih Box White switches and Dracula GMK keycaps.
 
 Previously I have used Corsair keyboards but I really like the Keychron ones as the switches are hot-swappable, so a
 single switch breaks it's really easy to replace. Whereas with the Corsair ones I had the switches were soldered onto
@@ -127,7 +127,7 @@ into my laptop, providing a nice UX.
 - Webcam: [Logitech Brio](https://www.logitech.com/en-gb/products/webcams/brio-4k-hdr-webcam.960-001106.html)
 - Headset: [Corsair Virtuoso](https://www.corsair.com/uk/en/p/gaming-headsets/ca-9011185-eu/virtuoso-rgb-wireless-high-fidelity-gaming-headset-carbon-eu-ca-9011185-eu)
   - A bit too gamery looking, worse well enough comfortable after I replaced the ear pads
-- Yubikey: [5 NFC model](https://www.yubico.com/gb/product/yubikey-5-series/yubikey-5-nfc/) 
+- Yubikey: [5 NFC model](https://www.yubico.com/gb/product/yubikey-5-series/yubikey-5-nfc/)
   - Use it for 2FA, and convenience like if plugged in auto allow login and sudo commands without a password
 
 

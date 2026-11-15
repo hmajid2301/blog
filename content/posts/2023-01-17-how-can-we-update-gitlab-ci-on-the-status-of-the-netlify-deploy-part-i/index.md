@@ -6,7 +6,7 @@ tags:
   - netlify
   - sveltekit
   - gitlab
-  - ci/cd
+  - ci-cd
 series:
   - Netlify Gitlab Deploy Notification
 cover:

@@ -8,6 +8,7 @@ tags:
   - rls
   - postgres
   - pgx
+  - lettucego
 cover:
   image: images/cover.png
 ---

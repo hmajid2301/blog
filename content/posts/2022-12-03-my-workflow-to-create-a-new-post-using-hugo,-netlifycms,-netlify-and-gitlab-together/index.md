@@ -63,12 +63,12 @@ blog.
 
 ![Netlify Sites](images/netlify_team.png)
 
-You can add a new site; link it to your Gitlab repository. It will be set up to automatically 
+You can add a new site; link it to your Gitlab repository. It will be set up to automatically
 deploy all changes from the main/master branch. So anytime you make a commit to your main branch.
 Netlify will redeploy your website. Which is exactly what we want. Especially since Hugo
 websites tend to build quite fast, we are unlikely to use the full 300 build minutes in Netlify.
 
-I used to use Gitlab to build and deploy my site but now Gitlab has restricted the build minutes 
+I used to use Gitlab to build and deploy my site but now Gitlab has restricted the build minutes
 per month by a lot. So I let Netlify deploy for us. My deploy settings look like this:
 
 ![Netlify Deploy Settings](images/netlify_deploy_settings.png)
@@ -224,7 +224,7 @@ I have highlighted some lines of interest in that file.
 - `folder: "content/posts"`: Here we specify where to create new posts in.
 - `path: "{{slug}}/index"`:  Here is where we specify the page bundle part it will create the markdown file using the slug i.e. title and date and create an index.md file. For example, if our post title was `My Workflow To Create a New Post Using Hugo, Netlifycms, Netlify and Gitlab Together` we would create a file at `content/posts/2022-12-03-my-workflow-to-create-a-new-post-using-hugo,-netlifycms,-netlify-and-gitlab-together/index.md`.
 - `slug: "{{fields.date}}-{{slug}}"`: Then we specify the slug which essentially is the name of the file created. Here we specify to use the date combined with the slug. For example, like this `2022-12-03-my-workflow-to-create-a-new-post-using-hugo,-netlifycms,-netlify-and-gitlab-together`.
- 
+
 
 ![Netlify CMS Editorial](images/netlify_cms_editorial.png)
 
@@ -323,7 +323,7 @@ we will have to adjust our logic here as well. I will see if I can come up with 
 ## Gitlab
 
 We don't have to do anything in Gitlab, what will happen when we create a new blog post is that a new MR will be created.
-It will start with the `draft` tag and change as we move the posts into the different sections in our workflow (see the image above), 
+It will start with the `draft` tag and change as we move the posts into the different sections in our workflow (see the image above),
 `Drafts`, `In Review` and `Ready`. When we publish the post it will auto-merge the MR in Gitlab.
 
 ![Netlify CMS Gitlab MR](images/gitlab_mr.png)
@@ -349,8 +349,6 @@ was enabled in your identity settings.
 Then create a new post, after you have clicked save it will get moved to draft and create an MR on GitLab. After a few minutes, you
 should see a preview environment as a comment from Netlify to preview your site. After you publish the post or merge the MR. The
 post your site will start to deploy via Netlify.
-
-{{< gfycat src="flamboyantillustriousgiantschnauzer" >}}
 
 ## Appendix
 

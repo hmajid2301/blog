@@ -35,4 +35,3 @@ sign('DapStopped', { text='', texthl='DapStopped', linehl='DapStopped', numhl
 Then we start the debugger and it stops at a breakpoint line it looks something like in the photo below.
 
 ![Debugging](images/debug.png)
-

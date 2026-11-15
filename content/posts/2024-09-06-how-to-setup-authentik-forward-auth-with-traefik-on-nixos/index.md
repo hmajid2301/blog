@@ -3,10 +3,11 @@ title: How to Set up Authentik Forward Auth With Traefik on NixOS
 date: 2024-09-06
 canonicalURL: https://haseebmajid.dev/posts/2024-09-06-how-to-setup-authentik-forward-auth-with-traefik-on-nixos
 tags:
-  - home lab
+  - homelab
   - traefik
-  - NixOS
+  - nixos
   - authentik
+  - nixicle
 cover:
   image: images/cover.png
 ---

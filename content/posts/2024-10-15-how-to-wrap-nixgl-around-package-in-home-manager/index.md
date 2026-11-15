@@ -5,6 +5,7 @@ canonicalURL: https://haseebmajid.dev/posts/2024-10-15-how-to-wrap-nixgl-around-
 tags:
   - nixgl
   - nix
+  - nixicle
 cover:
   image: images/cover.png
 ---

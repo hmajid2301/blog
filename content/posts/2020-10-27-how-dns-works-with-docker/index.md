@@ -113,7 +113,7 @@ The source code for those Docker containers can be found
 
 Our `nginx` config file looks something like:
 
-{{< highlight conf "hl_lines=10" >}}
+```conf {hl_lines="10"}
 server {
   listen 80;
   server_name _;
@@ -127,7 +127,7 @@ server {
     uwsgi_pass flask:8080;
   }
 }
-{{< /highlight >}}
+```
 
 This Nginx configuration file tells Nginx to pass any requests sent on `/` path to the
 uwsgi server running in the `flask` docker container.

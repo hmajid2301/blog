@@ -22,7 +22,7 @@ Many tools/program store their configuration files as files on your machine.
 On Linux you will often find these in `~/.config` directory.
 
 Some common examples of dotfiles:
-	
+
 	- .vimrc
 	- .bashrc
 	- .gitconfig
@@ -43,7 +43,7 @@ You can then commit and push your changes at your leisure.
 A symlink or a Symbolic Link is basically a shortcut to another file. It is a file that points to another file.
 {{< /notice >}}
 
-## Why manage dotfiles with git? 
+## Why manage dotfiles with git?
 
 One of the main reasons to use VCS (git) to manage your dotfiles is very much the same reason you would use VCS normally.
 It allows us to track the history of files, so we can see all the changes made to it. Recently in my case I have been trying different shells.
