@@ -59,7 +59,13 @@ preview:
   stage: deploy
   tags: [vps] # only the VPS runner mounts /previews
   resource_group: preview/$CI_COMMIT_REF_SLUG
-  rules: *not-main
+  rules: &preview-rules
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: manual
+      allow_failure: true
+    - if: $CI_COMMIT_BRANCH && $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
+      when: manual
+      allow_failure: true
   variables:
     PREVIEW_URL: "https://preview.haseebmajid.dev/${CI_COMMIT_REF_SLUG}/"
     HUGO_PARAMS_ENV: preview # noindex meta + robots.txt
@@ -81,13 +87,8 @@ preview:
 preview:stop:
   stage: deploy
   tags: [vps]
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: manual
-      allow_failure: true
-    - if: $CI_COMMIT_BRANCH && $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
-      when: manual
-      allow_failure: true
+  resource_group: preview/$CI_COMMIT_REF_SLUG
+  rules: *preview-rules
   variables:
     GIT_STRATEGY: none
   script:
