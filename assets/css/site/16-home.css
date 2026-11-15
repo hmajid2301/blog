@@ -1,0 +1,47 @@
+/* Home controls change geometry only; default choices leave the selected shell intact. */
+html[data-design] body.kind-home :is([data-home-section], [data-home-post], [data-home-talk])[hidden] { display: none !important; }
+html[data-design] body.kind-home :is(.lab-home-hero, [data-home-section], .lab-home-entry) { min-width: 0; }
+html[data-design] body.kind-home :is(.lab-home-hero, .lab-home-entry) > div { min-width: 0; overflow-wrap: anywhere; }
+html[data-design] body.kind-home .main a:focus-visible { outline: 3px solid var(--lab-accent); outline-offset: 4px; }
+/* Count controls include the newest post even when the magazine also features it. */
+html[data-design][data-design] body.kind-home .lab-portrait img { border-radius: 24px; }
+html[data-design][data-design] body.kind-home { --home-section-gap: 48px; }
+html[data-design][data-design][data-design] body.kind-home .main { row-gap: var(--home-section-gap); }
+html[data-design][data-design][data-design] body.kind-home .main > [data-home-section] { margin-block: var(--home-section-gap) 0; }
+/* Grid row-gap supplies the spacing in the two multi-column shells. */
+html[data-design][data-design] body.kind-home { --home-corners: 24px; }
+html[data-design][data-design][data-design] body.kind-home :is(.lab-home-hero, .lab-featured, .lab-home-entry, .lab-topic-group, .lab-home-bottom > div) { border-radius: var(--home-corners); }
+
+/* Default retains the shell; explicit full/short choices reveal the requested excerpts. */
+html[data-design][data-design] body.kind-home .lab-writing .lab-home-entry p { display: block; -webkit-line-clamp: unset; overflow: visible; }
+/* Removing dates must also remove their grid track in the row-based shells. */
+
+html[data-design] body.kind-home :is(.lab-home-talk-event, .lab-home-talk-resources) { display: none; }
+html[data-design][data-design] body.kind-home :is(.lab-home-talk-event, .lab-home-talk-resources) { display: block; }
+html[data-design] body.kind-home .lab-home-talk-resources .page-lab-resources { position: relative; }
+html[data-design] body.kind-home .lab-home-talk-resources a { position: relative; z-index: 1; }
+
+/* Card surface, hover and stretched link come from `.lab-card` + `.lab-card-link`. */
+html[data-design] body.kind-home .lab-home-bottom > div {
+  padding: 28px;
+}
+/* Breathing room between the hero tagline and the intro line. */
+html[data-design] body.kind-home .lab-home-hero .lab-intro + .lab-intro {
+  margin-top: 16px;
+}
+
+/* Option D: each list is one filled panel split by hairlines. The hero keeps its rounded card fill.
+   `.lab-card` lifts specificity above the generic corner rule. */
+html[data-design] body.kind-home .main :is(.lab-writing, .lab-talks) .lab-section-head { border-bottom: 0; padding-bottom: 14px; }
+html[data-design] body.kind-home .main :is(.lab-writing, .lab-talks) .lab-home-entry.lab-card { margin: 0; border-radius: 0; border-top: 1px solid var(--lab-rule); }
+html[data-design] body.kind-home .main :is(.lab-writing, .lab-talks) .lab-section-head + .lab-home-entry.lab-card { border-top: 0; border-radius: var(--home-corners, 18px) var(--home-corners, 18px) 0 0; }
+html[data-design] body.kind-home .main :is(.lab-writing, .lab-talks) .lab-home-entry.lab-card:is(:last-child, :has(+ [hidden])) { border-radius: 0 0 var(--home-corners, 18px) var(--home-corners, 18px); }
+html[data-design] body.kind-home .main :is(.lab-writing, .lab-talks) .lab-home-entry:hover h3 a { color: var(--lab-accent); }
+
+/* Option F: the section head is a folder tab sitting on its panel (echoes the code-block tab). */
+html[data-design] body.kind-home .main :is(.lab-writing, .lab-talks) .lab-section-head { display: inline-flex; position: relative; margin: 0; padding: 12px 20px 10px; background: var(--lab-card); border-radius: 12px 12px 0 0; }
+html[data-design] body.kind-home .main :is(.lab-writing, .lab-talks) .lab-section-head::after { content: ''; position: absolute; right: -12px; bottom: 0; width: 12px; height: 12px; background: radial-gradient(circle at 100% 0, transparent 12px, var(--lab-card) 12.5px); }
+html[data-design] body.kind-home .main :is(.lab-writing, .lab-talks) .lab-section-head h2 { font: 600 15px var(--lab-mono); letter-spacing: 0; }
+html[data-design] body.kind-home .main :is(.lab-writing, .lab-talks) .lab-section-head h2::before { content: '● '; color: var(--lab-accent); }
+html[data-design] body.kind-home .main :is(.lab-writing, .lab-talks) .lab-section-head > a { position: absolute; left: calc(100% + 24px); top: 14px; white-space: nowrap; }
+html[data-design] body.kind-home .main :is(.lab-writing, .lab-talks) .lab-section-head + .lab-home-entry.lab-card { border-radius: 0 var(--home-corners, 18px) 0 0; }

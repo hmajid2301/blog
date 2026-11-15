@@ -8,68 +8,56 @@ url: /uses/
 # What do I use?
 
 The following is a list of the tools that I use daily. This page
-was inspired by [Wes Bros](https://wesbos.com/uses). See more pages like this [here](https://uses.tech).
-You can read more about my own workflow [here](/series/setup-your-development-workflow/)
-
-![Neofetch](images/neofetch.png)
+was inspired by [Wes Bos](https://wesbos.com/uses). See more pages like this [here](https://uses.tech).
+You can read more about my own workflow [here](/series/setup-your-development-workflow/).
 
 For more details about my [dotfiles click here](https://gitlab.com/hmajid2301/dotfiles).
 
-## 🐧 OS + Hardware
+{{< nitch >}}
 
-- I am currently using [NixOS](https://nixos.org/) with [Hyprland](https://hyprland.org/)
-- I use two 🖥️ 32" 4k monitors
-- I use a ⌨️ [ZSA Voyager](https://www.zsa.io/voyager)
-- I use a 🖱️ [Logitech G502 X](https://www.logitechg.com/en-gb/products/gaming-mice/g502-x-wireless-lightforce.910-006190.html)
-- I have moved back to using a custom-built PC after using my laptop for a few months
-  - Just ended up being less hassle, I didn't really need the portability of the laptop much.
+## Hardware
 
-## Theme
+- Custom-built ASUS desktop
+- **CPU:** AMD Ryzen 9 7950X3D
+- **GPU:** AMD Radeon RX 7900 XTX
+- **RAM:** 64 GB
+- **Displays:** 2× 32" 4K monitors — GBT3204 and DELL G3223Q
+- **Keyboard:** [ZSA Voyager](https://www.zsa.io/voyager)
+- **Mouse:** [Logitech G502 X](https://www.logitechg.com/en-gb/products/gaming-mice/g502-x-wireless-lightforce.910-006190.html)
 
-- I use the 🐱 [catppuccin theme](https://github.com/catppuccin) for EVERYTHING.
-- I use the font 🖼️ [Monolisa](https://monolisa.dev/)
+## OS & Desktop
 
-## 📑 Editor
+- [NixOS](https://nixos.org/)
+- [Niri](https://github.com/YaLTeR/niri) scrollable-tiling window manager
+- Window manager styling by [Noctalia](https://github.com/BeauTheBeau/Noctalia)
+- System-wide theming by [Stylix](https://github.com/danth/stylix)
+- Qt/GTK theme: Base16Kvantum / adw-gtk3
+- Icons: [Papirus-Dark](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme)
+- Cursor: [Bibata-Modern-Classic](https://github.com/ful1e5/Bibata_Cursor)
+- Fonts: [MonoLisa](https://monolisa.dev/) in the terminal; Noto Sans for the system UI
 
-- I use [Neovim](https://github.com/hmajid2301/dotfiles/home-manager/editors/neovim) using [NixVim](https://github.com/nix-community/nixvim)
+## Editor & Terminal
 
-## ✔️ Terminal
+- [Neovim](https://github.com/hmajid2301/dotfiles/tree/main/home-manager/editors/neovim)
+- [Ghostty](https://ghostty.org/) terminal
+- [Starship](https://starship.rs/) prompt
+- [fish](https://fishshell.com/) shell
 
-- I use the [foot terminal](https://github.com/DanteAlighierin/foot) with [Starship prompt](https://starship.rs/)
-- I use [fish 🐟 shell](https://fishshell.com/) as my shell
-- I also use Zellij as my multiplexing tool.
+## Browsers & Security
 
-## ⚙️ Tools
+- [Firefox](https://www.mozilla.org/en-US/firefox/new/) main browser
+- [Mullvad](https://mullvad.net/) VPN
+- [Tailscale](https://tailscale.com/) via [Mullvad](https://mullvad.net/) exit nodes
+- [Bitwarden](https://bitwarden.com/) password manager
 
-### Applications
+## CLI Tools
 
-- I use 🦊 [Firefox](https://www.mozilla.org/en-US/exp/firefox/new/) as my main browser
-- I use 🦆 [Mullvad](https://mullvad.net/) as my VPN
-- I use 🔒 [Bitwarden](https://bitwarden.com/) as my password manager
-
-### 🧰 CLI Tools
-
-
-- [nh](https://github.com/viperML/nh): A nix helper CLI, an improved nix builder. Displays nicer output when building.
-- [atuin](https://github.com/atuinsh/atuin/): To sync my shell history between multiple devices. Also makes sure it is backed up.
-- [exa](https://github.com/ogham/exa): ls replacement, used with [exa aliases](https://github.com/gazorby/fish-exa)
-- [fzf](https://github.com/junegunn/fzf): Really nice fuzzy search tool
-- [bat](https://github.com/sharkdp/bat): A better version of `cat`
-- [zoxide](https://github.com/ajeetdsouza/zoxide): A great tool for jumping between multiple directories.
-- [task](https://taskfile.dev/): An alternative to makefiles. A task runner, used within my projects, i.e. `task lint`
-
-According to `atuin` my most used commands:
-
-```bash
-atuin stats
-[▮▮▮▮▮▮▮▮▮▮] 3622 nvim
-[▮▮▮▮▮▮▮▮▮ ] 3443 home-manager
-[▮▮▮▮▮▮▮   ] 2844 git add
-[▮▮▮▮▮▮    ] 2483 z
-[▮▮▮▮▮     ] 1910 bat
-[▮▮▮       ] 1405 git checkout
-[▮▮▮       ] 1402 eza
-[▮▮        ] 1041 nix-shell
-[▮▮        ]  944 git pull
-[▮▮        ]  938 task
-```
+- [nh](https://github.com/viperML/nh): nicer Nix helper CLI
+- [atuin](https://github.com/atuinsh/atuin/): synced shell history
+- [eza](https://github.com/eza-community/eza): modern `ls`
+- [fzf](https://github.com/junegunn/fzf): fuzzy finder
+- [bat](https://github.com/sharkdp/bat): better `cat`
+- [zoxide](https://github.com/ajeetdsouza/zoxide): directory jumper
+- [ripgrep](https://github.com/BurntSushi/ripgrep): fast `grep`
+- [fd](https://github.com/sharkdp/fd): friendly `find`
+- [task](https://taskfile.dev/): task runner (`task lint`)

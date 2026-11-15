@@ -1,0 +1,145 @@
+{{- if (and (eq .Kind "page") (ne .Layout "archives") (ne .Layout "search") (.Param "ShowCodeCopyButtons")) }}
+<script>
+  document.querySelectorAll('pre > code').forEach((codeblock) => {
+    // Chroma table gutters are separate code elements, not source blocks.
+    if (codeblock.querySelector('.lnt') && !codeblock.querySelector('.cl')) return;
+    const container = codeblock.parentNode.parentNode;
+    const frame = codeblock.closest('.lab-neovim');
+    const tab = frame?.querySelector('.lab-code-copy');
+    const command = frame?.querySelector('.lab-code-command');
+    const originalCommand = command?.textContent;
+    let resetTimer;
+
+    const copybutton = document.createElement('button');
+    copybutton.type = 'button';
+    copybutton.classList.add('copy-code');
+    copybutton.innerText = '{{- i18n "code_copy" | default "copy" }}';
+    copybutton.setAttribute('aria-label', 'Copy code');
+
+    function copyingDone(copied) {
+      clearTimeout(resetTimer);
+      copybutton.innerText = copied ? '{{- i18n "code_copied" | default "copied!" }}' : 'Copy failed';
+      if (command) command.textContent = copied ? `${frame.dataset.codeLines} ${frame.dataset.codeLines === '1' ? 'line' : 'lines'} yanked` : 'Copy unavailable';
+      resetTimer = setTimeout(() => {
+        copybutton.innerText = '{{- i18n "code_copy" | default "copy" }}';
+        if (command) command.textContent = originalCommand;
+      }, 2000);
+    }
+
+    copybutton.addEventListener('click', async () => {
+      const source = codeblock.cloneNode(true);
+      source.querySelectorAll('.ln, .lnt').forEach(number => number.remove());
+      const text = source.textContent;
+      if (navigator.clipboard) {
+        try {
+          await navigator.clipboard.writeText(text);
+          copyingDone(true);
+          return;
+        } catch (e) { /* Try selection-based copying if clipboard access is denied. */ }
+      }
+
+      const previousFocus = document.activeElement;
+      const selection = document.createElement('textarea');
+      selection.value = text;
+      selection.style.cssText = 'position:fixed;opacity:0;pointer-events:none';
+      document.body.appendChild(selection);
+      selection.select();
+      let copied = false;
+      try {
+        copied = document.execCommand('copy');
+      } catch (e) { /* Keep failure feedback truthful. */ }
+      selection.remove();
+      previousFocus?.focus({ preventScroll: true });
+      copyingDone(copied);
+    });
+
+    if (tab) {
+      tab.appendChild(copybutton);
+    } else if (container.classList.contains("highlight")) {
+      container.appendChild(copybutton);
+    } else if (container.parentNode.firstChild == container) {
+      // td containing LineNos
+    } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+      // table containing LineNos and code
+      codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+    } else {
+      // code blocks not having highlight as parent class
+      codeblock.parentNode.appendChild(copybutton);
+    }
+  });
+</script>
+{{- end }}
+
+{{/* ToC Scroll */}}
+<script>
+  (function() {
+    const enableTocScroll = '{{- if (and (eq .Kind "page") (.Content) (.Param "ShowToc")) }}1{{ end }}' == '1'
+    if (!enableTocScroll) {
+      return
+    }
+    if (!document.querySelector('.toc')) return
+    // always get an array here
+    const scrollListeners = window.scrollListeners || []
+    window.scrollListeners = scrollListeners
+    const headings = Array.from(document.querySelectorAll('.post-content :is(h1,h2,h3,h4,h5,h6)[id]')).filter(getLinkByHeading);
+    if (!headings.length) return;
+    const activeClass = 'active';
+
+    // Make the first header active
+    let activeHeading = headings[0];
+    getLinkByHeading(activeHeading).classList.add(activeClass);
+
+    const onScroll = () => {
+      const passedHeadings = [];
+      for (const h of headings) {
+        // 5 px as a buffer
+        if (getOffsetTop(h) < 5) {
+          passedHeadings.push(h)
+        } else {
+          break;
+        }
+      }
+      let newActiveHeading = headings[0];
+      if (passedHeadings.length > 0) {
+        newActiveHeading = passedHeadings[passedHeadings.length - 1];
+      }
+      if (activeHeading != newActiveHeading) {
+        getLinkByHeading(activeHeading).classList.remove(activeClass);
+        activeHeading = newActiveHeading;
+        getLinkByHeading(activeHeading).classList.add(activeClass);
+      }
+    }
+
+    let timer = null;
+    const scrollListener = () => {
+      if (timer !== null) {
+        clearTimeout(timer)
+      }
+      timer = setTimeout(onScroll, 50)
+    }
+    window.addEventListener('scroll', scrollListener, false);
+    scrollListeners.push(scrollListener)
+
+    function getLinkByHeading(heading) {
+      return Array.from(document.querySelectorAll('.toc a[href]')).find(link =>
+        decodeURIComponent(link.hash.slice(1)) === heading.id);
+    }
+
+    function getOffsetTop(heading) {
+      if (!heading.getClientRects().length) {
+        return 0;
+      }
+      let rect = heading.getBoundingClientRect();
+      return rect.top
+    }
+  })();
+  </script> {{- if ne (.Param "EnableImageZoom") false }}
+  <script>
+    mediumZoom(".post-content img:not([no-zoom])", {
+      background: "rgba(0, 0, 0, 0.8)",
+    }).on("open", (event) => {
+      // Detached HD clones cannot load lazily; keep normal images lazy until opened.
+      event.target.removeAttribute("loading");
+    });
+  </script>
+{{- end }}

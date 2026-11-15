@@ -1,0 +1,41 @@
+{{- $pages := .Pages -}}
+{{- if $.IsHome -}}
+  {{/* get all regular pages instead of pages in a section */}}
+  {{- $pages = where site.RegularPages "Section" "in" site.Params.mainSections -}}
+{{- end }}
+{{- $pages = where $pages "Params.hidden" "!=" true -}}
+
+{{- $limit := site.Config.Services.RSS.Limit -}}
+{{- if ge $limit 1 -}}
+{{- $pages = $pages | first $limit -}}
+{{- end -}}
+
+{{- printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>{{ if eq  .Title  site.Title }}{{ site.Title }}{{ else }}{{ with .Title }}{{.}} on {{ end }}{{ site.Title }}{{ end }}</title>
+    <link>{{ .Permalink }}</link>
+    <description>{{ with .Description }}{{ . }}{{ else }}{{ site.Params.description }}{{ end }}</description>
+    <generator>Hugo -- gohugo.io</generator>{{ with site.Language.Locale }}
+    <language>{{.}}</language>{{end}}{{ with site.Copyright }}
+    <copyright>{{.}}</copyright>{{end}}{{ if not .Date.IsZero }}
+    <lastBuildDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</lastBuildDate>{{ end }}
+    {{- with .OutputFormats.Get "RSS" -}}
+    {{ printf "<atom:link href=%q rel=\"self\" type=%q />" .Permalink .MediaType | safeHTML }}
+    {{- end -}}
+    {{ range $pages }}
+    {{- if and (ne .Layout `search`) (ne .Layout `archives`) }}
+    <item>
+      <title>{{ .Title }}</title>
+      <link>{{ .Permalink }}</link>
+      <pubDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</pubDate>
+      {{ with site.Params.author }}<author>{{ . }}</author>{{ end }}
+      <guid>{{ .Permalink }}</guid>
+      <description>{{ with .Description }}{{ . | html }}{{ else }}{{ partial "feed-content.html" (dict "content" .Summary "page" .) | html }}{{ end -}}</description>
+      {{- $content := partial "feed-content.html" (dict "content" .Content "page" .) -}}
+      <content:encoded>{{ (printf "<![CDATA[%s]]>" (replace $content "]]>" "]]]]><![CDATA[>")) | safeHTML }}</content:encoded>
+    </item>
+    {{- end }}
+    {{ end }}
+  </channel>
+</rss>

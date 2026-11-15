@@ -1,0 +1,15 @@
+<div class="social-icons">
+  {{- range .icons }}
+    {{- $icon_name := ( trim .name " " | lower ) }}
+
+      <a
+        href="{{ trim .url " " }}"
+        target="_blank"
+        aria-label="{{ .name | title }} (opens in a new tab)"
+        rel="noopener noreferrer me"
+        title="{{ .name | title }}"
+      >
+        {{ safeHTML (index $.svg $icon_name | default $.svg.default) }}
+      </a>
+  {{- end }}
+</div>

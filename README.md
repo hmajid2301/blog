@@ -18,8 +18,8 @@ The blog no longer keeps deck sources or uses reveal-hugo. Hugo excludes old
 to the dated editions, PDFs and demo sources.
 
 `task build` builds only the blog and its permanent legacy `/slides` HTTP redirects.
-The 12 mappings in `data/slide_redirects.toml` generate 38 rules through
-`layouts/index.redirects`. Keep these redirects permanently for printed QR codes
+The deck mappings in `data/redirects.toml` generate the `/slides` rules (plus a few
+merged tag feeds) through `layouts/index.redirects`. Keep these redirects permanently for printed QR codes
 and existing conference links.
 
 **Local preparation only: do not deploy the blog cutover until the new slide host

@@ -1,0 +1,84 @@
+{{- define "main" }}
+
+<article class="post-single">
+  <header class="post-header">
+    <h1 class="post-title">
+      {{- .Title -}}
+      {{- if .Draft -}}<sup><span class="entry-isdraft">&nbsp;&nbsp;[draft]</span></sup>{{- end -}}
+    </h1>
+    {{- if .Description }}
+    <div class="post-description">
+      {{- .Description -}}
+    </div>
+    {{- end }}
+    {{- if not (.Param "hideMeta") }}
+    <div class="post-meta">
+      {{- partial "post_meta.html" . -}}
+    </div>
+    {{- end }}
+  </header>
+
+
+  {{- partial "series.html" (dict "page" . "position" "top") }}
+
+  <div class="post-body">
+  {{- if (.Param "ShowToc") }}
+  {{- partial "toc.html" . }}
+  {{- end }}
+
+  {{- if .Content }}
+  <div class="post-content">
+    {{- $content := .Content -}}
+    {{- if not (.Param "disableAnchoredHeadings") }}
+      {{- $content = partial "anchored_headings.html" .Content -}}
+    {{- end }}
+    {{- if eq (partial "page-lab-kind.html" .) "uses" }}
+      {{- partial "page-lab-uses-content.html" $content -}}
+    {{- else }}{{ $content | safeHTML }}{{ end }}
+  </div>
+  {{- end }}
+
+  </div>
+
+  {{- partial "series.html" (dict "page" . "position" "bottom") }}
+
+  <footer class="post-footer">
+    {{ partial "git_last_edited.html" . }}
+    {{ partial "edit_post.html" . }}
+    {{- if and (.Param "ShowPostNavLinks") (not (.GetTerms "series")) }}
+    {{- partial "post_nav_links.html" . }}
+    {{- end }}
+  </footer>
+
+</article>
+
+{{ if .Page.Store.Get "hasMermaid" }}
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"
+          integrity="sha384-WmdflGW9aGfoBdHc4rRyWzYuAjEmDwMdGdiPNacbwfGKxBW/SO6guzuQ76qjnSlr"
+          crossorigin="anonymous"></script>
+  <script>
+    // Theme diagrams from the active palette; re-render when the palette or mode changes.
+    (() => {
+      const nodes = [...document.querySelectorAll('.mermaid')];
+      nodes.forEach(n => { n.dataset.src = n.textContent; });
+      const render = () => {
+        const css = getComputedStyle(document.documentElement);
+        const v = name => css.getPropertyValue(name).trim();
+        mermaid.initialize({ startOnLoad: false, theme: 'base', themeVariables: {
+          darkMode: document.documentElement.dataset.mode === 'dark',
+          background: v('--lab-bg'), fontFamily: v('--lab-mono'),
+          primaryColor: v('--lab-card'), primaryTextColor: v('--lab-text'), primaryBorderColor: v('--lab-accent'),
+          lineColor: v('--lab-muted'), textColor: v('--lab-text'),
+          clusterBkg: 'transparent', clusterBorder: v('--lab-rule'),
+          edgeLabelBackground: v('--lab-bg'), tertiaryColor: v('--lab-bg'),
+        } });
+        nodes.forEach(n => { n.removeAttribute('data-processed'); n.textContent = n.dataset.src; });
+        mermaid.run({ nodes });
+      };
+      render();
+      new MutationObserver(render).observe(document.documentElement, { attributes: true, attributeFilter: ['data-mode', 'data-theme'] });
+    })();
+  </script>
+{{ end }}
+
+{{- end }}{{/* end main */}}

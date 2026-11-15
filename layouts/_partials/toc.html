@@ -1,0 +1,18 @@
+{{- $headers := findRE "<h[1-6].*?>(.|\n])+?</h[1-6]>" .Content -}}
+{{- /* A one- or two-heading post (most TILs) does not need a contents box. */ -}}
+{{- $has_headers := ge (len $headers) 3 -}}
+{{- if $has_headers -}}
+<div class="toc">
+    <details>
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Contents</span>
+            <span class="toc-prompt" aria-hidden="true"><b>&gt;</b> jump to section…</span>
+            <span class="toc-count" aria-hidden="true">{{ len $headers }}/{{ len $headers }}</span>
+        </summary>
+
+        <div class="inner">
+            {{- .TableOfContents -}}
+        </div>
+    </details>
+</div>
+{{- end }}

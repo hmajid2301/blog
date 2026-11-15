@@ -1,0 +1,35 @@
+/* Subscribe — a short utility page listing the real feeds. */
+
+html[data-design] .lab-subscribe-group { margin-top: 32px; }
+html[data-design] .lab-subscribe-group h2 {
+  margin: 0 0 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--lab-rule);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+html[data-design] .lab-feed-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+html[data-design] .lab-feed-list li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 12px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--lab-rule);
+}
+html[data-design] .lab-feed-list li:last-child { border-bottom: 0; }
+html[data-design] .lab-feed-list a { font: 14px/1.6 var(--lab-mono); }
+html[data-design] .lab-feed-note {
+  margin-left: auto;
+  font: 12px/1.7 var(--lab-mono);
+  color: var(--lab-muted);
+}
+
+@media (max-width: 480px) {
+  html[data-design] .lab-feed-note { margin-left: 0; }
+}

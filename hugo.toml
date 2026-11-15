@@ -9,7 +9,6 @@ buildExpired = false
 enableEmoji = true
 enableGitInfo = true
 ignoreFiles = [
-  "content/slides",
   ".*/source_code(/|$)",
   ".*/example(/|$)",
 ]
@@ -21,94 +20,32 @@ osEnv = ['(?i)^((HTTPS?|NO)_PROXY|PATH(EXT)?|APPDATA|TE?MP|TERM|GO\w+|(XDG_CONFI
 [markup.highlight]
 noclasses = false
 
-[module]
-[[module.mounts]]
-source = "static"
-target = "static"
-# GitLab Pages serves existing files before applying redirects.
-files = ["! slides", "! slides/**"]
-
 [minify]
 disableXML = true
 minifyOutput = true
 
 [params]
+# Sections in RSS, archive and prev/next (Hugo would infer "posts" anyway).
+mainSections = ["posts"]
 env = "production"
 title = "Haseeb Majid"
 description = "Haseeb Majid's blog"
-keywords = ["Blog", "Portfolio", "PaperMod"]
-author = "Me"
-images = ["cover.png"]
-DateFormat = "2006-01-02"
-defaultTheme = "auto"
+keywords = ["Blog", "Go", "Nix", "Talks"]
+author = "Haseeb Majid"
 ShowReadingTime = true
-ShowPageViews = true
-ShowLikes = false
-ShowShareButtons = false
 ShowPostNavLinks = true
-ShowBreadCrumbs = true
 ShowCodeCopyButtons = true
 ShowWordCount = true
-ShowLastMod = true
-ShowGitRevision = true
-ShowRssButtonInSectionTermList = true
-UseHugoToc = true
-disableSpecial1stPost = false
-disableScrollToTop = false
-comments = false
-hidemeta = false
-hideSummary = false
 showtoc = true
-tocopen = false
-SeriesOpen = false
-goatcounter = "haseebmajid"
-plausibleDomain = "haseebmajid.dev"
-plausibleScript = "https://plausible.haseebmajid.dev/js/script.js"
 favicon = "/favicon-32x32.png"
 appleTouchIcon = "/favicon-32x32.png"
 
-[params.assets]
-favicon = "/favicon-32x32.png"
-favicon16x16 = "/favicon-16x16.png"
-favicon32x32 = "/favicon-32x32.png"
-apple_touch_icon = "/favicon-32x32.png"
-safari_pinned_tab = "/safari-pinned-tab.svg"
-disableHLJS = true
-[params.label]
-text = "Haseeb Majid"
-icon = "/favicon-32x32.png"
-iconHeight = 35
+[params.og]
+version = "2"
+tagline = "a personal corner of the web"
+
 [params.profileMode]
-enabled = true
-title = "Haseeb Majid"
-subtitle = "Backend software engineer 💻 and village cricketer 🏏"
-imageUrl = "https://www.gravatar.com/avatar/7ddefc94d562a0b5896ef7f1b7c69e0e?s=250"
-imageWidth = 250
-imageHeight = 250
-imageTitle = "A photo of Haseeb Majid"
-
-[[params.profileMode.buttons]]
-name = "Posts"
-url = "posts"
-
-[[params.profileMode.buttons]]
-name = "Slides"
-url = "slides"
-
-[[params.profileMode.buttons]]
-name = "Series"
-url = "series"
-
-[[params.profileMode.buttons]]
-name = "Archive"
-url = "archive"
-
-[[params.profileMode.buttons]]
-name = "Tags"
-url = "tags"
-[params.homeInfoParams]
-Title = "Hi there 👋"
-Content = "Welcome to my blog"
+subtitle = "Backend software engineer 💻, Linux enthusiast 🐧 and village cricketer 🏏"
 
 [[params.socialIcons]]
 name = "gitlab"
@@ -130,35 +67,11 @@ url = "https://ko-fi.com/haseeb36616"
 name = "youtube"
 url = "https://www.youtube.com/@Majiy00"
 
-[params.cover]
-hidden = true
-hiddenInList = true
-hiddenInSingle = true
 [params.editPost]
 URL = "https://gitlab.com/hmajid2301/blog/-/blob/main/content"
 appendFilePath = true
-[params.fuseOpts]
-isCaseSensitive = false
-shouldSort = true
-location = 0
-distance = 100
-threshold = 0.0
-minMatchCharLength = 0
-
-[[params.fuseOpts.keys]]
-name = "title"
-weight = 0.8
-
-[[params.fuseOpts.keys]]
-name = "section"
-weight = 0.2
-
-[[params.fuseOpts.keys]]
-name = "content"
-weight = 0.4
 
 [taxonomies]
-category = "categories"
 tag = "tags"
 series = "series"
 
@@ -171,24 +84,22 @@ url = "/posts/"
 weight = 10
 
 [[menu.main]]
-identifier = "slides"
-name = "Slides"
-url = "/slides/"
-weight = 15
+identifier = "projects"
+name = "Projects"
+url = "/projects/"
+weight = 20
+
+[[menu.main]]
+identifier = "til"
+name = "TIL"
+url = "/til/"
+weight = 30
 
 [[menu.main]]
 identifier = "talks"
 name = "Talks"
 url = "/talks/"
-weight = 20
-
-[[menu.main]]
-identifier = "stats"
-name = "Stats"
-url = "https://stats.haseebmajid.dev/"
-weight = 50
-[menu.main.params]
-external = true
+weight = 40
 
 [mediaTypes."text/redirects"]
 suffixes = [""]

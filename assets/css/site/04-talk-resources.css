@@ -1,0 +1,17 @@
+/* Talk resource links — their own accent, independent of the site accent,
+   so the pills can be a slightly different colour. */
+html[data-design] .page-lab-resources a {
+  color: var(--lab-talk-accent, var(--lab-accent));
+  border-color: color-mix(in srgb, var(--lab-talk-accent, var(--lab-accent)) 30%, var(--lab-rule));
+}
+
+/* Pill — fully rounded chips, no underline. */
+html[data-design][data-design] .page-lab-resources a {
+  text-decoration: none;
+  border-radius: 999px;
+}
+html[data-design][data-design] .page-lab-resources a:hover {
+  border-color: var(--lab-accent);
+  color: var(--lab-accent);
+  background: color-mix(in srgb, var(--lab-accent) 8%, transparent);
+}

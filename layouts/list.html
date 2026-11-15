@@ -1,0 +1,42 @@
+{{- define "main" }}
+  {{- $pages := where .Pages "Params.hidden" "!=" true }}
+  {{- $tilLinks := slice }}
+  {{- if eq .Section "posts" }}
+    {{- range partial "til-pages.html" . }}{{ $tilLinks = $tilLinks | append .RelPermalink }}{{ end }}
+  {{- end }}
+  {{- $isTerm := eq .Kind "term" }}
+  <header class="page-header">
+    <h1>{{ if eq .Data.Singular "tag" }}#{{ .Title | lower }}{{ else }}{{ .Title }}{{ end }}
+      {{- if or $isTerm (eq .Section "posts") }} <small>· {{ len $pages }} {{ if eq (len $pages) 1 }}post{{ else }}posts{{ end }}{{ with .OutputFormats.Get "rss" }} · <a class="tag-rss" href="{{ .RelPermalink }}">RSS ↗</a>{{ end }}</small>{{ end }}</h1>
+    {{- with .Description }}<div class="post-description">{{ . | markdownify }}</div>{{ end }}
+    {{- if not (or $isTerm (eq .Section "posts")) }}{{ partial "inline_links.html" . }}{{ end }}
+  </header>
+  {{- if .Content }}
+  <div class="post-content">
+    {{- if not (.Param "disableAnchoredHeadings") }}{{ partial "anchored_headings.html" .Content }}{{ else }}{{ .Content }}{{ end }}
+  </div>
+  {{- end }}
+  {{- $paginator := "" }}
+  {{- if (.Param "paginate") }}{{ $paginator = .Paginate $pages (.Param "paginate") }}{{ else }}{{ $paginator = .Paginate $pages }}{{ end }}
+  <div class="lab-entry-list">
+    {{- range $paginator.Pages }}
+    <article class="lab-home-entry lab-card">
+      <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "02 Jan 2006" }}</time>
+      <div>
+        <h2><a class="lab-card-link" href="{{ .RelPermalink }}">{{ .Title }}{{ if .Draft }} <sup>[Draft]</sup>{{ end }}{{ if .Weight }} <sup>[Pinned]</sup>{{ end }}</a></h2>
+        {{- if in $tilLinks .RelPermalink }} <span class="lab-chip">TIL</span>{{ end }}
+        {{- if not (.Param "hideSummary") }}<p>{{ partial "entry-summary.html" . | truncate 160 }}</p>{{ end }}
+      </div>
+      <span class="lab-arrow" aria-hidden="true">↗</span>
+    </article>
+    {{- end }}
+  </div>
+  {{- if gt $paginator.TotalPages 1 }}
+  <footer class="page-footer">
+    <nav class="pagination" aria-label="Pagination">
+      {{- with $paginator.Prev }}<a class="prev" href="{{ .URL }}">← {{ i18n "prev_page" }}{{ if ($.Param "ShowPageNums") }} {{ .PageNumber }}/{{ $paginator.TotalPages }}{{ end }}</a>{{ end }}
+      {{- with $paginator.Next }}<a class="next" href="{{ .URL }}">{{ i18n "next_page" }}{{ if ($.Param "ShowPageNums") }} {{ .PageNumber }}/{{ $paginator.TotalPages }}{{ end }} →</a>{{ end }}
+    </nav>
+  </footer>
+  {{- end }}
+{{- end }}

@@ -1,0 +1,24 @@
+{{- $id := "" -}}
+{{- $isTalk := eq .Page.Section "talks" -}}
+{{- $title := printf "%s — %s" .Page.Title (cond $isTalk "recording" "video") -}}
+{{- $start := 0 -}}
+{{- if .IsNamedParams -}}
+  {{- $id = .Get "id" -}}
+  {{- with .Get "title" -}}{{- $title = . -}}{{- end -}}
+  {{- with .Get "start" -}}
+    {{- if findRE `^\d+$` (printf "%v" .) -}}{{- $start = int . -}}{{- end -}}
+  {{- end -}}
+{{- else -}}
+  {{- $id = .Get 0 -}}
+{{- end -}}
+{{- if not (findRE `^[A-Za-z0-9_-]{11}$` $id) -}}
+  {{- errorf "Invalid YouTube video ID %q at %s" $id .Position -}}
+{{- end -}}
+{{- .Page.Store.Set "hasLiteYoutube" true -}}
+<figure class="lite-youtube" data-video-id="{{ $id }}" data-video-start="{{ $start }}" data-video-title="{{ $title }}">
+  <div class="lite-youtube-shell">
+    <img class="lite-youtube-thumb" src="https://i.ytimg.com/vi/{{ $id }}/hqdefault.jpg" alt="" loading="lazy" decoding="async" width="480" height="360">
+    <span class="lite-youtube-tag">{{ cond $isTalk "TALK RECORDING" "VIDEO" }}</span>
+    <button class="lite-youtube-load" type="button" hidden><span class="lite-youtube-play" aria-hidden="true"></span><span class="lite-youtube-label">Play {{ cond $isTalk "recording" "video" }}</span><span class="lite-youtube-sr">: {{ $title }}</span></button>
+  </div>
+</figure>

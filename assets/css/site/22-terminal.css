@@ -1,0 +1,125 @@
+/* Floating terminal: always dark, with palette-specific output colours. */
+@font-face {
+  font-family: 'Terminal Mono';
+  src: url('../../fonts/terminal-mono.woff2') format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Terminal Symbols';
+  src: url('../../fonts/terminal-symbols.woff2') format('woff2');
+  font-display: swap;
+}
+
+.lab-terminal {
+  --term-bg: #1e1e2e;
+  --term-text: #cdd6f4;
+  --term-muted: #a6adc8;
+  --term-accent: #cba6f7;
+  --term-red: #f38ba8;
+  --term-green: #a6e3a1;
+  --term-yellow: #f9e2af;
+  --term-blue: #89b4fa;
+  --term-mauve: #cba6f7;
+  --term-teal: #94e2d5;
+  --term-peach: #fab387;
+  --term-black: #585b70;
+  position: relative;
+  min-width: 0;
+  max-width: 100%;
+  margin: 32px 0 0;
+  border: 1px solid var(--term-accent);
+  border-radius: 8px;
+  background: var(--term-bg);
+  color: var(--term-text);
+  font: 13px/1.6 'MonoLisa', 'Terminal Mono', monospace;
+}
+
+html[data-theme='fireside'] .lab-terminal {
+  --term-bg: #201914;
+  --term-text: #f4e8da;
+  --term-muted: #cbb6a2;
+  --term-accent: #f0aa7d;
+  --term-red: #eea08a;
+  --term-green: #b8ca91;
+  --term-yellow: #e8c58b;
+  --term-blue: #a9c5cd;
+  --term-mauve: #d7b1ca;
+  --term-teal: #9dc6b1;
+  --term-peach: #f0aa7d;
+  --term-black: #896a54;
+}
+
+.lab-terminal-title {
+  position: absolute;
+  top: -9px;
+  left: 14px;
+  padding: 0 8px;
+  background: var(--term-bg);
+  color: var(--term-accent);
+  font: 11px/1.4 'Terminal Mono', monospace;
+}
+
+.lab-terminal-scroll {
+  min-width: 0;
+  overflow-x: auto;
+  padding: 23px 20px 18px;
+  border-radius: inherit;
+}
+
+.lab-terminal-scroll:focus-visible {
+  outline: 2px solid var(--term-accent);
+  outline-offset: 3px;
+}
+
+/* Override article pre styling: one frame, one keyboard-scrollable region. */
+html[data-design] .lab-terminal .lab-terminal-body {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--term-text);
+  font: inherit;
+  font-variant-ligatures: none;
+  font-kerning: none;
+  white-space: pre;
+  overflow: visible;
+  min-width: max-content;
+}
+
+.lab-terminal .lab-terminal-head {
+  margin: 0 0 12px;
+  color: var(--term-text);
+  white-space: normal;
+}
+
+.lab-terminal .lab-terminal-body + .lab-terminal-head { margin-top: 26px; }
+.lab-terminal .lab-terminal-prompt { color: var(--term-text); }
+.lab-terminal .prompt-caret { color: var(--term-green); }
+
+/* A glyph gets one text cell; the inner font cannot change row height. */
+.terminal-glyph {
+  display: inline-block;
+  width: 1ch;
+  line-height: 1;
+  text-align: center;
+}
+.terminal-glyph > span { font-family: 'Terminal Symbols'; font-weight: 400; }
+
+.lab-terminal .t-wordmark { color: var(--term-teal); font-weight: 700; }
+.lab-terminal .t-bd { font-weight: 700; }
+.lab-terminal :is(.t-bd, .t-text) { color: var(--term-text); }
+.lab-terminal .t-red { color: var(--term-red); }
+.lab-terminal .t-green { color: var(--term-green); }
+.lab-terminal .t-yellow { color: var(--term-yellow); }
+.lab-terminal .t-blue { color: var(--term-blue); }
+.lab-terminal .t-mauve { color: var(--term-mauve); }
+.lab-terminal .t-teal { color: var(--term-teal); }
+.lab-terminal .t-peach { color: var(--term-peach); }
+.lab-terminal .t-black { color: var(--term-black); }
+
+@media (max-width: 600px) {
+  .lab-terminal { font-size: 11px; }
+  .lab-terminal-scroll { padding-left: 13px; padding-right: 13px; }
+}

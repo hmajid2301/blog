@@ -1,0 +1,6 @@
+{{- $page := . -}}
+{{- with partial "page-lab-resources.html" . -}}
+<ul class="page-lab-resources" aria-label="Resources for {{ $page.Title }}">
+  {{- range . }}<li><a href="{{ .url }}" aria-label="{{ .label }} — {{ $page.Title }}">{{ .label }}</a></li>{{ end -}}
+</ul>
+{{- end -}}

@@ -1,0 +1,30 @@
+{{- $lang := default "text" .Type -}}
+{{- $extensions := dict "bash" "sh" "shell" "sh" "text" "txt" "typescript" "ts" "javascript" "js" "python" "py" "yml" "yaml" "go-html-template" "html" -}}
+{{- $extension := index $extensions $lang | default $lang -}}
+{{- $file := .Attributes.file | default .Attributes.filename | default .Attributes.title | default (printf "snippet.%s" $extension) -}}
+{{- $filename := path.Base $file -}}
+{{- $opts := dict -}}
+{{- if not (transform.CanHighlight .Type) -}}
+  {{- $opts = dict "type" "text" -}}
+{{- end -}}
+{{- $result := transform.HighlightCodeBlock . $opts -}}
+{{- $source := strings.TrimSuffix "\n" .Inner -}}
+{{- $n := len (split $source "\n") -}}
+{{- $isDiff := or .Attributes.added .Attributes.removed -}}
+<div class="lab-neovim{{ if $isDiff }} lab-code-diff{{ end }}" data-code-lines="{{ $n }}" data-code-filename="{{ $filename }}" data-code-lang="{{ $lang }}">
+  <div class="lab-code-tab">
+    <span class="lab-code-filename" title="{{ $file }}">{{ $filename }}</span>
+  </div>
+  {{- if $isDiff }}
+  <p class="lab-diff-key">Changes: <span>+ added</span> · <span>− removed (struck through)</span></p>
+  {{ partial "code-diff.html" (dict "html" $result.Wrapped "attributes" .Attributes "lines" $n "position" .Position) }}
+  {{- else }}
+  {{ $result.Wrapped | safeHTML }}
+  {{- end }}
+  <div class="lab-code-bar">
+    <b class="lab-code-lang">{{ $lang }}</b>
+    <span class="lab-code-lines">{{ $n }} {{ cond (eq $n 1) "line" "lines" }}</span>
+    <span class="lab-code-copy"></span>
+  </div>
+  <div class="lab-code-command" role="status">"{{ $filename }}" {{ $n }}L</div>
+</div>

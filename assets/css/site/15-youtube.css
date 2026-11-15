@@ -1,0 +1,63 @@
+html[data-design] .lite-youtube { margin: 30px 0; }
+.lite-youtube-shell {
+  aspect-ratio: 16 / 9;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--lab-rule);
+  border-radius: 8px;
+  background: var(--lab-code-bg);
+}
+html[data-design] .post-content .lite-youtube-thumb { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; margin: 0; border-radius: 0; object-fit: cover; }
+.lite-youtube-tag {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 1;
+  padding: 2px 8px;
+  border-radius: 3px;
+  background: var(--lab-accent);
+  color: var(--lab-bg);
+  font: 600 11px/1.6 var(--lab-mono);
+  pointer-events: none;
+}
+.lite-youtube-load {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 0;
+  border: 0;
+  background: linear-gradient(transparent 40%, rgb(0 0 0 / .45));
+  color: #fff;
+  font: 13px/1.5 var(--lab-mono);
+  cursor: pointer;
+}
+.lite-youtube-load[hidden] { display: none; }
+.lite-youtube-play {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: var(--lab-accent);
+  box-shadow: 0 6px 24px rgb(0 0 0 / .35);
+  transition: transform .15s;
+}
+.lite-youtube-play::before {
+  content: '';
+  display: block;
+  margin: 22px 0 0 27px;
+  border-block: 12px solid transparent;
+  border-inline-start: 19px solid var(--lab-bg);
+}
+.lite-youtube-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.lite-youtube-load:hover .lite-youtube-play { transform: scale(1.08); }
+.lite-youtube-load:focus-visible { outline: 3px solid var(--lab-accent); outline-offset: -6px; }
+@media (prefers-reduced-motion: reduce) { .lite-youtube-play { transition: none; } }
+.lite-youtube-shell iframe { width: 100%; height: 100%; border: 0; }
+.lite-youtube-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+@media (max-width: 600px) {
+  .lite-youtube-play { width: 52px; height: 52px; }
+  .lite-youtube-play::before { margin: 16px 0 0 20px; border-block-width: 10px; border-inline-start-width: 16px; }
+}

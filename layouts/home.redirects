@@ -1,0 +1,14 @@
+{{- $r := hugo.Data.redirects -}}
+{{- $base := strings.TrimRight "/" $r.base_url -}}
+{{- printf "# Generated from data/redirects.toml. Keep legacy URLs (incl. printed QR codes) permanently.\n" -}}
+{{- range $r.decks -}}
+  {{- $old := printf "/slides/%s" .old -}}
+  {{- $new := printf "%s/%s/" $base .new -}}
+  {{- printf "%s %s 301\n" $old $new -}}
+  {{- printf "%s/ %s 301\n" $old $new -}}
+  {{- printf "%s/* %s:splat 301\n" $old $new -}}
+{{- end -}}
+{{- printf "/slides %s/ 301\n/slides/ %s/ 301\n" $base $base -}}
+{{- range $r.paths -}}
+  {{- printf "%s %s 301\n" .old .new -}}
+{{- end -}}
