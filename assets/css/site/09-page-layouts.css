@@ -1,0 +1,210 @@
+/* Content arrangements are independent of the selected global shell. */
+html[data-design] .main [data-page-variant][hidden] { display: none !important; }
+html[data-design] .page-lab { color: var(--lab-text); overflow-wrap: anywhere; min-width: 0; }
+html[data-design] .page-lab-header { margin-bottom: 40px; padding-bottom: 24px; border-bottom: 1px solid var(--lab-rule); }
+html[data-design] .page-lab-header h1 { font: 600 clamp(32px, 5vw, 60px)/1.12 var(--lab-heading); margin: 12px 0 20px; letter-spacing: -.035em; }
+html[data-design] .page-lab-header p { max-width: 65ch; line-height: 1.7; }
+/* Talks — hero + table (inspired by davideimola.dev/sharing). */
+html[data-design] .lab-talks-hero h1 {
+  margin: 8px 0 16px;
+  font: 700 clamp(34px, 5vw, 54px)/1.08 var(--lab-heading);
+  letter-spacing: -0.04em;
+  max-width: 22ch;
+}
+html[data-design] .lab-talks-lead {
+  max-width: 64ch;
+  margin: 0 0 26px;
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--lab-muted);
+}
+html[data-design] .lab-talks-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 48px;
+  margin: 0 0 10px;
+  padding: 0;
+}
+html[data-design] .lab-talks-stats > div { display: flex; flex-direction: column; gap: 6px; }
+html[data-design] .lab-talks-stats dt {
+  margin: 0;
+  font: 13px/1.5 var(--lab-mono);
+  color: var(--lab-muted);
+}
+html[data-design] .lab-talks-stats dd {
+  margin: 0;
+  font: 700 40px/1 var(--lab-heading);
+  letter-spacing: -0.04em;
+}
+html[data-design] .lab-talks-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-size: 15px;
+}
+html[data-design] .lab-talks-table th {
+  text-align: left;
+  padding: 10px 14px 12px;
+  border-bottom: 1px solid var(--lab-rule);
+  font: 12px/1.5 var(--lab-mono);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--lab-muted);
+  white-space: nowrap;
+}
+html[data-design] .lab-talks-table td {
+  padding: 14px;
+  border-bottom: 1px solid var(--lab-rule);
+  vertical-align: baseline;
+}
+html[data-design] .lab-talks-table td.when {
+  font: 13px/1.5 var(--lab-mono);
+  color: var(--lab-muted);
+  white-space: nowrap;
+}
+html[data-design] .lab-talks-table td.title a {
+  font: 600 16px/1.4 var(--lab-heading);
+  color: var(--lab-text);
+  text-decoration: none;
+}
+html[data-design] .lab-talks-table td.title a:hover { color: var(--lab-accent); text-decoration: underline; }
+html[data-design] .lab-talks-table td.where {
+  font: 13px/1.5 var(--lab-mono);
+  color: var(--lab-muted);
+}
+html[data-design] .lab-talks-table .page-lab-resources {
+  margin: 0;
+  gap: 12px;
+  justify-content: flex-end;
+}
+html[data-design] .lab-talks-table .page-lab-resources li { min-width: 0; }
+html[data-design] .lab-talks-table .page-lab-resources a {
+  border: 0;
+  background: none;
+  padding: 0;
+  min-height: 0;
+  min-width: 0;
+  border-radius: 0;
+  font: 13px/1.5 var(--lab-mono);
+  color: var(--lab-accent);
+  text-decoration: none;
+  white-space: nowrap;
+}
+html[data-design] .lab-talks-table .page-lab-resources a:hover { text-decoration: underline; background: none; border-color: transparent; }
+@media (max-width: 700px) {
+  html[data-design] .lab-talks-table th:nth-child(3),
+  html[data-design] .lab-talks-table td:nth-child(3) { display: none; }
+}
+html[data-design] .page-lab :is(h2,h3) { line-height: 1.3; letter-spacing: -.02em; }
+html[data-design] .page-lab a { text-decoration: underline; text-underline-offset: .18em; text-decoration-thickness: 1px; }
+html[data-design] :is(.page-lab,.page-lab-contents,.page-lab-uses-sections) a:focus-visible { outline: 3px solid var(--lab-accent); outline-offset: 4px; border-radius: 2px; }
+html[data-design] .page-lab a:hover { text-decoration-thickness: 2px; }
+html[data-design] .page-lab-resources { list-style: none; padding: 0; margin: 18px 0 0; display: flex; flex-wrap: wrap; gap: 8px; }
+html[data-design] .page-lab-resources li { margin: 0; max-width: 100%; }
+html[data-design] .page-lab-resources a { display: inline-flex; align-items: center; min-height: 36px; min-width: 24px; padding: 6px 12px; border: 1px solid var(--lab-rule); border-radius: 4px; font: 13px/1.5 var(--lab-mono); text-decoration: underline; text-underline-offset: .18em; overflow-wrap: anywhere; }
+/* ===== Poster wall (cover-led year blocks) ===== */
+html[data-design] .page-lab-pagination { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; border-top: 1px solid var(--lab-rule); padding-top: 24px; margin: 40px 0; }
+html[data-design] .page-lab-pagination a { display: inline-flex; align-items: center; min-height: 44px; }
+/* Archive — month-grouped list. */
+html[data-design] .lab-archive-total {
+  margin: 0 0 4px;
+  font: 12px/1.6 var(--lab-mono);
+  color: var(--lab-muted);
+}
+html[data-design] .lab-archive-year { margin-bottom: 8px; }
+html[data-design] .lab-archive-year-head {
+  margin: 32px 0 6px;
+  font: 700 26px/1.2 var(--lab-heading);
+  letter-spacing: -0.03em;
+}
+html[data-design] .lab-archive-year-head small,
+html[data-design] .lab-archive-month small {
+  margin-left: 8px;
+  font: 12px/1.6 var(--lab-mono);
+  color: var(--lab-muted);
+  letter-spacing: 0;
+  text-transform: none;
+}
+html[data-design] .lab-archive-month {
+  margin: 18px 0 6px;
+  font: 600 18px/1.3 var(--lab-heading);
+  letter-spacing: -0.01em;
+  color: var(--lab-text);
+}
+html[data-design] .lab-archive-row {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--lab-rule);
+}
+html[data-design] .lab-archive-title {
+  margin: 0 0 6px;
+  font: 600 17px/1.4 var(--lab-heading);
+  letter-spacing: -0.01em;
+}
+html[data-design] .lab-archive-title a {
+  color: var(--lab-text);
+  text-decoration: none;
+}
+html[data-design] .lab-archive-title a:hover { color: var(--lab-accent); }
+html[data-design] .lab-archive-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 10px;
+  font: 12px/1.6 var(--lab-mono);
+  color: var(--lab-muted);
+}
+html[data-design] .lab-archive-count { margin-left: auto; color: var(--lab-muted); }
+/* Detail alternatives retain one article DOM: anchors, embeds and Copy handlers are not duplicated. */
+html[data-design][data-page-variant='briefing'] body[data-lab-page='talk'] .post-title { max-width: 22ch; font-size: clamp(32px, 4vw, 52px); }
+html[data-design][data-page-variant='briefing'] body[data-lab-page='talk'] .post-content { max-width: 70ch; }
+html[data-design][data-page-variant='editorial'] body[data-lab-page='article'] .post-header { border-block: 1px solid var(--lab-rule); padding-block: 32px; margin-bottom: 36px; }
+html[data-design][data-page-variant='editorial'] body[data-lab-page='article'] .post-title { font-size: clamp(2.25rem, 4vw, 3.5rem); max-width: 24ch; line-height: 1.12; }
+html[data-design][data-page-variant='editorial'] body[data-lab-page='article'] .post-description { font-size: 23px; line-height: 1.6; }
+/* Uses: section wrappers contain the complete original rendered Markdown, not a flattened inventory. */
+html[data-design] .page-lab-lead { font-size: 1.5em; font-weight: 600; }
+html[data-design] .page-lab-uses-section { min-width: 0; }
+/* Writing variants */
+@media (max-width: 650px) {
+  html[data-design] .page-lab-resources a { min-height: 44px; }
+}
+/* Talk detail: authored link list → pill buttons (matches /talks/); photos → 2-col grid. */
+html[data-design] body[data-lab-page='talk'] .post-content > ul:first-of-type {
+  display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0 32px; padding: 0; list-style: none;
+}
+html[data-design] body[data-lab-page='talk'] .post-content > ul:first-of-type li { margin: 0; }
+html[data-design] body[data-lab-page='talk'] .post-content > ul:first-of-type a {
+  display: inline-flex; align-items: center; min-height: 36px; padding: 6px 14px;
+  border: 1px solid color-mix(in srgb, var(--lab-talk-accent, var(--lab-accent)) 30%, var(--lab-rule));
+  border-radius: 999px; color: var(--lab-talk-accent, var(--lab-accent));
+  font: 13px/1.5 var(--lab-mono); text-decoration: none;
+}
+html[data-design] body[data-lab-page='talk'] .post-content > ul:first-of-type a:hover {
+  border-color: var(--lab-accent); color: var(--lab-accent);
+  background: color-mix(in srgb, var(--lab-accent) 8%, transparent);
+}
+html[data-design] body[data-lab-page='talk'] .post-content > p:has(> img:nth-of-type(2)) {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px;
+}
+html[data-design] body[data-lab-page='talk'] .post-content > p:has(> img:nth-of-type(2)) > img,
+html[data-design] body[data-lab-page='talk'] .post-content > figure:not(.lite-youtube) img {
+  width: 100%; height: 100%; aspect-ratio: 3 / 2; object-fit: cover; margin: 0; border-radius: 8px;
+}
+html[data-design] body[data-lab-page='talk'] .post-content > figure:not(.lite-youtube):is(:has(+ figure), figure + *) {
+  display: inline-block; width: calc(50% - 6px); margin: 0 0 12px; vertical-align: top;
+}
+html[data-design] body[data-lab-page='talk'] .post-content > figure:not(.lite-youtube) + figure:not(.lite-youtube) { margin-inline-start: 12px; }
+/* List pagination (/posts/, tags, series): outline pills, matching the talk link pills. */
+html[data-design] .page-footer:has(> .pagination) { margin-top: 24px; }
+html[data-design] .main .pagination a {
+  display: inline-flex; align-items: center; min-height: 36px; padding: 6px 14px;
+  border: 1px solid color-mix(in srgb, var(--lab-accent) 30%, var(--lab-rule));
+  border-radius: 999px; background: none; color: var(--lab-accent);
+  font: 13px/1.5 var(--lab-mono); text-decoration: none;
+}
+html[data-design] .main .pagination a:hover {
+  border-color: var(--lab-accent);
+  background: color-mix(in srgb, var(--lab-accent) 8%, transparent);
+}
+/* Tag term header: RSS lives inline with the post count. */
+html[data-design] .page-header h1 small .tag-rss { color: var(--lab-accent); text-decoration: none; }
+html[data-design] .page-header h1 small .tag-rss:hover { text-decoration: underline; }

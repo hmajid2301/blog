@@ -1,0 +1,99 @@
+html[data-design] .series-nav {
+  margin: 28px 0;
+  border: 1px solid var(--lab-rule);
+  border-radius: 8px;
+  overflow: hidden;
+  color: var(--lab-text);
+}
+.series-nav .series-head {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  padding: 13px 18px;
+  background: var(--lab-surface);
+  font: 12px/1.7 var(--lab-mono);
+  cursor: pointer;
+  list-style: none;
+}
+.series-head::-webkit-details-marker { display: none; }
+.series-head > :first-child { min-width: 0; overflow-wrap: anywhere; }
+.series-head > :first-child::before { content: '▸ '; color: var(--lab-accent); }
+.series-nav details[open] .series-head > :first-child::before { content: '▾ '; }
+.series-count { margin-left: auto; white-space: nowrap; color: var(--lab-muted); }
+.series-nav .series-parts { list-style: none; padding: 8px 0; margin: 0; max-height: 24rem; overflow-y: auto; }
+.series-parts li { margin: 0; }
+.series-parts a {
+  display: grid;
+  grid-template-columns: 26px minmax(0, 1fr) auto;
+  gap: 10px;
+  padding: 9px 18px;
+  font-size: 16px;
+  line-height: 1.5;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+.series-parts a[aria-current] { background: var(--lab-surface); color: var(--lab-accent); }
+.series-number, .series-reading { font: 11px/2 var(--lab-mono); color: var(--lab-muted); }
+.series-nav .series-actions {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+  padding: 12px 18px;
+  border-top: 1px solid var(--lab-rule);
+  font: 12px/1.7 var(--lab-mono);
+}
+.series-actions > span { color: var(--lab-muted); }
+.series-nav :is(a, summary):focus-visible { outline: 3px solid var(--lab-accent); outline-offset: -3px; }
+@media (max-width: 400px) {
+  .series-parts a { grid-template-columns: 22px minmax(0, 1fr); }
+  .series-reading { grid-column: 2; }
+}
+
+/* Series index cards — the /series/ taxonomy page. */
+html[data-design] .lab-series-index {
+  list-style: none;
+  margin: 28px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+html[data-design] .lab-series-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 18px 20px;
+  border: 0;
+  border-radius: 16px;
+}
+html[data-design] .lab-series-card h2 { margin: 0; font-size: 21px; line-height: 1.25; }
+html[data-design] .lab-series-card h2 a { text-decoration: none; }
+html[data-design] .lab-series-meta {
+  margin: 0;
+  font: 12px/1.7 var(--lab-mono);
+  color: var(--lab-muted);
+}
+html[data-design] .lab-series-start { margin: 0; font-size: 14px; line-height: 1.5; }
+html[data-design] .lab-series-start a { color: var(--lab-accent); }
+
+html[data-design] .lab-series-til {
+  margin: 24px 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 10px;
+  font-size: 15px;
+}
+html[data-design] .lab-series-til-label {
+  padding: 1px 9px;
+  border: 1px solid var(--lab-rule);
+  border-radius: 999px;
+  font: 11px/1.8 var(--lab-mono);
+  letter-spacing: 0.06em;
+  color: var(--lab-muted);
+}
+
+@media (max-width: 700px) {
+  html[data-design] .lab-series-index { grid-template-columns: minmax(0, 1fr); }
+}

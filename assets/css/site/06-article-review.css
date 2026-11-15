@@ -1,0 +1,268 @@
+/* Article-page review fixes (baked design tweaks). */
+
+html[data-design] body :is(.lab-eyebrow, .page-lab-kicker, .lab-home-entry time, .page-lab-entry time, .archive-meta, .lab-portrait figcaption) { font-size: 12px; color: var(--lab-muted); }
+html[data-design] .lab-entry-list .lab-home-entry h2 { font-size: 24px; line-height: 1.25; }
+html[data-design] .lab-entry-list .lab-home-entry p { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+html[data-design] .lab-entry-list .lab-home-entry > div { min-width: 0; }
+html[data-design] .page-header h1 { text-transform: none; }
+html[data-design] .page-header h1 small { font: 400 18px var(--lab-mono); color: var(--lab-muted); white-space: nowrap; }
+html[data-design] .topic-group { margin-block: 32px; }
+html[data-design] .topic-group h2 { font-size: 24px; }
+html[data-design] .topic-group .terms-tags { display: flex; flex-wrap: wrap; justify-content: flex-start; gap: 8px; padding: 0; margin: 16px 0; list-style: none; }
+html[data-design] .topic-group .terms-tags li { margin: 0; }
+html[data-design] .topic-group .terms-tags a { margin: 0; font-size: 15px; display: inline-block; padding: 5px 14px; border: 1px solid var(--lab-rule); border-radius: 999px; background: var(--lab-card); color: var(--lab-text); text-decoration: none; }
+html[data-design] .topic-group .terms-tags a:hover { border-color: var(--lab-accent); color: var(--lab-accent); }
+html[data-design] .topic-group .terms-tags span { color: var(--lab-muted); font: 12px var(--lab-mono); margin-inline-start: 6px; }
+html[data-design] .topic-group .compact-topics a { padding: 4px 11px; border: 1px solid var(--lab-rule); border-radius: 999px; background: var(--lab-card); font-size: 13px; }
+/* Repeated references still share one return link, to the first mention. */
+html[data-design] .footnote-backref ~ .footnote-backref { display: none; }
+html[data-design] body.kind-404 { display: flex; flex-direction: column; min-height: 100vh; }
+html[data-design] body.kind-404 .main { flex: 1; width: 100%; }
+html[data-design] body.kind-404 .footer { width: 100%; }
+html[data-design] .error-page { margin-inline: auto; }
+html[data-design] body.kind-home .lab-home-hero { padding: 28px; align-items: start; gap: 28px; }
+@media (max-width: 700px) {
+  html[data-design] .lab-eyebrow-tail { display: none; }
+  html[data-design] body.kind-home .lab-home-hero { padding: 24px; }
+}
+
+/* Hide the heading ¶ anchor link — was revealed on hover. */
+html[data-design] .post-content .anchor { display: none !important; }
+
+/* ToC: telescope-style picker above the content (closed by default). */
+html[data-design] .post-body { min-width: 0; }
+html[data-design] .post-body > .toc {
+  margin: 0 0 32px;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--lab-accent);
+  border-radius: 8px;
+  background: var(--lab-code-bg);
+  font: 13.5px var(--lab-mono);
+}
+html[data-design][data-mode='dark'] .post-body > .toc { background: var(--lab-card); }
+html[data-design] .toc details summary {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  padding: 9px 14px;
+  list-style: none;
+  color: var(--lab-text);
+  border-bottom: 1px solid transparent;
+}
+html[data-design] .toc details summary::-webkit-details-marker { display: none; }
+html[data-design] .toc details[open] summary { border-bottom-color: var(--lab-rule); }
+html[data-design] .toc summary:focus-visible { outline: 2px solid var(--lab-accent); outline-offset: -4px; }
+html[data-design] .toc .details {
+  padding: 0 6px;
+  border-radius: 3px;
+  background: var(--lab-accent);
+  color: var(--lab-bg);
+  font: 600 11px/1.6 var(--lab-mono);
+}
+html[data-design] .toc .toc-prompt { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--lab-muted); }
+html[data-design] .toc .toc-prompt b { color: var(--lab-accent); font-weight: 400; }
+html[data-design] .toc .toc-count { margin-inline-start: auto; color: var(--lab-muted); }
+html[data-design] .toc .inner { padding: 8px 0; }
+html[data-design] .toc ul { margin: 0; padding: 0; list-style: none; }
+html[data-design] .toc li { margin: 0; }
+html[data-design] .toc li ul { margin: 0; }
+html[data-design] .main .toc li a {
+  display: block;
+  padding: 3px 14px;
+  border-radius: 0;
+  color: var(--lab-text);
+  font: 14.5px/1.5 var(--lab-body, inherit);
+  text-decoration: none;
+}
+html[data-design] .main .toc li li a { padding-inline-start: 34px; color: var(--lab-muted); }
+html[data-design] .main .toc li li li a { padding-inline-start: 54px; }
+html[data-design] .toc li a code { font-size: .85em; background: none; padding: 0; }
+html[data-design] .main .toc li a:is(.active, :hover, :focus-visible) {
+  outline: 0;
+  background: color-mix(in srgb, var(--lab-accent) 18%, transparent);
+  box-shadow: inset 3px 0 var(--lab-accent);
+  color: var(--lab-accent);
+  text-decoration: none;
+}
+html[data-design] .post-content {
+  max-width: 68ch;
+  font-weight: 450;
+  line-height: 1.7;
+}
+html[data-design] .post-content :is(h1, h2, h3, h4) { font-family: var(--lab-heading); }
+html[data-design] .post-single .post-title { font-size: clamp(2.25rem, 4vw, 3.5rem); }
+html[data-design] .post-meta-line { display: flex; flex-wrap: wrap; gap: 4px 0; }
+html[data-design] .post-meta-line > * { white-space: nowrap; }
+html[data-design] .post-meta-line > * + *::before { content: '·'; margin-inline: 8px; }
+html[data-design] .post-edit a { display: inline-flex; align-items: center; gap: 8px; font: 13px var(--lab-mono); }
+html[data-design] .post-edit svg { width: 14px; height: 14px; }
+
+/* Larger, tidier post meta + breadcrumbs. */
+html[data-design] .post-meta,
+html[data-design] .breadcrumbs { font-size: 13px; }
+
+/* Tidy tag chips. */
+html[data-design] .post-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+html[data-design] .main .post-tags a {
+  display: inline-block;
+  padding: 2px 10px;
+  border: 1px solid var(--lab-rule);
+  border-radius: 999px;
+  background: var(--lab-card);
+  color: var(--lab-text);
+  text-decoration: none;
+  font-size: 12px;
+}
+html[data-design] .main .post-tags a:hover { border-color: var(--lab-accent); color: var(--lab-accent); background: var(--lab-card); }
+
+/* No rule under the post footer (the line under the tags). */
+html[data-design] .post-footer { border-bottom: 0; }
+
+/* Code blocks: folder tab (filename) on top, statusbar (lang · lines · copy) at the bottom. */
+html[data-design][data-design] .lab-neovim {
+  --cb-lang: var(--lab-accent);
+  --cb-body: var(--lab-code-bg);
+  --cb-bar: color-mix(in srgb, var(--lab-text) 7%, var(--lab-code-bg));
+  overflow: visible;
+  margin: 54px 0 28px;
+  border: 0;
+  border-radius: 0 10px 10px 10px;
+  background: var(--cb-body);
+}
+html[data-design][data-mode='dark'][data-design] .lab-neovim {
+  --cb-body: var(--lab-card);
+  --cb-bar: color-mix(in srgb, #000 28%, var(--lab-card));
+}
+html[data-design][data-design] .lab-neovim[data-code-lang='go'] { --cb-lang: var(--nv-blue); }
+html[data-design][data-design] .lab-neovim[data-code-lang='sql'] { --cb-lang: var(--nv-peach); }
+html[data-design][data-design] .lab-neovim:is([data-code-lang='bash'], [data-code-lang='sh'], [data-code-lang='shell'], [data-code-lang='fish'], [data-code-lang='console']) { --cb-lang: var(--nv-green); }
+html[data-design][data-design] .lab-neovim > .highlight { border-radius: 0 10px 0 0; overflow: hidden; }
+html[data-design][data-design] .lab-neovim pre { background: transparent; }
+html[data-design][data-design] .lab-neovim pre code {
+  padding: 16px 20px;
+  font-size: 13.5px;
+  line-height: 1.7;
+}
+html[data-design][data-design] .lab-neovim code > .line { padding-left: 4ch; }
+html[data-design][data-design] .lab-neovim code > .line::before { font-size: 12px; line-height: 1.91; }
+
+/* Filename tab, with an inverse curve joining it to the body. */
+html[data-design][data-design] .lab-neovim .lab-code-tab {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: calc(100% - 24px);
+  min-height: 0;
+  height: 30px;
+  padding: 0 16px;
+  border-radius: 10px 10px 0 0;
+  background: var(--cb-body);
+  font: 12px/1 var(--lab-mono);
+}
+html[data-design][data-design] .lab-neovim .lab-code-tab::before {
+  content: '';
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--cb-lang);
+}
+html[data-design][data-design] .lab-neovim .lab-code-tab::after {
+  content: '';
+  position: absolute;
+  right: -10px;
+  bottom: 0;
+  width: 10px;
+  height: 10px;
+  background: radial-gradient(circle at 100% 0, transparent 10px, var(--cb-body) 10.5px);
+}
+html[data-design][data-design] .lab-code-filename {
+  display: block;
+  overflow: hidden;
+  color: var(--lab-text);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Statusbar: language block · line count · copy. */
+html[data-design][data-design] .lab-code-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 30px;
+  padding-right: 8px;
+  overflow: hidden;
+  border-radius: 0 0 10px 10px;
+  background: var(--cb-bar);
+  color: var(--lab-muted);
+  font: 12px/1 var(--lab-mono);
+}
+html[data-design][data-design] .lab-code-lang {
+  align-self: stretch;
+  display: grid;
+  place-items: center;
+  padding: 0 12px;
+  background: var(--cb-lang);
+  color: var(--lab-bg);
+  font-weight: 700;
+}
+html[data-design][data-design] .lab-code-copy { margin-left: auto; }
+html[data-design][data-design] .lab-neovim .lab-code-copy .copy-code {
+  display: block;
+  margin: 0;
+  padding: 3px 10px;
+  border: 1px solid var(--cb-lang);
+  border-radius: 5px;
+  background: transparent;
+  color: var(--cb-lang);
+  font: 12px/1.4 var(--lab-mono);
+  cursor: pointer;
+}
+html[data-design][data-design] .lab-neovim .lab-code-copy .copy-code:hover {
+  background: var(--cb-lang);
+  color: var(--lab-bg);
+}
+html[data-design][data-design] .lab-code-command {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+/* Tabbed code groups already name each file in their tablist. */
+html[data-design][data-design] .lab-code-tabs .lab-neovim { margin: 0; border-radius: 0; }
+html[data-design][data-design] .lab-code-tabs .lab-code-tab { display: none; }
+html[data-design][data-design] .lab-code-tabs :is(.lab-neovim > .highlight, .lab-code-bar) { border-radius: 0; }
+
+
+/* Talk detail: statusbar-style badge under the title — [talk] Conference │ date. */
+html[data-design] .talk-badge {
+  display: inline-flex; flex-wrap: wrap; align-items: stretch; max-width: 100%; margin: 4px 0 0;
+  overflow: hidden; border: 1px solid var(--lab-accent); border-radius: 6px; font: 13px/1 var(--lab-mono);
+}
+html[data-design] .talk-badge > * { display: flex; align-items: center; padding: 7px 12px; }
+html[data-design] .talk-badge b { background: var(--lab-accent); color: var(--lab-bg); font-weight: 600; }
+html[data-design] .talk-badge span { color: var(--lab-text); }
+html[data-design] .talk-badge time { color: var(--lab-muted); }
+html[data-design] .talk-badge > * + :not(b) { border-inline-start: 1px solid var(--lab-rule); }
+html[data-design] .talk-badge b + * { border-inline-start: 0; }
+/* Markdown tables: match the /talks/ table (mono muted headers, rule lines). */
+html[data-design] .post-content > table {
+  display: table; width: 100%;
+  border-collapse: collapse; margin: 24px 0 32px; font-size: 16px;
+}
+html[data-design] .post-content > table th {
+  padding: 10px 14px 12px; border-bottom: 1px solid var(--lab-rule);
+  font: 12px/1.5 var(--lab-mono); text-transform: uppercase; letter-spacing: .06em;
+  color: var(--lab-muted); white-space: nowrap;
+}
+html[data-design] .post-content > table td { padding: 12px 14px; border-bottom: 1px solid var(--lab-rule); }
+html[data-design] .post-content > table tr:last-child td { border-bottom: 0; }

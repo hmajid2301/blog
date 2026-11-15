@@ -1,0 +1,60 @@
+/* Builder weight overrides treatment defaults, not the workbench's own typography. */
+html[data-design][data-design] body:not(.layout-design-builder) .main :is(h1, h2, h3, h4, h5, h6) { font-weight: var(--lab-heading-weight, 500); }
+/* Screenshot-style Neovim frame; the site accent remains independent of editor chrome. */
+.lab-neovim {
+  --nv-blue: #89b4fa; --nv-green: #a6e3a1; --nv-pink: #f5c2e7; --nv-peach: #fab387;
+  --nv-on: #11111b; --nv-bar: #181825;
+}
+html[data-mode='light'] .lab-neovim {
+  --nv-blue: #1e66f5; --nv-green: #29661c; --nv-pink: #8839ef; --nv-peach: #983c07;
+  --nv-on: #fff; --nv-bar: #dce0e8;
+}
+html[data-theme='fireside'][data-mode='dark'] .lab-neovim {
+  --nv-blue: #a9c5cd; --nv-green: #b8ca91; --nv-pink: #e6b4ae; --nv-peach: #f0aa7d;
+  --nv-on: #201914; --nv-bar: #281f1a;
+}
+html[data-theme='fireside'][data-mode='light'] .lab-neovim {
+  --nv-blue: #285b68; --nv-green: #48622c; --nv-pink: #884a67; --nv-peach: #a13e25;
+  --nv-on: #fff; --nv-bar: #e7d5c2;
+}
+.lab-code-tab, .lab-code-bar, .lab-code-command { display: none; }
+html[data-design] .lab-neovim {
+  position: relative; min-width: 0; overflow: hidden; margin: 24px 0;
+  border: 0; border-radius: 3px; background: var(--lab-code-bg); color: var(--lab-text);
+}
+html[data-design] .lab-neovim .lab-code-tab {
+  display: flex; align-items: center; gap: 6px; min-height: 29px; padding: 0 9px;
+  background: var(--lab-code-bg); font: 10px/1 var(--lab-mono);
+}
+html[data-design] .lab-neovim > .highlight { margin: 0; }
+html[data-design] .lab-neovim pre {
+  margin: 0; padding: 0; border: 0; border-radius: 0; background: var(--lab-code-bg); overflow-x: auto;
+}
+html[data-design] .lab-neovim pre code {
+  display: block; width: max-content; min-width: 100%; box-sizing: border-box;
+  padding: 12px 16px 17px 8px; overflow: visible; font-size: 13px; line-height: 1.65; counter-reset: lab-code-line;
+}
+html[data-design] .lab-neovim code > .line {
+  display: block; position: relative; min-height: 1.65em; padding-left: 4ch;
+}
+html[data-design] .lab-neovim code > .line::before {
+  counter-increment: lab-code-line; content: counter(lab-code-line);
+  position: absolute; left: 0; width: 2.5ch; text-align: right;
+  color: var(--lab-muted); font-size: 10px; line-height: 2.145; user-select: none;
+}
+html[data-design] .lab-neovim code > .line.hl { background: var(--lab-code-highlight); }
+html[data-design] .lab-code-command { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 3px 9px 5px; min-height: 23px; color: var(--lab-muted); font: 10px/1.5 var(--lab-mono); }
+html[data-design] .lab-neovim .copy-code {
+  display: block; position: static; flex-shrink: 0; opacity: 1; margin: 0 0 0 auto; padding: 4px 2px;
+  border: 0; border-radius: 0; background: transparent; color: var(--lab-muted); font: 10px var(--lab-mono);
+}
+html[data-design] .lab-neovim .copy-code:hover { color: var(--lab-text); }
+html[data-design] .lab-neovim .copy-code:focus-visible { outline: 2px solid var(--lab-accent); outline-offset: 3px; }
+@media (max-width: 600px) {
+  html[data-design] .lab-neovim pre code { font-size: 12px; padding-right: 10px; }
+  /* Keep copy announcements accessible while hiding the command row visually. */
+  html[data-design] .lab-code-command {
+    position: absolute; width: 1px; height: 1px; min-height: 0; padding: 0; margin: -1px;
+    overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+  }
+}

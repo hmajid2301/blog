@@ -1,0 +1,25 @@
+{{- $.Scratch.Set "index" slice -}}
+{{- range site.RegularPages -}}
+    {{- if and (not .Params.searchHidden) (ne .Layout `archives`) }}
+    {{- /* Drop notice chrome (file tab, kind label, status bar) but keep its text searchable. */ -}}
+    {{- $plain := replaceRE `(?s)<span class="notice-titlebar".*?</span></span>|<span class="notice-kind">.*?</span>|<div class="notice-status".*?</div>` "" .Content | plainify | htmlUnescape | strings.TrimSpace -}}
+    {{- $summary := partial "entry-summary.html" . -}}
+    {{- $section := .Section | humanize | default "Page" -}}
+    {{- if eq .Section "talks" -}}
+      {{- /* Talk bodies are mostly a video poster, link pills and photo headings: keep only prose. */ -}}
+      {{- $plain = replaceRE `(?s)<figure class="lite-youtube".*?</figure>|<ul>.*?</ul>|<h[1-6][^>]*>.*?</h[1-6]>` "" .Content | plainify | htmlUnescape | strings.TrimSpace -}}
+      {{- if not (or .Description .Params.summary) }}{{ $summary = $plain }}{{ end -}}
+    {{- end -}}
+    {{- $.Scratch.Add "index" (dict
+        "title" (.Title | htmlUnescape)
+        "permalink" .Permalink
+        "section" $section
+        "event" (.Params.conference | default "")
+        "summary" ($summary | truncate 200 | htmlUnescape)
+        "date" (cond .Date.IsZero "" (.Date.Format "02 Jan 2006"))
+        "tags" (delimit (.Params.tags | default slice) " ")
+        "content" ($plain | truncate 500 | htmlUnescape | htmlUnescape | htmlUnescape)
+    ) -}}
+    {{- end }}
+{{- end -}}
+{{- $.Scratch.Get "index" | jsonify -}}

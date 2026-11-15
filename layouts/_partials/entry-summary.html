@@ -1,0 +1,8 @@
+{{- $summary := .Description | default .Params.summary -}}
+{{- if not $summary -}}
+  {{- /* Leading section headings are navigation, not the start of an excerpt. */ -}}
+  {{- /* Notice boxes are asides; their chrome and text never lead an excerpt. */ -}}
+  {{- $summary = replaceRE `(?s)<details class="notice.*?</details>` "" .Content -}}
+  {{- $summary = replaceRE `(?s)^(?:\s*<h[1-6][^>]*>.*?</h[1-6]>\s*)+` "" $summary -}}
+{{- end -}}
+{{- return ($summary | plainify | htmlUnescape | strings.TrimSpace) -}}

@@ -1,0 +1,17 @@
+{{- if eq .Section "talks" }}
+<p class="talk-badge"><b>talk</b>{{ with .Params.conference }}<span>{{ . }}</span>{{ end }}
+  {{- if not .Date.IsZero }}<time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "02 Jan 2006" }}</time>{{ end }}</p>
+{{- else }}
+<div class="post-meta-line">
+  {{- if not .Date.IsZero }}
+  <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "02 Jan 2006" }}</time>
+  {{- end }}
+  {{- if (.Param "ShowReadingTime") }}<span>{{ .ReadingTime }} min read</span>{{ end }}
+  {{- if (.Param "ShowWordCount") }}<span>{{ lang.FormatNumber 0 .WordCount }} words</span>{{ end }}
+</div>
+{{- end }}
+{{- with .GetTerms "tags" }}
+<div class="post-tags" aria-label="Tags">
+  {{- range . }}<a href="{{ .RelPermalink }}">#{{ .LinkTitle | lower }}</a>{{ end }}
+</div>
+{{- end }}

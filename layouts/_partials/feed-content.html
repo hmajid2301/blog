@@ -1,0 +1,28 @@
+{{- $content := .content -}}
+{{- $page := .page -}}
+{{- /* Only rendered tags: escaped tutorial examples are not feed navigation. */ -}}
+{{- range findRE `<(?:a|img|source|video)\b[^>]*>` $content -}}
+  {{- $tag := . -}}
+  {{- $updated := $tag -}}
+  {{- range findRE `\s+(?:href|src|srcset|poster|data-zoom-src)\s*=\s*(?:"[^"]*"|'[^']*')` $tag -}}
+    {{- $attribute := . -}}
+    {{- $name := replaceRE `\s*=.*$` "" (strings.TrimSpace $attribute) -}}
+    {{- $value := replaceRE `^[^=]+=\s*["'](.*)["']$` "$1" $attribute -}}
+    {{- $absolute := "" -}}
+    {{- if eq $name "srcset" -}}
+      {{- $candidates := slice -}}
+      {{- /* A URL is a whitespace-delimited token and may itself contain commas. */ -}}
+      {{- range findRE `[^\s]*[^,\s](?:\s+[^,]*)?,?` $value -}}
+        {{- $parts := findRE `\S+` (replaceRE `,+$` "" (strings.TrimSpace .)) -}}
+        {{- $url := partial "feed-url.html" (dict "url" (index $parts 0) "page" $page) -}}
+        {{- $candidates = $candidates | append (delimit (slice $url | append (after 1 $parts)) " ") -}}
+      {{- end -}}
+      {{- $absolute = delimit $candidates ", " -}}
+    {{- else -}}
+      {{- $absolute = partial "feed-url.html" (dict "url" $value "page" $page) -}}
+    {{- end -}}
+    {{- $updated = replace $updated $attribute (printf ` %s="%s"` $name ($absolute | htmlEscape)) -}}
+  {{- end -}}
+  {{- $content = replace $content $tag $updated -}}
+{{- end -}}
+{{- return $content -}}

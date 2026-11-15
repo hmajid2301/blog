@@ -1,0 +1,50 @@
+<header class="header">
+  <nav class="nav">
+    <div class="logo">
+      {{- $label_text := (site.Params.logo.text | default site.Title) }}
+      {{- if site.Title }}
+      <a href="{{ "" | absLangURL }}" accesskey="h" title="{{ $label_text }} (Alt + H)">
+        <span class="lab-mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 9l8 7-8 7"/><path d="M21 23h5"/></svg>
+        </span>
+        <span class="logo-name">{{- $label_text -}}</span>
+      </a>
+      {{- end }}
+    </div>
+    {{- $currentPage := . }}
+    <div class="nav-end">
+      <ul id="menu">
+      {{- range site.Menus.main }}
+      {{- $menu_item_url := (cond (strings.HasSuffix .URL "/") .URL (printf "%s/" .URL)) | absURL }}
+      {{- $page_url:= $currentPage.Permalink }}
+      {{- $is_search := eq (site.GetPage .KeyName).Layout `search` }}
+      <li>
+        <a href="{{ $menu_item_url }}"
+          title="{{ .Title | default .Name }} {{- cond $is_search (" (Alt + /)" | safeHTMLAttr) ("" | safeHTMLAttr ) }}"
+          {{- cond $is_search (" accesskey=/" | safeHTMLAttr) ("" | safeHTMLAttr ) }}
+          {{- if strings.HasPrefix $page_url $menu_item_url }} class="active" {{- end }}
+          {{- if .Params.External }}target="_blank" {{- end }}>
+          {{- .Pre }}
+          {{- .Name -}}
+          {{ .Post -}}
+          {{- if .Params.External }}
+          <span class="external-link">
+            {{ safeHTML (index hugo.Data.svg "external-link") }}
+          </span>
+          {{- end }}
+        </a>
+      </li>
+      {{- end }}
+      </ul>
+      <div class="logo-switches">
+        <button type="button" id="mode-toggle" aria-label="Switch to dark mode">
+          <span class="mode-sun" aria-hidden="true">{{ safeHTML (index hugo.Data.svg "sun") }}</span>
+          <span class="mode-moon" aria-hidden="true">{{ safeHTML (index hugo.Data.svg "moon") }}</span>
+        </button>
+        <button id="search-button" class="icon-hover" aria-label="Search" title="Search (press / or Ctrl+K)">
+          {{ safeHTML (index hugo.Data.svg "search") }}
+        </button>
+      </div>
+    </div>
+  </nav>
+</header>

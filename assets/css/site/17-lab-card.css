@@ -1,0 +1,24 @@
+/* Reusable card surface — flat --lab-card fill, no accent bar; accent shows on hover.
+   Add `.lab-card` to any card element; radius, border, padding and layout stay with
+   that element's own rules. Add `.lab-card-link` to the card's primary link to make
+   the whole card clickable (a stretched link); secondary links are raised above it. */
+html[data-design] .lab-card {
+  position: relative;
+  background: var(--lab-card);
+  transition: background-color .16s ease;
+}
+/* Whole-card link affordance: only cards with a primary link tint on hover. */
+html[data-design] .lab-card:has(.lab-card-link):hover {
+  background: color-mix(in srgb, var(--lab-accent) 8%, var(--lab-card));
+}
+/* Stretched link: the primary link covers the whole card. */
+html[data-design] .lab-card .lab-card-link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+/* Secondary links stay clickable above the stretched link. */
+html[data-design] .lab-card a:not(.lab-card-link) {
+  position: relative;
+  z-index: 1;
+}

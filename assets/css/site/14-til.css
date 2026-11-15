@@ -1,0 +1,53 @@
+/* TIL section + the chip that marks TIL rows in /posts/. */
+
+html[data-design] .lab-year-head {
+  margin: 36px 0 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--lab-rule);
+  font: 12px/1.7 var(--lab-mono);
+  letter-spacing: 0.08em;
+  color: var(--lab-muted);
+}
+
+html[data-design] .lab-til-entry { align-items: center; }
+html[data-design] .lab-til-entry time {
+  align-self: center;
+  white-space: nowrap;
+}
+
+html[data-design] .lab-til-entry h3 {
+  font-size: 17px;
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+/* Row chip, same treatment as the post's tag chips. */
+html[data-design] .lab-entry-list .lab-chip {
+  display: inline-block;
+  padding: 1px 8px;
+  border: 1px solid var(--lab-rule);
+  border-radius: 999px;
+  font: 11px/1.8 var(--lab-mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--lab-muted);
+  white-space: nowrap;
+}
+
+/* Option F on list pages: each list is one panel, rows split by hairlines.
+   /posts/ (and tag/series pages) get a plain panel; /til/ years get a folder tab. */
+html[data-design] .main :is(.lab-entry-list, .lab-til-year) .lab-home-entry.lab-card { margin: 0; border-radius: 0; border-top: 1px solid var(--lab-rule); }
+html[data-design] .main :is(.lab-entry-list, .lab-til-year) .lab-home-entry.lab-card:first-of-type { border-top: 0; border-radius: 18px 18px 0 0; }
+html[data-design] .main :is(.lab-entry-list, .lab-til-year) .lab-home-entry.lab-card:last-of-type { border-radius: 0 0 18px 18px; }
+html[data-design] .main :is(.lab-entry-list, .lab-til-year) .lab-home-entry.lab-card:only-of-type { border-radius: 18px; }
+html[data-design] .main .lab-til-year .lab-home-entry.lab-card:first-of-type { border-top-left-radius: 0; }
+html[data-design] .main :is(.lab-entry-list, .lab-til-year) .lab-home-entry:hover :is(h2, h3) a { color: var(--lab-accent); }
+
+html[data-design] .main .lab-til-year { margin-top: 40px; }
+html[data-design] .main .lab-til-year .lab-year-head {
+  display: inline-flex; position: relative; margin: 0; padding: 12px 20px 10px;
+  border: 0; background: var(--lab-card); border-radius: 12px 12px 0 0;
+  font: 600 15px var(--lab-mono); letter-spacing: 0; color: var(--lab-text);
+}
+html[data-design] .main .lab-til-year .lab-year-head::before { content: '●\00a0'; color: var(--lab-accent); }
+html[data-design] .main .lab-til-year .lab-year-head::after { content: ''; position: absolute; right: -12px; bottom: 0; width: 12px; height: 12px; background: radial-gradient(circle at 100% 0, transparent 12px, var(--lab-card) 12.5px); }

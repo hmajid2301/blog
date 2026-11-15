@@ -1,0 +1,83 @@
+{{- $page := .page -}}
+{{- $kind := .kind -}}
+{{- $variant := cond (eq $kind "talks") "list" "months" -}}
+{{- $pages := where $page.Pages "Params.hidden" "!=" true -}}
+{{- $talkCount := len $pages -}}
+{{- $since := "" -}}
+{{- $confs := slice -}}
+{{- range $pages -}}
+  {{- $y := .PublishDate.Format "2006" -}}
+  {{- if or (eq $since "") (lt $y $since) -}}{{- $since = $y -}}{{- end -}}
+  {{- with or .Params.location .Params.conference -}}{{- $confs = $confs | append . -}}{{- end -}}
+{{- end -}}
+{{- $confCount := len (uniq $confs) -}}
+<section class="page-lab page-lab-{{ $kind }} page-lab-{{ $variant }}" data-page-variant="{{ $variant }}">
+  {{- if eq $kind "talks" -}}
+  <header class="page-lab-header lab-talks-hero">
+    <h1>My Talks</h1>
+    <p class="lab-talks-lead">Talks, slides and recordings on Go, Nix, and developer tools. Concrete sessions, honest about tradeoffs, with something to apply the next day.</p>
+    <dl class="lab-talks-stats">
+      <div><dt>talks</dt><dd>{{ $talkCount }}</dd></div>
+      <div><dt>conferences</dt><dd>{{ $confCount }}</dd></div>
+      <div><dt>since</dt><dd>{{ $since }}</dd></div>
+    </dl>
+  </header>
+  {{- else -}}
+  <header class="page-header">
+    <h1>{{ $page.Title }}</h1>
+    {{- with $page.Content }}<div class="post-description">{{ . }}</div>{{ end -}}
+  </header>
+  {{- end -}}
+  {{- if eq $kind "talks" -}}
+    {{- $paginator := "" -}}
+    {{- if $page.Param "paginate" -}}
+      {{- $paginator = $page.Paginate $pages ($page.Param "paginate") -}}
+    {{- else -}}
+      {{- $paginator = $page.Paginate $pages -}}
+    {{- end -}}
+    <table class="lab-talks-table">
+      <thead>
+        <tr><th>When</th><th>Talk</th><th>Conference</th><th>Resources</th></tr>
+      </thead>
+      <tbody>
+      {{- range $paginator.Pages }}
+        <tr>
+          <td class="when"><time datetime="{{ .PublishDate.Format "2006-01-02" }}">{{ .PublishDate.Format "2 Jan 2006" }}</time></td>
+          <td class="title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></td>
+          <td class="where">{{ with or .Params.location .Params.conference }}{{ . }}{{ else }}—{{ end }}</td>
+          <td class="resources">{{ partial "page-lab-resource-links.html" . }}</td>
+        </tr>
+      {{- end -}}
+      </tbody>
+    </table>
+    {{- if gt $paginator.TotalPages 1 }}
+    <nav class="page-lab-pagination" aria-label="Pagination">
+      {{ with $paginator.Prev }}<a href="{{ .URL }}">← Previous page</a>{{ end }}
+      <span>Page {{ $paginator.PageNumber }} of {{ $paginator.TotalPages }}</span>
+      {{ with $paginator.Next }}<a href="{{ .URL }}">Next page →</a>{{ end }}
+    </nav>
+    {{- end -}}
+  {{- else if eq $kind "archive" -}}
+    {{- $sections := site.Params.mainSections -}}
+    {{- if $page.Section }}{{ $sections = slice $page.Section }}{{ end -}}
+    {{- $pages := where (where site.RegularPages "Section" "in" $sections) "Params.hidden" "!=" true -}}
+    <p class="lab-archive-total">{{ len $pages }} posts</p>
+    {{- range $pages.GroupByPublishDate "2006" }}
+    <section class="lab-archive-year">
+      <h2 class="lab-archive-year-head">{{ .Key }} <small>{{ len .Pages }} posts</small></h2>
+      {{- range .Pages.GroupByPublishDate "January" }}
+      <h3 class="lab-archive-month">{{ .Key }} <small>{{ len .Pages }} posts</small></h3>
+      {{- range .Pages }}
+      <article class="lab-archive-row">
+        <h3 class="lab-archive-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+        <div class="lab-archive-meta">
+          <time datetime="{{ .PublishDate.Format "2006-01-02" }}">{{ .PublishDate.Format "2 Jan 2006" }}</time>
+          <span class="lab-archive-count">{{ .ReadingTime }} min</span>
+        </div>
+      </article>
+      {{- end }}
+      {{- end }}
+    </section>
+    {{- end }}
+  {{- end -}}
+</section>

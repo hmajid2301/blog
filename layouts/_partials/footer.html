@@ -1,0 +1,86 @@
+<footer class="footer">
+    {{- if site.Copyright }}
+    <span class="footer-copy">{{ site.Copyright | markdownify }}</span>
+    {{- else }}
+    <span class="footer-copy">&copy; {{ now.Year }} <a href="{{ "" | absURL }}">{{ site.Title }}</a></span>
+    {{- end -}}
+    <span class="footer-tagline">Deploys <em>code 💻</em>. Bowls a few <em>overs 🏏</em>.</span>
+    <span class="footer-links">
+        <a href="{{ "/subscribe/" | relLangURL }}">Subscribe</a>
+        <a href="https://stats.haseebmajid.dev/">Stats ↗</a>
+    </span>
+    <div class="palette-switch footer-palette" role="group" aria-label="Colour palette">
+        <button type="button" data-palette="cat" aria-pressed="true">Catppuccin</button>
+        <button type="button" data-palette="fireside" aria-pressed="false">Fireside</button>
+    </div>
+</footer>
+
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    (function () {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener("click", function (e) {
+                if (e.defaultPrevented || this.matches('.footnote-ref, .footnote-backref')) return;
+                e.preventDefault();
+                var id = this.getAttribute("href").substr(1);
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+                if (id === "top") {
+                    history.replaceState(null, null, " ");
+                } else {
+                    history.pushState(null, null, `#${id}`);
+                }
+            });
+        });
+    })();
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (
+            document.body.scrollTop > 800 ||
+            document.documentElement.scrollTop > 800
+        ) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+</script>
+
+{{/* Clear ToC Scroll */}}
+<script>
+    if (window.scrollListeners) {
+        for (const listener of scrollListeners) {
+            window.removeEventListener("scroll", listener);
+        }
+    }
+    window.scrollListeners = [];
+</script>
+
+{{- $imagezoom := resources.Get "js/medium-zoom.min.js" | fingerprint }}
+<script src="{{ $imagezoom.RelPermalink }}" integrity="{{ $imagezoom.Data.Integrity }}"></script>
+{{- $progressbar := resources.Get "js/progress-bar.js" | fingerprint }}
+<script defer crossorigin="anonymous" src="{{ $progressbar.RelPermalink }}" integrity="{{ $progressbar.Data.Integrity }}"></script>
+
+{{- if .IsPage }}
+{{- partial "page_footer.html" . }}
+{{- end }}
+
+<link crossorigin="anonymous" rel="preload" as="fetch" href="{{ "index.json" | relLangURL }}" />
+{{- $search := slice (resources.Get "js/fuse.basic.min.js") (resources.Get "js/fastsearch.js" | js.Build) | resources.Concat "assets/js/search.js" | minify | fingerprint }}
+<script defer crossorigin="anonymous" src="{{ $search.RelPermalink }}" integrity="{{ $search.Data.Integrity }}"></script>
+
+{{- range slice "js/code-tabs.js" "js/lite-youtube.js" "js/sidenotes.js" "js/reduced-motion.js" }}
+{{- $component := resources.Get . | minify | fingerprint }}
+<script defer src="{{ $component.RelPermalink }}" integrity="{{ $component.Data.Integrity }}"></script>
+{{- end }}

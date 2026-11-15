@@ -1,0 +1,59 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{{- $themeToggle := resources.Get "js/theme-toggle.js" | fingerprint }}
+<script src="{{ $themeToggle.RelPermalink }}" integrity="{{ $themeToggle.Data.Integrity }}"></script>
+{{- if hugo.IsProduction | or (eq site.Params.env "production") }}
+<meta name="robots" content="index, follow">
+{{- else }}
+<meta name="robots" content="noindex, nofollow">
+{{- end }}
+{{- /* Title */}}
+{{- $pageTitle := site.Title }}
+{{- if (and .Title (not .IsHome)) }}
+{{- $pageTitle = printf "%s | %s" .Title $pageTitle }}
+{{- end }}
+<title>{{ $pageTitle }}</title>
+{{- /* Meta */}}
+{{- if .IsHome }}
+{{ with site.Params.keywords -}}<meta name="keywords" content="{{- range $i, $e := . }}{{ if $i }}, {{ end }}{{ $e }}{{ end }}">{{ end }}
+{{- else }}
+<meta name="keywords" content="{{ if .Params.keywords -}}
+    {{- range $i, $e := .Params.keywords }}{{ if $i }}, {{ end }}{{ $e }}{{ end }} {{- else }}
+    {{- range $i, $e := .Params.tags }}{{ if $i }}, {{ end }}{{ $e }}{{ end }} {{- end -}}">
+{{- end }}
+<meta name="description" content="{{- with .Description }}{{ . }}{{- else }}{{- if or .IsPage .IsSection}}
+    {{- .Summary | default (printf "%s - %s" .Title  site.Title) }}{{- else }}
+    {{- with site.Params.description }}{{ . }}{{- end }}{{- end }}{{- end -}}">
+<meta name="author" content="{{ site.Params.author }}">
+<link rel="canonical" href="{{ if .Params.canonicalURL -}} {{ trim .Params.canonicalURL " " }} {{- else -}} {{ .Permalink }} {{- end }}">
+{{- /* Styles */}}
+{{- /* css/site/NN-*.css concatenate in name order; the number prefix is the cascade order. */}}
+{{- $stylesheet := resources.Match "css/site/*.css" | resources.Concat "assets/css/stylesheet.css" | minify | fingerprint }}
+<link crossorigin="anonymous" href="{{ $stylesheet.RelPermalink }}" integrity="{{ $stylesheet.Data.Integrity }}" rel="stylesheet">
+{{- /* Favicons */}}
+<link rel="icon" href="{{ site.Params.favicon | default "favicon.ico" | absURL }}">
+<link rel="apple-touch-icon" href="{{ site.Params.appleTouchIcon | default "apple-touch-icon.png" | absURL }}">
+{{- /* RSS */}}
+{{ range .AlternativeOutputFormats -}}
+<link rel="{{ .Rel }}" type="{{ .MediaType.Type | html }}" href="{{ .Permalink | safeURL }}">
+{{ end -}}
+{{- /* https://developer.twitter.com/en/docs/twitter-for-websites/cards/guides/getting-started */}}
+<meta name="twitter:card" content="summary_large_image" />
+{{- $og := partialCached "og-image.html" . .RelPermalink -}}
+{{- with $og }}
+<meta name="twitter:image" content="{{ .Permalink | absURL }}" />
+{{- end }}
+<meta name="twitter:image:alt" content="{{ .Title }} — {{ site.Title }}" />
+<meta name="twitter:title" content="{{ $pageTitle }}" />
+<meta name="twitter:description" content="{{ with .Description }}{{ . }}{{ else }}{{if .IsPage}}{{ .Summary }}{{ else }}{{ with site.Params.description }}{{ . }}{{ end }}{{ end }}{{ end -}}" />
+{{- partial "templates/opengraph.html" (dict "page" . "pageTitle" $pageTitle) }}
+{{- partial "templates/schema_json.html" (dict "page" . "pageTitle" $pageTitle) }}
+<noscript>
+  <style>
+    .palette-switch,
+    #mode-toggle,
+    .top-link {
+        display: none;
+    }
+  </style>
+</noscript>

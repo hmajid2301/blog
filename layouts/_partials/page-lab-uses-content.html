@@ -1,0 +1,7 @@
+{{/* Split only at top-level rendered H2 boundaries. All nested lists, code, IDs and links stay intact. */}}
+{{- $content := replaceRE `<h1([^>]*)>([\s\S]*?)</h1>` `<p class="page-lab-lead"${1}>${2}</p>` . -}}
+{{- $parts := split $content "<h2" -}}
+<div class="page-lab-uses-intro">{{ index $parts 0 | safeHTML }}</div>
+<div class="page-lab-uses-sections">
+{{- range after 1 $parts }}<section class="page-lab-uses-section">{{ printf "<h2%s" . | safeHTML }}</section>{{ end -}}
+</div>

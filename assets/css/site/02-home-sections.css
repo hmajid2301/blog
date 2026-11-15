@@ -1,0 +1,15 @@
+/* Independent structural experiments; colours and fonts come from the chosen style. */
+html[data-design] .lab-featured,
+html[data-design] .lab-discover { display: none; }
+html[data-design] .lab-featured { padding: 36px; background: var(--lab-surface); border: 1px solid var(--lab-rule); }
+html[data-design] .lab-featured h2 { font-size: clamp(32px, 3.5vw, 49px); margin: 25px 0; max-width: 23ch; }
+html[data-design] .lab-featured > p:not(.lab-eyebrow) { color: var(--lab-muted); line-height: 1.8; }
+html[data-design] .lab-featured .lab-home-links span { font: 11px var(--lab-mono); color: var(--lab-muted); }
+html[data-design] .lab-topic-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; margin-top: 24px; }
+html[data-design] .lab-topic-group { min-width: 0; padding: 24px; border: 1px solid var(--lab-rule); border-radius: var(--radius); background: var(--lab-surface); }
+html[data-design] .lab-topic-group h3 { font-size: 27px; margin: 0; }
+html[data-design] .lab-topic-group h3 a { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+html[data-design] .lab-topic-group h3 span { font: 10px var(--lab-mono); white-space: nowrap; color: var(--lab-accent); letter-spacing: 0; }
+html[data-design] .lab-topic-group ul { list-style: none; padding: 0; margin: 18px 0 0; }
+html[data-design] .lab-topic-group li { font-size: 14px; line-height: 1.6; margin-top: 12px; }
+html[data-design] .lab-topic-group a:hover { color: var(--lab-accent); }

@@ -1,0 +1,14 @@
+{{- /* Legacy: yewtu.be is unreliable; render through the lite YouTube poster instead. */ -}}
+{{- $id := .Get 0 -}}
+{{- if not (findRE `^[A-Za-z0-9_-]{11}$` $id) -}}
+  {{- errorf "Invalid YouTube video ID %q at %s" $id .Position -}}
+{{- end -}}
+{{- .Page.Store.Set "hasLiteYoutube" true -}}
+{{- $title := printf "%s — video" .Page.Title -}}
+<figure class="lite-youtube" data-video-id="{{ $id }}" data-video-start="0" data-video-title="{{ $title }}">
+  <div class="lite-youtube-shell">
+    <img class="lite-youtube-thumb" src="https://i.ytimg.com/vi/{{ $id }}/hqdefault.jpg" alt="" loading="lazy" decoding="async" width="480" height="360">
+    <span class="lite-youtube-tag">VIDEO</span>
+    <button class="lite-youtube-load" type="button" hidden><span class="lite-youtube-play" aria-hidden="true"></span><span class="lite-youtube-label">Play video</span><span class="lite-youtube-sr">: {{ $title }}</span></button>
+  </div>
+</figure>

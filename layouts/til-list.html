@@ -1,0 +1,25 @@
+{{- define "main" }}
+  {{- $pages := partial "til-pages.html" . }}
+  <header class="page-header">
+    <h1>{{ .Title }} <small>· {{ len $pages }} posts</small></h1>
+    {{- with .Content }}<div class="post-description">{{ . }}</div>{{ end }}
+    {{- partial "inline_links.html" . }}
+  </header>
+  {{- /* One folder-tab panel per year, rows inside (matches the home lists). */}}
+  {{- $years := slice }}{{ range $pages }}{{ $years = $years | append .Date.Year }}{{ end }}
+  {{- range uniq $years }}
+    {{- $year := . }}
+  <section class="lab-til-year">
+    <h2 class="lab-year-head">{{ $year }}</h2>
+    {{- range $pages }}{{ if eq .Date.Year $year }}
+    <article class="lab-home-entry lab-til-entry lab-card">
+      <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "02 Jan" }}</time>
+      <div>
+        <h3><a class="lab-card-link" href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+      </div>
+      <span class="lab-arrow" aria-hidden="true">↗</span>
+    </article>
+    {{- end }}{{ end }}
+  </section>
+  {{- end }}
+{{- end }}

@@ -1,0 +1,13 @@
+html[data-design] .git-last-edited {
+  display: flex;
+  align-items: baseline;
+  gap: 8px 12px;
+  flex-wrap: wrap;
+  padding: 20px 0;
+  margin-bottom: 12px;
+  border-top: 1px solid var(--lab-rule);
+  color: var(--lab-muted);
+  font: 12px/1.7 var(--lab-mono);
+}
+.git-last-edited > a { margin-left: auto; color: var(--lab-accent); }
+.git-last-edited a:focus-visible { outline: 3px solid var(--lab-accent); outline-offset: 3px; }
