@@ -17,7 +17,7 @@ Recently I have been creating a SvelteKit app, when creating a new SvelteKit app
 of different things you can add. Such as using `vitest` for unit testing.
 
 I needed to spy on/mock a method in a class, to see if it was called when a button was pressed and, it was called
-with the correct arguments. 
+with the correct arguments.
 
 Let's say we have a `Button` component which looks like this:
 

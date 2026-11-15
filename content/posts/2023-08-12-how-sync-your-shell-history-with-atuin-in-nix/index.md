@@ -86,7 +86,7 @@ Again I'll do another article on how we can set up sops-nix with home-manager at
 
 ### Other Machines
 
-You will need to have your Atuin key available, either manually copied over or by using a secret manager as I 
+You will need to have your Atuin key available, either manually copied over or by using a secret manager as I
 used with sops-nix. Don't store your Atuin key directly in source control.
 
 Then we can do something like this:
@@ -145,4 +145,3 @@ That's It! We now have Atuin syncing our shell history between multiple.
 
 - [Atuin](https://atuin.sh/docs/config/)
 - [My nix config](https://gitlab.com/hmajid2301/dotfiles/-/blob/0c12ac20c3ab08fa3e76352c4e352a4adb9c3c9a/home-manager/atuin/default.nix)
-

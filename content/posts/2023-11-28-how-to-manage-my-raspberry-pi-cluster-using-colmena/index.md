@@ -16,11 +16,11 @@ So in the previous article I showed you how I had set up my 4 RPI (Raspberry Pi)
 They are now connectable over SSH using just their hostnames, i.e. `ssh strawberry@strawberry.local`. Initially
 we deployed NixOS and a basic configuration to each of the RPIs manually.
 
-We want to automate this process rather than deploying to each machine manually. I looked at 
+We want to automate this process rather than deploying to each machine manually. I looked at
 [bento](https://github.com/rapenne-s/bento/), but couldn't quite work out how to make it work for my use case.
 Then I found [colmena](https://github.com/zhaofengli/colmena), which worked (is working) to do what I needed.
 
-## What does it do? 
+## What does it do?
 
 We push changes from our Desktop and deploy to all our rpis at once, without needing to deploy to each manually.
 Using one command, `colmena apply switch --build-on-target` It will deploy our changes to all our RPIs. Where we
@@ -38,7 +38,7 @@ Let's have a look at how we can set up Colmena, so, in our current Nix flake con
 }
 ```
 
-Then in the outputs, let use specify a few things: 
+Then in the outputs, let use specify a few things:
 
 ```nix
 {
@@ -84,7 +84,7 @@ Then in the outputs, let use specify a few things:
 }
 ```
 
-Breaking this file down, first we create a section for colmena, then we specify some meta information i.e. 
+Breaking this file down, first we create a section for colmena, then we specify some meta information i.e.
 which nixpkgs to use. Then one of the cool bits of colmena we can specify some common config between all of our hosts.
 
 Here we are importing sops-nix for secret management and hardware module for Raspberry Pi 4, so we can get various
@@ -189,7 +189,7 @@ strawberry = {
 }
 ```
 
-We import nix specific config for our host, in this case the host name of the machine is strawberry and gave the same 
+We import nix specific config for our host, in this case the host name of the machine is strawberry and gave the same
 The name of the colmena "resource". Where my `strawberry.nix` file looks like:
 
 ```nix
@@ -284,4 +284,3 @@ In the next article, we will look at how we can manage secrets using sops-nix wh
 ## Appendix
 
 - [My colmena config](https://gitlab.com/hmajid2301/dotfiles/-/blob/d8aefb2b2dbd468b221f2b6074994a87761ae981/hosts/self-hosted/colmena.nix)
-

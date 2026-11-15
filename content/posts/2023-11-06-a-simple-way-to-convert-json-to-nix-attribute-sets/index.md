@@ -63,12 +63,10 @@ We want it to look something like:
 ```
 
 As you can see, it looks very similar, but there are enough differences to make it annoying by hand.
-I originally came across 
+I originally came across
 [this script](https://gist.githubusercontent.com/Scoder12/0538252ed4b82d65e59115075369d34d/raw/e86d1d64d1373a497118beb1259dab149cea951d/json2nix.py).
 
 Which basically did everything I needed. I ended up improving a few things like needing to surround the block in `{}`
 for it to be valid JSON. I also removed a comma if it existed, because JSON will complain about that as well.
 
 My version of the [script can be found here](https://gitlab.com/-/snippets/3613708)
-
-

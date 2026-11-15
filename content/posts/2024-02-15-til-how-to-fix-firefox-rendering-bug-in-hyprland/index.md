@@ -23,7 +23,7 @@ You can see a weird border around the browser, and if you try to view some of th
 
 ## Fix
 
-As per this [Reddit thread](https://old.reddit.com/r/hyprland/comments/18o8m8q/firefox_croppingbad_rendering/) [^1]. 
+As per this [Reddit thread](https://old.reddit.com/r/hyprland/comments/18o8m8q/firefox_croppingbad_rendering/) [^1].
 There are two fixes, one upgrade to version 0.33 which I could not easily do with Ubuntu. So I used the other fix,
 
 - Right click on title bar
@@ -45,4 +45,3 @@ debug
 ```
 
 [^1]: Reddit Post with Fix: https://old.reddit.com/r/hyprland/comments/18o8m8q/firefox_croppingbad_rendering/
-

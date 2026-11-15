@@ -12,7 +12,7 @@ cover:
   image: images/cover.png
 ---
 
-In this post, we will go over how we can auto-sort our imports in our svelte files. To do this we will be using eslint and the 
+In this post, we will go over how we can auto-sort our imports in our svelte files. To do this we will be using eslint and the
 [`eslint-import-plugin` plugin](https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/order.md).
 
 If you're anything like me you like have ordered imports, rather than random imports that can be hard to make sense of.
@@ -31,9 +31,9 @@ npm install
 
 # Output
 # create-svelte version 2.1.0
-# 
+#
 # Welcome to SvelteKit!
-# 
+#
 # ✔ Which Svelte app template? › SvelteKit demo app
 # ✔ Add type checking with TypeScript? › Yes, using TypeScript syntax
 # ✔ Add ESLint for code linting? … No / Yes
@@ -189,7 +189,7 @@ module.exports = {
 
 The most interesting change we did is to add a bunch of rules. We want to add rules for import/order which is what is used to sort our imports.
 In the example below we are setting any incorrectly ordered imports to warn us rather than throw an error. Then we are telling it to sort
-our imports alphabetically. We are also setting it to create new lines between the various groups. Where a group would be something like: 
+our imports alphabetically. We are also setting it to create new lines between the various groups. Where a group would be something like:
 `builtin`, `external`, `parent`, you can read more about it [here](https://github.com/import-js/eslint-plugin-import/blob/main/docs/rules/order.md#importorder).
 
 ```js

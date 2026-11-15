@@ -11,14 +11,14 @@ cover:
   image: images/cover.png
 ---
 
-Recently, I was unable to change the location on my Mullvad VPN from other thing other than sweden. Even using the 
-mullvad cli tool I would keep getting errors like: 
+Recently, I was unable to change the location on my Mullvad VPN from other thing other than sweden. Even using the
+mullvad cli tool I would keep getting errors like:
 
 ```
 invalid argument for type conversion: missing custom lists settings
 ```
 
-it turned out to somehow a mismatch in versions where everything was running 2023.6 but my mullvad cli was using 
+it turned out to somehow a mismatch in versions where everything was running 2023.6 but my mullvad cli was using
 2023.5. So I ended up fixing this by changing my config to:
 
 ```nix

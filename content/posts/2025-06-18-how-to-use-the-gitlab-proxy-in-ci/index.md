@@ -4,7 +4,7 @@ date: 2025-06-18
 canonicalURL: https://haseebmajid.dev/posts/2025-06-18-how-to-use-the-gitlab-proxy-in-ci
 tags:
   - gitlab
-  - ci
+  - ci-cd
 cover:
   image: images/cover.png
 ---

@@ -22,9 +22,9 @@ My main machine for development at the moment is a 12th Generation Intel Framewo
 
 This series has been inspired by [Dev Workflow Intro by Josh Medeski](https://www.joshmedeski.com/guides/dev-workflow-intro/).
 
-In this series of posts, I will go over how I have set up my developer workflow 
-and explain why I have made certain decisions and why I use certain tools. This series aim to make it less daunting for you to start your journey 
-on improving your developer workflow. Or share with you tools that you made not 
+In this series of posts, I will go over how I have set up my developer workflow
+and explain why I have made certain decisions and why I use certain tools. This series aim to make it less daunting for you to start your journey
+on improving your developer workflow. Or share with you tools that you made not
 have heard of. Most of the tools I used I discovered in videos/blogs talking about
 developer workflows.
 
@@ -78,7 +78,7 @@ I like Linux because it is open-source, free to use and secure. It comes in vari
 desktop experience can vary a lot. However, most flavours will allow you to run most desktop environments, like gnome
 can be used with Ubuntu, POP_!OS, Arch or even NixOS.
 
-Most Linux distributions also don't collect any telemetry about the user and there is far more private than other 
+Most Linux distributions also don't collect any telemetry about the user and there is far more private than other
 OS's. The main reason I Linux is choice and freedom, you can use tinker the OS to your liking. There are lots
 of desktop environments and window managers which can be tweaked to your liking.
 
@@ -326,5 +326,3 @@ Then to install the OS properly on our nvme ssd run `sudo nixos-install`.
 
 In the next post, we will go over how we can set up our window manager (Hyprland). This will also show us how we can use
 NixOS to configure our system.
-
-

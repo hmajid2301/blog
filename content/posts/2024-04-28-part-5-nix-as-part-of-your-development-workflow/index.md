@@ -95,7 +95,7 @@ using Nix that doesn't use NixOS. Like my Ubuntu work laptop.
 
 #### NixOS
 
-I tried to split into various sub folders relating to what that config is related to, for example CLI tooling. 
+I tried to split into various sub folders relating to what that config is related to, for example CLI tooling.
 `moudles/nixos/cli/programs/nh/default.nix`:
 
 

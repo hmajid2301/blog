@@ -10,7 +10,7 @@ cover:
   image: images/cover.png
 ---
 
-This post is a quick introduction to 
+This post is a quick introduction to
 [dotfiles](https://gitlab.com/hmajid2301/dotfiles/-/tree/af7ec81b7ad48af758f73233a7b2a0461f95e285), accurate as of 25th of April 2023.
 
 {{< notice type="caution" title="out of date" >}}
@@ -122,5 +122,3 @@ Check out this cool place for tracking my neovim setup:
 - <https://github.com/ghostx31/dotfiles/tree/37587b043f277ff5831ce5f1a3287fbaec1d9fe3>
 - <https://github.com/Anant-mishra1729/Village-Linux-rice>
 - <https://github.com/colevoss/dotfiles>
-
-

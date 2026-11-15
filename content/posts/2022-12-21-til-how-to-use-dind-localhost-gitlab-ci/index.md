@@ -36,7 +36,7 @@ services:
       - /pb_public
 ```
 
-and our `package.json` scripts section looks like this: 
+and our `package.json` scripts section looks like this:
 
 ```json
 {

@@ -65,4 +65,3 @@ Assuming you have a fork of nixpkgs and have to clone it locally, i.e. `git clon
 
 That's it! I am not sure if this will be useful for others (I will most likely reference this myself in the future), but
 that's the easiest way I found to add new vim plugins to nixpkgs.
-

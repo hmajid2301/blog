@@ -6,13 +6,13 @@ series:
   - TIL
 tags:
   - gitlab
-  - CI/CD
+  - ci-cd
 cover:
   image: images/cover.png
 ---
 
 I have a repo which I use to store all of my conference and similar talks. This repo includes any code examples
-and most importantly the slides. 
+and most importantly the slides.
 
 At the moment all the slides are RevealJS "sites", which means it's a presentation built in HTML. Now I would like
 to have all my talks deployed to single GitLab pages site. For example something like:

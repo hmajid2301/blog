@@ -18,6 +18,6 @@ hideSummary: true
 
 ## Photo from conference
 
-![Talk](images/1.jpeg)
-![Talk2](images/2.jpeg)
-![Talk3](images/3.jpeg)
+![Talk](images/1.jpg)
+![Talk2](images/2.jpg)
+![Talk3](images/3.jpg)

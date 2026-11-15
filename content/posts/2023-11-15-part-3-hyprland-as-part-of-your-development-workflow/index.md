@@ -19,17 +19,17 @@ Now we have looked at our choice of hardware, which OS to use and specifically, 
 using a git repository.
 
 In this part, we will go over which window manager to use. There are two main types we could use here. Either a desktop
-environment like Gnome or KDE. Which comes with batteries included, it provides us with everything we need and we 
-don't need to configure much to get stuff working. Things like a notification daemon, polkit (for auth). 
+environment like Gnome or KDE. Which comes with batteries included, it provides us with everything we need and we
+don't need to configure much to get stuff working. Things like a notification daemon, polkit (for auth).
 
-Whereas in a more bare-bones window manager such as Hyprland, i3, Sway they are far more bare bones and we need to 
+Whereas in a more bare-bones window manager such as Hyprland, i3, Sway they are far more bare bones and we need to
 setup a lot more things ourselves. They are more customisable but more effort to set up, they also tend to be more light
 weight on resources.
 
 In this section, we will look at using a tiling window manager [Hyprland](https://wiki.hyprland.org/),
 though, you could also look at using [Sway](https://swaywm.org/).
 
-## Why a tiling manager? 
+## Why a tiling manager?
 
 A tiling window manager is great because it handles placing our window automatically for us. This allows for more
 efficient usage of our space. Rather than multiple overlapping windows, each window has its own space on the display.
@@ -41,7 +41,7 @@ to swap between open windows. We can also open apps using a tool like `rofi` aga
 us be quicker, not wasting time needing to reach for the mouse.
 
 
-## Why Hyprland? 
+## Why Hyprland?
 
 I mean, between Sway and Hyprland I don't think there is much difference, the main reason I chose to use Hyprland was because
 I saw plenty of people ricing it on unixporn, especially with NixOS. So I used some of their setups as inspiration.
@@ -83,7 +83,7 @@ be one managed by tmux-browser.
 
 I have personally decided to try to use Wayland compilable window managers. I know people have issues with Wayland.
 But for the most part, Wayland just seems to work fine for me. I originally swapped to Wayland because I had two monitors
-and I wanted to set the refresh rate of each separately. Whereas XServer treats them as one display, so I had to set it 
+and I wanted to set the refresh rate of each separately. Whereas XServer treats them as one display, so I had to set it
 60Hz, but now I can have one monitor on 144Hz and another on 60Hz.
 
 Note your mileage may vary, and you may well have issues with Wayland, especially if you are using an Nvidia GPU.
@@ -360,7 +360,7 @@ bind = SUPER, Space, centerwindow,
 ```
 
 These commands can be used to change our windows, I use `SUPER + Q` a lot to kill the focused window.
-The other can be used to turn an app full screen, or let it float or even move it centre. Which can be useful in 
+The other can be used to turn an app full screen, or let it float or even move it centre. Which can be useful in
 specific circumstances.
 
 ```
@@ -423,5 +423,3 @@ gone on long enough for now! In the next main part, we will look at which termin
 
 - [My Hyprland Nix Config, at the time of writing](https://gitlab.com/hmajid2301/dotfiles/-/blob/59bf75086353721f1c6902e5811ac30b6148faff/home-manager/desktops/wms/hyprland.nix)
 - [Hyprland Wiki](https://wiki.hyprland.org/0.19.1beta)
-
-

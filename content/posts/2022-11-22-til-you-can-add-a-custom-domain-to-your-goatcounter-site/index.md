@@ -35,8 +35,6 @@ We can do this by:
     - i.e. `stats.haseebmajid.dev`
 - Press the `Save` button on the bottom left
 
-{{< gfycat src="InsignificantMemorableGreathornedowl" >}}
-
 ## Domain
 
 Finally, we need to go to our domain management tool, such as `namecheap` and add a new entry:

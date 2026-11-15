@@ -1,7 +1,6 @@
 ---
 title: TIL - How to Combine Audio and Video Without Re-encoding
 date: "2026-11-20"
-draft: true
 canonicalURL: https://haseebmajid.dev/posts/2026-11-20-til-how-to-combine-audio-and-video-without-re-encoding
 tags:
   - ffmpeg

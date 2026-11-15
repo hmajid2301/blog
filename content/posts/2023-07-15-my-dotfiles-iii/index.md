@@ -48,7 +48,7 @@ Some features of my dotfiles:
 - **Declarative** config including **themes**, **wallpapers** and **nix-colors**
 - **Opt-in persistance** through impermanence + blank snapshot
  - Delete files on boot
-- **Encrypted btrfs partition** 
+- **Encrypted btrfs partition**
 - **sops-nix** for secrets management
 - Different environments like **hyprland** and **gnome**
 - Laptop setup with eGPU and **vfio** for playing games on windows
@@ -56,7 +56,7 @@ Some features of my dotfiles:
 ## Structure
 
 - `flake.nix`: Entrypoint for hosts and home configurations
-- `nixos`: 
+- `nixos`:
   - `global`: Configurations that are globally applied to all my machines
   - `optional`: Configurations that some of my machines use
 - `hosts`: NixOS Configurations, accessible via `nixos-rebuild --flake`.

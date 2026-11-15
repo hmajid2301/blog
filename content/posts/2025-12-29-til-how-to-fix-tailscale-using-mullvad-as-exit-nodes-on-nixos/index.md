@@ -7,7 +7,7 @@ tags:
   - mullvad
   - nixos
 series:
-  - til
+  - TIL
 cover:
   image: images/cover.png
 ---

@@ -8,6 +8,7 @@ tags:
   - nixos-anywhere
   - impermanence
   - sops-nix
+  - nixicle
 cover:
   image: images/cover.png
 ---

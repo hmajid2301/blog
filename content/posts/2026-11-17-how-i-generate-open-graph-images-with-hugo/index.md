@@ -1,7 +1,6 @@
 ---
 title: How I Generate Open Graph Images With Hugo
 date: "2026-11-17"
-draft: true
 canonicalURL: https://haseebmajid.dev/posts/2026-11-17-how-i-generate-open-graph-images-with-hugo
 tags:
   - hugo

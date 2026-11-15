@@ -44,7 +44,7 @@ well in general they make it easier [^2].
 
 ### Getting Started
 
-So in my case, I did this by creating a new folder in my home directory `mkdir $HOME/dotfiles`, then going into that 
+So in my case, I did this by creating a new folder in my home directory `mkdir $HOME/dotfiles`, then going into that
 directory `cd $HOME/dotfiles`, and finally creating a new nix flake `nix flake init`.
 
 We may need to add the following to our `configuration.nix`
@@ -69,7 +69,7 @@ such as `nixvim`.
 
 One of the imports that is important is the nixpkgs, this will determine which versions of packages we will get.
 Essentially nixpkgs is just a repo full of different nix derivations which tell Nix how to install a package.
-Where a Nix derivation is a specific build of a package, which includes all the necessary information, build steps 
+Where a Nix derivation is a specific build of a package, which includes all the necessary information, build steps
 and dependencies for that package.
 
 #### flake.lock
@@ -100,7 +100,7 @@ In this case, we are looking at a specific branch `ref`: `nixos-unstable` so we 
 https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&type=packages&query=ag.
 
 So if we don't ever update our `flake.lock` we will forever be tied to this version of the unstable channel at that
-moment. Of course, that branch is getting updated multiple times a day. So to update our tools/apps etc. we need to update 
+moment. Of course, that branch is getting updated multiple times a day. So to update our tools/apps etc. we need to update
 this lock file. We can do this by running `nix flake update`, in our dotfiles repo.
 The `unstable` is just a branch on the nixpkgs repo where the packages are updated more often. So when we update
 our flakes (using a `nix flake update`).
@@ -129,12 +129,12 @@ Notice how we are pointing the framework configuration to a configuration file. 
 
 ## Configuring NixOS
 
-Now that we have the basic format of what our NixOS config will look like how do we go about actually configuring 
+Now that we have the basic format of what our NixOS config will look like how do we go about actually configuring
 our system? We split our config into two main bits. Some key bits of my config, I like as much config to be shared
 between my devices as possible but I also want it to be modular, as not every device needs to use every feature.
 Some devices don't even run NixOS and only use home-manager.
 
-### NixOS 
+### NixOS
 
 The first bit is our NixOS config which we will use to configure our device. Think of anything we need "sudo" permissions
 to do. Again this code block:
@@ -201,7 +201,7 @@ Some things shared between all of my configs is:
 - hardware-configuration
 - disks (used to partition drives)
 
-##### global 
+##### global
 
 The global config set up the following, which I think I will need in all of my devices. Such as:
 
@@ -392,7 +392,7 @@ in
 }
 ```
 
-Here you can see we check if `cfg.enable` if the foot terminal is enabled then it will be included in our final nix 
+Here you can see we check if `cfg.enable` if the foot terminal is enabled then it will be included in our final nix
 expression.
 
 ```nix

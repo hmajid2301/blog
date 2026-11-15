@@ -48,7 +48,7 @@ return {
 }
 ```
 
-This config will make sure we have some basic LSP i.e. missing `pkgs` definition in our expressions. It will 
+This config will make sure we have some basic LSP i.e. missing `pkgs` definition in our expressions. It will
 auto-format our code as well. Which is very helpful.
 
 
@@ -57,4 +57,3 @@ auto-format our code as well. Which is very helpful.
 ## Appendix
 
 - [My nix.lua](https://gitlab.com/hmajid2301/dotfiles/-/blob/618ea7283587c19b76e860a7a7fd20c0c1ba53e2/home-manager/editors/nvim/config/lua/plugins/nix.lua)
-

@@ -114,4 +114,3 @@ primary_region = "lhr"
 Then run `fly deploy` and update your config to point to this version i.e. majiy00-shell.fly.dev (sync_adress config option).
 
 > P.S. Don't forget to set the `ATUIN_OPEN_REGISTRATION` to false if you don't want anyone else to be able to create accounts on your instance.
-

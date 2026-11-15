@@ -5,6 +5,7 @@ canonicalURL: https://haseebmajid.dev/posts/2025-01-20-how-to-fix-firefox-render
 tags:
   - firefox
   - nixos
+  - nixicle
 cover:
   image: images/cover.png
 ---

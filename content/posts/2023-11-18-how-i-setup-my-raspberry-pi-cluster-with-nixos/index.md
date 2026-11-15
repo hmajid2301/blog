@@ -38,7 +38,7 @@ listed below:
 - 4x 16 GB Micro SD Cards
 - 4x CAT7 Ethernet Cables 0.5M
   - Could've gone a bit smaller (you can see in the photos)
-- Powerline Adapter 
+- Powerline Adapter
   - P-Link TL-WPA4220
 - TP-Link 5-Port Gigabit Desktop PoE Switch
   - TL-SG1005P
@@ -66,7 +66,7 @@ in the switch connects to the rpis and the 5th connects to a powerline adapter.
 ### SSD to USB
 
 Since the SD cards I got only are 16GB for more persistent storage, I used some of my spares SSDs and hard disks.
-Once nice thing was the case has a nice slot for the SSDs to be placed (under the pis). 
+Once nice thing was the case has a nice slot for the SSDs to be placed (under the pis).
 
 ![Side View](images/side-view.jpeg)
 
@@ -103,7 +103,7 @@ Then put the SD card in your pi. Before we can start deploying to them
 we need to get some bare-bones setup we can SSH to the machine.
 
 Then I connect the PI to a keyboard and monitor, so I can see the IP address and set a default password on the `nixos`
-user. 
+user.
 
 ```nix
 passwd nixos
@@ -173,7 +173,7 @@ in
     users."${hostname}" = {
       isNormalUser = true;
       extraGroups = [ "wheel" ];
-      # Note: This is not very secure, I only use this password for a little while whilst the PI 
+      # Note: This is not very secure, I only use this password for a little while whilst the PI
       # can only be accessible from my local network
       password = hostname;
       openssh.authorizedKeys.keys = [ "ssh-ed25519 <YOUR_PUB_KEY>" ];
@@ -220,4 +220,3 @@ BOOTFS=/mnt FIRMWARE_RELEASE_STATUS=stable rpi-eeprom-update -d -a
 
 That's It! We've set up our rpi cluster with NixOS, and we can connect to it using the hostname. In the next couple of
 tutorials we will look at how we can use Nix tools to manage the deployment and deploy k3s to the cluster.
-

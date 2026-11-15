@@ -27,7 +27,7 @@ websites thrown together. It was a great way to learn React, TailwindCSS and a b
 - Hosted by [Netlify](https://www.netlify.com/)
 - Using [NetlifyCMS](https://www.netlifycms.org) for content management
 
-## Why Move to Hugo? 
+## Why Move to Hugo?
 
 I also had a bunch of issues even building the [site recently](https://gitlab.com/hmajid2301/portfolio-site/-/pipelines).
 I had a scheduled job to rebuild it so that the stats page would update with the most viewed articles etc.

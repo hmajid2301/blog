@@ -15,7 +15,7 @@ In this post, we will go over how you can test your SvelteKit app on your Androi
 If you're like me you are building an app that you want users to use on both normal PCs (laptops, Desktop) and
 their smartphones.
 
-But the question arises how can we debug our app on a smartphone? 
+But the question arises how can we debug our app on a smartphone?
 One way to achieve this is to use Firefox and remote debugging, you will need to connect your
 smartphone via USB to your device running the SvelteKit app i.e. your Laptop.
 
@@ -64,8 +64,8 @@ a coffee shop on public WIFI.
 
 ![Firefox Devices](images/)
 
-Now on your PC still: 
-- Open Firefox 
+Now on your PC still:
+- Open Firefox
 - Go to `about:debugging`
 - You should see your device under `USB enabled`.
 - Select connect

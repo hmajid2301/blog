@@ -45,7 +45,7 @@ Here is my [git repo](https://gitlab.com/hmajid2301/dotfiles), when setting up m
 ### Flakes
 
 We will also use Nix flakes alongside our git repo.
-I won't go into lots of details of what flakes are [^2]. But nix flakes seem to be the preferred way to define our 
+I won't go into lots of details of what flakes are [^2]. But nix flakes seem to be the preferred way to define our
 nix configs. Flakes improve reproducibility by creating a lock file for our dependencies and also creating a project
 so it's easier for new people to navigate our Nix config.
 
@@ -203,7 +203,7 @@ In this case, we are looking at a specific branch `ref`: `nixos-unstable` so we 
 https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&type=packages&query=ag.
 
 So if we don't ever update our `flake.lock` we will forever be tied to this version of the unstable channel at that
-moment. Of course, that branch is getting updated multiple times a day. So to update our tools/apps etc. we need to update 
+moment. Of course, that branch is getting updated multiple times a day. So to update our tools/apps etc. we need to update
 this lock file. We can do this by running `nix flake update`, in our dotfiles repo.
 
 #### NixOS
@@ -375,5 +375,3 @@ my system. Hopefully, it made it more clear how I use NixOS. And even a bit of N
 - [My dotfiles](https://gitlab.com/hmajid2301/dotfiles/-/tree/3e35e17bab99518ba4136c552a9de790daf9ae0d)
 - [Misterio77's Repo](https://github.com/Misterio77/nix-config)
 - [home-manager options super useful](https://mipmip.github.io/home-manager-option-search/?query=fzf)
-
-

@@ -106,4 +106,3 @@ Check out this cool place for tracking my neovim setup:
 - <https://github.com/ghostx31/dotfiles/tree/37587b043f277ff5831ce5f1a3287fbaec1d9fe3>
 - <https://github.com/Anant-mishra1729/Village-Linux-rice>
 - <https://github.com/colevoss/dotfiles>
-

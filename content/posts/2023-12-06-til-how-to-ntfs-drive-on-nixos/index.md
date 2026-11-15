@@ -13,7 +13,7 @@ cover:
 
 **TIL: How to NTFS Drive on NixOS**
 
-Recently, I was trying to open an NTFS drive on my NixOS machine; however, the drive was corrupted. So I did the 
+Recently, I was trying to open an NTFS drive on my NixOS machine; however, the drive was corrupted. So I did the
 following to fix the drive.
 
 ```bash

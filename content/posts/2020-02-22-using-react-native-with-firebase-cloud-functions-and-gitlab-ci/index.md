@@ -120,7 +120,7 @@ publish:firebase:functions:
 
 The CI file we've defined means every time we commit onto the master branch it will trigger
 a deployment of our code to Firebase Cloud Functions. We add a message so we know which
-pipeline triggered the build `-m`. Gitlab provides some predefined  
+pipeline triggered the build `-m`. Gitlab provides some predefined
 [environment variables](https://docs.gitlab.com/ee/ci/variables/predefined_variables.html).
 Two of those being the ones within our message.
 

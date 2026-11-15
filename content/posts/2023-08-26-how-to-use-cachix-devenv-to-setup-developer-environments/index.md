@@ -16,7 +16,7 @@ However, I like how devenv provides a few other "tools" within that we can set u
 pre-commit hooks, container support etc.
 
 This blog leverages devenv to create/set up its developer environment.
- 
+
 **Note:** I'm pretty new to using devenv myself so I'm probably going to make a follow-up post as my developer workflow
 changes.
 
@@ -28,7 +28,7 @@ To set up pre-commit hooks and to make sure certain binaries and tools are avail
 cloning our project doesn't need to make sure they have say `hugo` or `go-task` globally available.
 It is set up automatically if they are using `devenv` and [`direnv`](https://direnv.net/).
 
-It can also be used to manage services like Postgresql. 
+It can also be used to manage services like Postgresql.
 
 ## Install Devenv
 
@@ -91,7 +91,7 @@ config. Then in in our `home.nix` module we can add something:
 
 In my config, I have this in its module called `devenv.nix`, because I like to split up my config.
 To install devenv we can do `inputs.devenv.packages."${pkgs.system}".devenv`. We also need cachix (I think), so *
-installed that from Nix packages. Like we would with any other package. 
+installed that from Nix packages. Like we would with any other package.
 
 You will also notice I setup another tool called `direnv`, which is a generic tool that allows us to create a new shell
 env when we change directories if there is a `.envrc`, where we can load things like env variables etc.
@@ -102,7 +102,7 @@ setup it will set up our devenv environment automatically.
 
 **Note**: The first time we use direnv we need to run `direnv allow`, the output on your shell will remind you to do this.
 
-After this, you can run your normal command to update your state using home-manager i.e. 
+After this, you can run your normal command to update your state using home-manager i.e.
 `home-manager switch --flake ~/dotfiles#mesmer`.
 
 Without `direnv` we could also run `devenv shell`, however, I found this would change my shell to bash whereas I normally
@@ -205,7 +205,7 @@ The meat and potatoes of our environment exist here, so let us open the file it 
 
 #### enterShell
 
-This also explains some of the input we saw above i.e 
+This also explains some of the input we saw above i.e
 
 ```bash
 hello from devenv
@@ -228,7 +228,7 @@ devenv
 These are packages we want to be available in our devenv, that we don't need to globally installed. These are the same
 ones available on [nixos pkgs](https://search.nixos.org/packages?channel=unstable&from=0&size=50&sort=relevance&type=packages&query=git).
 
-We can search for packages on the cli using `devenv search` i.e. 
+We can search for packages on the cli using `devenv search` i.e.
 
 ```bash
 devenv search go_1_19
@@ -271,7 +271,7 @@ This means the script can use `jq` and `curl`.
 
 The other main construct I use is pre-commit hooks, this will auto-generate a `.pre-commit-config.yaml` and add it
 to our `.gitignore`. As it is generated from the `devenv.nix` file. We can define them like so:
- 
+
 
 ```nix
   pre-commit.hooks = {
@@ -320,4 +320,3 @@ That's It! We set up a devenv!
 ## Appendix
 
 - [Go Project using devenv](https://gitlab.com/hmajid2301/gomodoro-cli)
-

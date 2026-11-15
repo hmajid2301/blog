@@ -7,6 +7,7 @@ tags:
   - htmx
   - go
   - postgres
+  - banterbus
 cover:
   image: images/cover.png
 ---

@@ -76,5 +76,3 @@ seem to use. So I am going to try to use:
 
 And maintain weekly blog posts, maybe even YouTube or TikTok videos to show off the progress. Some weeks there will likely
 be nothing to really show off.
-
-

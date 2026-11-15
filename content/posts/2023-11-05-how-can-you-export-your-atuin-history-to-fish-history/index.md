@@ -20,13 +20,13 @@ in your history that best matches what you are typing (see example below).
 
 ![Fish Suggestions](./images/suggestions.png)
 
-To resolve this issue, we can use a go script that I 
-[came across here](https://github.com/atuinsh/atuin/issues/1073#issuecomment-1610861147) that can be used to export 
+To resolve this issue, we can use a go script that I
+[came across here](https://github.com/atuinsh/atuin/issues/1073#issuecomment-1610861147) that can be used to export
 the Atuin data (in a sqlite db), to our fish history file. Which is typically found in `~/.local/state/fish/fish_history`.
 
 I then put this on my [GitLab here](https://gitlab.com/hmajid2301/atuin-export-fish-history).
 To run the script, we could do something like `go install gitlab.com/hmajid2301/atuin-export-fish-history`. Then run
-`atuin-export-fish-history`. 
+`atuin-export-fish-history`.
 
 However, if you're running NixOS or Nix package manager, you might want to install it using Nix like so:
 

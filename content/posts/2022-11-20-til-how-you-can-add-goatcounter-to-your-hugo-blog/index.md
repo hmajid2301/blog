@@ -28,7 +28,7 @@ Luckily it is very easy to add Goatcounter to our blog. First, create a new `par
 The contents of the file should look like this:
 
 ```html
-<script id="partials/analytics.html" 
+<script id="partials/analytics.html"
   data-goatcounter="https://{{ .Site.Params.goatcounter }}.goatcounter.com/count"
   async src="//gc.zgo.at/count.js"></script>
 ```

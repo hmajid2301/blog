@@ -14,11 +14,7 @@ cover:
 
 **TIL: How You Can Zoom in on Photos in your Hugo Posts**
 
-You can see what we want to achieve in the GIF below:
-
-{{< gfycat src="MisguidedFondDingo" >}}
-
-## How? 
+## How?
 
 Add the following code to your Hugo blog in my case using the Papermod theme I add it to the `layouts/partials/extend_footer.html`.
 

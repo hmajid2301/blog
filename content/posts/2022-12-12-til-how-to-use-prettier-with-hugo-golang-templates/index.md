@@ -4,7 +4,7 @@ canonicalURL: https://haseebmajid.dev/posts/2022-12-12-til-how-to-use-prettier-w
 date: 2022-12-12
 tags:
   - hugo
-  - golang
+  - go
   - prettier
 series:
   - TIL

@@ -10,12 +10,12 @@ cover:
 ---
 
 As you may know from my previous articles, my work laptop is an Ubuntu (22.04) laptop. However, on the rest of my devices
-I use NixOS with Hyprland as my tiling window manager. I wanted to be able to use Hyprland on my laptop as well, 
+I use NixOS with Hyprland as my tiling window manager. I wanted to be able to use Hyprland on my laptop as well,
 I tried using Sway and, it worked mostly pretty well, but it was yet another to manage and there were some slight
 differences. Also, I like the animations on Hyprland 😅.
 
 So I had tried to work out how to install Hyprland on Ubuntu 22.04. I couldn't make it work via Nix/Home-manager.
-There is this great gist for how to set it up on 
+There is this great gist for how to set it up on
 [Ubuntu 23.04](https://gist.github.com/Vertecedoc4545/3b077301299c20c5b9b4db00f4ca6000). However, some of the versions
 available to me in the Ubuntu repository didn't match the versions required by Hyprland. Hyprland is bleeding edge
 and themselves say they do not officially support Ubuntu.
@@ -64,7 +64,7 @@ lrwxrwxrwx root/root         0 2022-10-01 13:50 ./etc/rc2.d/S01calamares-sources
 lrwxrwxrwx root/root         0 2022-10-01 13:50 ./etc/rc3.d/S01calamares-sources-undo -> ../init.d/calamares-sources-undo
 ```
 
-The main file being `sources.list.d/system.sources` which will add the Pika repository a source to our (apt) package 
+The main file being `sources.list.d/system.sources` which will add the Pika repository a source to our (apt) package
 manager. So after we download the pika-source file, we can then do:
 
 ```bash
@@ -94,4 +94,3 @@ versions of Gnome.
 
 [^1]: https://gist.github.com/Vertecedoc4545/3b077301299c20c5b9b4db00f4ca6000?permalink_comment_id=4595603#gistcomment-4595603
 [^2]: Image Source: https://docs.fedoraproject.org/en-US/quick-docs/configuring-xorg-as-default-gnome-session/
-

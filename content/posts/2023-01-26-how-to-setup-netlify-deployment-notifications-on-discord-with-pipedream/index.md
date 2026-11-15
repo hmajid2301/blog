@@ -39,7 +39,7 @@ it will trigger this Pipedream workflow. We can even see the data that was sent 
 
 Since my app will also build for deploy previews on branches and I only want messages for my production deploys i.e.
 on my `main` branch on GitLab. I will next add a simple condition which checks if the branch name in the trigger
-is `main` and then carry on, else stop the workflow. Since this is a variable and will vary on builds we can refer to it as 
+is `main` and then carry on, else stop the workflow. Since this is a variable and will vary on builds we can refer to it as
 `{{steps.trigger.event.branch}}` in condition check, to compare branch name with `main`.
 
 ## Format Data
@@ -60,7 +60,7 @@ export default defineComponent({
         "description": "Bookmarkey GUI",
         "fields":[
           {
-            "name":"Commit", 
+            "name":"Commit",
             "value":`[\`${steps.trigger.event.commit_ref.substring(0,8)}\`](${steps.trigger.event.commit_url})`,
             "inline":true
           },
