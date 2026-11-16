@@ -36,7 +36,7 @@ html[data-design][data-design] .footer { justify-content: space-between; text-al
   html[data-design][data-design] .footer { justify-content: center; text-align: center; }
 }
 
-/* Subscribe + Stats, moved out of the nav. */
+/* RSS, Site history + Stats, moved out of the nav. */
 html[data-design] .footer .footer-links {
   display: inline-flex;
   gap: 14px;

@@ -1,0 +1,11 @@
+{{- /* Responsive WebP screenshot from assets/, opens in the image zoom like post images. */ -}}
+{{- with resources.Get .src -}}
+  {{- $small := .Resize "720x webp q85" -}}
+  {{- $large := .Resize (printf "%dx webp q85" (int (math.Min 1440 .Width))) -}}
+  <img loading="lazy" decoding="async" src="{{ $small.RelPermalink }}"
+    srcset="{{ $small.RelPermalink }} {{ $small.Width }}w, {{ $large.RelPermalink }} {{ $large.Width }}w"
+    sizes="(max-width: 800px) calc(100vw - 40px), 360px"
+    data-zoom-src="{{ .RelPermalink }}" width="{{ .Width }}" height="{{ .Height }}" alt="{{ $.alt }}">
+{{- else -}}
+  {{- errorf "site-history: missing screenshot %q" .src -}}
+{{- end -}}

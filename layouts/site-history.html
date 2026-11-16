@@ -1,0 +1,53 @@
+{{- define "main" }}
+{{- $tagURL := "https://gitlab.com/hmajid2301/blog/-/tags/" }}
+<article class="post-single">
+  <header class="post-header">
+    <h1 class="post-title">{{ .Title }}</h1>
+  </header>
+
+  <div class="post-content">
+    {{ .Content }}
+
+    <div class="lab-terminal sh-cmd">
+      <span class="lab-terminal-title" aria-hidden="true">terminal</span>
+      <div class="lab-terminal-scroll"><span class="sh-prompt" aria-hidden="true">❯</span> git log --tags --simplify-by-decoration</div>
+    </div>
+
+    <ol class="sh-log">
+      {{- range $i, $v := .Params.versions }}
+      <li class="sh-commit{{ if eq $i 0 }} is-head{{ end }}">
+        <p class="sh-refs">
+          {{- if eq $i 0 }}<span class="sh-ref sh-ref-head">HEAD → main</span>{{ end }}
+          <span class="sh-ref sh-ref-tag">tag: {{ $v.tag }}</span>
+          <span class="sh-years">{{ $v.years }}</span>
+        </p>
+        <h2 id="v{{ $v.tag | anchorize }}">{{ $v.name }}</h2>
+        <ul class="sh-stack" aria-label="Tech stack">
+          {{- range $v.stack }}<li>{{ . }}</li>{{ end }}
+        </ul>
+        {{- with $v.why }}
+        <p class="sh-why">
+          {{ . }}
+          {{- with $v.post }} <a href="{{ . | relLangURL }}">More in this post</a>{{ end }}
+        </p>
+        {{- end }}
+        <div class="sh-shots" data-count="{{ len $v.shots }}">
+          {{- range $v.shots }}
+          <figure>
+            {{- partial "site-history-shot.html" (dict "src" .src "alt" (printf "Version %s: %s" $v.tag .caption)) }}
+            <figcaption>{{ .caption }}</figcaption>
+          </figure>
+          {{- end }}
+        </div>
+        <a class="sh-tag-link" href="{{ $tagURL }}{{ $v.tag }}">View tag {{ $v.tag }} ↗</a>
+      </li>
+      {{- end }}
+    </ol>
+  </div>
+
+  <footer class="post-footer">
+    {{ partial "git_last_edited.html" . }}
+    {{ partial "edit_post.html" . }}
+  </footer>
+</article>
+{{- end }}
