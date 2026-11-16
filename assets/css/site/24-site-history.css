@@ -1,0 +1,127 @@
+/* Site history — versions as a `git log` graph: refs, stack pills, reason, screenshots. */
+
+html[data-design] .sh-cmd { margin: 28px 0 8px; }
+html[data-design] .sh-cmd .lab-terminal-scroll { padding: 14px 16px; }
+html[data-design] .sh-prompt { color: var(--term-accent); margin-right: 6px; }
+
+html[data-design] .post-content .sh-log {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* One commit: a graph rail on the left, content on the right. */
+html[data-design] .post-content .sh-commit {
+  position: relative;
+  margin: 0;
+  padding: 28px 0 36px 40px;
+}
+html[data-design] .sh-commit::before {
+  content: "";
+  position: absolute;
+  left: 9px;
+  top: 0;
+  bottom: 0;
+  border-left: 2px solid var(--lab-rule);
+}
+html[data-design] .sh-commit:first-child::before { top: 36px; }
+html[data-design] .sh-commit:last-child::before { bottom: auto; height: 36px; }
+html[data-design] .sh-commit::after {
+  content: "";
+  position: absolute;
+  left: 3px;
+  top: 30px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid var(--lab-rule);
+  background: var(--lab-bg);
+}
+html[data-design] .sh-commit.is-head::after {
+  border-color: var(--lab-accent);
+  background: var(--lab-accent);
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--lab-accent) 22%, transparent);
+}
+
+html[data-design] .post-content .sh-refs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 8px;
+  margin: 0;
+  font: 12px/1.6 var(--lab-mono);
+}
+html[data-design] .sh-ref {
+  padding: 1px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--lab-rule);
+  color: var(--lab-muted);
+}
+html[data-design] .sh-ref-head {
+  border-color: var(--lab-accent);
+  background: var(--lab-accent);
+  color: var(--lab-bg);
+  font-weight: 600;
+}
+html[data-design] .sh-commit.is-head .sh-ref-tag {
+  border-color: var(--lab-accent);
+  color: var(--lab-accent);
+}
+html[data-design] .sh-years { color: var(--lab-muted); }
+
+html[data-design] .post-content .sh-commit h2 {
+  margin: 8px 0 12px;
+  font-size: 26px;
+}
+
+html[data-design] .post-content .sh-stack {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0 0 14px;
+  padding: 0;
+}
+html[data-design] .post-content .sh-stack li {
+  margin: 0;
+  padding: 3px 10px;
+  border: 1px solid var(--lab-rule);
+  border-radius: 999px;
+  font: 12px/1.6 var(--lab-mono);
+}
+
+html[data-design] .post-content .sh-why {
+  margin: 0 0 18px;
+  color: var(--lab-muted);
+}
+
+html[data-design] .sh-shots {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 14px;
+}
+html[data-design] .sh-shots[data-count="1"] { grid-template-columns: minmax(0, 1fr); max-width: calc(50% - 6px); }
+html[data-design] .sh-shots[data-count="3"] { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+html[data-design] .sh-shots figure { margin: 0; }
+html[data-design] .post-content .sh-shots img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0;
+  border: 1px solid var(--lab-rule);
+  border-radius: 8px;
+}
+html[data-design] .sh-shots figcaption {
+  margin-top: 4px;
+  font: 11px/1.6 var(--lab-mono);
+  color: var(--lab-muted);
+}
+
+html[data-design] .sh-tag-link { font: 12px/1.6 var(--lab-mono); }
+
+@media (max-width: 600px) {
+  html[data-design] .sh-shots,
+  html[data-design] .sh-shots[data-count="3"] { grid-template-columns: minmax(0, 1fr); }
+  html[data-design] .sh-shots[data-count="1"] { max-width: none; }
+}
