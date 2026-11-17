@@ -47,6 +47,10 @@ pages:
   script:
     - nix develop -c hugo
     - test -s public/index.html
+    - >-
+      nix develop -c find public -type f -regextype posix-extended
+      -regex '.*\.(html|css|js|json|xml|svg|txt|map)'
+      -exec gzip -kf9 {} + -exec brotli -kf {} +
   pages: true
   environment:
     name: production

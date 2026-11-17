@@ -137,6 +137,8 @@
             hugo
             resvg
             jq
+            brotli
+            gzip
             python3
             go-task
             gum
