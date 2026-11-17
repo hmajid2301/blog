@@ -1,8 +1,6 @@
 /*!
 * @preserve
 * MonoLisa 2.017 (Developer plan webfont, unmodified; served by haseebmajid.dev only)
-* Only the unicode-range files whose glyphs appear on the site are kept.
-* To restore one, re-add its file + @font-face from the vendor download.
 * This font is subject to a EULA. A user-licence can be acquired at:
 *   https://www.monolisa.dev/license
 * © 2026 FaceType Foundry. All Rights Reserved.
@@ -13,6 +11,7 @@
   font-family: MonoLisa;
   font-weight: 100 900;
   font-style: normal;
+  font-display: swap;
   unicode-range: U+0020-007F;
 }
 
@@ -21,6 +20,7 @@
   font-family: MonoLisa;
   font-weight: 100 900;
   font-style: italic;
+  font-display: swap;
   unicode-range: U+0020-007F;
 }
 
@@ -29,6 +29,7 @@
   font-family: MonoLisa;
   font-weight: 100 900;
   font-style: normal;
+  font-display: swap;
   unicode-range: U+0080-00FF;
 }
 
@@ -37,6 +38,7 @@
   font-family: MonoLisa;
   font-weight: 100 900;
   font-style: italic;
+  font-display: swap;
   unicode-range: U+0080-00FF;
 }
 
@@ -45,6 +47,7 @@
   font-family: MonoLisa;
   font-weight: 100 900;
   font-style: normal;
+  font-display: swap;
   unicode-range: U+0100-017F;
 }
 
@@ -53,6 +56,7 @@
   font-family: MonoLisa;
   font-weight: 100 900;
   font-style: italic;
+  font-display: swap;
   unicode-range: U+0100-017F;
 }
 
@@ -61,6 +65,7 @@
   font-family: MonoLisa;
   font-weight: 100 900;
   font-style: normal;
+  font-display: swap;
   unicode-range: U+2000-206F;
 }
 
@@ -69,6 +74,7 @@
   font-family: MonoLisa;
   font-weight: 100 900;
   font-style: italic;
+  font-display: swap;
   unicode-range: U+2000-206F;
 }
 
@@ -77,6 +83,7 @@
   font-family: MonoLisa;
   font-weight: 100 900;
   font-style: normal;
+  font-display: swap;
   unicode-range: U+2700-27BF;
 }
 
@@ -85,6 +92,7 @@
   font-family: MonoLisa;
   font-weight: 100 900;
   font-style: italic;
+  font-display: swap;
   unicode-range: U+2700-27BF;
 }
 
@@ -93,6 +101,7 @@
   font-family: MonoLisa;
   font-weight: 100 900;
   font-style: normal;
+  font-display: swap;
   unicode-range: U+2190-21FF;
 }
 
@@ -101,6 +110,7 @@
   font-family: MonoLisa;
   font-weight: 100 900;
   font-style: italic;
+  font-display: swap;
   unicode-range: U+2190-21FF;
 }
 
@@ -109,6 +119,7 @@
   font-family: MonoLisa;
   font-weight: 100 900;
   font-style: normal;
+  font-display: swap;
   unicode-range: U+2200-22FF;
 }
 
@@ -117,6 +128,7 @@
   font-family: MonoLisa;
   font-weight: 100 900;
   font-style: italic;
+  font-display: swap;
   unicode-range: U+2200-22FF;
 }
 
@@ -125,6 +137,7 @@
   font-family: MonoLisa;
   font-weight: 100 900;
   font-style: normal;
+  font-display: swap;
   unicode-range: U+2580-259F;
 }
 
@@ -133,6 +146,7 @@
   font-family: MonoLisa;
   font-weight: 100 900;
   font-style: italic;
+  font-display: swap;
   unicode-range: U+2580-259F;
 }
 
@@ -141,6 +155,7 @@
   font-family: MonoLisa;
   font-weight: 100 900;
   font-style: normal;
+  font-display: swap;
   unicode-range: U+25A0-25FF;
 }
 
@@ -149,6 +164,7 @@
   font-family: MonoLisa;
   font-weight: 100 900;
   font-style: italic;
+  font-display: swap;
   unicode-range: U+25A0-25FF;
 }
 
@@ -157,6 +173,7 @@
   font-family: MonoLisa;
   font-weight: 100 900;
   font-style: normal;
+  font-display: swap;
   unicode-range: U+2500-257F;
 }
 
@@ -165,6 +182,7 @@
   font-family: MonoLisa;
   font-weight: 100 900;
   font-style: italic;
+  font-display: swap;
   unicode-range: U+2500-257F;
 }
 
@@ -173,6 +191,7 @@
   font-family: MonoLisa;
   font-weight: 100 900;
   font-style: normal;
+  font-display: swap;
   unicode-range: U+E000-F8FF;
 }
 
@@ -181,6 +200,7 @@
   font-family: MonoLisa;
   font-weight: 100 900;
   font-style: italic;
+  font-display: swap;
   unicode-range: U+E000-F8FF;
 }
 /* Features browsers don't enable automatically (per the MonoLisa webfont README). frac/onum
