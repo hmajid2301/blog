@@ -133,7 +133,9 @@
       return rect.top
     }
   })();
-  </script> {{- if ne (.Param "EnableImageZoom") false }}
+  </script> {{- if and (ne (.Param "EnableImageZoom") false) (strings.Contains .Content "<img") }}
+  {{- $imagezoom := resources.Get "js/medium-zoom.min.js" | fingerprint }}
+  <script src="{{ $imagezoom.RelPermalink }}" integrity="{{ $imagezoom.Data.Integrity }}"></script>
   <script>
     mediumZoom(".post-content img:not([no-zoom])", {
       background: "rgba(0, 0, 0, 0.8)",

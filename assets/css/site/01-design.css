@@ -8,7 +8,7 @@ html[data-design] {
   --lab-accent: #a43b54;
   --lab-heading: 'Schibsted Grotesk', sans-serif;
   --lab-body: 'Schibsted Grotesk', sans-serif;
-  --lab-mono: 'IBM Plex Mono', monospace;
+  --lab-mono: 'MonoLisa', 'Terminal Mono', ui-monospace, monospace;
   --lab-reading-width: 760px;
   --lab-text-size: 19px;
   --main-width: 1100px;

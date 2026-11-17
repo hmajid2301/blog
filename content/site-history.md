@@ -10,6 +10,7 @@ versions:
     years: "2026–"
     stack: [Hugo, Custom theme, GitLab Pages]
     why: Replaced PaperModX with a theme of my own.
+    post: /posts/2026-12-01-why-i-built-my-own-hugo-theme-for-this-blog/
     shots:
       - { src: site-history/v5.png, caption: Home }
       - { src: site-history/v5-post.png, caption: Article }

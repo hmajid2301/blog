@@ -20,6 +20,9 @@ osEnv = ['(?i)^((HTTPS?|NO)_PROXY|PATH(EXT)?|APPDATA|TE?MP|TERM|GO\w+|(XDG_CONFI
 [markup.highlight]
 noclasses = false
 
+[services.rss]
+limit = 30
+
 [minify]
 disableXML = true
 minifyOutput = true
@@ -39,6 +42,10 @@ ShowWordCount = true
 showtoc = true
 favicon = "/favicon-32x32.png"
 appleTouchIcon = "/favicon-32x32.png"
+
+[params.umami]
+url = "https://umami.haseebmajid.dev"
+websiteID = "b0e614c5-49fe-4746-ba23-e4d000cbb59e"
 
 [params.og]
 version = "2"
