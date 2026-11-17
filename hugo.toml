@@ -40,6 +40,10 @@ showtoc = true
 favicon = "/favicon-32x32.png"
 appleTouchIcon = "/favicon-32x32.png"
 
+[params.umami]
+url = "https://umami.haseebmajid.dev"
+websiteID = "b0e614c5-49fe-4746-ba23-e4d000cbb59e"
+
 [params.og]
 version = "2"
 tagline = "a personal corner of the web"
