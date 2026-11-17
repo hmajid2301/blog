@@ -1,7 +1,7 @@
 ---
 title: Why I Built My Own Hugo Theme For This Blog
-date: 2026-11-17
-canonicalURL: https://haseebmajid.dev/posts/2026-11-17-why-i-built-my-own-hugo-theme-for-this-blog
+date: 2026-12-01
+canonicalURL: https://haseebmajid.dev/posts/2026-12-01-why-i-built-my-own-hugo-theme-for-this-blog
 draft: true
 tags:
   - hugo
@@ -27,22 +27,19 @@ and what changed.
 - [Hugo](https://gohugo.io/)
   - My own theme, no more git submodule or fork
   - Using the newer Hugo v0.146 layout structure (`_partials`, `_shortcodes`, `_markup`)
-- Hosted on [GitLab Pages](https://docs.gitlab.com/user/project/pages/) (moved off Netlify earlier this year)
+- Hosted on [GitLab Pages](https://docs.gitlab.com/user/project/pages/)
 - Branch previews in GitLab CI at preview.haseebmajid.dev
 - Nix flake for the dev shell
-- [Goatcounter](https://www.goatcounter.com/) for analytics, but no more page view counts on posts
+- [Umami](https://umami.is/) for analytics, but no more page view counts on posts
 
 ## Why Move?
 
 My PaperModX theme was a fork, of a fork, of a fork. Over the years I kept overriding bits of it. A partial here, some
 extra CSS there, a few shortcodes I needed for my posts. By the end I had more overrides than I'd like to admit, and
-I didn't really know which bits of the theme I was even using anymore. Things like comments (disqus, giscus,
-remark42), share icons and instantclick were all there, and I used none of them.
+I didn't really know which bits of the theme I was even using anymore. Things like comments
+share icons and instantclick were all there, and I used none of them.
 
-I also wanted to add some new pages, like TILs, projects and a page showing the history of this site. Every time I
-added something I was fighting the theme rather than just building the thing.
-
-The other reason, and if I'm honest, probably the main one. A lot of blogs use PaperMod, and I wanted the site to feel
+The other reason, probably the main one. A lot of blogs use PaperMod, and I wanted the site to feel
 a bit more like mine.
 
 ## GoLab
@@ -60,25 +57,18 @@ page. I thought, can I make my blog feel like this but still use Catppuccin? Tha
 
 So again I am no designer, that hasn't changed. But this time I had AI agents to help. I did all of this using
 [pi](https://github.com/badlogic/pi-mono) as my coding agent, mostly with GPT models, with some DeepSeek and Claude
-thrown in. It took me about 9 days, mostly evenings.
+thrown in. It took me about 9 days, mostly evenings. I wanted to see how far I could get, without impacting
+the load time of the site and even improve it. The quality of the CSS looks fine to me (and the HTML) but again
+I'm no expert.
 
 ### Design Lab
 
-First, I asked if I should even stick with Hugo or if there was something newer with less code to maintain. In the
-end Hugo was fine, so I stuck with it.
-
-I created a separate git worktree, so I didn't break the live site. Then the agent built a "design lab", a page in
-Hugo where I could toggle between different styles, fonts, navbars, footers, code block styles and colour palettes. It
-had about 12 Catppuccin variations and the Fireside theme from my slides. I could click around in the browser, and my
-choices got saved in local storage. That list of choices basically became the spec for the new theme.
+I asked the LLM to create a design page where I could pick my favourite style from a bunch of variations.
+I didn't really know what I wanted, so I let it suggest stuff then I could ask it to merge versions. Or try again etc.
 
 ![The design lab](images/design-lab.png)
 
-### Compare, don't describe
-
-The thing that worked best for me was not trying to describe what I wanted. I'm bad at that. Instead I would ask the
-agent to make a bunch of versions so I could compare them side by side. I did this for the navbar, the logo and
-favicon, the home page cards, code blocks, callouts, sidenotes and the open graph images. For example, it made 5
+For example, it made 5
 different OG card designs, and I picked one of them (more on that in [how I generate open graph images with
 Hugo](/posts/2026-11-17-how-i-generate-open-graph-images-with-hugo/)).
 
@@ -94,9 +84,6 @@ A few other things that helped:
 - The agent taking screenshots with Playwright to check its own work.
 - Having the agent ask me questions area by area (home page, table of contents, site history etc), rather than it
   guessing what I wanted.
-
-It wasn't all smooth. Sometimes I didn't like any of the options it gave me, so I asked for more. Some things took a
-lot of back and forth too, the borders on the cards looked pixelated and took a few rounds to get right.
 
 ### Planning the port
 
@@ -119,14 +106,14 @@ RSS feeds and stuff that would block shipping. They did find real bugs, the side
 didn't close when you pressed Escape. Those all became new tickets which got fixed.
 
 Near the end I also asked, if this was a brand new repo, without PaperModX, how would we structure it? I had two
-agents suggest and debate it. That is where the move to Hugo's newer layout structure came from.
+agents suggest and debate it, and they landed on Hugo's newer layout structure.
 
 ## What Changed
 
 - A new design, with light/dark mode and a Catppuccin or Fireside palette (try the toggle in the footer)
 - Code blocks that look like Neovim, and a terminal style for shell output
 - Sidenotes, code tabs, and code diffs
-- A TIL section, series pages, a projects page and a subscribe page
+- A TIL section, series pages and a projects page
 - A [site history](/site-history/) page, which shows each version of the site as a git log
 - Open graph images generated by Hugo at build time, no more committed cover images
 - Slides moved to their own repo, with redirects so the old links still work
@@ -138,14 +125,11 @@ I think so. If I'm honest, I don't think I would've done this without AI. Back i
 Hugo was so I didn't have to put effort into maintaining the site. Designing and building a theme from scratch is
 exactly the kind of thing I would've started and never finished.
 
-The funny thing is, I now own all of the theme code, which is what I was trying to avoid with PaperModX. But it is a lot
-less code than before, and I actually know what all of it does. There is nothing in there I don't use. So I think it
-should be easier to maintain than the fork of a fork of a fork was.
+The funny thing is, I now own all of the theme code, which is what I was trying to avoid with PaperModX. My overrides
+alone were about 6,200 lines of layouts, CSS and JS, sitting on top of the whole PaperModX theme. Now the entire theme
+is about 7,000 lines, and I actually know its currently all used. The theme was great way to migrate my blog to Hugo.
 
-If I did it again, I'd start the port a bit sooner. I spent a lot of time in the design lab tweaking things that
-changed again once they were in the real blog anyway.
-
-So hopefully I will be blogging more often again 🤣.
+So hopefully I will be blogging more often again 🤣, only about 5 posts this year which is not a lot for me.
 
 ## 👴 Older iterations
 
