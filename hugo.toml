@@ -20,6 +20,9 @@ osEnv = ['(?i)^((HTTPS?|NO)_PROXY|PATH(EXT)?|APPDATA|TE?MP|TERM|GO\w+|(XDG_CONFI
 [markup.highlight]
 noclasses = false
 
+[services.rss]
+limit = 30
+
 [minify]
 disableXML = true
 minifyOutput = true
