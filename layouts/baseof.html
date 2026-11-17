@@ -4,7 +4,7 @@
     data-design="studio"
     data-theme="cat"
     data-mode="light"
-    style="--lab-body: 'Jost', 'Jost Fallback', sans-serif; --lab-heading: 'Schibsted Grotesk', 'Schibsted Grotesk Fallback', sans-serif; --lab-mono: 'MonoLisa', monospace; --lab-heading-weight: 700; color-scheme: light;"
+    style="--lab-body: 'Jost', 'Jost Fallback', sans-serif; --lab-heading: 'Schibsted Grotesk', 'Schibsted Grotesk Fallback', sans-serif; --lab-mono: 'MonoLisa', 'Terminal Mono', ui-monospace, monospace; --lab-heading-weight: 700; color-scheme: light;"
     {{ if eq $labKind "talk" }} data-page-variant="briefing"{{ else if eq $labKind "article" }} data-page-variant="editorial"{{ end }}>
 
 <head>
@@ -27,6 +27,9 @@
         {{- block "main" . }}{{ end }}
         {{- end }}
     </main>
+    {{- if and hugo.IsProduction site.Params.umami.websiteID }}
+    {{ partial "analytics.html" . -}}
+    {{- end }}
     {{ partial "footer.html" . -}}
     {{- partial "search.html" . -}}
     {{- block "body_end" . }}{{ end }}

@@ -1,0 +1,210 @@
+/*!
+* @preserve
+* MonoLisa 2.017 (Developer plan webfont, unmodified; served by haseebmajid.dev only)
+* This font is subject to a EULA. A user-licence can be acquired at:
+*   https://www.monolisa.dev/license
+* © 2026 FaceType Foundry. All Rights Reserved.
+*/
+
+@font-face {
+  src: url(../../fonts/monolisa/woff2/0-normal.woff2) format("woff2");
+  font-family: MonoLisa;
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0020-007F;
+}
+
+@font-face {
+  src: url(../../fonts/monolisa/woff2/1-italic.woff2) format("woff2");
+  font-family: MonoLisa;
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+  unicode-range: U+0020-007F;
+}
+
+@font-face {
+  src: url(../../fonts/monolisa/woff2/2-normal.woff2) format("woff2");
+  font-family: MonoLisa;
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0080-00FF;
+}
+
+@font-face {
+  src: url(../../fonts/monolisa/woff2/3-italic.woff2) format("woff2");
+  font-family: MonoLisa;
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+  unicode-range: U+0080-00FF;
+}
+
+@font-face {
+  src: url(../../fonts/monolisa/woff2/4-normal.woff2) format("woff2");
+  font-family: MonoLisa;
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0100-017F;
+}
+
+@font-face {
+  src: url(../../fonts/monolisa/woff2/5-italic.woff2) format("woff2");
+  font-family: MonoLisa;
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+  unicode-range: U+0100-017F;
+}
+
+@font-face {
+  src: url(../../fonts/monolisa/woff2/22-normal.woff2) format("woff2");
+  font-family: MonoLisa;
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+2000-206F;
+}
+
+@font-face {
+  src: url(../../fonts/monolisa/woff2/23-italic.woff2) format("woff2");
+  font-family: MonoLisa;
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+  unicode-range: U+2000-206F;
+}
+
+@font-face {
+  src: url(../../fonts/monolisa/woff2/38-normal.woff2) format("woff2");
+  font-family: MonoLisa;
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+2700-27BF;
+}
+
+@font-face {
+  src: url(../../fonts/monolisa/woff2/39-italic.woff2) format("woff2");
+  font-family: MonoLisa;
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+  unicode-range: U+2700-27BF;
+}
+
+@font-face {
+  src: url(../../fonts/monolisa/woff2/44-normal.woff2) format("woff2");
+  font-family: MonoLisa;
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+2190-21FF;
+}
+
+@font-face {
+  src: url(../../fonts/monolisa/woff2/45-italic.woff2) format("woff2");
+  font-family: MonoLisa;
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+  unicode-range: U+2190-21FF;
+}
+
+@font-face {
+  src: url(../../fonts/monolisa/woff2/50-normal.woff2) format("woff2");
+  font-family: MonoLisa;
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+2200-22FF;
+}
+
+@font-face {
+  src: url(../../fonts/monolisa/woff2/51-italic.woff2) format("woff2");
+  font-family: MonoLisa;
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+  unicode-range: U+2200-22FF;
+}
+
+@font-face {
+  src: url(../../fonts/monolisa/woff2/52-normal.woff2) format("woff2");
+  font-family: MonoLisa;
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+2580-259F;
+}
+
+@font-face {
+  src: url(../../fonts/monolisa/woff2/53-italic.woff2) format("woff2");
+  font-family: MonoLisa;
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+  unicode-range: U+2580-259F;
+}
+
+@font-face {
+  src: url(../../fonts/monolisa/woff2/54-normal.woff2) format("woff2");
+  font-family: MonoLisa;
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+25A0-25FF;
+}
+
+@font-face {
+  src: url(../../fonts/monolisa/woff2/55-italic.woff2) format("woff2");
+  font-family: MonoLisa;
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+  unicode-range: U+25A0-25FF;
+}
+
+@font-face {
+  src: url(../../fonts/monolisa/woff2/56-normal.woff2) format("woff2");
+  font-family: MonoLisa;
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+2500-257F;
+}
+
+@font-face {
+  src: url(../../fonts/monolisa/woff2/57-italic.woff2) format("woff2");
+  font-family: MonoLisa;
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+  unicode-range: U+2500-257F;
+}
+
+@font-face {
+  src: url(../../fonts/monolisa/woff2/62-normal.woff2) format("woff2");
+  font-family: MonoLisa;
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+E000-F8FF;
+}
+
+@font-face {
+  src: url(../../fonts/monolisa/woff2/63-italic.woff2) format("woff2");
+  font-family: MonoLisa;
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+  unicode-range: U+E000-F8FF;
+}
+/* Features browsers don't enable automatically (per the MonoLisa webfont README). frac/onum
+   are left off: they turn "1/2" and digits in code into fractions and old-style figures. */
+code, kbd, pre, samp, .lab-terminal {
+  font-feature-settings: "zero" on, "ss02" on, "ss04" on, "ss07" on, "ss08" on, "ss09" on;
+}

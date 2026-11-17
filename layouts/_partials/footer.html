@@ -68,8 +68,6 @@
     window.scrollListeners = [];
 </script>
 
-{{- $imagezoom := resources.Get "js/medium-zoom.min.js" | fingerprint }}
-<script src="{{ $imagezoom.RelPermalink }}" integrity="{{ $imagezoom.Data.Integrity }}"></script>
 {{- $progressbar := resources.Get "js/progress-bar.js" | fingerprint }}
 <script defer crossorigin="anonymous" src="{{ $progressbar.RelPermalink }}" integrity="{{ $progressbar.Data.Integrity }}"></script>
 
@@ -77,7 +75,6 @@
 {{- partial "page_footer.html" . }}
 {{- end }}
 
-<link crossorigin="anonymous" rel="preload" as="fetch" href="{{ "index.json" | relLangURL }}" />
 {{- $search := slice (resources.Get "js/fuse.basic.min.js") (resources.Get "js/fastsearch.js" | js.Build) | resources.Concat "assets/js/search.js" | minify | fingerprint }}
 <script defer crossorigin="anonymous" src="{{ $search.RelPermalink }}" integrity="{{ $search.Data.Integrity }}"></script>
 

@@ -11,7 +11,7 @@
     {{- with site.GetPage "/talks/gophercon-htmx-go-web-app" }}
       {{- with .Resources.GetMatch "images/1Q2A7438.webp" }}
       {{- $photo := .Fill "580x720 Center" }}
-      <figure class="lab-portrait"><img src="{{ $photo.RelPermalink }}" alt="Haseeb speaking at GopherCon UK" width="580" height="720"><figcaption>On stage at GopherCon UK.</figcaption></figure>
+      <figure class="lab-portrait"><img src="{{ $photo.RelPermalink }}" alt="Haseeb speaking at GopherCon UK" width="580" height="720" loading="lazy" decoding="async"><figcaption>On stage at GopherCon UK.</figcaption></figure>
       {{- end }}
     {{- end }}
   </section>

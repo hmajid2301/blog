@@ -2,8 +2,8 @@
    Light mauve is darkened for AA links on both base and mantle. */
 html[data-theme='cat'][data-mode='light'] {
   --lab-bg: #eff1f5; --lab-surface: #e6e9ef; --lab-text: #4c4f69;
-  --lab-muted: #5c5f77; --lab-rule: #bcc0cc; --lab-accent: #8031e0;
-  --lab-code-bg: #e6e9ef; --lab-code-highlight: #dce0e8; --lab-code-comment: #5c5f77;
+  --lab-muted: #505368; --lab-rule: #bcc0cc; --lab-accent: #702bc5;
+  --lab-code-bg: #e6e9ef; --lab-code-highlight: #dce0e8; --lab-code-comment: #505368;
   --lab-card: #ccd0da;
   --lab-selection: #e6d5f4;
 }
