@@ -134,6 +134,17 @@
         "umami",
         "urlencode",
         "wght",
-        "wordmark"
+        "wordmark",
+        "homelab",
+        "virtualisation",
+        "stdenv",
+        "cpus",
+        "gnugrep",
+        "findutils",
+        "atticd",
+        "toplevel",
+        "substituters",
+        "netrc",
+        "oneshot"
     ]
 }
