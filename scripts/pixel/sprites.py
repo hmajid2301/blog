@@ -13,6 +13,26 @@ def outline(rows):
         out.append(line)
     return out
 S={}
+S['gopher-logo']=outline([
+  '...bb........bb...',
+  '..bBhhhhhhhhhhBb..',
+  '..hhhhhhhhhhhhhhh.',
+  '.hhhHHHhhhhhhhhhhh',
+  '.hhhhhhhhhhhhhhhhh',
+  '.bhhhhhhhhhhhhhhhh',
+  'bwwwwbbbbbbwhhhhhh',
+  'wwwwwwbbbbwwwwhhhb',
+  'wwkkwwbbbbwwwwwhhb',
+  'wwkkwwbbbbwwkkwwbb',
+  'wwwwwwbbbbwwkkwwbb',
+  'gwwwwgbnnbgwwwwgbb',
+  'bggggbmnnmbggggbbb',
+  'bbbbbbmwwmbbbbbbbb',
+  'bbbbbbbwwbbbbbbbbb',
+  'sssssbbbbbbbssssss',
+  'ssssssssttssssssss',
+  'ssssssssttssssssss',
+])
 S['gopher-404']=outline([
   '...bb........bb...',
   '..bBhhhhhhhhhhBb..',

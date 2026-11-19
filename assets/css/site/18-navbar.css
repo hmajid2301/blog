@@ -98,9 +98,19 @@ html[data-design][data-design] #menu a.active:hover {
 
 /* Logo mark injected beside the site name. */
 html[data-design] .logo a { display: inline-flex; align-items: center; gap: 10px; }
-html[data-design] .logo a .lab-mark { display: inline-flex; flex: none; color: var(--lab-accent); }
+html[data-design] .logo a .lab-mark { display: inline-flex; flex: none; color: #1e1e2e; }
 html[data-design] .logo a .lab-mark[hidden] { display: none; }
-html[data-design] .logo a .lab-mark svg { width: 26px; height: 26px; display: block; }
+html[data-design] .logo a .lab-mark svg { width: 36px; height: 36px; display: block; }
+
+@media (prefers-reduced-motion: no-preference) {
+  html[data-design] .logo a:hover .lab-mark svg,
+  html[data-design] .logo a:focus-visible .lab-mark svg {
+    animation: logo-hop .35s steps(3);
+  }
+}
+@keyframes logo-hop {
+  50% { transform: translateY(-4px); }
+}
 
 html[data-design] #mode-toggle svg { display: block; width: 18px; height: 18px; }
 html[data-mode='light'] .mode-moon,
