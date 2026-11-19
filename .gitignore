@@ -69,3 +69,6 @@ content/posts/**/source_code/**/android/app/debug.keystore
 .playwright/
 .playwright-browsers/
 .playwright-cli/
+
+# Licensed MonoLisa webfont: fetched at build time by scripts/fetch-fonts.sh, never committed.
+/static/fonts/monolisa/

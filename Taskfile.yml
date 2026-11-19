@@ -1,12 +1,18 @@
 version: "3"
 
 tasks:
+  fonts:
+    cmds:
+      - sh scripts/fetch-fonts.sh
+
   build:
     cmds:
+      - task: fonts
       - hugo
 
   start_server:
     cmds:
+      - task: fonts
       - hugo server -D --buildFuture
 
   new_post:

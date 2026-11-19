@@ -45,6 +45,7 @@ pages:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
     - if: $CI_PIPELINE_SOURCE == "schedule"
   script:
+    - sh scripts/fetch-fonts.sh # licensed MonoLisa from private nixicle-assets
     - nix develop -c hugo
     - test -s public/index.html
     - >-
@@ -75,6 +76,7 @@ preview:
     HUGO_PARAMS_ENV: preview # noindex meta + robots.txt
     HUGO_RELATIVEURLS: "false" # relativeURLs doubles the sub-path on resource URLs
   script:
+    - sh scripts/fetch-fonts.sh
     - nix develop -c hugo -F --environment preview --baseURL "$PREVIEW_URL"
     - test -s public/index.html
     - rm -rf "/previews/${CI_COMMIT_REF_SLUG}.new"
