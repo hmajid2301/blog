@@ -1,8 +1,13 @@
 {{- define "main" }}
 <section class="post-content error-page" aria-labelledby="error-title">
-  <p class="lab-eyebrow">404 / path not found</p>
-  <h1 id="error-title">This page isn't here.</h1>
-  {{ .RenderString "```terminal\n❯ cd /this-page\ncd: no such file or directory\n```" }}
-  <p>Try <a href="{{ "posts/" | relURL }}">Posts</a> or <a href="{{ "talks/" | relURL }}">Talks</a>, or use the search button above.</p>
+  <div class="error-hero">
+    {{ partial "pixel.html" (dict "name" "gopher-404" "size" 160 "class" "error-gopher") }}
+    <div>
+      <p class="lab-eyebrow">404 / path not found</p>
+      <h1 id="error-title">This page isn't here.</h1>
+    </div>
+  </div>
+  {{ .RenderString "```terminal\n❯ cd /this-page\ncd: no such file or directory\n❯ cd ~\n```" }}
+  <p>Head <a href="{{ "" | relURL }}">home</a>, try <a href="{{ "posts/" | relURL }}">Posts</a> or <a href="{{ "archive/" | relURL }}">the archive</a>, or use the search button above.</p>
 </section>
 {{- end }}

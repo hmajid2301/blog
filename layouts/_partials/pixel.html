@@ -1,0 +1,42 @@
+{{- /*
+  Inline pixel-art sprite from data/pixel.toml.
+  Usage: partial "pixel.html" (dict "name" "gopher-404" "size" 160 "label" "Gopher")
+  Omit "label" for decorative sprites (aria-hidden). "x" pixels use currentColor so outlines follow the theme.
+  Each row is run-length merged into as few <rect>s as possible.
+*/ -}}
+{{- $palette := dict
+  "x" "currentColor"
+  "k" "#1e1e2e" "h" "#2f2a28" "H" "#4a423e"
+  "b" "#9ec3e6" "B" "#7aa6d1" "w" "#ffffff" "g" "#d5dae3"
+  "n" "#3b3f52" "m" "#c9a77c" "s" "#e6e9ef" "t" "#1e1e2e"
+-}}
+{{- $sprite := index hugo.Data.pixel .name -}}
+{{- if not $sprite }}{{ errorf "pixel.html: unknown sprite %q" .name }}{{ end -}}
+{{- $rows := $sprite.rows -}}
+{{- $h := len $rows -}}
+{{- $w := 0 -}}
+{{- range $rows }}{{ $w = math.Max $w (len .) }}{{ end -}}
+{{- $size := .size | default 32 -}}
+{{- $width := math.Round (div (mul (float $size) $w) (math.Max $w $h)) -}}
+{{- $height := math.Round (div (mul (float $size) $h) (math.Max $w $h)) -}}
+<svg class="pixel-sprite pixel-{{ .name }}{{ with .class }} {{ . }}{{ end }}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {{ $w }} {{ $h }}" width="{{ $width }}" height="{{ $height }}" shape-rendering="crispEdges"
+  {{- with .label }} role="img" aria-label="{{ . }}"{{ else }} aria-hidden="true" focusable="false"{{ end }}>
+{{- range $y, $row := $rows -}}
+  {{- $chars := split $row "" -}}
+  {{- $start := 0 -}}
+  {{- $run := "" -}}
+  {{- range $x, $ch := $chars -}}
+    {{- if ne $ch $run -}}
+      {{- if and $run (ne $run ".") -}}
+        <rect x="{{ $start }}" y="{{ $y }}" width="{{ sub $x $start }}" height="1" style="fill:{{ index $palette $run | safeCSS }}"/>
+      {{- end -}}
+      {{- $start = $x -}}
+      {{- $run = $ch -}}
+    {{- end -}}
+  {{- end -}}
+  {{- if and $run (ne $run ".") -}}
+    <rect x="{{ $start }}" y="{{ $y }}" width="{{ sub (len $chars) $start }}" height="1" style="fill:{{ index $palette $run | safeCSS }}"/>
+  {{- end -}}
+{{- end -}}
+</svg>
+{{- /* trailing */ -}}

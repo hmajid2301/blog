@@ -1,0 +1,29 @@
+/* Pixel-art sprites (layouts/_partials/pixel.html). Outline pixels use currentColor. */
+html[data-design] .pixel-sprite {
+  display: block;
+  flex: none;
+  color: var(--lab-text);
+  image-rendering: pixelated;
+}
+
+/* 404 */
+html[data-design] .error-hero {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  margin-bottom: 24px;
+}
+html[data-design] .error-hero h1 { margin: 4px 0 0; }
+html[data-design] .error-gopher { color: var(--lab-text); }
+@media (prefers-reduced-motion: no-preference) {
+  html[data-design] .error-gopher { animation: pixel-wobble 2.4s steps(2) infinite; transform-origin: 50% 100%; }
+}
+@keyframes pixel-wobble {
+  0%, 70%, 100% { transform: rotate(0); }
+  80% { transform: rotate(-4deg); }
+  90% { transform: rotate(4deg); }
+}
+@media (max-width: 560px) {
+  html[data-design] .error-hero { flex-direction: column; align-items: flex-start; gap: 16px; }
+  html[data-design] .error-gopher { width: 112px; height: auto; }
+}

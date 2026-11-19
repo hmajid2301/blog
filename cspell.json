@@ -2,7 +2,9 @@
   "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
   "version": "0.2",
   "ignorePaths": [
-    "patches/**"
+    "data/pixel.toml",
+    "patches/**",
+    "scripts/pixel/**"
   ],
   "words": [
     "CAINFO",
@@ -154,6 +156,19 @@
     "crispEdges",
     "rowheader",
     "columnheader",
-    "gopherMini"
+    "gopherMini",
+    "nitch",
+    "ASUS",
+    "Ryzen",
+    "Radeon",
+    "niri",
+    "stylix",
+    "Kvantum",
+    "Papirus",
+    "Bibata",
+    "bitwarden",
+    "mullvad",
+    "Mullvad",
+    "atuin"
   ]
 }
