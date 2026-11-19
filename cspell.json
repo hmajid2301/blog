@@ -28,6 +28,7 @@
     "msvalidate",
     "acks",
     "asyncio",
+    "archsimd",
     "cachix",
     "changefreq",
     "Debezium",
