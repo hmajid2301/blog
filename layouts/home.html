@@ -5,6 +5,11 @@
       <h1 id="home-title">Backend engineer.<br><span class="lab-heading-tail">Always tinkering.</span></h1>
       <p class="lab-intro">{{ site.Params.profileMode.subtitle | markdownify }}</p>
       <p class="lab-intro">My thoughts on Go, Nix, developer tools, and the things I learn while building software.</p>
+      <div class="lab-home-ssh">
+        {{- partial "terminal-frame.html" (dict "Content" `<pre class="lab-terminal-body"><span class="ssh-comment"># Read this blog in your terminal</span>
+<span class="t-green t-bd">you</span><span class="ssh-comment">@</span><span class="t-green">terminal</span> <span class="ssh-comment">in</span> <span class="t-blue t-bd">~</span>
+<span class="prompt-caret" aria-hidden="true">❯ </span><code>ssh -p 23234 ssh.haseebmajid.dev</code></pre>`) -}}
+      </div>
       <div class="lab-home-links"><a href="/posts/">Read the writing ↗</a><a href="/talks/">On stage ↗</a><a href="/uses/">What I use ↗</a></div>
       <div class="lab-socials">{{ partial "social_icons.html" (dict "icons" site.Params.socialIcons "svg" hugo.Data.svg) }}</div>
     </div>
