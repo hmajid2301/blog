@@ -123,3 +123,16 @@ html[data-design] .lab-terminal .lab-terminal-body {
   .lab-terminal { font-size: 11px; }
   .lab-terminal-scroll { padding-left: 13px; padding-right: 13px; }
 }
+
+/* /uses: uses.nix links keep the string colour; underline marks them as links. */
+html[data-design] .lab-terminal .lab-uses-nix a {
+  color: var(--term-green);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--term-green) 40%, transparent);
+  text-underline-offset: 3px;
+}
+html[data-design] .lab-terminal .lab-uses-nix a:is(:hover, :focus-visible) {
+  text-decoration-color: var(--term-green);
+  text-decoration-thickness: 2px;
+}
+html[data-design] .lab-terminal .lab-uses-nix .t-black { color: var(--term-muted); }

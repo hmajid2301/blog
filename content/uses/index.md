@@ -1,63 +1,15 @@
 ---
 title: Uses
-summary: What I use!
+summary: The hardware and software I use every day, declared like the rest of my setup in Nix.
 canonicalURL: "https://haseebmajid.dev/uses/"
 url: /uses/
 ---
 
-# What do I use?
-
-The following is a list of the tools that I use daily. This page
-was inspired by [Wes Bos](https://wesbos.com/uses). See more pages like this [here](https://uses.tech).
-You can read more about my own workflow [here](/series/setup-your-development-workflow/).
-
-For more details about my [dotfiles click here](https://gitlab.com/hmajid2301/dotfiles).
+The hardware and software I use every day. My whole setup is declared in Nix in
+[nixicle](https://gitlab.com/hmajid2301/nixicle), so here it is in that form; every value links out.
+For the reasons behind it, read my [development workflow series](/series/setup-your-development-workflow/).
+Inspired by [Wes Bos](https://wesbos.com/uses); find more pages like this on [uses.tech](https://uses.tech).
 
 {{< nitch >}}
 
-## Hardware
-
-- Custom-built ASUS desktop
-- **CPU:** AMD Ryzen 9 7950X3D
-- **GPU:** AMD Radeon RX 7900 XTX
-- **RAM:** 64 GB
-- **Displays:** 2× 32" 4K monitors — GBT3204 and DELL G3223Q
-- **Keyboard:** [ZSA Voyager](https://www.zsa.io/voyager)
-- **Mouse:** [Logitech G502 X](https://www.logitechg.com/en-gb/products/gaming-mice/g502-x-wireless-lightforce.910-006190.html)
-
-## OS & Desktop
-
-- [NixOS](https://nixos.org/)
-- [Niri](https://github.com/YaLTeR/niri) scrollable-tiling window manager
-- Window manager styling by [Noctalia](https://github.com/BeauTheBeau/Noctalia)
-- System-wide theming by [Stylix](https://github.com/danth/stylix)
-- Qt/GTK theme: Base16Kvantum / adw-gtk3
-- Icons: [Papirus-Dark](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme)
-- Cursor: [Bibata-Modern-Classic](https://github.com/ful1e5/Bibata_Cursor)
-- Fonts: [MonoLisa](https://monolisa.dev/) in the terminal; Noto Sans for the system UI
-
-## Editor & Terminal
-
-- [Neovim](https://github.com/hmajid2301/dotfiles/tree/main/home-manager/editors/neovim)
-- [Ghostty](https://ghostty.org/) terminal
-- [Starship](https://starship.rs/) prompt
-- [fish](https://fishshell.com/) shell
-
-## Browsers & Security
-
-- [Firefox](https://www.mozilla.org/en-US/firefox/new/) main browser
-- [Mullvad](https://mullvad.net/) VPN
-- [Tailscale](https://tailscale.com/) via [Mullvad](https://mullvad.net/) exit nodes
-- [Bitwarden](https://bitwarden.com/) password manager
-
-## CLI Tools
-
-- [nh](https://github.com/viperML/nh): nicer Nix helper CLI
-- [atuin](https://github.com/atuinsh/atuin/): synced shell history
-- [eza](https://github.com/eza-community/eza): modern `ls`
-- [fzf](https://github.com/junegunn/fzf): fuzzy finder
-- [bat](https://github.com/sharkdp/bat): better `cat`
-- [zoxide](https://github.com/ajeetdsouza/zoxide): directory jumper
-- [ripgrep](https://github.com/BurntSushi/ripgrep): fast `grep`
-- [fd](https://github.com/sharkdp/fd): friendly `find`
-- [task](https://taskfile.dev/): task runner (`task lint`)
+{{< uses-nix >}}

@@ -1,0 +1,63 @@
+# Rendered by {{< uses-nix >}} on /uses/ as a Nix attribute set.
+# Groups render in this order. Each item: key, value, optional url, optional note (comment).
+# Set `list = true` on a group to render it as `name = [ a b c ];`.
+
+source = "https://gitlab.com/hmajid2301/nixicle"
+
+[[groups]]
+name = "hardware"
+items = [
+  { key = "machine", value = "Custom-built ASUS desktop" },
+  { key = "cpu", value = "AMD Ryzen 9 7950X3D" },
+  { key = "gpu", value = "AMD Radeon RX 7900 XTX" },
+  { key = "ram", value = "64", raw = true, note = "GB" },
+  { key = "displays", value = "GBT3204 + DELL G3223Q", note = "2× 32\" 4K" },
+  { key = "keyboard", value = "ZSA Voyager", url = "https://www.zsa.io/voyager" },
+  { key = "mouse", value = "Logitech G502 X", url = "https://www.logitechg.com/en-gb/products/gaming-mice/g502-x-wireless-lightforce.910-006190.html" },
+]
+
+[[groups]]
+name = "desktop"
+items = [
+  { key = "os", value = "NixOS", url = "https://nixos.org/" },
+  { key = "wm", value = "niri", url = "https://github.com/niri-wm/niri", note = "scrollable-tiling Wayland compositor" },
+  { key = "shell", value = "noctalia", url = "https://github.com/noctalia-dev/noctalia", note = "bar, launcher, notifications" },
+  { key = "theme", value = "stylix", url = "https://github.com/danth/stylix", note = "system-wide base16" },
+  { key = "gtk", value = "adw-gtk3", note = "Qt: Base16Kvantum" },
+  { key = "icons", value = "Papirus-Dark", url = "https://github.com/PapirusDevelopmentTeam/papirus-icon-theme" },
+  { key = "cursor", value = "Bibata-Modern-Classic", url = "https://github.com/ful1e5/Bibata_Cursor" },
+  { key = "font", value = "Noto Sans", note = "system UI" },
+]
+
+[[groups]]
+name = "programs"
+items = [
+  { key = "editor", value = "neovim", url = "https://gitlab.com/hmajid2301/nixicle/-/tree/main/modules/aspects/cli/editors/neovim", note = "my config" },
+  { key = "terminal", value = "ghostty", url = "https://ghostty.org/" },
+  { key = "shell", value = "fish", url = "https://fishshell.com/" },
+  { key = "prompt", value = "starship", url = "https://starship.rs/" },
+  { key = "browser", value = "firefox", url = "https://www.mozilla.org/en-US/firefox/new/" },
+  { key = "passwords", value = "bitwarden", url = "https://bitwarden.com/" },
+]
+
+[[groups]]
+name = "network"
+items = [
+  { key = "vpn", value = "mullvad", url = "https://mullvad.net/" },
+  { key = "mesh", value = "tailscale", url = "https://tailscale.com/", note = "Mullvad exit nodes" },
+]
+
+[[groups]]
+name = "cli"
+list = true
+items = [
+  { key = "nh", url = "https://github.com/viperML/nh", note = "nicer nixos-rebuild" },
+  { key = "atuin", url = "https://github.com/atuinsh/atuin", note = "synced shell history" },
+  { key = "eza", url = "https://github.com/eza-community/eza", note = "ls" },
+  { key = "fzf", url = "https://github.com/junegunn/fzf", note = "fuzzy finder" },
+  { key = "bat", url = "https://github.com/sharkdp/bat", note = "cat" },
+  { key = "zoxide", url = "https://github.com/ajeetdsouza/zoxide", note = "cd" },
+  { key = "ripgrep", url = "https://github.com/BurntSushi/ripgrep", note = "grep" },
+  { key = "fd", url = "https://github.com/sharkdp/fd", note = "find" },
+  { key = "go-task", url = "https://taskfile.dev/", note = "task runner" },
+]

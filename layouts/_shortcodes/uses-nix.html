@@ -1,0 +1,39 @@
+{{- /*
+  /uses as a Nix attribute set, inside the shared terminal frame.
+  Data: data/uses.toml. Values with a url become real links; notes become # comments.
+*/ -}}
+{{- $d := hugo.Data.uses -}}
+{{- $o := "" -}}
+{{- $o = printf `%s<div class="lab-terminal-head"><span class="lab-terminal-prompt"><span class="prompt-caret">❯</span> cat uses.nix</span></div><pre class="lab-terminal-body lab-uses-nix">` $o -}}
+{{- $o = printf `%s<span class="t-black"># %s</span>` $o (htmlEscape $d.source) -}}
+{{- $o = printf "%s\n{\n" $o -}}
+{{- range $i, $g := $d.groups -}}
+  {{- if $i }}{{ $o = printf "%s\n" $o }}{{ end -}}
+  {{- if $g.list -}}
+    {{- $o = printf `%s  <span class="t-blue">%s</span> = [` $o $g.name -}}
+    {{- range $g.items -}}
+      {{- $o = printf "%s\n    " $o -}}
+      {{- $name := printf `<a class="t-green" href="%s">%s</a>` .url (htmlEscape .key) -}}
+      {{- $pad := strings.Repeat (math.Max 1 (sub 10 (len .key))) " " -}}
+      {{- $o = printf "%s%s" $o $name -}}
+      {{- with .note }}{{ $o = printf `%s%s<span class="t-black"># %s</span>` $o $pad (htmlEscape .) }}{{ end -}}
+    {{- end -}}
+    {{- $o = printf "%s\n  ];\n" $o -}}
+  {{- else -}}
+    {{- $w := 0 }}{{ range $g.items }}{{ $w = math.Max $w (len .key) }}{{ end -}}
+    {{- $o = printf `%s  <span class="t-blue">%s</span> = {` $o $g.name -}}
+    {{- range $g.items -}}
+      {{- $key := printf `<span class="t-blue">%s</span>` (replace .key "." `</span>.<span class="t-blue">`) -}}
+      {{- $pad := strings.Repeat (int (sub $w (len .key))) " " -}}
+      {{- $val := "" -}}
+      {{- if .raw }}{{ $val = printf `<span class="t-peach">%s</span>` (htmlEscape .value) -}}
+      {{- else if .url }}{{ $val = printf `<a class="t-green" href="%s">"%s"</a>` .url (htmlEscape .value) -}}
+      {{- else }}{{ $val = printf `<span class="t-green">"%s"</span>` (htmlEscape .value) }}{{ end -}}
+      {{- $o = printf "%s\n    %s%s = %s;" $o $key $pad $val -}}
+      {{- with .note }}{{ $o = printf `%s <span class="t-black"># %s</span>` $o (htmlEscape .) }}{{ end -}}
+    {{- end -}}
+    {{- $o = printf "%s\n  };\n" $o -}}
+  {{- end -}}
+{{- end -}}
+{{- $o = printf "%s}</pre>" $o -}}
+{{- partial "terminal-frame.html" (dict "Content" $o) -}}
