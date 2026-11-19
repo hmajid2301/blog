@@ -9,4 +9,4 @@ hideMeta: false
 hideSummary: true
 ---
 
-- [Slides](https://talks.haseebmajid.dev/gitlab-runners-and-dind/)
+- [Slides](https://slides.haseebmajid.dev/gitlab-runners-and-dind/2023-11-15-london-gophers/)
