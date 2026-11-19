@@ -1,11 +1,20 @@
 version: "3"
 
 tasks:
+  fonts:
+    desc: Fetch the licensed MonoLisa webfont from the private nixicle-assets repo
+    cmds:
+      - ./scripts/fetch-monolisa.sh
+    status:
+      - test -s static/fonts/monolisa/woff2/0-normal.woff2
+
   build:
+    deps: [fonts]
     cmds:
       - hugo
 
   start_server:
+    deps: [fonts]
     cmds:
       - hugo server -D --buildFuture
 
