@@ -18,7 +18,7 @@ runners to my own projects, more on that at the end.
 
 ## Background
 
-All of my projects use a Nix dev shell to define the tools they need, i.e. Go, Hugo, linters etc. I use the same dev
+All of my projects use a Nix dev shell to define the tools they need. I use the same dev
 shell in CI, so the tools are the same versions locally and in CI, pinned by the `flake.lock`. For example, this blog's
 CI job is basically just:
 
@@ -42,7 +42,6 @@ download and the job starts in a couple of seconds.
 
 In this post I will show you how I set that up. Link to my
 [config](https://gitlab.com/hmajid2301/nixicle/-/blob/3b3c1872bf392a60999fbd70f70064a6d674527b/modules/aspects/services/gitlab-runner.nix)
-(at the point I wrote this article).
 
 ## GitLab Runner
 
@@ -320,12 +319,7 @@ the host:
   project then picks up.
 
 For me, this is fine because these are only my own runners. They aren't shared runners, they are only registered to
-my own projects, so nobody else's code runs on them. The one thing to watch out for is merge requests from forks.
-By default, those pipelines run in the fork's project, so they won't land on my runners unless I explicitly run them
-in my project. Like most things it's about trade-offs, and I'm happy with this one for faster CI on my side projects.
-
-If you want to run other people's code, I would use separate runners without the store mount and without privileged
-mode, or even better a VM per job.
+my own projects, so nobody else's code runs on them.
 
 That's it! Hopefully this helps if you are looking to speed up your Nix CI jobs.
 
