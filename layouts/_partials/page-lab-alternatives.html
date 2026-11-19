@@ -61,21 +61,62 @@
     {{- $sections := site.Params.mainSections -}}
     {{- if $page.Section }}{{ $sections = slice $page.Section }}{{ end -}}
     {{- $pages := where (where site.RegularPages "Section" "in" $sections) "Params.hidden" "!=" true -}}
-    <p class="lab-archive-total">{{ len $pages }} posts</p>
-    {{- range $pages.GroupByPublishDate "2006" }}
-    <section class="lab-archive-year">
-      <h2 class="lab-archive-year-head">{{ .Key }} <small>{{ len .Pages }} posts</small></h2>
-      {{- range .Pages.GroupByPublishDate "January" }}
-      <h3 class="lab-archive-month">{{ .Key }} <small>{{ len .Pages }} posts</small></h3>
-      {{- range .Pages }}
-      <article class="lab-archive-row">
-        <h3 class="lab-archive-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
-        <div class="lab-archive-meta">
-          <time datetime="{{ .PublishDate.Format "2006-01-02" }}">{{ .PublishDate.Format "2 Jan 2006" }}</time>
-          <span class="lab-archive-count">{{ .ReadingTime }} min</span>
-        </div>
-      </article>
+    {{- $years := $pages.GroupByPublishDate "2006" -}}
+    {{- $til := dict -}}
+    {{- range partial "til-pages.html" $page }}{{ $til = merge $til (dict .RelPermalink true) }}{{ end -}}
+    <p class="lab-archive-total">{{ len $pages }} posts since {{ (index $years (sub (len $years) 1)).Key }}</p>
+    {{- /* Heatmap: one row per year, one cell per month; cells link to that month's block. */}}
+    {{- $max := 1 -}}
+    {{- range $years }}{{ range .Pages.GroupByPublishDate "01" }}{{ $max = math.Max $max (len .Pages) }}{{ end }}{{ end -}}
+    <div class="lab-archive-heat" role="table" aria-label="Posts per month">
+      <div class="lab-archive-heat-row" role="row">
+        <span role="columnheader"><span class="lab-archive-sr">Year</span></span>
+        {{- range seq 12 }}<span class="lab-archive-heat-mon" role="columnheader">{{ (time (printf "2000-%02d-01" .)).Format "Jan" }}</span>{{ end -}}
+        <span role="columnheader"><span class="lab-archive-sr">Total</span></span>
+      </div>
+      {{- range $years }}
+      {{- $y := .Key -}}
+      {{- $counts := dict -}}
+      {{- range .Pages.GroupByPublishDate "01" }}{{ $counts = merge $counts (dict .Key (len .Pages)) }}{{ end }}
+      <div class="lab-archive-heat-row" role="row">
+        <a class="lab-archive-heat-year" role="rowheader" href="#y{{ $y }}">{{ $y }}</a>
+        {{- range seq 12 -}}
+          {{- $mk := printf "%02d" . -}}
+          {{- $c := index $counts $mk | default 0 -}}
+          {{- $label := printf "%s %s: %d %s" ((time (printf "2000-%s-01" $mk)).Format "January") $y $c (cond (eq $c 1) "post" "posts") -}}
+          {{- if $c -}}
+          {{- $lvl := math.Ceil (mul 4.0 (div (float $c) $max)) -}}
+          <a class="lab-archive-heat-cell" role="cell" data-level="{{ $lvl }}" href="#m{{ $y }}-{{ $mk }}" title="{{ $label }}" aria-label="{{ $label }}"><span aria-hidden="true">{{ $c }}</span></a>
+          {{- else -}}
+          <span class="lab-archive-heat-cell" role="cell" data-level="0" title="{{ $label }}"><span class="lab-archive-sr">{{ $label }}</span></span>
+          {{- end -}}
+        {{- end }}
+        <span class="lab-archive-heat-total" role="cell">{{ len .Pages }}</span>
+      </div>
       {{- end }}
+    </div>
+    {{- range $years }}
+    {{- $n := len .Pages }}
+    <section class="lab-archive-year" id="y{{ .Key }}" aria-labelledby="y{{ .Key }}-head">
+      <h2 class="lab-archive-year-head" id="y{{ .Key }}-head">{{ .Key }} <small>{{ $n }} {{ cond (eq $n 1) "post" "posts" }}</small></h2>
+      {{- range .Pages.GroupByPublishDate "January" }}
+      {{- $first := index .Pages 0 }}
+      {{- $m := len .Pages }}
+      <div class="lab-archive-month" id="m{{ $first.PublishDate.Format "2006-01" }}">
+        <h3 class="lab-archive-month-head"><abbr title="{{ .Key }} {{ $first.PublishDate.Format "2006" }}">{{ $first.PublishDate.Format "Jan" }}</abbr> <small>{{ $m }} {{ cond (eq $m 1) "post" "posts" }}</small></h3>
+        <ul class="lab-archive-rows">
+        {{- range .Pages }}
+          {{- $isTil := index $til .RelPermalink }}
+          <li class="lab-archive-row">
+            <time class="lab-archive-day" datetime="{{ .PublishDate.Format "2006-01-02" }}">{{ .PublishDate.Format "2" }}</time>
+            <a class="lab-archive-title" href="{{ .RelPermalink }}">
+              {{- if $isTil }}<span class="lab-archive-pill">TIL</span> {{ replaceRE `^TIL\s*[-:–]?\s*` "" .Title }}{{ else }}{{ .Title }}{{ end -}}
+            </a>
+            <span class="lab-archive-count">{{ .ReadingTime }} min</span>
+          </li>
+        {{- end }}
+        </ul>
+      </div>
       {{- end }}
     </section>
     {{- end }}
