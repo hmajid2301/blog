@@ -30,6 +30,22 @@ html[data-design] body.kind-home .lab-home-hero .lab-intro + .lab-intro {
   margin-top: 16px;
 }
 
+/* Keep terminal access visible in the hero without adding another navigation link. */
+html[data-design] body.kind-home .lab-home-ssh .lab-terminal { margin-top: 24px; }
+html[data-design] body.kind-home .lab-home-ssh .ssh-comment { color: var(--term-muted); }
+html[data-design] body.kind-home .lab-home-ssh .lab-terminal-body {
+  min-width: 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+html[data-design] body.kind-home .lab-home-ssh code {
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  user-select: all;
+}
+
 /* Option D: each list is one filled panel split by hairlines. The hero keeps its rounded card fill.
    `.lab-card` lifts specificity above the generic corner rule. */
 html[data-design] body.kind-home .main :is(.lab-writing, .lab-talks) .lab-section-head { border-bottom: 0; padding-bottom: 14px; }
