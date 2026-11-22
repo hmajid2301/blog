@@ -55,6 +55,8 @@ html[data-design] .toc details summary::-webkit-details-marker { display: none; 
 html[data-design] .toc details[open] summary { border-bottom-color: var(--lab-rule); }
 html[data-design] .toc summary:focus-visible { outline: 2px solid var(--lab-accent); outline-offset: -4px; }
 html[data-design] .toc .details {
+  flex-shrink: 0;
+  white-space: nowrap;
   padding: 0 6px;
   border-radius: 3px;
   background: var(--lab-accent);
@@ -63,7 +65,10 @@ html[data-design] .toc .details {
 }
 html[data-design] .toc .toc-prompt { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--lab-muted); }
 html[data-design] .toc .toc-prompt b { color: var(--lab-accent); font-weight: 400; }
-html[data-design] .toc .toc-count { margin-inline-start: auto; color: var(--lab-muted); }
+html[data-design] .toc .toc-count { margin-inline-start: auto; flex-shrink: 0; white-space: nowrap; color: var(--lab-muted); }
+@media (max-width: 480px) {
+  html[data-design] .toc .toc-prompt { display: none; }
+}
 html[data-design] .toc .inner { padding: 8px 0; }
 html[data-design] .toc ul { margin: 0; padding: 0; list-style: none; }
 html[data-design] .toc li { margin: 0; }

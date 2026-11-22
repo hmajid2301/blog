@@ -10,11 +10,15 @@ hideMeta: false
 hideSummary: true
 ---
 
-
-{{< youtube id="lZ4EPkIngRc" >}}
+Lessons from building web apps with Go and HTMX, using Banter Bus and LettuceGo
+as examples. I show how HTML attributes and server-rendered fragments handle
+interactions while keeping application state on the backend.
 
 - [Slides](https://slides.haseebmajid.dev/htmx-go-web-app/2026-08-12-gophercon-uk/)
 - [PDF](https://slides.haseebmajid.dev/htmx-go-web-app/2026-08-12-gophercon-uk/slides.pdf)
+- [Recording](https://www.youtube.com/watch?v=lZ4EPkIngRc)
+
+{{< youtube id="lZ4EPkIngRc" >}}
 
 ## Photo from conference
 

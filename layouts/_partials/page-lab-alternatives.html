@@ -35,17 +35,17 @@
     {{- else -}}
       {{- $paginator = $page.Paginate $pages -}}
     {{- end -}}
-    <table class="lab-talks-table">
-      <thead>
-        <tr><th>When</th><th>Talk</th><th>Conference</th><th>Resources</th></tr>
+    <table class="lab-talks-table" role="table" aria-label="Talks and resources">
+      <thead role="rowgroup">
+        <tr role="row"><th role="columnheader" scope="col">When</th><th role="columnheader" scope="col">Talk</th><th role="columnheader" scope="col">Conference</th><th role="columnheader" scope="col">Resources</th></tr>
       </thead>
-      <tbody>
+      <tbody role="rowgroup">
       {{- range $paginator.Pages }}
-        <tr>
-          <td class="when"><time datetime="{{ .PublishDate.Format "2006-01-02" }}">{{ .PublishDate.Format "2 Jan 2006" }}</time></td>
-          <td class="title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></td>
-          <td class="where">{{ with or .Params.location .Params.conference }}{{ . }}{{ else }}—{{ end }}</td>
-          <td class="resources">{{ partial "page-lab-resource-links.html" . }}</td>
+        <tr role="row">
+          <td class="when" role="cell"><time datetime="{{ .PublishDate.Format "2006-01-02" }}">{{ .PublishDate.Format "2 Jan 2006" }}</time></td>
+          <td class="title" role="cell"><a href="{{ .RelPermalink }}">{{ .Title }}</a></td>
+          <td class="where" role="cell">{{ with or .Params.location .Params.conference }}{{ . }}{{ else }}—{{ end }}</td>
+          <td class="resources" role="cell">{{ partial "page-lab-resource-links.html" . }}</td>
         </tr>
       {{- end -}}
       </tbody>

@@ -30,7 +30,25 @@ html[data-design] body.kind-home .lab-home-hero .lab-intro + .lab-intro {
   margin-top: 16px;
 }
 
-/* Keep terminal access visible in the hero without adding another navigation link. */
+/* Desktop keeps the hero terminal; mobile shows it after recent writing. */
+html[data-design] body.kind-home .lab-home-ssh-mobile { display: none; }
+@media (max-width: 700px) {
+  html[data-design] body.kind-home :is(.lab-home-profile, .lab-home-ssh-desktop) { display: none; }
+  html[data-design] body.kind-home .lab-home-ssh-mobile { display: block; }
+  html[data-design] body.kind-home .lab-home-hero h1 {
+    font-size: clamp(30px, 8.5vw, 36px);
+    line-height: 1.13;
+    margin: 16px 0;
+  }
+  html[data-design] body.kind-home .lab-home-hero .lab-intro {
+    font-size: 17px;
+    line-height: 1.6;
+    margin: 0;
+  }
+  html[data-design] body.kind-home .lab-home-hero .lab-home-links { margin-top: 20px; gap: 16px; }
+  html[data-design] body.kind-home .lab-home-hero .lab-socials { margin-top: 20px; }
+}
+
 html[data-design] body.kind-home .lab-home-ssh .lab-terminal { margin-top: 24px; }
 html[data-design] body.kind-home .lab-home-ssh .ssh-comment { color: var(--term-muted); }
 html[data-design] body.kind-home .lab-home-ssh .lab-terminal-body {
@@ -61,3 +79,15 @@ html[data-design] body.kind-home .main :is(.lab-writing, .lab-talks) .lab-sectio
 html[data-design] body.kind-home .main :is(.lab-writing, .lab-talks) .lab-section-head h2::before { content: '● '; color: var(--lab-accent); }
 html[data-design] body.kind-home .main :is(.lab-writing, .lab-talks) .lab-section-head > a { position: absolute; left: calc(100% + 24px); top: 14px; white-space: nowrap; }
 html[data-design] body.kind-home .main :is(.lab-writing, .lab-talks) .lab-section-head + .lab-home-entry.lab-card { border-radius: 0 var(--home-corners, 18px) 0 0; }
+
+@media (max-width: 360px) {
+  html[data-design] body.kind-home .main :is(.lab-writing, .lab-talks) .lab-section-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding-inline: 12px;
+  }
+  html[data-design] body.kind-home .main :is(.lab-writing, .lab-talks) .lab-section-head h2 { font-size: 13px; }
+  html[data-design] body.kind-home .main :is(.lab-writing, .lab-talks) .lab-section-head > a { position: static; font-size: 10px; }
+  html[data-design] body.kind-home .main :is(.lab-writing, .lab-talks) .lab-section-head::after { display: none; }
+}

@@ -10,12 +10,17 @@ hideMeta: false
 hideSummary: true
 ---
 
-{{< youtube id="t3Xz-IrxNwk" >}}
+A practical introduction to adding traces, metrics and logs to an existing Go
+application with OpenTelemetry. I use the Grafana LGTM stack to explore those
+signals and understand what is happening inside the service.
 
 - [Abstract](https://www.gophercon.com/agenda/session/1234567)
 - [Example Service](https://gitlab.com/hmajid2301/banterbus)
 - [Slides](https://slides.haseebmajid.dev/otel-go/2025-07-15-gophercon-uk/)
 - [PDF](https://slides.haseebmajid.dev/otel-go/2025-07-15-gophercon-uk/slides.pdf)
+- [Recording](https://www.youtube.com/watch?v=t3Xz-IrxNwk)
+
+{{< youtube id="t3Xz-IrxNwk" >}}
 
 ## Photo from conference
 

@@ -1,6 +1,7 @@
 ---
 title: How to Fix PAM Issues With Home Manager on Non-NixOS Setups
 date: "2025-12-12"
+summary: "How I investigated and fixed PAM authentication failures with a Nix-installed lock screen and Home Manager on Ubuntu."
 canonicalURL: https://haseebmajid.dev/posts/2025-12-12-how-to-fix-pam-issues-with-home-manager-on-non-nixos-setups
 tags:
   - pam
@@ -9,8 +10,9 @@ tags:
   - ubuntu
 ---
 
-> [!WARNING]
-> The pam_shim is POC code, so be careful with using it on your own machine. Use it at your own risk.
+{{< notice type="warning" title="Proof-of-concept code" >}}
+The pam_shim is POC code, so be careful with using it on your own machine. Use it at your own risk.
+{{< /notice >}}
 
 ## The problem
 
@@ -34,7 +36,7 @@ But this creates a problem with PAM:
 
 NixOS
 
-```
+```text
 Application → /nix/store/xxx-linux-pam/lib/libpam.so.2
            → /nix/store/yyy-pam-modules/lib/security/pam_unix.so
            → /etc/pam.d/ (managed by NixOS)
@@ -43,7 +45,7 @@ Application → /nix/store/xxx-linux-pam/lib/libpam.so.2
 
 Ubuntu
 
-```
+```text
 Application → /nix/store/xxx-linux-pam/lib/libpam.so.2
            → /nix/store/yyy-pam-modules/lib/security/pam_unix.so (doesn't exist!)
            → /etc/pam.d/ (managed by Ubuntu, expects different paths)
@@ -58,9 +60,11 @@ doing that. I came across this [issue](https://github.com/nix-community/home-man
 
 We can use `pam_shim`, which creates a translation layer we can use. Whilst not breaking Nix's package isolation.
 
-1. **PAM Shim Library**: `pam-shim` creates a wrapper library that intercepts PAM calls and redirects them to the host system's PAM library (`/lib/x86_64-linux-gnu/libpam.so.0` on Ubuntu)
+1. **PAM Shim Library**: `pam-shim` creates a wrapper library that intercepts PAM calls and redirects them to the
+   host system's PAM library (`/lib/x86_64-linux-gnu/libpam.so.0` on Ubuntu)
 
-2. **Patching**: The `replacePam` function uses `patchelf` to replace PAM library references in the QuickShell binary with the shim library
+2. **Patching**: The `replacePam` function uses `patchelf` to replace PAM library references in the QuickShell binary
+   with the shim library
 
 3. **Runtime**: When noctalia-shell's lock screen tries to authenticate:
    - QuickShell calls PAM functions
@@ -68,8 +72,7 @@ We can use `pam_shim`, which creates a translation layer we can use. Whilst not 
    - Shim redirects to Ubuntu's native PAM
    - Authentication works against Ubuntu's PAM stack
 
-
-```
+```text
 QuickShell → pam_shim intercepts pam_authenticate()
         → fork() subprocess
         → exec /lib64/ld-linux-x86-64.so.2 (system dynamic linker)
@@ -81,8 +84,6 @@ QuickShell → pam_shim intercepts pam_authenticate()
         → pam_shim returns result to QuickShell
         → Authentication SUCCEEDS ✅
 ```
-
-
 
 ## Fix
 
@@ -120,7 +121,6 @@ nixpkgs.overlays = [
 ];
 ```
 
-
 Where you have your noctalia-shell Nix config defined, i.e. `noctalia.nix`.
 
 ```nix
@@ -139,7 +139,6 @@ systemd.user.services.noctalia-shell = mkIf config.desktops.addons.noctalia.enab
   }
 );
 ```
-
 
 ## Appendix
 

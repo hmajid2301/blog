@@ -92,8 +92,33 @@ html[data-design] .lab-talks-table .page-lab-resources a {
 }
 html[data-design] .lab-talks-table .page-lab-resources a:hover { text-decoration: underline; background: none; border-color: transparent; }
 @media (max-width: 700px) {
-  html[data-design] .lab-talks-table th:nth-child(3),
-  html[data-design] .lab-talks-table td:nth-child(3) { display: none; }
+  html[data-design] .lab-talks-table,
+  html[data-design] .lab-talks-table tbody { display: block; }
+  html[data-design] .lab-talks-table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  html[data-design] .lab-talks-table tbody tr {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-areas: "when where" "title title" "resources resources";
+    gap: 8px 16px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--lab-rule);
+  }
+  html[data-design] .lab-talks-table td { padding: 0; border: 0; min-width: 0; }
+  html[data-design] .lab-talks-table td.when { grid-area: when; }
+  html[data-design] .lab-talks-table td.where { grid-area: where; text-align: right; }
+  html[data-design] .lab-talks-table td.title { grid-area: title; }
+  html[data-design] .lab-talks-table td.title a { font-size: 19px; }
+  html[data-design] .lab-talks-table td.resources { grid-area: resources; }
+  html[data-design] .lab-talks-table .page-lab-resources { justify-content: flex-start; gap: 8px 20px; }
+  html[data-design] .lab-talks-table .page-lab-resources a { min-height: 36px; }
 }
 html[data-design] .page-lab :is(h2,h3) { line-height: 1.3; letter-spacing: -.02em; }
 html[data-design] .page-lab a { text-decoration: underline; text-underline-offset: .18em; text-decoration-thickness: 1px; }
