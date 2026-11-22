@@ -28,7 +28,15 @@
         {{- with $v.why }}
         <p class="sh-why">
           {{ . }}
-          {{- with $v.post }} <a href="{{ . | relLangURL }}">More in this post</a>{{ end }}
+          {{- with $v.post }}
+            {{- with site.GetPage . }}
+              {{- if and (not .Draft) (not (.PublishDate.After now)) }}
+                {{- if or .ExpiryDate.IsZero (.ExpiryDate.After now) }}
+                  <a href="{{ .RelPermalink }}">More in this post</a>
+                {{- end }}
+              {{- end }}
+            {{- end }}
+          {{- end }}
         </p>
         {{- end }}
         <div class="sh-shots" data-count="{{ len $v.shots }}">

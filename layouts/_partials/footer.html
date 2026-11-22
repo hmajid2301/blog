@@ -24,19 +24,28 @@
 
 <script>
     (function () {
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener("click", function (e) {
-                if (e.defaultPrevented || this.matches('.footnote-ref, .footnote-backref')) return;
+                if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey ||
+                    this.target === '_blank' || this.matches('.footnote-ref, .footnote-backref')) return;
+                const hash = this.getAttribute("href");
+                let id;
+                try { id = decodeURIComponent(hash.slice(1)); } catch { return; }
+                const target = document.getElementById(id);
+                if (!target) return;
                 e.preventDefault();
-                var id = this.getAttribute("href").substr(1);
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
-                    behavior: "smooth"
+                if (!target.hasAttribute('tabindex')) {
+                    target.setAttribute('tabindex', '-1');
+                    target.addEventListener('blur', () => target.removeAttribute('tabindex'), { once: true });
+                }
+                target.focus({ preventScroll: true });
+                target.scrollIntoView({
+                    behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? "instant" : "smooth"
                 });
                 if (id === "top") {
-                    history.replaceState(null, null, " ");
-                } else {
-                    history.pushState(null, null, `#${id}`);
+                    history.replaceState(null, '', location.pathname + location.search);
+                } else if (location.hash !== hash) {
+                    history.pushState(null, '', hash);
                 }
             });
         });

@@ -18,9 +18,10 @@
     {{- end -}}
  type-{{ .Type }} kind-{{ .Kind }} layout-{{ .Layout -}}
 " id="top" data-lab-page="{{ $labKind }}">
+    <a class="skip-link" href="#main-content">Skip to content</a>
     {{- partialCached "header.html" . .Page -}}
     <div class="reading-progress-bar"></div>
-    <main class="main {{- if (eq .Kind `page`) -}}{{- print " post" -}}{{- end -}}">
+    <main id="main-content" tabindex="-1" class="main {{- if (eq .Kind `page`) -}}{{- print " post" -}}{{- end -}}">
         {{- if in (slice "talks" "archive") $labKind -}}
         {{- partial "page-lab-alternatives.html" (dict "page" . "kind" $labKind) }}
         {{- else -}}

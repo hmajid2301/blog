@@ -4,6 +4,7 @@
   const root = document.documentElement;
   const PALETTE_KEY = "pref-palette";
   const MODE_KEY = "pref-mode";
+  const systemMode = window.matchMedia("(prefers-color-scheme: dark)");
 
   const read = (k) => { try { return localStorage.getItem(k); } catch { return null; } };
   const write = (k, v) => { try { localStorage.setItem(k, v); } catch {} };
@@ -15,7 +16,7 @@
   function mode() {
     const saved = read(MODE_KEY);
     if (saved === "light" || saved === "dark") return saved;
-    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    return systemMode.matches ? "dark" : "light";
   }
 
   function apply() {
@@ -41,6 +42,10 @@
     apply();
   }
 
+  systemMode.addEventListener("change", () => {
+    const saved = read(MODE_KEY);
+    if (saved !== "light" && saved !== "dark") apply();
+  });
   apply(); // set html attributes immediately, before first paint
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", bind);

@@ -34,6 +34,18 @@ html[data-design] body {
   line-height: 1.65;
 }
 html[data-design] :focus-visible { outline: 2px solid var(--lab-accent); outline-offset: 4px; }
+html[data-design] .skip-link {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 100;
+  padding: 10px 16px;
+  border: 1px solid var(--lab-accent);
+  background: var(--lab-bg);
+  color: var(--lab-text);
+  transform: translateY(calc(-100% - 20px));
+}
+html[data-design] .skip-link:focus { transform: none; }
 html[data-design] h1, html[data-design] h2, html[data-design] h3, html[data-design] h4 { font-family: var(--lab-heading); line-height: 1.15; letter-spacing: -.035em; }
 html[data-design] .header { border-bottom: 1px solid var(--lab-rule); }
 html[data-design] .nav { max-width: var(--nav-width); padding: 20px 28px; min-height: 90px; align-items: center; line-height: 1.5; }
