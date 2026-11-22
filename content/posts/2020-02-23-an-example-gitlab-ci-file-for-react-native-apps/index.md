@@ -452,7 +452,7 @@ publish:bugsnag:soucemaps:
 
 Finally, we have a Gitlab defined job called pages, where using Gitlab pages we will publish documentation
 for this application. It will publish a static website present in the `public`. The documentation is built
-using [docz](docz.site). By default, you can access pages at https://hmajid2301.gitlab.io/stegappasaurus,
+using [docz](https://github.com/pedronauck/docz). By default, you can access pages at https://hmajid2301.gitlab.io/stegappasaurus,
 i.e. username.gitlab.io/project_name but I have a google domain and using a `CNAME` you can also view the
 website on `https://stegappasaurus.haseebmajid.dev/`.
 

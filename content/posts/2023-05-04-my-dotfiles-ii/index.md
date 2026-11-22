@@ -30,7 +30,7 @@ These dotfiles are out of date check out my updated ones [here](/posts/2023-07-1
 
 ### Extensions
 
-I use the following Gnome extension. You can find the config for the extensions in this [massive file here](gnome/settings.ini).
+I use the following Gnome extension. You can find the config for the extensions in this [massive file here](https://gitlab.com/hmajid2301/dotfiles/-/blob/93133f7e829409a4a4c943ef38f22ffe2f5c3508/gnome/settings.ini).
 
 - [Pop Shell](https://github.com/pop-os/shell)
 - [Space Bar](https://extensions.gnome.org/extension/5090/space-bar/)
@@ -48,7 +48,7 @@ I use the following Gnome extension. You can find the config for the extensions 
 ![Top Bar](images/topbar.png)
 
 - [Aylurs extension config](https://gitlab.com/hmajid2301/dotfiles/-/blob/93133f7e829409a4a4c943ef38f22ffe2f5c3508/gnome/settings.ini#L763-942)
-- Rest of the top bar is configured using css [here](themes/my_theme/gnome-shell/gnome-shell.css)
+- Rest of the top bar is configured using css [here](https://gitlab.com/hmajid2301/dotfiles/-/blob/93133f7e829409a4a4c943ef38f22ffe2f5c3508/themes/my_theme/gnome-shell/gnome-shell.css)
 
 ### Applications
 
@@ -79,7 +79,7 @@ Which is a great script because it changes depending on the time of day i.e. whe
 ![Neovim Telescope](images/neovim_telescope.png)
 ![Neovim Noice](images/neovim_noice.png)
 
-I have started using nvim as my default editor (IDE?). It uses [LazyVim](lazyvim.org/) as
+I have started using nvim as my default editor (IDE?). It uses [LazyVim](https://www.lazyvim.org/) as
 the base config and adds a few plugins on top.
 
 - [trouble](https://github.com/folke/trouble.nvim): For showing all lsp diagnostic issues in a file

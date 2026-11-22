@@ -9,14 +9,14 @@ tags:
   - fish
 ---
 
-I have made an [post in the past](/2023-08-12-how-sync-your-shell-history-with-atuin-in-nix/) about how you can set up
-[Atuin](https://atuin.sh/) to sync share history across multiple devices.
+I have made an [post in the past](/posts/2023-08-12-how-sync-your-shell-history-with-atuin-in-nix/)
+about how you can set up [Atuin](https://atuin.sh/) to sync share history across multiple devices.
 
 Whilst this works great and does the job, fish shell doesn't have the same history that Atuin does. Sometimes
 we want to have better suggestions in Fish. For example, when you start to type fish shell will suggest the last command
 in your history that best matches what you are typing (see example below).
 
-![Fish Suggestions](./images/suggestions.png)
+![Fish Suggestions](./images/suggestion.png)
 
 To resolve this issue, we can use a go script that I
 [came across here](https://github.com/atuinsh/atuin/issues/1073#issuecomment-1610861147) that can be used to export

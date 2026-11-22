@@ -15,7 +15,7 @@ In this post, I will show you how you can update your GitLab CI pipeline with th
 As it is quite nice to have everything in one place if our CI pipeline passed or failed.
 
 I have spoken about this in a
-[previous article](/posts/2022-12-03-my-workflow-to-create-a-new-post-using-hugo,-netlifycms,-netlify-and-gitlab-together),
+[previous article](/posts/2022-12-03-my-workflow-to-create-a-new-post-using-hugo-netlifycms-netlify-and-gitlab-together/),
 how you might go about setting up merge request preview environments with Netlify.
 
 ![Netlify MR comment](images/netlify_mr_comment.png)
@@ -101,7 +101,7 @@ Also with the same name as the ENV variable.
 
 Finally copy the code from the repo over to this section including `go.mod` file.
 
-![Function Code](images/function_code.png)
+![Function Code](images/functions_code.png)
 
 After this, we should be able to deploy using CI from now on. Take note of the URL of the function.
 

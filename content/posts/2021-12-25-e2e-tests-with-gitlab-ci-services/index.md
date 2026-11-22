@@ -114,7 +114,7 @@ command. The next field is `alias` this is the name we'll use to reference that 
 
 To see how the `alias` is used, is to look at the environment variables we have provided for the job
 `BANTER_BUS_CORE_API_DB_HOST: banter-bus-database`. So core-api will try to connect to database using
-this host. You can read more about Docker is able to resolve this to an [IP address here](/blog/dns-docker-explained/). Another example is how the URL core-api will use to connect to the management-api
+this host. You can read more about Docker is able to resolve this to an [IP address here](/posts/2020-10-27-how-dns-works-with-docker/). Another example is how the URL core-api will use to connect to the management-api
 `BANTER_BUS_CORE_API_MANAGEMENT_API_URL: http://banter-bus-management-api`.
 
 {{< notice type="danger" title="ENV Variable" >}}

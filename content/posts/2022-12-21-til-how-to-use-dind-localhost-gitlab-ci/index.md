@@ -77,4 +77,4 @@ post so hopefully you can avoid wasting your time.
 
 
 [^1]: https://gitlab.com/banter-bus/bookmarkey/gui/-/blob/e575e5a97feb70227fd6aae366ce4fc9beacafe2/.gitlab-ci.yml
-[^2]: Read more about [dind here](/posts/20-05-01-how-to-use-dind-with-gitlab-ci/)
+[^2]: Read more about [dind here](/posts/2020-05-01-how-to-use-dind-with-gitlab-ci/)

@@ -202,7 +202,7 @@ more about it [here](https://www.gatsbyjs.org/docs/babel/). The main reason we w
 imports. So we can use `~` instead of `src` in imports. So we can do `import "~/styles/globals.css";` instead of
 `import "../../../styles/globals.css"'`.
 
-> [You can read more about it here, I wrote a previous article on this topic.](/blog/better-imports-with-babel-tspath/)
+> [You can read more about it here, I wrote a previous article on this topic.](/posts/2019-12-01-better-imports-with-typescript-aliases-babel-and-tspath/)
 
 ```json
 {

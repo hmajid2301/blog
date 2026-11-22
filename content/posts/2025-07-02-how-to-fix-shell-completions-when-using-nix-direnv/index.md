@@ -7,7 +7,7 @@ tags:
   - fish
 ---
 
-If you read this [post](/posts/2024-09-12-til-how-to-get-shell-completions-in-nix-shell-with-direnv/#issues),
+If you read this [post](/posts/2024-09-12-til-how-to-get-shell-completions-in-nix-shell-with-direnv/#issue),
 I finally managed to figure out how to get shell completions in fish shell when you install a tool using
 a devshell in Nix, while using direnv. This plugin makes sure that the fish shell completions get resynced.
 

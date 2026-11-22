@@ -11,7 +11,7 @@ tags:
 Hi everyone, I recently went about setting up notifications about my Netlify deploys in Discord. Netlify does have an official way to do
 however, you cannot use it on the free tier.
 
-So I looked at other solutions, and I eventually discovered a SaaS product called [PipeDream](pipedream.com/). It is a website which allows
+So I looked at other solutions, and I eventually discovered a SaaS product called [PipeDream](https://pipedream.com/). It is a website which allows
 us to connect different components without needing to write any code. Such as what to do when we receive a webhook. There are 100s
 of different apps, triggers and actions. What we want to end up with is something like this:
 

@@ -231,7 +231,8 @@ Then we need to redefine the `event_loop` function as we have done in the exampl
 
 Okay back to our code above. The main bit we are interested in is the `startup_and_shutdown_server` function, here we
 start the server before all of our tests and due to how `yield`, you can read more about how
-[yield works here](/blog/python-yield-explained/), we will stop our server after all of our tests have run.
+[yield works here](/posts/2020-11-30-what-does-yield-do-in-python/), we will stop our server after all of our tests
+have run.
 
 This happens automatically without calling the function because of the decorator we have provided
 `@pytest.fixture(autouse=True, scope="session")`.

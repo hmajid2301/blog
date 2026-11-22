@@ -25,7 +25,7 @@ Then add the repos you want to monitor in Sentry. In my case, it is the Bookmark
 ## Netlify -> GitLab
 
 This integration is pretty simple just go through the normal Netlify setup process to add a new site.
-You can read more about that [here](/posts/2022-12-03-my-workflow-to-create-a-new-post-using-hugo,-netlifycms,-netlify-and-gitlab-together)
+You can read more about that [here](/posts/2022-12-03-my-workflow-to-create-a-new-post-using-hugo-netlifycms-netlify-and-gitlab-together/)
 and [here](https://docs.netlify.com/welcome/add-new-site/).
 
 ## Netlify -> Sentry

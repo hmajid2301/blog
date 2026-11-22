@@ -15,8 +15,8 @@ one we go over how to create a web service using Connexions, the same web servic
 In the second article I introduce how you can use `pytest-mock` and `pytest-flask` to test a Flask web
 service.
 
-- [Implementing a Simple REST API using OpenAPI, Flask & Connexions](/blog/rest-api-openapi-flask-connexion/)
-- [Testing with pytest-mock and pytest-flask](/blog/testing-with-pytest-mock-and-pytest-flask/)
+- [Implementing a Simple REST API using OpenAPI, Flask & Connexions](/posts/2019-08-16-creating-a-simple-restful-app-using-openapi-flask-connexions/)
+- [Testing with pytest-mock and pytest-flask](/posts/2018-12-15-testing-a-flask-app-with-pytest-mock-and-pytest-flask/)
 
 The example app we will be writing tests for is a very simple CRUD API managing a pet store. It allows us
 to add pets, remove pets, update pets and query pets we have in the store.

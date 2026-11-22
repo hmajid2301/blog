@@ -25,6 +25,6 @@
     <span class="notice-copy"><span class="notice-kind">{{ $kind }}: </span><span class="notice-heading">{{ .Get "title" | default (humanize $kind) }}</span></span>
     <svg class="notice-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
   </summary>
-  <div class="notice-body">{{ .Inner | markdownify }}</div>
+  <div class="notice-body">{{ .Page.RenderString .Inner }}</div>
   <div class="notice-status" aria-hidden="true"><b>{{ upper $kind }}</b><span>notes.md</span><span>read only</span></div>
 </details>

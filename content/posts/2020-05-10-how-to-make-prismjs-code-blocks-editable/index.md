@@ -14,7 +14,7 @@ In this article, we will go over how you can make PrismJS (syntax highlighted) c
 ## Introduction
 
 [PrismJS](https://prismjs.com/) can be used to add syntax highlighting to code blocks on our website. For a persona
-project of mine, [composersiation](composerisation.haseebmajid.dev/) #ShamelessPlug :plug:, I needed to allow the user
+project of mine, Composerisation #ShamelessPlug :plug:, I needed to allow the user
 to paste in their own (docker-compose) yaml files. So let's take a look how we can let a user to first edit a code block
 and then re-run PrismJS to add syntax highlighting.
 
@@ -106,4 +106,6 @@ to be syntax highlighted.
 ## Appendix
 
 - [Example source code](https://gitlab.com/hmajid2301/blog/-/tree/main/content/posts/2020-05-10-how-to-make-prismjs-code-blocks-editable/source_code)
-- [Example Project](https://composerisation.haseebmajid.dev/#yaml)
+
+The original demo URL was `https://composerisation.haseebmajid.dev/#yaml`.
+For the example implementation, see the source code linked above.

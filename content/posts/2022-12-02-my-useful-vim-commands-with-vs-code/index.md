@@ -10,7 +10,7 @@ series:
 ---
 
 In this post, I will show you some useful and perhaps not as well-known Vim commands I use with VS Code.
-As per [this previous post](/2022-10-16-my-current-vscode-setup-extensions-and-settings/), I use
+As per [this previous post](/posts/2022-10-16-my-current-vscode-setup-extensions-and-settings/), I use
 [this extension](https://marketplace.visualstudio.com/items?itemName=vscodevim.vim) for Vim emulation in VS Code.
 
 My [keybindings.json](https://gitlab.com/hmajid2301/dotfiles/-/blob/6b83e990861654506e8ecc756af75cf431438a4a/vscode/linux/keybindings.json) file.

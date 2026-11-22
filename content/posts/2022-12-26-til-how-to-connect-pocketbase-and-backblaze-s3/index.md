@@ -33,7 +33,7 @@ Go to `BackBlaze`
 - Then go to `App Keys`
     - Create a new `Application key`
 
-![App key](images/app_key.png.png)
+![App key](images/app_key.png)
 
 - Take note of the `keyID` and `applicationKey`
 

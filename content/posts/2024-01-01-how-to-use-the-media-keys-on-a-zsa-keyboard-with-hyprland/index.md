@@ -28,7 +28,7 @@ This worked with my old keyboard just fine, however with my new keyboard, I real
 the layers to access the media keys. I press what would normally be a Shift key to change to layer 3, where my media
 keys are. As I don't have enough keys to do that all in one layer, like I could do on my other keyboard.
 
-![Keymapp](images/keymap.png)
+![Keymapp](images/keymapp.png)
 
 I think since I was holding down a key at the same time as pressing the media keys, I ended up using `bindi`
 to fix my issue.

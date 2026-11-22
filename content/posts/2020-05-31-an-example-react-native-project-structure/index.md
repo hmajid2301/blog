@@ -10,7 +10,9 @@ In this article, I will go over an example project structure you can use for you
 This of couse my opinion so feel free to tweak the structure to your needs/preferences.
 
 - [Link to project](https://gitlab.com/hmajid2301/stegappasaurus/)
-- [Link to Docz Website](stegappasaurus.haseebmajid.dev/)
+
+The original Docz demo URL was `https://stegappasaurus.haseebmajid.dev/`.
+For the example implementation, see the project source linked above.
 
 ## Project Structure
 

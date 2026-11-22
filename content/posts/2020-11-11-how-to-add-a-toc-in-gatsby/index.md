@@ -365,8 +365,8 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
 ### Gatsby Config
 
 To allow the remark plugin to "see" the markdown files, we need to source them. There are a few ways to do this,
-I normally use [git to source my plugins](/blog/gatsby-articles-git-gitlab-ci). In this case, we will add all
-the markdown files in the `content/blog` folder.
+I normally use [git to source my posts](/posts/2020-09-18-how-to-source-your-gatsby-posts-from-another-repo/).
+In this case, we will add all the markdown files in the `content/blog` folder.
 
 ```js
 {

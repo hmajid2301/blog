@@ -12,7 +12,7 @@ Running Expo/React Native in a Docker container can sometimes cause issues. In t
 Docker 🐳 within a guest VM (Ubuntu) which will run on my host machine (Windows). My host machine will also
 be running another VM as the Android emulator (Genymotion) for Expo to connect to. You can get a more
 detailed post about how to connect two VMs together
-[here](https://haseebmajid.dev/posts/react-native-with-virtualbox/),
+[here](/posts/2018-09-03-react-native-expo-with-virtualbox-and-genymotion/),
 #Plug 🔌🔌🔌. Since I've set up networking on those two VMs already as far as Expo is concerned
 it might as well be running on the host machine (Windows). Also in this example, I will be testing
 this on an Android device.

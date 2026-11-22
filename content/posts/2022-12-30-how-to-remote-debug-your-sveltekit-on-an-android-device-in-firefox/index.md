@@ -60,8 +60,6 @@ a coffee shop on public WIFI.
 
 ### Firefox
 
-![Firefox Devices](images/)
-
 Now on your PC still:
 - Open Firefox
 - Go to `about:debugging`
@@ -70,7 +68,7 @@ Now on your PC still:
 - Click on your phone
 - Then select your SvelteKit app to inspect
 
-![Firefox USB](images/pc_firefox_usb.png.png)
+![Firefox USB](images/pc_firefox_usb.png)
 ![Firefox Inspect](images/firefox_inspect.png)
 ![Firefox Console](images/firefox_console.png)
 
@@ -80,6 +78,6 @@ If you don't see your device it may be because your USB preferences are set to o
 On my phone, I have to change it to `File Transfer/Android Auto`. Then Firefox can see the phone.
 {{< /notice >}}
 
-![USB Preferences Android](images/android_usb_preferences)
+![USB Preferences Android](images/android_usb_preferences.jpeg)
 
 [^1]: How to setup USB debugging, https://www.youtube.com/watch?v=nYoH5B2GXXY

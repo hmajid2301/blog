@@ -40,7 +40,7 @@ This should save us a lot of time doing it manually.
 
 ## devenv
 
-For my specific setup, I use [devenv](devenv.sh/). I have added it to my `devenv.nix` file, and set it up with `direnv`.
+For my specific setup, I use [devenv](https://devenv.sh/). I have added it to my `devenv.nix` file, and set it up with `direnv`.
 So it automatically loads a shell for me when I go navigate to the directory where my dotfiles are.
 
 I will do a more detailed post on this setup, once I've played around with it more. But by `devenv.nix` file looks like this:

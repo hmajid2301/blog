@@ -255,7 +255,7 @@ const App = () => {
 export default App;
 ```
 
-> Note: The module resolver allows us to refer to src/ folder as ~ in our imports. I wrote a whole article about how you can use it [here](/blog/better-imports-with-babel-tspath/) (#ShamelessPlug)
+> Note: The module resolver allows us to refer to src/ folder as ~ in our imports. I wrote a whole article about how you can use it [here](/posts/2019-12-01-better-imports-with-typescript-aliases-babel-and-tspath/) (#ShamelessPlug)
 
 Now the MainApp is a very basic page: it contains a single button which is used to toggle our theme
 for dark to light and vice versa. Here we use React hooks with React context to be able to update and retrieve
