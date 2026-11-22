@@ -18,7 +18,7 @@
         "summary" ($summary | truncate 200 | htmlUnescape)
         "date" (cond .Date.IsZero "" (.Date.Format "02 Jan 2006"))
         "tags" (delimit (.Params.tags | default slice) " ")
-        "content" ($plain | truncate 500 | htmlUnescape | htmlUnescape | htmlUnescape)
+        "content" ($plain | htmlUnescape | htmlUnescape | htmlUnescape)
     ) -}}
     {{- end }}
 {{- end -}}

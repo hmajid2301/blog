@@ -1,10 +1,10 @@
-// Self-hosted Fuse.js search over a slim JSON index, with a polished modal.
+// Self-hosted Fuse.js search; load the full-text index only when the modal opens.
 const fuseOptions = {
   shouldSort: true,
   ignoreLocation: true,
   findAllMatches: true,
   threshold: 0.3,
-  minMatchCharLength: 3,
+  minMatchCharLength: 2,
   includeMatches: true,
   keys: [
     { name: 'title', weight: 0.8 },
@@ -24,6 +24,9 @@ let previousOverflow = '';
 let selectedLink = null;
 let searchVisible = false;
 let resultLinks = [];
+let queryResults = [];
+let queryTimer = null;
+const batchSize = 20;
 
 const showButton = document.getElementById('search-button');
 const hideButton = document.getElementById('close-search-button');
@@ -33,6 +36,7 @@ const input = document.getElementById('search-query');
 const output = document.getElementById('search-results');
 const status = document.getElementById('search-status');
 const preview = document.getElementById('search-preview');
+const moreButton = document.getElementById('search-more');
 
 function escapeHtml(value) {
   return String(value).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -121,9 +125,13 @@ function hideSearch() {
   document.body.style.overflow = previousOverflow;
   wrapper.classList.remove('search-open');
   searchVisible = false;
+  clearTimeout(queryTimer);
+  queryTimer = null;
   input.value = '';
   output.innerHTML = '';
   resultLinks = [];
+  queryResults = [];
+  moreButton.hidden = true;
   selectResult(null);
   setStatus('');
   if (invoker && invoker.isConnected) invoker.focus();
@@ -181,10 +189,14 @@ function selectResult(link) {
   preview.appendChild(card);
 }
 
-function renderResults(results, term) {
-  selectResult(null);
-  output.innerHTML = '';
-  resultLinks = [];
+function renderResults(results, term, append = false) {
+  if (!append) {
+    selectResult(null);
+    output.innerHTML = '';
+    resultLinks = [];
+    output.parentElement.scrollTop = 0;
+  }
+  moreButton.hidden = true;
   if (!results.length) {
     const empty = document.createElement('li');
     empty.className = 'search-empty';
@@ -193,7 +205,6 @@ function renderResults(results, term) {
     setStatus('');
     return;
   }
-  setStatus(results.length + (results.length === 1 ? ' result' : ' results'));
   const words = (term || '').trim().split(/\s+/).filter(Boolean);
   const highlightTermsList = words.filter(w => w.length >= 2);
   results.forEach(function (result) {
@@ -233,28 +244,41 @@ function renderResults(results, term) {
     link.addEventListener('focus', () => selectResult(link));
     link.addEventListener('pointerenter', () => selectResult(link));
   });
-  selectResult(resultLinks[0]);
+  moreButton.hidden = resultLinks.length >= queryResults.length;
+  setStatus('Showing ' + resultLinks.length + ' of ' + queryResults.length + (queryResults.length === 1 ? ' result' : ' results'));
+  if (!append) selectResult(resultLinks[0]);
 }
 
 function executeQuery(term) {
+  clearTimeout(queryTimer);
+  queryTimer = null;
   if (!indexed) return;
   const query = (term || '').trim();
-  if (!query) {
-    renderResults([], '');
-    return;
-  }
-  const results = fuse.search(query);
-  renderResults(results.slice(0, 20), query);
+  queryResults = query ? fuse.search(query) : [];
+  renderResults(queryResults.slice(0, batchSize), query);
 }
 
+if (moreButton) moreButton.addEventListener('click', () => {
+  const firstNew = resultLinks.length;
+  renderResults(queryResults.slice(firstNew, firstNew + batchSize), input.value.trim(), true);
+  resultLinks[firstNew]?.focus();
+});
 if (showButton) showButton.addEventListener('click', displaySearch);
 if (hideButton) hideButton.addEventListener('click', hideSearch);
 if (wrapper) wrapper.addEventListener('click', function (event) { if (event.target === wrapper) hideSearch(); });
 if (modal) modal.addEventListener('click', function (event) { event.stopPropagation(); });
 if (input) {
-  input.addEventListener('input', function () { executeQuery(input.value); });
+  input.addEventListener('input', function () {
+    clearTimeout(queryTimer);
+    moreButton.hidden = true;
+    if (!input.value.trim()) { executeQuery(''); return; }
+    // Full-body queries can be expensive on slower devices; wait for a typing pause.
+    if (indexed) setStatus('Searching…');
+    queryTimer = setTimeout(() => executeQuery(input.value), 120);
+  });
   input.form.addEventListener('submit', function (event) {
     event.preventDefault();
+    if (queryTimer !== null) executeQuery(input.value);
     if (selectedLink) selectedLink.click();
   });
 }
@@ -265,6 +289,7 @@ document.addEventListener('keydown', function (event) {
   if (mod && (event.key === 'k' || event.key === 'K')) { event.preventDefault(); searchVisible ? hideSearch() : displaySearch(); return; }
   if (event.key === 'Escape') { hideSearch(); return; }
   if (!searchVisible) return;
+  if (queryTimer !== null && (event.key === 'ArrowDown' || event.key === 'ArrowUp')) executeQuery(input.value);
   if (event.key === 'ArrowDown') { event.preventDefault(); moveFocus(1); return; }
   if (event.key === 'ArrowUp') { event.preventDefault(); moveFocus(-1); return; }
   if (event.key === 'Tab') { trapFocus(event); }
